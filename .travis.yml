@@ -22,7 +22,7 @@ before_install:
 - pip install isort
 
 # alias package:
-- PACKAGE=`pwd`/abjad-ext-microtones/abjadext
+- PACKAGE=`pwd`/abjadext
 - export PYTHONPATH=$PACKAGE:$PYTHONPATH
 # from josiah
 - wget -q ${LILYPOND_URL}lilypond-${LILYPOND_VERSION}-1.linux-64.sh
