@@ -8,7 +8,7 @@ class EdoPitch:
     >>> from abjadext import microtones
     >>> edo = microtones.EdoPitch(pitch=0.75)
     >>> edo(abjad.Note("c'4"))
-    \three-eighths-sharp
+    '\\three-eighths-sharp'
 
     """
 
