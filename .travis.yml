@@ -7,7 +7,7 @@ python:
 env:
   global:
   - LILYPOND_URL="http://lilypond.org/downloads/binaries/linux-64/"
-  - LILYPOND_VERSION=2.21.1
+  - LILYPOND_VERSION=2.19.84
 
 before_install:
 - wget -q ${LILYPOND_URL}lilypond-${LILYPOND_VERSION}-1.linux-64.sh
