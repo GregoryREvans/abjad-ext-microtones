@@ -59,8 +59,8 @@ install:
 #- pip install -e .[test]
 - black --version
 - flake8 --version
-- mypy --version
-- pytest --version
+# - mypy --version
+# - pytest --version
 
 script:
 - black-check $PACKAGE
