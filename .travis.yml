@@ -56,7 +56,7 @@ before_install:
 - export PYTHONPATH=$TSMAKERS:$PYTHONPATH
 
 install:
-#- pip install -e .[test]
+- pip install -e .
 - black --version
 - flake8 --version
 # - mypy --version
