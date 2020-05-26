@@ -394,17 +394,40 @@ def ratio_to_pc(pitch, ratio):
 
 def tune_to_ratio(note, ratio):
     r"""
+    >>> import abjad
     >>> from abjadext import microtones
-    >>> note = abjad.Note("c4")
-    >>> note = microtones.tune_to_ratio(note, "3/1")
+    >>> note = abjad.Note()
+    >>> microtones.tune_to_ratio(note, "3/1")
     >>> abjad.f(note)
-    g'4
+    \once \override Voice.Accidental.stencil =
+           #ly:text-interface::print
+           \once \override Voice.Accidental.text =
+               \markup {
+                   \concat {
+                       \forced-natural
+                   }
+               }
+    g''4
 
-    >>> from abjadext import microtones
-    >>> note = abjad.Note("c'4")
-    >>> note = microtones.tune_to_ratio(note, "3/2")
+    >>> microtones.tune_to_ratio(note, "3/2")
     >>> abjad.f(note)
-    g'4
+    \once \override Voice.Accidental.stencil =
+           #ly:text-interface::print
+           \once \override Voice.Accidental.text =
+               \markup {
+                   \concat {
+                       \forced-natural
+                   }
+               }
+    \once \override Voice.Accidental.stencil =
+           #ly:text-interface::print
+           \once \override Voice.Accidental.text =
+               \markup {
+                   \concat {
+                       \forced-natural
+                   }
+               }
+    d'''4
 
     """
     selection = abjad.select(note).leaves()
@@ -421,24 +444,3 @@ def tune_to_ratio(note, ratio):
         selection[0].written_pitch, ratio
     ).vector.calculate_heji_accidental()
     abjad.attach(alteration_literal, selection[0])
-
-
-### TESTING ###
-
-# print(ratio_to_pc("a,,,", "28/1"))
-#
-# pitch = abjad.NamedPitch("c'")
-# bundle = JIBundle(pitch, HEJIVector(pitch.accidental, 1, 1))
-# bundle
-# print(bundle)
-#
-# vector = HEJIVector("sharp", 1, 1)
-# vector
-# print(vector)
-#
-# pitch = abjad.NamedPitch("c'")
-# print(pitch.accidental.name)
-
-# staff = abjad.Staff("c'1")
-# tune_to_ratio(staff[0], "5/4")
-# abjad.f(staff)
