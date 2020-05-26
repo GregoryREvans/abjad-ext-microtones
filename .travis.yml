@@ -19,11 +19,26 @@ before_install:
 - pip install --no-deps --target /tmp/typehints $ABJAD_ARCHIVE
 - pip install --no-deps --target /tmp/typehints uqbar
 - export MYPYPATH=/tmp/typehints
+# clone & install rmakers:
+- RMAKERS=/tmp/abjad-ext-rmakers
+- git clone https://github.com/Abjad/abjad-ext-rmakers.git $RMAKERS
+- cd $RMAKERS
+- pip install -e $RMAKERS
+- cd $LOCATION
+- export MYPYPATH=$MYPYPATH:$RMAKERS
 # clone & install evans:
 - EVANS=/tmp/evans
 - git clone https://github.com/GregoryREvans/evans.git $EVANS
 - export PYTHONPATH=$EVANS/:$PYTHONPATH
 - export PATH=$EVANS/evans/scr/:$PATH
+# clone & install baca:
+- BACA=/tmp/baca
+- git clone https://github.com/trevorbaca/baca.git $BACA
+- export PYTHONPATH=$BACA/:$PYTHONPATH
+# clone & install tsmakers:
+- TSMAKERS=/tmp/tsmakers
+- git clone https://github.com/ivanalexandermoscotta/tsmakers.git $TSMAKERS
+- export PYTHONPATH=$TSMAKERS:$PYTHONPATH
 
 install:
 - pip install -e .[test]
