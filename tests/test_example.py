@@ -1,5 +1,5 @@
-from abjadext import example
+from abjadext import microtones
 
 
 def test_dummy():
-    assert example.__version__ is not None
+    assert microtones.__version__ is not None

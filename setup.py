@@ -3,7 +3,7 @@ import pathlib
 
 import setuptools
 
-subpackage_name = "example"
+subpackage_name = "microtones"
 
 
 def read_version():
@@ -18,8 +18,8 @@ def read_version():
 
 if __name__ == "__main__":
     setuptools.setup(
-        author="Josiah Wolf Oberholtzer",
-        author_email="josiah.oberholtzer@gmail.com",
+        author="Gregory Rowland Evans",
+        author_email="gregoryrowlandevans@gmail.com",
         classifiers=[
             "Development Status :: 3 - Alpha",
             "License :: OSI Approved :: GNU General Public License (GPL)",
