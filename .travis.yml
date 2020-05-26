@@ -56,7 +56,7 @@ before_install:
 - export PYTHONPATH=$TSMAKERS:$PYTHONPATH
 
 install:
-- cd $PACKAGE
+- cd $PACKAGE/..
 - pip install -e .
 - cd $LOCATION
 - black --version
