@@ -10,6 +10,11 @@ env:
   - LILYPOND_VERSION=2.19.84
 
 before_install:
+- LOCATION=`pwd`
+# alias package:
+- PACKAGE=`pwd`/abjad-ext-microtones/abjadext
+- export PYTHONPATH=$PACKAGE:$PYTHONPATH
+# from josiah
 - wget -q ${LILYPOND_URL}lilypond-${LILYPOND_VERSION}-1.linux-64.sh
 - sh lilypond-$LILYPOND_VERSION-1.linux-64.sh --batch
 - export PATH=/home/travis/bin:$PATH
