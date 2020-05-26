@@ -19,6 +19,11 @@ before_install:
 - pip install --no-deps --target /tmp/typehints $ABJAD_ARCHIVE
 - pip install --no-deps --target /tmp/typehints uqbar
 - export MYPYPATH=/tmp/typehints
+# clone & install evans:
+- EVANS=/tmp/evans
+- git clone https://github.com/GregoryREvans/evans.git $EVANS
+- export PYTHONPATH=$EVANS/:$PYTHONPATH
+- export PATH=$EVANS/evans/scr/:$PATH
 
 install:
 - pip install -e .[test]
@@ -28,10 +33,10 @@ install:
 - pytest --version
 
 script:
-- make black-check
-- make flake8
-- if [[ $TRAVIS_PYTHON_VERSION != 3.6 ]]; then make mypy; fi
-- make pytest
+- black-check $PACKAGE
+- flake8-check $PACKAGE
+- isort-check $PACKAGE
+- evans-doctest $PACKAGE
 
 after_success:
 - pip install --quiet coveralls
