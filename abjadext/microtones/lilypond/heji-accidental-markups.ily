@@ -2,31 +2,36 @@
 forced-natural = \markup {
     \concat {
         \fontsize #4
-        \musicglyph #"accidentals.natural"
+        \override #'(font-name . "ekmelos")
+        \char ##x266e
     }
 }
 forced-sharp = \markup {
     \concat {
         \fontsize #4
-        \musicglyph #"accidentals.sharp"
+        \override #'(font-name . "ekmelos")
+        \char ##xe262
     }
 }
 forced-flat = \markup {
     \concat {
         \fontsize #4
-        \musicglyph #"accidentals.flat"
+        \override #'(font-name . "ekmelos")
+        \char ##xe260
     }
 }
 forced-double-sharp = \markup {
     \concat {
         \fontsize #4
-        \musicglyph #"accidentals.doublesharp"
+        \override #'(font-name . "ekmelos")
+        \char ##xe263
     }
 }
 forced-double-flat = \markup {
     \concat {
         \fontsize #4
-        \musicglyph #"accidentals.flatflat"
+        \override #'(font-name . "ekmelos")
+        \char ##xe264
     }
 }
 
