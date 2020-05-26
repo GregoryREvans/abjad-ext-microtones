@@ -1,0 +1,38 @@
+language: python
+dist: xenial
+sudo: false
+python:
+- 3.8
+
+env:
+  global:
+  - LILYPOND_URL="http://lilypond.org/downloads/binaries/linux-64/"
+  - LILYPOND_VERSION=2.21.1
+
+before_install:
+- wget -q ${LILYPOND_URL}lilypond-${LILYPOND_VERSION}-1.linux-64.sh
+- sh lilypond-$LILYPOND_VERSION-1.linux-64.sh --batch
+- export PATH=/home/travis/bin:$PATH
+- pip install -U pip regex
+- export ABJAD_ARCHIVE=https://github.com/Abjad/abjad/archive/master.zip
+- pip install -U $ABJAD_ARCHIVE
+- pip install --no-deps --target /tmp/typehints $ABJAD_ARCHIVE
+- pip install --no-deps --target /tmp/typehints uqbar
+- export MYPYPATH=/tmp/typehints
+
+install:
+- pip install -e .[test]
+- black --version
+- flake8 --version
+- mypy --version
+- pytest --version
+
+script:
+- make black-check
+- make flake8
+- if [[ $TRAVIS_PYTHON_VERSION != 3.6 ]]; then make mypy; fi
+- make pytest
+
+after_success:
+- pip install --quiet coveralls
+- coveralls

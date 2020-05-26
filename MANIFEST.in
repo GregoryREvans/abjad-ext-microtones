@@ -1,0 +1,3 @@
+recursive-exclude abjadext *.pyc
+recursive-exclude abjadext __pycache__
+recursive-include abjadext *

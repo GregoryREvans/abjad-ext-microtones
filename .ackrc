@@ -1,0 +1,2 @@
+--ignore-dir=.mypy_cache/
+--ignore-dir=.pytest_cache/
