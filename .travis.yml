@@ -68,7 +68,7 @@ script:
 - black-check $PACKAGE
 - flake8-check $PACKAGE
 - isort-check $PACKAGE
-- evans-doctest $PACKAGE
+# - evans-doctest $PACKAGE
 
 after_success:
 - pip install --quiet coveralls
