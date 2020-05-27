@@ -1,12 +1,12 @@
 class JIPitchHandler:
-    __init__(self, name="JIPitchHandler"):
+    def __init__(self, name="JIPitchHandler"):
         self.name = name
 
-    __repr__(self):
+    def __repr__(self):
         return "JIPitchHandler()"
 
-    __str__(self):
+    def __str__(self):
         return f"JIPitchHandler(name={self.name})"
 
-    __call__(self):
+    def __call__(self):
         pass
