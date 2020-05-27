@@ -525,14 +525,14 @@ three-nineteen-limit-skhisma-down = \markup {
         \char ##xe2e8
     }
 }
-one-nineteen-limit-skhisma-down = \markup {
+one-nineteen-limit-skhisma-up = \markup {
     \concat {
         \fontsize #4
         \override #'(font-name . "ekmelos")
         \char ##xe2e9
     }
 }
-two-nineteen-limit-skhisma-down = \markup {
+two-nineteen-limit-skhisma-up = \markup {
     \concat {
         \fontsize #4
         \override #'(font-name . "ekmelos")
@@ -542,7 +542,7 @@ two-nineteen-limit-skhisma-down = \markup {
         \char ##xe2e9
     }
 }
-three-nineteen-limit-skhisma-down = \markup {
+three-nineteen-limit-skhisma-up = \markup {
     \concat {
         \fontsize #4
         \override #'(font-name . "ekmelos")

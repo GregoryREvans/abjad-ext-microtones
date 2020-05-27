@@ -223,6 +223,7 @@ class HEJIVector:
             literal = abjad.LilyPondLiteral(
                 fr"\forced-{self.diatonic_accidental}", format_slot="before"
             )
+        self.accidental_literal = literal
         return literal
 
 
@@ -279,7 +280,7 @@ def ratio_to_pc(pitch, ratio):
     ratio = Fraction(ratio)
     numerator_factors = prime_factors(ratio.numerator)
     denominator_factors = prime_factors(ratio.denominator)
-    accidental_vector = HEJIVector()
+    accidental_vector = HEJIVector(diatonic_accidental=pitch.accidental.name)
     for prime in numerator_factors:
         if prime == 2:
             pitch = abjad.NamedInterval("+P8").transpose(pitch)
@@ -389,7 +390,7 @@ def ratio_to_pc(pitch, ratio):
             print("cannot calculate beyond 23-limit JI")
             assert prime < 23
     accidental_vector.diatonic_accidental = pitch.accidental.name
-    return JIBundle(pitch, accidental_vector)
+    return JIBundle(pitch, accidental_vector.calculate_heji_accidental())
 
 
 def tune_to_ratio(note, ratio):
@@ -439,8 +440,7 @@ def tune_to_ratio(note, ratio):
             note.written_pitch = abjad.inspect(note).annotation("fundamental")
         abjad.annotate(note, "fundamental", f"{note.written_pitch}")
         abjad.annotate(note, "ratio added", f"{ratio}")
-        note.written_pitch = ratio_to_pc(note.written_pitch, ratio).pitch
-    alteration_literal = ratio_to_pc(
-        selection[0].written_pitch, ratio
-    ).vector.calculate_heji_accidental()
+        bundle = ratio_to_pc(note.written_pitch, ratio)
+        note.written_pitch = bundle.pitch
+    alteration_literal = bundle.vector
     abjad.attach(alteration_literal, selection[0])
