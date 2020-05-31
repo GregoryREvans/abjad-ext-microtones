@@ -1,14 +1,14 @@
 """
 Abjad's microtonal extension.
 """
+from ._version import __version__, __version_info__  # noqa
 from .equal_temperament import (
     EDOBundle,
-    get_accidental_value,
-    get_value_sum,
-    get_alteration,
     apply_alteration,
+    get_accidental_value,
+    get_alteration,
+    get_value_sum,
 )
-from ._version import __version__, __version_info__  # noqa
 from .just_intonation import (
     HEJIVector,
     JIBundle,

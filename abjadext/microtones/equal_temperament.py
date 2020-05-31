@@ -1,14 +1,11 @@
-from math import modf
 from fractions import Fraction
+from math import modf
 
 import abjad
 
 
 class EDOBundle:
-    def __init__(
-        self, pitch="c'",
-        accidental_string=None,
-    ):
+    def __init__(self, pitch="c'", accidental_string=None):
         self.pitch = pitch
         self.accidental_string = accidental_string
 
@@ -18,15 +15,16 @@ class EDOBundle:
     def __str__(self):
         return f"{self.pitch} + {self.accidental_string}"
 
+
 accidental_to_value = {
     "double sharp": 2,
-    "three-quarters sharp": Fraction(3/2),
+    "three-quarters sharp": Fraction(3 / 2),
     "sharp": 1,
-    "quarter sharp": Fraction(1/2),
+    "quarter sharp": Fraction(1 / 2),
     "natural": 0,
-    "quarter flat": Fraction(-1/2),
+    "quarter flat": Fraction(-1 / 2),
     "flat": -1,
-    "three-quarters flat": Fraction(-3/2),
+    "three-quarters flat": Fraction(-3 / 2),
     "double flat": -2,
 }
 
@@ -117,6 +115,7 @@ def get_accidental_value(pitch):
     accidental_value = accidental_to_value[f"{accidental}"]
     return accidental_value
 
+
 def get_value_sum(pitch, value):
     r"""
     >>> pitch = abjad.NamedPitch("cs'")
@@ -127,6 +126,7 @@ def get_value_sum(pitch, value):
 
     value = Fraction(value)
     return get_accidental_value(pitch) + value
+
 
 def get_alteration(pitch, value):
     r"""
@@ -145,8 +145,11 @@ def get_alteration(pitch, value):
     if semitones != 0:
         pitch = abjad.NumberedInterval(semitones).transpose(pitch)
     transposed_accidental_value = get_value_sum(pitch, remainder)
-    new_accidental = value_to_accidental[str(transposed_accidental_value)] + "-markup" # temporary markup
+    new_accidental = (
+        value_to_accidental[str(transposed_accidental_value)] + "-markup"
+    )  # temporary markup
     return EDOBundle(pitch, new_accidental)
+
 
 def apply_alteration(note_head, value):
     r"""
@@ -167,19 +170,23 @@ def apply_alteration(note_head, value):
     value = Fraction(value)
     pitch = note_head.written_pitch
     bundle = get_alteration(pitch, value)
-    if Fraction(reversed_value_to_accidental[fr"{bundle.accidental_string}"]) % Fraction(1, 2) == 0:
-        step = - Fraction(reversed_value_to_accidental[fr"{bundle.accidental_string}"])
+    if (
+        Fraction(reversed_value_to_accidental[fr"{bundle.accidental_string}"])
+        % Fraction(1, 2)
+        == 0
+    ):
+        step = -Fraction(reversed_value_to_accidental[fr"{bundle.accidental_string}"])
         bundle.pitch = abjad.NumberedInterval(step).transpose(bundle.pitch)
         note_head.written_pitch = bundle.pitch
     else:
-        literal = abjad.LilyPondLiteral(
-            bundle.accidental_string,
-            format_slot="before",
-        )
+        # literal = abjad.LilyPondLiteral(bundle.accidental_string, format_slot="before")
         note_head.written_pitch = bundle.pitch
-        abjad.tweak(note_head, literal=True).Accidental.stencil = r"#ly::text-interface:print"
+        abjad.tweak(
+            note_head, literal=True
+        ).Accidental.stencil = r"#ly::text-interface:print"
         abjad.tweak(note_head, literal=True).Accidental.text = bundle.accidental_string
         # abjad.attach(literal, note_head)
+
 
 # ### NOTES ###
 # cannot attach to note-head
