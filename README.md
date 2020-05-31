@@ -11,8 +11,10 @@ For the display of accidentals, `\accidentalStyle dodecaphonic` must be set in t
 
 Currently supports Helmholtz-Ellis Just Intonation accidentals: <br />
 
+ekmelos <br />
 ![](ekmelos_overtones.png) <br />
 
+HEJI2 <br />
 ![](heji2_overtones.png) <br />
 
 EDO accidentals in progress: <br />
