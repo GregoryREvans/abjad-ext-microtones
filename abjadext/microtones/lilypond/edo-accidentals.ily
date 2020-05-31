@@ -1,187 +1,170 @@
 \version "2.19.84"
-\language "english"
-
+\include "edo-accidental-markups.ily"
 
 %%% one eighth tone up %%%
-one-eighth-sharp = \markup {\musicglyph #"accidentals.natural"
-          \postscript #"gsave 0.17 setlinewidth -1.2 1.25 moveto -1.2 2 lineto
-          stroke grestore
-          gsave 0.1 setlinewidth -1.5 1.4 moveto -1.2 2.18 lineto -0.9 1.4 lineto
-          stroke grestore"}
+one-eighth-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-eighth-sharp-markup
+        $note #})
 
 %%% three eighth tones up %%%
-three-eighths-sharp = \markup {\musicglyph #"accidentals.sharp.slashslash.stem"
-       \postscript #"gsave 0.17 setlinewidth -0.95 1.25 moveto -0.95 2 lineto
-       stroke grestore
-       gsave 0.1 setlinewidth -1.25 1.4 moveto -0.95 2.18 lineto -0.65 1.4 lineto
-       stroke grestore"}
+three-eighths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \three-eighths-sharp-markup
+        $note #})
 
 %%% five eighth tones up %%%
-five-eighths-sharp = \markup {\musicglyph #"accidentals.sharp"
-          \postscript #"gsave 0.17 setlinewidth -0.91 1.25 moveto -0.91 2 lineto
-          stroke grestore
-          gsave 0.1 setlinewidth -1.21 1.4 moveto -0.91 2.18 lineto -0.61 1.4 lineto
-          stroke grestore"}
+five-eighths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \five-eighths-sharp-markup
+        $note #})
 
 %%% seven eighth tones up %%%
-seven-eighths-sharp = \markup {\musicglyph #"accidentals.sharp.slashslash.stemstemstem"
-          \postscript #"gsave 0.17 setlinewidth -0.95 1.25 moveto -0.95 2 lineto
-          stroke grestore
-          gsave 0.1 setlinewidth -1.25 1.4 moveto -0.95 2.18 lineto -0.65 1.4 lineto
-          stroke grestore"}
+seven-eighths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \seven-eighths-sharp-markup
+        $note #})
 
 %%% one eighth tone down %%%
-one-eighth-flat = \markup {\musicglyph #"accidentals.natural"
-          \postscript #"gsave 0.15 setlinewidth -0.67 -1.35 moveto -0.67 -2.1 lineto
-          stroke grestore
-          gsave 0.1 setlinewidth -0.97 -1.4 moveto -0.67 -2.18 lineto -0.37 -1.4 lineto
-          stroke grestore"}
+one-eighth-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-eighth-flat-markup
+        $note #})
 
 %%% three eighth tones down %%%
-three-eighths-flat = \markup {\musicglyph #"accidentals.mirroredflat"
-       \postscript #"gsave 0.15 setlinewidth -0.73 -0.25 moveto -0.73 -1.4 lineto
-       stroke grestore
-       gsave 0.1 setlinewidth -1.03 -0.7 moveto -0.73 -1.48 lineto -0.43 -0.7 lineto
-       stroke grestore"}
+three-eighths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \three-eighths-flat-markup
+        $note #})
 
 %%% five eighth tones down %%%
-five-eighths-flat = \markup {\musicglyph #"accidentals.flat"
-          \postscript #"gsave 0.15 setlinewidth -1.38 -0.25 moveto -1.38 -1.4 lineto
-          stroke grestore
-          gsave 0.1 setlinewidth -1.68 -0.7 moveto -1.38 -1.48 lineto -1.08 -0.7 lineto
-          stroke grestore"}
+five-eighths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \five-eighths-flat-markup
+        $note #})
 
 %%% seven eighth tones down %%%
-seven-eighths-flat = \markup {\musicglyph #"accidentals.mirroredflat.flat"
-       \postscript #"gsave 0.15 setlinewidth -1.40 -0.25 moveto -1.40 -1.4 lineto
-       stroke grestore
-       gsave 0.1 setlinewidth -1.70 -0.7 moveto -1.40 -1.48 lineto -1.10 -0.7 lineto
-       stroke grestore"}
+seven-eighths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \seven-eighths-flat-markup
+        $note #})
 
 %%% one third up %%%
-one-third-sharp = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 1 3
-              \postscript #"gsave 0.17 setlinewidth -0.95 1.25 moveto -0.95 2 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.25 1.4 moveto -0.95 2.18 lineto -0.65 1.4 lineto
-              stroke grestore"}
+one-third-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-third-sharp-markup
+        $note #})
 
 %%% two thirds up %%%
-two-thirds-sharp = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 2 3
-              \postscript #"gsave 0.17 setlinewidth -0.95 1.25 moveto -0.95 2 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.25 1.4 moveto -0.95 2.18 lineto -0.65 1.4 lineto
-              stroke grestore"}
+two-thirds-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \two-thirds-sharp-markup
+        $note #})
 
 %%% one third down %%%
-one-third-flat = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 1 3
-              \postscript #"gsave 0.15 setlinewidth -1 -1.35 moveto -1 -2.1 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.30 -1.4 moveto -1 -2.18 lineto -0.7 -1.4 lineto
-              stroke grestore"}
+one-third-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-third-flat-markup
+        $note #})
 
 %%% two thirds down %%%
-two-thirds-flat = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 2 3
-              \postscript #"gsave 0.15 setlinewidth -1 -1.35 moveto -1 -2.1 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.30 -1.4 moveto -1 -2.18 lineto -0.7 -1.4 lineto
-              stroke grestore"}
+two-thirds-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \two-thirds-flat-markup
+        $note #})
 
 %%% one sixth up %%%
-one-sixth-sharp = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 1 6
-              \postscript #"gsave 0.17 setlinewidth -0.95 1.25 moveto -0.95 2 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.25 1.4 moveto -0.95 2.18 lineto -0.65 1.4 lineto
-              stroke grestore"}
+one-sixth-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-sixth-sharp-markup
+        $note #})
 
 %%% five sixths up %%%
-five-sixths-sharp = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 5 6
-              \postscript #"gsave 0.17 setlinewidth -0.95 1.25 moveto -0.95 2 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.25 1.4 moveto -0.95 2.18 lineto -0.65 1.4 lineto
-              stroke grestore"}
+five-sixths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \five-sixths-sharp-markup
+        $note #})
 
 %%% one sixth down %%%
-one-sixth-flat = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 1 6
-              \postscript #"gsave 0.15 setlinewidth -1 -1.35 moveto -1 -2.1 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.30 -1.4 moveto -1 -2.18 lineto -0.7 -1.4 lineto
-              stroke grestore"}
+one-sixth-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-sixth-flat-markup
+        $note #})
 
 %%% five sixths down %%%
-five-sixths-flat = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 5 6
-              \postscript #"gsave 0.15 setlinewidth -1 -1.35 moveto -1 -2.1 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.30 -1.4 moveto -1 -2.18 lineto -0.7 -1.4 lineto
-              stroke grestore"}
+five-sixths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \five-sixths-flat-markup
+        $note #})
 
-%%% one twelf up %%%
-one-twelf-sharp = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 1 12
-              \postscript #"gsave 0.17 setlinewidth -1.35 1.25 moveto -1.35 2 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.65 1.4 moveto -1.35 2.18 lineto -1.05 1.4 lineto
-              stroke grestore"}
+%%% one twelfth up %%%
+one-twelfth-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-twelfth-sharp-markup
+        $note #})
 
-%%% five twelfs up %%%
-five-twelfs-sharp = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 5 12
-              \postscript #"gsave 0.17 setlinewidth -1.35 1.25 moveto -1.35 2 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.65 1.4 moveto -1.35 2.18 lineto -1.05 1.4 lineto
-              stroke grestore"}
+%%% five twelfths up %%%
+five-twelfths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \five-twelfths-sharp-markup
+        $note #})
 
-%%% seven twelfs up %%%
-seven-twelfs-sharp = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 7 12
-              \postscript #"gsave 0.17 setlinewidth -1.35 1.25 moveto -1.35 2 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.65 1.4 moveto -1.35 2.18 lineto -1.05 1.4 lineto
-              stroke grestore"}
+%%% seven twelfths up %%%
+seven-twelfths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \seven-twelfths-sharp-markup
+        $note #})
 
-%%% eleven twelfs up %%%
-eleven-twelfs-sharp = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 11 12
-              \postscript #"gsave 0.17 setlinewidth -1.35 1.25 moveto -1.35 2 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.65 1.4 moveto -1.35 2.18 lineto -1.05 1.4 lineto
-              stroke grestore"}
+%%% eleven twelfths up %%%
+eleven-twelfths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \eleven-twelfths-sharp-markup
+        $note #})
 
-%%% one twelf down %%%
-one-twelf-flat = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 1 12
-              \postscript #"gsave 0.15 setlinewidth -1.40 -1.35 moveto -1.40 -2.1 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.70 -1.4 moveto -1.40 -2.18 lineto -1.10 -1.4 lineto
-              stroke grestore"}
+%%% one twelfth down %%%
+one-twelfth-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-twelfth-flat-markup
+        $note #})
 
-%%% five twelfs down %%%
-five-twelfs-flat = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 5 12
-              \postscript #"gsave 0.15 setlinewidth -1.40 -1.35 moveto -1.40 -2.1 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.70 -1.4 moveto -1.40 -2.18 lineto -1.10 -1.4 lineto
-              stroke grestore"}
+%%% five twelfths down %%%
+five-twelfths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \five-twelfths-flat-markup
+        $note #})
 
-%%% seven twelfs down %%%
-seven-twelfs-flat = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 7 12
-              \postscript #"gsave 0.15 setlinewidth -1.40 -1.35 moveto -1.40 -2.1 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.70 -1.4 moveto -1.40 -2.18 lineto -1.10 -1.4 lineto
-              stroke grestore"}
+%%% seven twelfths down %%%
+seven-twelfths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \seven-twelfths-flat-markup
+        $note #})
 
-%%% eleven twelfs down %%%
-eleven-twelfs-flat = \markup {\fontsize #-4
-              \translate #'(0 . -0.5) \fraction 11 12
-              \postscript #"gsave 0.15 setlinewidth -1.40 -1.35 moveto -1.40 -2.1 lineto
-              stroke grestore
-              gsave 0.1 setlinewidth -1.70 -1.4 moveto -1.40 -2.18 lineto -1.10 -1.4 lineto
-              stroke grestore"}
+%%% eleven twelfths down %%%
+eleven-twelfths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \eleven-twelfths-flat-markup
+        $note #})
