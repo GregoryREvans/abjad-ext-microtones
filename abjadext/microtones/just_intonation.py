@@ -234,27 +234,13 @@ class HEJIVector:
             if accumulated_accidentals[-1] == r"\forced-natural":
                 if self.has_just_accidentals():
                     accumulated_accidentals = [_ for _ in accumulated_accidentals[:-1]]
-            literal_string_start = [
-                r"\once \override Voice.Accidental.stencil =",
-                r"       #ly:text-interface::print",
-                r"       \once \override Voice.Accidental.text =",
-                r"           \markup {",
-                r"               \concat {",
-            ]
-            literal_string_stop = ["               }", "           }"]
             literal_components = []
-            for literal_string in literal_string_start:
-                literal_components.append(literal_string)
             for accidental_string in accumulated_accidentals:
-                accidental_string = "                   " + accidental_string
+                accidental_string = accidental_string + " "
                 literal_components.append(accidental_string)
-            for literal_string in literal_string_stop:
-                literal_components.append(literal_string)
-            literal = abjad.LilyPondLiteral(literal_components, format_slot="before")
+            literal = abjad.Markup(literal=True).concat(literal_components)
         else:
-            literal = abjad.LilyPondLiteral(
-                fr"\forced-{self.diatonic_accidental}", format_slot="before"
-            )
+            literal = abjad.Markup(fr"  \forced-{self.diatonic_accidental}", literal=True)
         self.accidental_literal = literal
         return literal
 
@@ -425,77 +411,42 @@ def ratio_to_pc(pitch, ratio):
     return JIBundle(pitch, accidental_vector.calculate_heji_accidental())
 
 
-def tune_to_ratio(note, ratio):
+def tune_to_ratio(note_head, ratio, add_accidental=True):
     r"""
     >>> import abjad
     >>> from abjadext import microtones
     >>> note = abjad.Note()
-    >>> microtones.tune_to_ratio(note, "3/1")
+    >>> microtones.tune_to_ratio(note.note_head, "3/1")
     >>> abjad.f(note)
-    \once \override Voice.Accidental.stencil =
-           #ly:text-interface::print
-           \once \override Voice.Accidental.text =
-               \markup {
-                   \concat {
-                       \forced-natural
-                   }
-               }
+    \tweak Accidental.stencil #ly:text-interface::print
+    \tweak Accidental.text \markup {
+        \concat {
+                \forced-natural
+            }
+        }
     g''4
 
-    >>> microtones.tune_to_ratio(note, "3/2")
+    >>> note = abjad.Note()
+    >>> microtones.tune_to_ratio(note.note_head, "5/1")
     >>> abjad.f(note)
-    \once \override Voice.Accidental.stencil =
-           #ly:text-interface::print
-           \once \override Voice.Accidental.text =
-               \markup {
-                   \concat {
-                       \forced-natural
-                   }
-               }
-    \once \override Voice.Accidental.stencil =
-           #ly:text-interface::print
-           \once \override Voice.Accidental.text =
-               \markup {
-                   \concat {
-                       \forced-natural
-                   }
-               }
-    d'''4
+    \tweak Accidental.stencil #ly:text-interface::print
+    \tweak Accidental.text \markup {
+        \concat {
+                \forced-natural-one-syntonic-comma-down
+            }
+        }
+    e'''4
+
+    >>> note = abjad.Note()
+    >>> microtones.tune_to_ratio(note.note_head, "5/1", add_accidental=False)
+    >>> abjad.f(note)
+    e'''4
 
     """
-    selection = abjad.select(note).leaves()
-    for note in selection:
-        if abjad.inspect(note).annotation("ratio added") is not None:
-            ratio = Fraction(abjad.inspect(note).annotation("ratio added")) * Fraction(
-                ratio
-            )
-            note.written_pitch = abjad.inspect(note).annotation("fundamental")
-        abjad.annotate(note, "fundamental", f"{note.written_pitch}")
-        abjad.annotate(note, "ratio added", f"{ratio}")
-        bundle = ratio_to_pc(note.written_pitch, ratio)
-        note.written_pitch = bundle.pitch
-    alteration_literal = bundle.vector
-    abjad.attach(alteration_literal, selection[0])
 
-### LILY STUFF ###
-# ITERATE NOTEHEADS AND USE TWEAKS
-# \version "2.19.84"  % necessary for upgrading to future LilyPond versions.
-# \language "english"
-#
-# \layout{\accidentalStyle "dodecaphonic"}
-#
-# \new Score {
-# 	\new Staff{
-# 		<
-# 			\tweak Accidental.stencil #ly:text-interface::print
-# 			\tweak Accidental.text \markup{\musicglyph #"accidentals.natural"}
-# 			cs'
-# 			\tweak Accidental.stencil #ly:text-interface::print
-# 			\tweak Accidental.text \markup{\musicglyph #"accidentals.natural"}
-# 			fs'
-# 			\tweak Accidental.stencil #ly:text-interface::print
-# 			\tweak Accidental.text \markup{\musicglyph #"accidentals.sharp"}
-# 			g'
-# 		>1
-# 	}
-# }
+    bundle = ratio_to_pc(note_head.written_pitch, ratio)
+    note_head.written_pitch = bundle.pitch
+    if add_accidental is True:
+        abjad.tweak(note_head, literal=True).Accidental.stencil = r"#ly:text-interface::print"
+        alteration_literal = bundle.vector
+        abjad.tweak(note_head, literal=False).Accidental.text = alteration_literal
