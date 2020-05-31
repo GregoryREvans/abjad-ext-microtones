@@ -439,7 +439,7 @@ def ratio_to_pc(pitch, ratio):
     return JIBundle(pitch, accidental_vector.calculate_heji_accidental())
 
 
-def tune_to_ratio(note_head, ratio, add_accidental=True):
+def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
     r"""
     >>> import abjad
     >>> from abjadext import microtones
@@ -568,13 +568,71 @@ def tune_to_ratio(note_head, ratio, add_accidental=True):
         d'32
     }
 
+    >>> note = abjad.Note("c'4")
+    >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
+    >>> abjad.f(note)
+    \tweak Accidental.stencil #ly:text-interface::print
+    \tweak Accidental.text \tempered-natural
+    e'''4
+
+    >>> note = abjad.Note("cqs'4")
+    >>> microtones.tune_to_ratio(note.note_head, "tempered")
+    >>> abjad.f(note)
+    \tweak Accidental.stencil #ly:text-interface::print
+    \tweak Accidental.text \tempered-quarter-sharp
+    cqs'4
+
     """
 
-    bundle = ratio_to_pc(note_head.written_pitch, ratio)
-    note_head.written_pitch = bundle.pitch
-    if add_accidental is True:
+    if ratio == "tempered":
+        tempered_accidental = note_head.written_pitch.accidental.name
+        if tempered_accidental == "quarter sharp":
+            tempered_accidental = "quarter-sharp"
+        elif tempered_accidental == "quarter flat":
+            tempered_accidental = "quarter-flat"
+        elif tempered_accidental == "three-quarters sharp":
+            tempered_accidental = "three-quarters-sharp"
+        elif tempered_accidental == "three-quarters flat":
+            tempered_accidental = "three-quarters-flat"
+        elif tempered_accidental == "double sharp":
+            tempered_accidental = "double-sharp"
+        elif tempered_accidental == "double flat":
+            tempered_accidental = "double-flat"
         abjad.tweak(
             note_head, literal=True
         ).Accidental.stencil = r"#ly:text-interface::print"
-        alteration_literal = bundle.vector
-        abjad.tweak(note_head, literal=False).Accidental.text = alteration_literal
+        abjad.tweak(
+            note_head, literal=True
+        ).Accidental.text = fr"\tempered-{tempered_accidental}"
+    else:
+        bundle = ratio_to_pc(note_head.written_pitch, ratio)
+        note_head.written_pitch = bundle.pitch
+        if add_accidental is True:
+            if tempered is True:
+                tempered_accidental = note_head.written_pitch.accidental.name
+                if tempered_accidental == "quarter sharp":
+                    tempered_accidental = "quarter-sharp"
+                elif tempered_accidental == "quarter flat":
+                    tempered_accidental = "quarter-flat"
+                elif tempered_accidental == "three-quarters sharp":
+                    tempered_accidental = "three-quarters-sharp"
+                elif tempered_accidental == "three-quarters flat":
+                    tempered_accidental = "three-quarters-flat"
+                elif tempered_accidental == "double sharp":
+                    tempered_accidental = "double-sharp"
+                elif tempered_accidental == "double flat":
+                    tempered_accidental = "double-flat"
+                abjad.tweak(
+                    note_head, literal=True
+                ).Accidental.stencil = r"#ly:text-interface::print"
+                abjad.tweak(
+                    note_head, literal=True
+                ).Accidental.text = fr"\tempered-{tempered_accidental}"
+            else:
+                abjad.tweak(
+                    note_head, literal=True
+                ).Accidental.stencil = r"#ly:text-interface::print"
+                alteration_literal = bundle.vector
+                abjad.tweak(
+                    note_head, literal=False
+                ).Accidental.text = alteration_literal
