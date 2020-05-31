@@ -6,6 +6,14 @@ import abjad
 class HEJIVector:
     r"""
     >>> from abjadext import microtones
+    >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+    >>> vector.has_just_accidentals()
+    True
+
+    >>> vector = microtones.HEJIVector()
+    >>> vector.has_just_accidentals()
+    False
+
     >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
     >>> vector.syntonic_commas_down
     2
@@ -13,6 +21,15 @@ class HEJIVector:
     >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
     >>> vector.syntonic_commas_up
     0
+
+    >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+    >>> abjad.f(vector.calculate_heji_accidental())
+    \markup {
+        \concat
+            {
+                \forced-natural-one-syntonic-comma-down
+            }
+        }
 
     """
 
@@ -240,7 +257,9 @@ class HEJIVector:
                 literal_components.append(accidental_string)
             literal = abjad.Markup(literal=True).concat(literal_components)
         else:
-            literal = abjad.Markup(fr"  \forced-{self.diatonic_accidental}", literal=True)
+            literal = abjad.Markup(
+                fr"  \forced-{self.diatonic_accidental}", literal=True
+            )
         self.accidental_literal = literal
         return literal
 
@@ -289,6 +308,15 @@ def prime_factors(n):
 
 
 def ratio_to_pc(pitch, ratio):
+    r"""
+    >>> import abjad
+    >>> from abjadext import microtones
+    >>> bundle = microtones.ratio_to_pc(abjad.NamedPitch("c'"), "3/2")
+    >>> abjad.f(bundle.pitch)
+    g'
+
+    """
+
     if isinstance(pitch, str):
         pitch = abjad.NamedPitch(pitch)
     elif isinstance(pitch, int):
@@ -442,11 +470,111 @@ def tune_to_ratio(note_head, ratio, add_accidental=True):
     >>> abjad.f(note)
     e'''4
 
+    >>> ratios = [f"{_ + 1}/1" for _ in range(11)]
+    >>> notes = [abjad.Note("a,,,32") for _ in ratios]
+    >>> for note, ratio in zip(notes, ratios):
+    ...     microtones.tune_to_ratio(note.note_head, ratio)
+    >>> staff = abjad.Staff(notes)
+    >>> abjad.f(staff)
+    \new Staff
+    {
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-natural
+                }
+            }
+        a,,,32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-natural
+                }
+            }
+        a,,32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-natural
+                }
+            }
+        e,32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-natural
+                }
+            }
+        a,32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-sharp-one-syntonic-comma-down
+                }
+            }
+        cs32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-natural
+                }
+            }
+        e32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \one-septimal-comma-down
+                }
+            }
+        g32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-natural
+                }
+            }
+        a32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-natural
+                }
+            }
+        b32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \forced-sharp-one-syntonic-comma-down
+                }
+            }
+        cs'32
+        \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \markup {
+            \concat
+                {
+                    \one-undecimal-quarter-tone-up
+                }
+            }
+        d'32
+    }
+
     """
 
     bundle = ratio_to_pc(note_head.written_pitch, ratio)
     note_head.written_pitch = bundle.pitch
     if add_accidental is True:
-        abjad.tweak(note_head, literal=True).Accidental.stencil = r"#ly:text-interface::print"
+        abjad.tweak(
+            note_head, literal=True
+        ).Accidental.stencil = r"#ly:text-interface::print"
         alteration_literal = bundle.vector
         abjad.tweak(note_head, literal=False).Accidental.text = alteration_literal
