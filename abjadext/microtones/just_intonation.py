@@ -56,8 +56,37 @@ class HEJIVector:
     def __str__(self):
         return f"{self.diatonic_accidental} + {self.calculate_heji_accidental()}"
 
-    def accidental_to_cents(self):
-        pass
+    def has_just_accidentals(self):
+        if self.syntonic_commas_down > 0:
+            return True
+        elif self.syntonic_commas_up > 0:
+            return True
+        elif self.septimal_commas_down > 0:
+            return True
+        elif self.septimal_commas_up > 0:
+            return True
+        elif self.undecimal_quarter_tones_down > 0:
+            return True
+        elif self.undecimal_quarter_tones_up > 0:
+            return True
+        elif self.tridecimal_third_tones_down > 0:
+            return True
+        elif self.tridecimal_third_tones_up > 0:
+            return True
+        elif self.seventeen_limit_skhismas_down > 0:
+            return True
+        elif self.seventeen_limit_skhismas_up > 0:
+            return True
+        elif self.nineteen_limit_skhismas_down > 0:
+            return True
+        elif self.nineteen_limit_skhismas_up > 0:
+            return True
+        elif self.twenty_three_limit_commas_down > 0:
+            return True
+        elif self.twenty_three_limit_commas_up > 0:
+            return True
+        else:
+            return False
 
     def calculate_heji_accidental(self):
         int_to_word = {"1": "one", "2": "two", "3": "three"}
@@ -202,6 +231,9 @@ class HEJIVector:
             )
         if len(accumulated_accidentals) > 0:
             accumulated_accidentals.reverse()
+            if accumulated_accidentals[-1] == r"\forced-natural":
+                if self.has_just_accidentals():
+                    accumulated_accidentals = [_ for _ in accumulated_accidentals[:-1]]
             literal_string_start = [
                 r"\once \override Voice.Accidental.stencil =",
                 r"       #ly:text-interface::print",
@@ -444,3 +476,26 @@ def tune_to_ratio(note, ratio):
         note.written_pitch = bundle.pitch
     alteration_literal = bundle.vector
     abjad.attach(alteration_literal, selection[0])
+
+### LILY STUFF ###
+# ITERATE NOTEHEADS AND USE TWEAKS
+# \version "2.19.84"  % necessary for upgrading to future LilyPond versions.
+# \language "english"
+#
+# \layout{\accidentalStyle "dodecaphonic"}
+#
+# \new Score {
+# 	\new Staff{
+# 		<
+# 			\tweak Accidental.stencil #ly:text-interface::print
+# 			\tweak Accidental.text \markup{\musicglyph #"accidentals.natural"}
+# 			cs'
+# 			\tweak Accidental.stencil #ly:text-interface::print
+# 			\tweak Accidental.text \markup{\musicglyph #"accidentals.natural"}
+# 			fs'
+# 			\tweak Accidental.stencil #ly:text-interface::print
+# 			\tweak Accidental.text \markup{\musicglyph #"accidentals.sharp"}
+# 			g'
+# 		>1
+# 	}
+# }
