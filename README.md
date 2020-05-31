@@ -17,6 +17,9 @@ ekmelos <br />
 HEJI2 <br />
 ![](heji2_overtones.png) <br />
 
-EDO accidentals in progress: <br />
+EDO accidentals: <br />
 
 ![](edo_accidentals.png) <br />
+
+---
+Conceivably, the accidental notation is personalizable by user-defined stylesheets similar to the ones included with this package.
