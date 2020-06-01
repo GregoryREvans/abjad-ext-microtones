@@ -17,3 +17,17 @@ from .just_intonation import (
     ratio_to_pc,
     tune_to_ratio,
 )
+
+__all__ = [
+    "EDOBundle",
+    "HEJIVector",
+    "JIBundle",
+    "apply_alteration",
+    "get_accidental_value",
+    "get_alteration",
+    "get_value_sum",
+    "is_prime",
+    "prime_factors",
+    "ratio_to_pc",
+    "tune_to_ratio",
+]
