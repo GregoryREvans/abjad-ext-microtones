@@ -482,8 +482,8 @@ def ratio_to_pc(pitch, ratio):
             pitch = abjad.NamedInterval("+P8").transpose(pitch)
             pitch = abjad.NamedInterval("+P8").transpose(pitch)
             pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+m2").transpose(pitch)
-            accidental_vector.syntonic_commas_up += 1
+            pitch = abjad.NamedInterval("+A1").transpose(pitch)
+            # accidental_vector.syntonic_commas_up += 1
             accidental_vector.seventeen_limit_skhismas_down += 1
         elif prime == 19:
             pitch = abjad.NamedInterval("+P8").transpose(pitch)
@@ -536,8 +536,8 @@ def ratio_to_pc(pitch, ratio):
             pitch = abjad.NamedInterval("-P8").transpose(pitch)
             pitch = abjad.NamedInterval("-P8").transpose(pitch)
             pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-m2").transpose(pitch)
-            accidental_vector.syntonic_commas_down += 1
+            pitch = abjad.NamedInterval("-A1").transpose(pitch)
+            # accidental_vector.syntonic_commas_down += 1
             accidental_vector.seventeen_limit_skhismas_up += 1
         elif prime == 19:
             pitch = abjad.NamedInterval("-P8").transpose(pitch)
