@@ -1,7 +1,7 @@
 """
 Abjad's microtonal extension.
 """
-from ._version import __version__, __version_info__  # noqa
+from ._version import __version__, __version_info__
 from .equal_temperament import (
     EDOBundle,
     apply_alteration,
@@ -19,6 +19,8 @@ from .just_intonation import (
 )
 
 __all__ = [
+    "__version__",
+    "__version_info__",
     "EDOBundle",
     "HEJIVector",
     "JIBundle",

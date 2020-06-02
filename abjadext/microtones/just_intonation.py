@@ -4,15 +4,10 @@ import abjad
 
 
 class HEJIVector:
-    r"""
-    >>> from abjadext import microtones
-    >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
-    >>> vector.has_just_accidentals()
-    True
+    """
+    HEJI vector.
 
-    >>> vector = microtones.HEJIVector()
-    >>> vector.has_just_accidentals()
-    False
+    >>> from abjadext import microtones
 
     >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
     >>> vector.syntonic_commas_down
@@ -21,15 +16,6 @@ class HEJIVector:
     >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
     >>> vector.syntonic_commas_up
     0
-
-    >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
-    >>> abjad.f(vector.calculate_heji_accidental())
-    \markup {
-        \concat
-            {
-                \forced-natural-one-syntonic-comma-down
-            }
-        }
 
     """
 
@@ -68,12 +54,62 @@ class HEJIVector:
         self.twenty_three_limit_commas_up = twenty_three_limit_commas_up
 
     def __repr__(self):
-        return "HEJIVector()"
+        """
+        Gets interpreter representation.
 
-    def __str__(self):
-        return f"{self.diatonic_accidental} + {self.calculate_heji_accidental()}"
+        >>> microtones.HEJIVector()
+        HEJIVector(
+                diatonic_accidental="natural",
+                syntonic_commas_down=0,
+                syntonic_commas_up=0,
+                septimal_commas_down=0,
+                septimal_commas_up=0,
+                undecimal_quarter_tones_down=0,
+                undecimal_quarter_tones_up=0,
+                tridecimal_third_tones_down=0,
+                tridecimal_third_tones_up=0,
+                seventeen_limit_skhismas_down=0,
+                seventeen_limit_skhismas_up=0,
+                nineteen_limit_skhismas_down=0,
+                nineteen_limit_skhismas_up=0,
+                twenty_three_limit_commas_down=0,
+                twenty_three_limit_commas_up=0,
+                )
+
+        """
+
+        return f"""HEJIVector(
+        diatonic_accidental="{self.diatonic_accidental}",
+        syntonic_commas_down={self.syntonic_commas_down},
+        syntonic_commas_up={self.syntonic_commas_up},
+        septimal_commas_down={self.septimal_commas_down},
+        septimal_commas_up={self.septimal_commas_up},
+        undecimal_quarter_tones_down={self.undecimal_quarter_tones_down},
+        undecimal_quarter_tones_up={self.undecimal_quarter_tones_up},
+        tridecimal_third_tones_down={self.tridecimal_third_tones_down},
+        tridecimal_third_tones_up={self.tridecimal_third_tones_up},
+        seventeen_limit_skhismas_down={self.seventeen_limit_skhismas_down},
+        seventeen_limit_skhismas_up={self.seventeen_limit_skhismas_up},
+        nineteen_limit_skhismas_down={self.nineteen_limit_skhismas_down},
+        nineteen_limit_skhismas_up={self.nineteen_limit_skhismas_up},
+        twenty_three_limit_commas_down={self.twenty_three_limit_commas_down},
+        twenty_three_limit_commas_up={self.twenty_three_limit_commas_up},
+        )"""
 
     def has_just_accidentals(self):
+        """
+        Returns boolean.
+
+        >>> vector = microtones.HEJIVector()
+        >>> vector.has_just_accidentals()
+        False
+
+        >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+        >>> vector.has_just_accidentals()
+        True
+
+        """
+
         if self.syntonic_commas_down > 0:
             return True
         elif self.syntonic_commas_up > 0:
@@ -106,6 +142,20 @@ class HEJIVector:
             return False
 
     def calculate_heji_accidental(self):
+        r"""
+        Returns markup.
+
+        >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+        >>> abjad.f(vector.calculate_heji_accidental())
+        \markup {
+            \concat
+                {
+                    \forced-natural-one-syntonic-comma-down
+                }
+            }
+
+        """
+
         int_to_word = {"1": "one", "2": "two", "3": "three"}
         accumulated_accidentals = []
         if self.diatonic_accidental == "double sharp":
@@ -265,15 +315,70 @@ class HEJIVector:
 
 
 class JIBundle:
+    r"""
+    JI bundle.
+
+    >>> bundle = microtones.JIBundle()
+    >>> bundle.pitch
+    "c'"
+
+    >>> bundle.vector
+    HEJIVector(
+            diatonic_accidental="natural",
+            syntonic_commas_down=0,
+            syntonic_commas_up=0,
+            septimal_commas_down=0,
+            septimal_commas_up=0,
+            undecimal_quarter_tones_down=0,
+            undecimal_quarter_tones_up=0,
+            tridecimal_third_tones_down=0,
+            tridecimal_third_tones_up=0,
+            seventeen_limit_skhismas_down=0,
+            seventeen_limit_skhismas_up=0,
+            nineteen_limit_skhismas_down=0,
+            nineteen_limit_skhismas_up=0,
+            twenty_three_limit_commas_down=0,
+            twenty_three_limit_commas_up=0,
+            )
+
+    """
+
     def __init__(self, pitch="c'", vector=HEJIVector()):
         self.pitch = pitch
         self.vector = vector
 
     def __repr__(self):
-        return "JIBundle()"
+        """
+        Gets interpreter representation.
 
-    def __str__(self):
-        return f"{self.pitch} + {self.vector.calculate_heji_accidental()}"
+        >>> microtones.JIBundle()
+        JIBundle(
+                pitch=c',
+                vector=HEJIVector(
+                diatonic_accidental="natural",
+                syntonic_commas_down=0,
+                syntonic_commas_up=0,
+                septimal_commas_down=0,
+                septimal_commas_up=0,
+                undecimal_quarter_tones_down=0,
+                undecimal_quarter_tones_up=0,
+                tridecimal_third_tones_down=0,
+                tridecimal_third_tones_up=0,
+                seventeen_limit_skhismas_down=0,
+                seventeen_limit_skhismas_up=0,
+                nineteen_limit_skhismas_down=0,
+                nineteen_limit_skhismas_up=0,
+                twenty_three_limit_commas_down=0,
+                twenty_three_limit_commas_up=0,
+                ),
+                )
+
+        """
+
+        return f"""JIBundle(
+        pitch={self.pitch},
+        vector={self.vector},
+        )"""
 
 
 def is_prime(n):
@@ -309,11 +414,30 @@ def prime_factors(n):
 
 def ratio_to_pc(pitch, ratio):
     r"""
-    >>> import abjad
-    >>> from abjadext import microtones
+    Returns JI bundle.
+
     >>> bundle = microtones.ratio_to_pc(abjad.NamedPitch("c'"), "3/2")
-    >>> abjad.f(bundle.pitch)
-    g'
+    >>> bundle.pitch
+    NamedPitch("g'")
+
+    >>> bundle.vector
+    HEJIVector(
+            diatonic_accidental="natural",
+            syntonic_commas_down=0,
+            syntonic_commas_up=0,
+            septimal_commas_down=0,
+            septimal_commas_up=0,
+            undecimal_quarter_tones_down=0,
+            undecimal_quarter_tones_up=0,
+            tridecimal_third_tones_down=0,
+            tridecimal_third_tones_up=0,
+            seventeen_limit_skhismas_down=0,
+            seventeen_limit_skhismas_up=0,
+            nineteen_limit_skhismas_down=0,
+            nineteen_limit_skhismas_up=0,
+            twenty_three_limit_commas_down=0,
+            twenty_three_limit_commas_up=0,
+            )
 
     """
 
@@ -436,13 +560,13 @@ def ratio_to_pc(pitch, ratio):
             print("cannot calculate beyond 23-limit JI")
             assert prime < 23
     accidental_vector.diatonic_accidental = pitch.accidental.name
-    return JIBundle(pitch, accidental_vector.calculate_heji_accidental())
+    return JIBundle(pitch, accidental_vector)
 
 
 def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
     r"""
-    >>> import abjad
-    >>> from abjadext import microtones
+    Transposes noteheads in place and tweaks accidental stencil.
+
     >>> note = abjad.Note()
     >>> microtones.tune_to_ratio(note.note_head, "3/1")
     >>> abjad.f(note)
@@ -629,10 +753,11 @@ def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
                     note_head, literal=True
                 ).Accidental.text = fr"\tempered-{tempered_accidental}"
             else:
+                markup = bundle.vector.calculate_heji_accidental()
                 abjad.tweak(
                     note_head, literal=True
                 ).Accidental.stencil = r"#ly:text-interface::print"
-                alteration_literal = bundle.vector
+                alteration_literal = markup
                 abjad.tweak(
                     note_head, literal=False
                 ).Accidental.text = alteration_literal

@@ -1,34 +1,49 @@
-from fractions import Fraction
-from math import modf
+import fractions
+import math
 
 import abjad
 
 
 class EDOBundle:
+    """
+    EDO bundle.
+
+    >>> from abjadext import microtones
+
+    """
+
     def __init__(self, pitch="c'", accidental_string=None):
         self.pitch = pitch
         self.accidental_string = accidental_string
 
     def __repr__(self):
-        return "EDOBundle()"
+        """
+        Gets interpreter representation.
 
-    def __str__(self):
-        return f"{self.pitch} + {self.accidental_string}"
+        >>> microtones.EDOBundle()
+        EDOBundle(pitch="c'", accidental_string=None)
+
+        """
+
+        if self.accidental_string is None:
+            return f"""{self.__class__.__name__}(pitch="{self.pitch}", accidental_string={self.accidental_string})"""
+        else:
+            return f"""{self.__class__.__name__}(pitch="{self.pitch}", accidental_string="{self.accidental_string}")"""
 
 
-accidental_to_value = {
+_accidental_to_value = {
     "double sharp": 2,
-    "three-quarters sharp": Fraction(3 / 2),
+    "three-quarters sharp": fractions.Fraction(3 / 2),
     "sharp": 1,
-    "quarter sharp": Fraction(1 / 2),
+    "quarter sharp": fractions.Fraction(1 / 2),
     "natural": 0,
-    "quarter flat": Fraction(-1 / 2),
+    "quarter flat": fractions.Fraction(-1 / 2),
     "flat": -1,
-    "three-quarters flat": Fraction(-3 / 2),
+    "three-quarters flat": fractions.Fraction(-3 / 2),
     "double flat": -2,
 }
 
-value_to_accidental = {
+_value_to_accidental = {
     "2/1": r"\double-sharp",
     "11/6": r"\eleven-twelfths-sharp",
     "7/4": r"\seven-eighths-sharp",
@@ -64,7 +79,7 @@ value_to_accidental = {
     "-2/1": r"\double-flat",
 }
 
-reversed_value_to_accidental = {
+_reversed_value_to_accidental = {
     r"\double-sharp-markup": "2/1",
     r"\eleven-twelfths-sharp-markup": "11/6",
     r"\seven-eighths-sharp-markup": "7/4",
@@ -102,56 +117,54 @@ reversed_value_to_accidental = {
 
 
 def get_accidental_value(pitch):
-    r"""
-    >>> import abjad
-    >>> from abjadext import microtones
+    """
     >>> pitch = abjad.NamedPitch("cs'")
-    >>> print(microtones.get_accidental_value(pitch))
+    >>> microtones.get_accidental_value(pitch)
     1
 
     """
 
     accidental = pitch.accidental.name
-    accidental_value = accidental_to_value[f"{accidental}"]
+    accidental_value = _accidental_to_value[f"{accidental}"]
     return accidental_value
 
 
 def get_value_sum(pitch, value):
-    r"""
+    """
     >>> pitch = abjad.NamedPitch("cs'")
-    >>> print(microtones.get_value_sum(pitch, "3/4"))
-    7/4
+    >>> microtones.get_value_sum(pitch, "3/4")
+    Fraction(7, 4)
 
     """
 
-    value = Fraction(value)
+    value = fractions.Fraction(value)
     return get_accidental_value(pitch) + value
 
 
 def get_alteration(pitch, value):
     r"""
     >>> pitch = abjad.NamedPitch("cs'")
-    >>> print(microtones.get_alteration(pitch, "3/4").pitch)
-    d'
+    >>> bundle = microtones.get_alteration(pitch, "3/4")
+    >>> bundle.pitch
+    NamedPitch("d'")
 
-    >>> print(microtones.get_alteration(pitch, "3/4").accidental_string)
-    \quarter-sharp-markup
+    >>> bundle.accidental_string
+    '\\quarter-sharp-markup'
 
     """
 
-    value = Fraction(value) * 2
-    semitones = int(modf(value)[1])
-    remainder = Fraction(value - int(modf(value)[1]))
+    value = fractions.Fraction(value) * 2
+    semitones = int(math.modf(value)[1])
+    remainder = fractions.Fraction(value - int(math.modf(value)[1]))
     if semitones != 0:
         pitch = abjad.NumberedInterval(semitones).transpose(pitch)
     transposed_accidental_value = get_value_sum(pitch, remainder)
-    new_accidental = (
-        value_to_accidental[str(transposed_accidental_value)] + "-markup"
-    )  # temporary markup
+    key = str(transposed_accidental_value)
+    new_accidental = _value_to_accidental[key] + "-markup"
     return EDOBundle(pitch, new_accidental)
 
 
-def apply_alteration(note_head, value):
+def apply_alteration(note_head, value):  # TODO: add notation example for sphinx
     r"""
     >>> note = abjad.Note("c'4")
     >>> microtones.apply_alteration(note.note_head, "3/4")
@@ -167,28 +180,16 @@ def apply_alteration(note_head, value):
 
     """
 
-    value = Fraction(value)
+    value = fractions.Fraction(value)
     pitch = note_head.written_pitch
     bundle = get_alteration(pitch, value)
-    if (
-        Fraction(reversed_value_to_accidental[fr"{bundle.accidental_string}"])
-        % Fraction(1, 2)
-        == 0
-    ):
-        step = -Fraction(reversed_value_to_accidental[fr"{bundle.accidental_string}"])
+    bundle_string = _reversed_value_to_accidental[fr"{bundle.accidental_string}"]
+    if fractions.Fraction(bundle_string) % fractions.Fraction(1, 2) == 0:
+        step = -fractions.Fraction(bundle_string)
         bundle.pitch = abjad.NumberedInterval(step).transpose(bundle.pitch)
         note_head.written_pitch = bundle.pitch
     else:
-        # literal = abjad.LilyPondLiteral(bundle.accidental_string, format_slot="before")
         note_head.written_pitch = bundle.pitch
-        abjad.tweak(
-            note_head, literal=True
-        ).Accidental.stencil = r"#ly::text-interface:print"
+        string = r"#ly::text-interface:print"
+        abjad.tweak(note_head, literal=True).Accidental.stencil = string
         abjad.tweak(note_head, literal=True).Accidental.text = bundle.accidental_string
-        # abjad.attach(literal, note_head)
-
-
-# ### NOTES ###
-# cannot attach to note-head
-# can only tweak note-head
-# can only attach leaf
