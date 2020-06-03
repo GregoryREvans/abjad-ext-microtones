@@ -1,4 +1,4 @@
-from fractions import Fraction
+import fractions
 
 import abjad
 
@@ -9,13 +9,15 @@ class HEJIVector:
 
     >>> from abjadext import microtones
 
-    >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
-    >>> vector.syntonic_commas_down
-    2
+    ..  container:: example
 
-    >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
-    >>> vector.syntonic_commas_up
-    0
+        >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
+        >>> vector.syntonic_commas_down
+        2
+
+        >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
+        >>> vector.syntonic_commas_up
+        0
 
     """
 
@@ -57,24 +59,26 @@ class HEJIVector:
         """
         Gets interpreter representation.
 
-        >>> microtones.HEJIVector()
-        HEJIVector(
-                diatonic_accidental="natural",
-                syntonic_commas_down=0,
-                syntonic_commas_up=0,
-                septimal_commas_down=0,
-                septimal_commas_up=0,
-                undecimal_quarter_tones_down=0,
-                undecimal_quarter_tones_up=0,
-                tridecimal_third_tones_down=0,
-                tridecimal_third_tones_up=0,
-                seventeen_limit_skhismas_down=0,
-                seventeen_limit_skhismas_up=0,
-                nineteen_limit_skhismas_down=0,
-                nineteen_limit_skhismas_up=0,
-                twenty_three_limit_commas_down=0,
-                twenty_three_limit_commas_up=0,
-                )
+        ..  container:: example
+
+            >>> microtones.HEJIVector()
+            HEJIVector(
+                    diatonic_accidental="natural",
+                    syntonic_commas_down=0,
+                    syntonic_commas_up=0,
+                    septimal_commas_down=0,
+                    septimal_commas_up=0,
+                    undecimal_quarter_tones_down=0,
+                    undecimal_quarter_tones_up=0,
+                    tridecimal_third_tones_down=0,
+                    tridecimal_third_tones_up=0,
+                    seventeen_limit_skhismas_down=0,
+                    seventeen_limit_skhismas_up=0,
+                    nineteen_limit_skhismas_down=0,
+                    nineteen_limit_skhismas_up=0,
+                    twenty_three_limit_commas_down=0,
+                    twenty_three_limit_commas_up=0,
+            )
 
         """
 
@@ -93,61 +97,52 @@ class HEJIVector:
         nineteen_limit_skhismas_down={self.nineteen_limit_skhismas_down},
         nineteen_limit_skhismas_up={self.nineteen_limit_skhismas_up},
         twenty_three_limit_commas_down={self.twenty_three_limit_commas_down},
-        twenty_three_limit_commas_up={self.twenty_three_limit_commas_up},
-        )"""
+        twenty_three_limit_commas_up={self.twenty_three_limit_commas_up},\n)"""
 
     def has_just_accidentals(self):
         """
-        Returns boolean.
+        Is true when vector has just accidentals.
 
-        >>> vector = microtones.HEJIVector()
-        >>> vector.has_just_accidentals()
-        False
+        ..  container:: example
 
-        >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
-        >>> vector.has_just_accidentals()
-        True
+            >>> vector = microtones.HEJIVector()
+            >>> vector.has_just_accidentals()
+            False
+
+            >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+            >>> vector.has_just_accidentals()
+            True
 
         """
 
-        if self.syntonic_commas_down > 0:
-            return True
-        elif self.syntonic_commas_up > 0:
-            return True
-        elif self.septimal_commas_down > 0:
-            return True
-        elif self.septimal_commas_up > 0:
-            return True
-        elif self.undecimal_quarter_tones_down > 0:
-            return True
-        elif self.undecimal_quarter_tones_up > 0:
-            return True
-        elif self.tridecimal_third_tones_down > 0:
-            return True
-        elif self.tridecimal_third_tones_up > 0:
-            return True
-        elif self.seventeen_limit_skhismas_down > 0:
-            return True
-        elif self.seventeen_limit_skhismas_up > 0:
-            return True
-        elif self.nineteen_limit_skhismas_down > 0:
-            return True
-        elif self.nineteen_limit_skhismas_up > 0:
-            return True
-        elif self.twenty_three_limit_commas_down > 0:
-            return True
-        elif self.twenty_three_limit_commas_up > 0:
-            return True
-        else:
-            return False
+        return any(
+            [
+                self.syntonic_commas_down,
+                self.syntonic_commas_up,
+                self.septimal_commas_down,
+                self.septimal_commas_up,
+                self.undecimal_quarter_tones_down,
+                self.undecimal_quarter_tones_up,
+                self.tridecimal_third_tones_down,
+                self.tridecimal_third_tones_up,
+                self.seventeen_limit_skhismas_down,
+                self.seventeen_limit_skhismas_up,
+                self.nineteen_limit_skhismas_down,
+                self.nineteen_limit_skhismas_up,
+                self.twenty_three_limit_commas_down,
+                self.twenty_three_limit_commas_up,
+            ]
+        )
 
-    def calculate_heji_accidental(self):
+    def calculate_heji_markup(self):
         r"""
-        Returns markup.
+        Calculates HEJI markup.
 
-        >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
-        >>> abjad.f(vector.calculate_heji_accidental())
-        \forced-natural-one-syntonic-comma-down
+        ..  container:: example
+
+            >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+            >>> abjad.f(vector.calculate_heji_markup())
+            \forced-natural-one-syntonic-comma-down
 
         """
 
@@ -160,138 +155,114 @@ class HEJIVector:
         if self.syntonic_commas_down == self.syntonic_commas_up:
             self.syntonic_commas_down = 0
             self.syntonic_commas_up = 0
-            accumulated_accidentals.append(fr"\forced-{self.diatonic_accidental}")
+            string = fr"\forced-{self.diatonic_accidental}"
+            accumulated_accidentals.append(string)
         elif self.syntonic_commas_down > self.syntonic_commas_up:
-            self.syntonic_commas_down = (
-                self.syntonic_commas_down - self.syntonic_commas_up
-            )
+            self.syntonic_commas_down -= self.syntonic_commas_up
             self.syntonic_commas_up = 0
-            accumulated_accidentals.append(
-                fr"\forced-{self.diatonic_accidental}-{int_to_word[str(self.syntonic_commas_down)]}-syntonic-comma-down"
-            )
+            string = fr"\forced-{self.diatonic_accidental}"
+            string += f"-{int_to_word[str(self.syntonic_commas_down)]}"
+            string += "-syntonic-comma-down"
+            accumulated_accidentals.append(string)
         else:
-            self.syntonic_commas_up = (
-                self.syntonic_commas_up - self.syntonic_commas_down
-            )
+            self.syntonic_commas_up -= self.syntonic_commas_down
             self.syntonic_commas_down = 0
-            accumulated_accidentals.append(
-                fr"\forced-{self.diatonic_accidental}-{int_to_word[str(self.syntonic_commas_up)]}-syntonic-comma-up"
-            )
+            string = fr"\forced-{self.diatonic_accidental}"
+            string += f"-{int_to_word[str(self.syntonic_commas_up)]}"
+            string += "-syntonic-comma-up"
+
+            accumulated_accidentals.append(string)
         if self.septimal_commas_down == self.septimal_commas_up:
             self.septimal_commas_down = 0
             self.septimal_commas_up = 0
         elif self.septimal_commas_down > self.septimal_commas_up:
-            self.septimal_commas_down = (
-                self.septimal_commas_down - self.septimal_commas_up
-            )
+            self.septimal_commas_down -= self.septimal_commas_up
             self.septimal_commas_up = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.septimal_commas_down)]}-septimal-comma-down"
-            )
+            string = fr"\{int_to_word[str(self.septimal_commas_down)]}"
+            string += "-septimal-comma-down"
+            accumulated_accidentals.append(string)
         else:
-            self.septimal_commas_up = (
-                self.septimal_commas_up - self.septimal_commas_down
-            )
+            self.septimal_commas_up -= self.septimal_commas_down
             self.septimal_commas_down = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.septimal_commas_up)]}-septimal-comma-up"
-            )
+            string = fr"\{int_to_word[str(self.septimal_commas_up)]}"
+            string += "-septimal-comma-up"
+            accumulated_accidentals.append(string)
         if self.undecimal_quarter_tones_down == self.undecimal_quarter_tones_up:
             self.undecimal_quarter_tones_down = 0
             self.undecimal_quarter_tones_up = 0
         elif self.undecimal_quarter_tones_down > self.undecimal_quarter_tones_up:
-            self.undecimal_quarter_tones_down = (
-                self.undecimal_quarter_tones_down - self.undecimal_quarter_tones_up
-            )
+            self.undecimal_quarter_tones_down -= self.undecimal_quarter_tones_up
             self.undecimal_quarter_tones_up = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.undecimal_quarter_tones_down)]}-undecimal-quarter-tone-down"
-            )
+            string = fr"\{int_to_word[str(self.undecimal_quarter_tones_down)]}"
+            string += "-undecimal-quarter-tone-down"
+            accumulated_accidentals.append(string)
         else:
-            self.undecimal_quarter_tones_up = (
-                self.undecimal_quarter_tones_up - self.undecimal_quarter_tones_down
-            )
+            self.undecimal_quarter_tones_up -= self.undecimal_quarter_tones_down
             self.undecimal_quarter_tones_down = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.undecimal_quarter_tones_up)]}-undecimal-quarter-tone-up"
-            )
+            string = fr"\{int_to_word[str(self.undecimal_quarter_tones_up)]}"
+            string += "-undecimal-quarter-tone-up"
+            accumulated_accidentals.append(string)
         if self.tridecimal_third_tones_down == self.tridecimal_third_tones_up:
             self.tridecimal_third_tones_down = 0
             self.tridecimal_third_tones_up = 0
         elif self.tridecimal_third_tones_down > self.tridecimal_third_tones_up:
-            self.tridecimal_third_tones_down = (
-                self.tridecimal_third_tones_down - self.tridecimal_third_tones_up
-            )
+            self.tridecimal_third_tones_down -= self.tridecimal_third_tones_up
             self.tridecimal_third_tones_up = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.tridecimal_third_tones_down)]}-tridecimal-third-tone-down"
-            )
+            string = fr"\{int_to_word[str(self.tridecimal_third_tones_down)]}"
+            string += "-tridecimal-third-tone-down"
+            accumulated_accidentals.append(string)
         else:
-            self.tridecimal_third_tones_up = (
-                self.tridecimal_third_tones_up - self.tridecimal_third_tones_down
-            )
+            self.tridecimal_third_tones_up -= self.tridecimal_third_tones_down
             self.tridecimal_third_tones_down = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.tridecimal_third_tones_up)]}-tridecimal-third-tone-up"
-            )
+            string = fr"\{int_to_word[str(self.tridecimal_third_tones_up)]}"
+            string += "-tridecimal-third-tone-up"
+            accumulated_accidentals.append(string)
         if self.seventeen_limit_skhismas_down == self.seventeen_limit_skhismas_up:
             self.seventeen_limit_skhismas_down = 0
             self.seventeen_limit_skhismas_up = 0
         elif self.seventeen_limit_skhismas_down > self.seventeen_limit_skhismas_up:
-            self.seventeen_limit_skhismas_down = (
-                self.seventeen_limit_skhismas_down - self.seventeen_limit_skhismas_up
-            )
+            self.seventeen_limit_skhismas_down -= self.seventeen_limit_skhismas_up
             self.seventeen_limit_skhismas_up = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.seventeen_limit_skhismas_down)]}-seventeen-limit-skhisma-down"
-            )
+            string = fr"\{int_to_word[str(self.seventeen_limit_skhismas_down)]}"
+            string += "-seventeen-limit-skhisma-down"
+            accumulated_accidentals.append(string)
         else:
-            self.seventeen_limit_skhismas_up = (
-                self.seventeen_limit_skhismas_up - self.seventeen_limit_skhismas_down
-            )
+            self.seventeen_limit_skhismas_up -= self.seventeen_limit_skhismas_down
             self.seventeen_limit_skhismas_down = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.seventeen_limit_skhismas_up)]}-seventeen-limit-skhisma-up"
-            )
+            string = fr"\{int_to_word[str(self.seventeen_limit_skhismas_up)]}"
+            string += "-seventeen-limit-skhisma-up"
+            accumulated_accidentals.append(string)
         if self.nineteen_limit_skhismas_down == self.nineteen_limit_skhismas_up:
             self.nineteen_limit_skhismas_down = 0
             self.nineteen_limit_skhismas_up = 0
         elif self.nineteen_limit_skhismas_down > self.nineteen_limit_skhismas_up:
-            self.nineteen_limit_skhismas_down = (
-                self.nineteen_limit_skhismas_down - self.nineteen_limit_skhismas_up
-            )
+            self.nineteen_limit_skhismas_down -= self.nineteen_limit_skhismas_up
             self.nineteen_limit_skhismas_up = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.nineteen_limit_skhismas_down)]}-nineteen-limit-skhisma-down"
-            )
+            string = fr"\{int_to_word[str(self.nineteen_limit_skhismas_down)]}"
+            string += "-nineteen-limit-skhisma-down"
+            accumulated_accidentals.append(string)
         else:
-            self.nineteen_limit_skhismas_up = (
-                self.nineteen_limit_skhismas_up - self.nineteen_limit_skhismas_down
-            )
+            self.nineteen_limit_skhismas_up -= self.nineteen_limit_skhismas_down
             self.nineteen_limit_skhismas_down = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.nineteen_limit_skhismas_up)]}-nineteen-limit-skhisma-up"
-            )
+            string = fr"\{int_to_word[str(self.nineteen_limit_skhismas_up)]}"
+            string += "-nineteen-limit-skhisma-up"
+            accumulated_accidentals.append(string)
         if self.twenty_three_limit_commas_down == self.twenty_three_limit_commas_up:
             self.twenty_three_limit_commas_down = 0
             self.twenty_three_limit_commas_up = 0
         elif self.twenty_three_limit_commas_down > self.twenty_three_limit_commas_up:
-            self.twenty_three_limit_commas_down = (
-                self.twenty_three_limit_commas_down - self.twenty_three_limit_commas_up
-            )
+            self.twenty_three_limit_commas_down -= self.twenty_three_limit_commas_up
             self.twenty_three_limit_commas_up = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.twenty_three_limit_commas_down)]}-twenty-three-limit-comma-down"
-            )
+            string = fr"\{int_to_word[str(self.twenty_three_limit_commas_down)]}"
+            string += "-twenty-three-limit-comma-down"
+            accumulated_accidentals.append(string)
         else:
-            self.twenty_three_limit_commas_up = (
-                self.twenty_three_limit_commas_up - self.twenty_three_limit_commas_down
-            )
+            self.twenty_three_limit_commas_up -= self.twenty_three_limit_commas_down
             self.twenty_three_limit_commas_down = 0
-            accumulated_accidentals.append(
-                fr"\{int_to_word[str(self.twenty_three_limit_commas_up)]}-twenty-three-limit-comma-up"
-            )
-        if len(accumulated_accidentals) > 0:
+            string = fr"\{int_to_word[str(self.twenty_three_limit_commas_up)]}"
+            string += "-twenty-three-limit-comma-up"
+            accumulated_accidentals.append(string)
+        if len(accumulated_accidentals):
             accumulated_accidentals.reverse()
             if accumulated_accidentals[-1] == r"\forced-natural":
                 if self.has_just_accidentals():
@@ -313,46 +284,17 @@ class HEJIVector:
 
 
 class JIBundle:
-    r"""
+    """
     JI bundle.
 
-    >>> bundle = microtones.JIBundle()
-    >>> bundle.pitch
-    "c'"
+    ..  container:: example
 
-    >>> bundle.vector
-    HEJIVector(
-            diatonic_accidental="natural",
-            syntonic_commas_down=0,
-            syntonic_commas_up=0,
-            septimal_commas_down=0,
-            septimal_commas_up=0,
-            undecimal_quarter_tones_down=0,
-            undecimal_quarter_tones_up=0,
-            tridecimal_third_tones_down=0,
-            tridecimal_third_tones_up=0,
-            seventeen_limit_skhismas_down=0,
-            seventeen_limit_skhismas_up=0,
-            nineteen_limit_skhismas_down=0,
-            nineteen_limit_skhismas_up=0,
-            twenty_three_limit_commas_down=0,
-            twenty_three_limit_commas_up=0,
-            )
+        >>> bundle = microtones.JIBundle()
+        >>> bundle.pitch
+        "c'"
 
-    """
-
-    def __init__(self, pitch="c'", vector=HEJIVector()):
-        self.pitch = pitch
-        self.vector = vector
-
-    def __repr__(self):
-        """
-        Gets interpreter representation.
-
-        >>> microtones.JIBundle()
-        JIBundle(
-                pitch=c',
-                vector=HEJIVector(
+        >>> bundle.vector
+        HEJIVector(
                 diatonic_accidental="natural",
                 syntonic_commas_down=0,
                 syntonic_commas_up=0,
@@ -368,18 +310,50 @@ class JIBundle:
                 nineteen_limit_skhismas_up=0,
                 twenty_three_limit_commas_down=0,
                 twenty_three_limit_commas_up=0,
+        )
+
+    """
+
+    def __init__(self, pitch="c'", vector=HEJIVector()):
+        self.pitch = pitch
+        self.vector = vector
+
+    def __repr__(self):
+        """
+        Gets interpreter representation.
+
+        ..  container:: example
+
+            >>> microtones.JIBundle()
+            JIBundle(
+                pitch=c',
+                vector=HEJIVector(
+                    diatonic_accidental="natural",
+                    syntonic_commas_down=0,
+                    syntonic_commas_up=0,
+                    septimal_commas_down=0,
+                    septimal_commas_up=0,
+                    undecimal_quarter_tones_down=0,
+                    undecimal_quarter_tones_up=0,
+                    tridecimal_third_tones_down=0,
+                    tridecimal_third_tones_up=0,
+                    seventeen_limit_skhismas_down=0,
+                    seventeen_limit_skhismas_up=0,
+                    nineteen_limit_skhismas_down=0,
+                    nineteen_limit_skhismas_up=0,
+                    twenty_three_limit_commas_down=0,
+                    twenty_three_limit_commas_up=0,
                 ),
-                )
+            )
 
         """
 
         return f"""{self.__class__.__name__}(
         pitch={self.pitch},
-        vector={self.vector},
-        )"""
+        vector={repr(self.vector)},\n)"""
 
 
-def is_prime(n):
+def _is_prime(n):
     if n == 1:
         return False
     if n % 2 == 0:
@@ -392,7 +366,7 @@ def is_prime(n):
     return True
 
 
-def prime_factors(n):
+def _prime_factors(n):
     prime_factor_list = []
     while not n % 2:
         prime_factor_list.append(2)
@@ -402,7 +376,7 @@ def prime_factors(n):
         n //= 3
     i = 5
     while n != 1:
-        if is_prime(i):
+        if _is_prime(i):
             while not n % i:
                 prime_factor_list.append(i)
                 n //= i
@@ -410,32 +384,57 @@ def prime_factors(n):
     return prime_factor_list
 
 
-def ratio_to_pc(pitch, ratio):
+_numerator_factor_to_intervals = {
+    2: ("+P8",),
+    3: ("+P8", "+P5"),
+    5: ("+P8", "+P8", "+M3"),
+    7: ("+P8", "+P8", "+m7"),
+    11: ("+P8", "+P8", "+P8", "+P4"),
+    13: ("+P8", "+P8", "+P8", "+M6"),
+    17: ("+P8", "+P8", "+P8", "+P8", "+A1"),
+    19: ("+P8", "+P8", "+P8", "+P8", "+m3"),
+    23: ("+P8", "+P8", "+P8", "+P8", "+A4"),
+}
+
+_numerator_factor_to_nudge = {
+    5: "syntonic_commas_down",
+    7: "septimal_commas_down",
+    11: "undecimal_quarter_tones_up",
+    13: "tridecimal_third_tones_down",
+    17: "seventeen_limit_skhismas_down",
+    19: "nineteen_limit_skhismas_up",
+    23: "twenty_three_limit_commas_up",
+}
+
+
+def make_ji_bundle(pitch, ratio):
     r"""
-    Returns JI bundle.
+    Makes JI bundle.
 
-    >>> bundle = microtones.ratio_to_pc(abjad.NamedPitch("c'"), "3/2")
-    >>> bundle.pitch
-    NamedPitch("g'")
+    ..  container:: example
 
-    >>> bundle.vector
-    HEJIVector(
-            diatonic_accidental="natural",
-            syntonic_commas_down=0,
-            syntonic_commas_up=0,
-            septimal_commas_down=0,
-            septimal_commas_up=0,
-            undecimal_quarter_tones_down=0,
-            undecimal_quarter_tones_up=0,
-            tridecimal_third_tones_down=0,
-            tridecimal_third_tones_up=0,
-            seventeen_limit_skhismas_down=0,
-            seventeen_limit_skhismas_up=0,
-            nineteen_limit_skhismas_down=0,
-            nineteen_limit_skhismas_up=0,
-            twenty_three_limit_commas_down=0,
-            twenty_three_limit_commas_up=0,
-            )
+        >>> bundle = microtones.make_ji_bundle(abjad.NamedPitch("c'"), "3/2")
+        >>> bundle.pitch
+        NamedPitch("g'")
+
+        >>> bundle.vector
+        HEJIVector(
+                diatonic_accidental="natural",
+                syntonic_commas_down=0,
+                syntonic_commas_up=0,
+                septimal_commas_down=0,
+                septimal_commas_up=0,
+                undecimal_quarter_tones_down=0,
+                undecimal_quarter_tones_up=0,
+                tridecimal_third_tones_down=0,
+                tridecimal_third_tones_up=0,
+                seventeen_limit_skhismas_down=0,
+                seventeen_limit_skhismas_up=0,
+                nineteen_limit_skhismas_down=0,
+                nineteen_limit_skhismas_up=0,
+                twenty_three_limit_commas_down=0,
+                twenty_three_limit_commas_up=0,
+                )
 
     """
 
@@ -443,220 +442,156 @@ def ratio_to_pc(pitch, ratio):
         pitch = abjad.NamedPitch(pitch)
     elif isinstance(pitch, int):
         pitch = abjad.NumberedPitch(pitch)
-    else:
-        pitch = pitch
-    ratio = Fraction(ratio)
-    numerator_factors = prime_factors(ratio.numerator)
-    denominator_factors = prime_factors(ratio.denominator)
+    ratio = fractions.Fraction(ratio)
+    numerator_factors = _prime_factors(ratio.numerator)
+    denominator_factors = _prime_factors(ratio.denominator)
     accidental_vector = HEJIVector(diatonic_accidental=pitch.accidental.name)
     for prime in numerator_factors:
-        if prime == 2:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-        elif prime == 3:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P5").transpose(pitch)
-        elif prime == 5:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+M3").transpose(pitch)
-            accidental_vector.syntonic_commas_down += 1
-        elif prime == 7:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+m7").transpose(pitch)
-            accidental_vector.septimal_commas_down += 1
-        elif prime == 11:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P4").transpose(pitch)
-            accidental_vector.undecimal_quarter_tones_up += 1
-        elif prime == 13:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+M6").transpose(pitch)
-            accidental_vector.tridecimal_third_tones_down += 1
-        elif prime == 17:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+A1").transpose(pitch)
-            # accidental_vector.syntonic_commas_up += 1
-            accidental_vector.seventeen_limit_skhismas_down += 1
-        elif prime == 19:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+m3").transpose(pitch)
-            accidental_vector.nineteen_limit_skhismas_up += 1
-        elif prime == 23:
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+P8").transpose(pitch)
-            pitch = abjad.NamedInterval("+A4").transpose(pitch)
-            accidental_vector.twenty_three_limit_commas_up += 1
-        else:
-            print("REDUCE RATIO")
-            print("cannot calculate beyond 23-limit JI")
-            assert prime < 23
+        assert prime < 23
+        for string in _numerator_factor_to_intervals[prime]:
+            pitch = abjad.NamedInterval(string).transpose(pitch)
+        if prime in _numerator_factor_to_nudge:
+            string = _numerator_factor_to_nudge[prime]
+            value = getattr(accidental_vector, string)
+            setattr(accidental_vector, string, value + 1)
     for prime in denominator_factors:
-        if prime == 2:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-        elif prime == 3:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P5").transpose(pitch)
-        elif prime == 5:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-M3").transpose(pitch)
-            accidental_vector.syntonic_commas_up += 1
-        elif prime == 7:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-m7").transpose(pitch)
-            accidental_vector.septimal_commas_up += 1
-        elif prime == 11:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P4").transpose(pitch)
-            accidental_vector.undecimal_quarter_tones_down += 1
-        elif prime == 13:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-M6").transpose(pitch)
-            accidental_vector.tridecimal_third_tones_up += 1
-        elif prime == 17:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-A1").transpose(pitch)
-            # accidental_vector.syntonic_commas_down += 1
-            accidental_vector.seventeen_limit_skhismas_up += 1
-        elif prime == 19:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-m3").transpose(pitch)
-            accidental_vector.nineteen_limit_skhismas_down += 1
-        elif prime == 23:
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-P8").transpose(pitch)
-            pitch = abjad.NamedInterval("-A4").transpose(pitch)
-            accidental_vector.twenty_three_limit_commas_down += 1
-        else:
-            print("REDUCE RATIO")
-            print("cannot calculate beyond 23-limit JI")
-            assert prime < 23
+        assert prime < 23
+        for string in _numerator_factor_to_intervals[prime]:
+            string = string.replace("+", "-")
+            pitch = abjad.NamedInterval(string).transpose(pitch)
+        if prime in _numerator_factor_to_nudge:
+            string = _numerator_factor_to_nudge[prime]
+            if string.endswith("_up"):
+                string = string.replace("_up", "_down")
+            else:
+                string = string.replace("_down", "_up")
+            value = getattr(accidental_vector, string)
+            setattr(accidental_vector, string, value + 1)
     accidental_vector.diatonic_accidental = pitch.accidental.name
     return JIBundle(pitch, accidental_vector)
 
 
 def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
     r"""
-    Transposes noteheads in place and tweaks accidental stencil.
+    Transposes notehead in place and tweaks accidental stencil.
 
-    >>> note = abjad.Note()
-    >>> microtones.tune_to_ratio(note.note_head, "3/1")
-    >>> abjad.f(note)
-    \tweak Accidental.stencil #ly:text-interface::print
-    \tweak Accidental.text \forced-natural
-    g''4
+    ..  container:: example
 
-    >>> note = abjad.Note()
-    >>> microtones.tune_to_ratio(note.note_head, "5/1")
-    >>> abjad.f(note)
-    \tweak Accidental.stencil #ly:text-interface::print
-    \tweak Accidental.text \forced-natural-one-syntonic-comma-down
-    e'''4
+        >>> note = abjad.Note()
+        >>> microtones.tune_to_ratio(note.note_head, "3/1")
+        >>> abjad.show(note) # doctest: +SKIP
 
-    >>> note = abjad.Note()
-    >>> microtones.tune_to_ratio(note.note_head, "5/1", add_accidental=False)
-    >>> abjad.f(note)
-    e'''4
+        ..  docs::
 
-    >>> ratios = [f"{_ + 1}/1" for _ in range(11)]
-    >>> notes = [abjad.Note("a,,,32") for _ in ratios]
-    >>> for note, ratio in zip(notes, ratios):
-    ...     microtones.tune_to_ratio(note.note_head, ratio)
-    >>> staff = abjad.Staff(notes)
-    >>> abjad.f(staff)
-    \new Staff
-    {
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-natural
-        a,,,32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-natural
-        a,,32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-natural
-        e,32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-natural
-        a,32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
-        cs32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-natural
-        e32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \one-septimal-comma-down
-        g32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-natural
-        a32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-natural
-        b32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
-        cs'32
-        \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \one-undecimal-quarter-tone-up
-        d'32
-    }
+            >>> abjad.f(note)
+            \tweak Accidental.stencil #ly:text-interface::print
+            \tweak Accidental.text \forced-natural
+            g''4
 
-    >>> note = abjad.Note("c'4")
-    >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
-    >>> abjad.f(note)
-    \tweak Accidental.stencil #ly:text-interface::print
-    \tweak Accidental.text \tempered-natural
-    e'''4
+    ..  container:: example
 
-    >>> note = abjad.Note("cqs'4")
-    >>> microtones.tune_to_ratio(note.note_head, "tempered")
-    >>> abjad.f(note)
-    \tweak Accidental.stencil #ly:text-interface::print
-    \tweak Accidental.text \tempered-quarter-sharp
-    cqs'4
+        >>> note = abjad.Note()
+        >>> microtones.tune_to_ratio(note.note_head, "5/1")
+        >>> abjad.show(note) # doctest: +SKIP
+
+        ..  docs::
+
+            >>> abjad.f(note)
+            \tweak Accidental.stencil #ly:text-interface::print
+            \tweak Accidental.text \forced-natural-one-syntonic-comma-down
+            e'''4
+
+    ..  container:: example
+
+        >>> note = abjad.Note()
+        >>> microtones.tune_to_ratio(note.note_head, "5/1", add_accidental=False)
+        >>> abjad.show(note) # doctest: +SKIP
+
+        ..  docs::
+
+            >>> abjad.f(note)
+            e'''4
+
+    ..  container:: example
+
+        >>> ratios = [f"{_ + 1}/1" for _ in range(11)]
+        >>> notes = [abjad.Note("a,,,32") for _ in ratios]
+        >>> for note, ratio in zip(notes, ratios):
+        ...     microtones.tune_to_ratio(note.note_head, ratio)
+        >>> staff = abjad.Staff(notes)
+        >>> abjad.show(staff) # doctest: +SKIP
+
+        ..  docs::
+
+            >>> abjad.f(staff)
+            \new Staff
+            {
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                a,,,32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                a,,32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                e,32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                a,32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                cs32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                e32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-septimal-comma-down
+                g32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                a32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                b32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                cs'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-undecimal-quarter-tone-up
+                d'32
+            }
+
+    ..  container:: example
+
+        >>> note = abjad.Note("c'4")
+        >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
+        >>> abjad.show(note) # doctest: +SKIP
+
+        ..  docs::
+
+            >>> abjad.f(note)
+            \tweak Accidental.stencil #ly:text-interface::print
+            \tweak Accidental.text \tempered-natural
+            e'''4
+
+    ..  container:: example
+
+        >>> note = abjad.Note("cqs'4")
+        >>> microtones.tune_to_ratio(note.note_head, "tempered")
+        >>> abjad.show(note) # doctest: +SKIP
+
+        ..  docs::
+
+            >>> abjad.f(note)
+            \tweak Accidental.stencil #ly:text-interface::print
+            \tweak Accidental.text \tempered-quarter-sharp
+            cqs'4
 
     """
 
     if ratio == "tempered":
         tempered_accidental = note_head.written_pitch.accidental.name
-        if tempered_accidental == "quarter sharp":
-            tempered_accidental = "quarter-sharp"
-        elif tempered_accidental == "quarter flat":
-            tempered_accidental = "quarter-flat"
-        elif tempered_accidental == "three-quarters sharp":
-            tempered_accidental = "three-quarters-sharp"
-        elif tempered_accidental == "three-quarters flat":
-            tempered_accidental = "three-quarters-flat"
-        elif tempered_accidental == "double sharp":
-            tempered_accidental = "double-sharp"
-        elif tempered_accidental == "double flat":
-            tempered_accidental = "double-flat"
+        tempered_accidental = tempered_accidental.replace(" ", "-")
         abjad.tweak(
             note_head, literal=True
         ).Accidental.stencil = r"#ly:text-interface::print"
@@ -664,23 +599,12 @@ def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
             note_head, literal=True
         ).Accidental.text = fr"\tempered-{tempered_accidental}"
     else:
-        bundle = ratio_to_pc(note_head.written_pitch, ratio)
+        bundle = make_ji_bundle(note_head.written_pitch, ratio)
         note_head.written_pitch = bundle.pitch
         if add_accidental is True:
             if tempered is True:
                 tempered_accidental = note_head.written_pitch.accidental.name
-                if tempered_accidental == "quarter sharp":
-                    tempered_accidental = "quarter-sharp"
-                elif tempered_accidental == "quarter flat":
-                    tempered_accidental = "quarter-flat"
-                elif tempered_accidental == "three-quarters sharp":
-                    tempered_accidental = "three-quarters-sharp"
-                elif tempered_accidental == "three-quarters flat":
-                    tempered_accidental = "three-quarters-flat"
-                elif tempered_accidental == "double sharp":
-                    tempered_accidental = "double-sharp"
-                elif tempered_accidental == "double flat":
-                    tempered_accidental = "double-flat"
+                tempered_accidental = tempered_accidental.replace(" ", "-")
                 abjad.tweak(
                     note_head, literal=True
                 ).Accidental.stencil = r"#ly:text-interface::print"
@@ -688,7 +612,7 @@ def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
                     note_head, literal=True
                 ).Accidental.text = fr"\tempered-{tempered_accidental}"
             else:
-                markup = bundle.vector.calculate_heji_accidental()
+                markup = bundle.vector.calculate_heji_markup()
                 abjad.tweak(
                     note_head, literal=True
                 ).Accidental.stencil = r"#ly:text-interface::print"

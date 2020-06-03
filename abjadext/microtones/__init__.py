@@ -9,14 +9,7 @@ from .equal_temperament import (
     get_alteration,
     get_value_sum,
 )
-from .just_intonation import (
-    HEJIVector,
-    JIBundle,
-    is_prime,
-    prime_factors,
-    ratio_to_pc,
-    tune_to_ratio,
-)
+from .just_intonation import HEJIVector, JIBundle, make_ji_bundle, tune_to_ratio
 
 __all__ = [
     "__version__",
@@ -30,6 +23,6 @@ __all__ = [
     "get_value_sum",
     "is_prime",
     "prime_factors",
-    "ratio_to_pc",
+    "make_ji_bundle",
     "tune_to_ratio",
 ]

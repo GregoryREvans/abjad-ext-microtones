@@ -20,8 +20,10 @@ class EDOBundle:
         """
         Gets interpreter representation.
 
-        >>> microtones.EDOBundle()
-        EDOBundle(pitch="c'", accidental_string=None)
+        ..  container:: example
+
+            >>> microtones.EDOBundle()
+            EDOBundle(pitch="c'", accidental_string=None)
 
         """
 
@@ -118,9 +120,13 @@ _reversed_value_to_accidental = {
 
 def get_accidental_value(pitch):
     """
-    >>> pitch = abjad.NamedPitch("cs'")
-    >>> microtones.get_accidental_value(pitch)
-    1
+    Gets accidental value.
+
+    ..  container:: example
+
+        >>> pitch = abjad.NamedPitch("cs'")
+        >>> microtones.get_accidental_value(pitch)
+        1
 
     """
 
@@ -131,9 +137,13 @@ def get_accidental_value(pitch):
 
 def get_value_sum(pitch, value):
     """
-    >>> pitch = abjad.NamedPitch("cs'")
-    >>> microtones.get_value_sum(pitch, "3/4")
-    Fraction(7, 4)
+    Gets value sum.
+
+    ..  container:: example
+
+        >>> pitch = abjad.NamedPitch("cs'")
+        >>> microtones.get_value_sum(pitch, "3/4")
+        Fraction(7, 4)
 
     """
 
@@ -143,13 +153,17 @@ def get_value_sum(pitch, value):
 
 def get_alteration(pitch, value):
     r"""
-    >>> pitch = abjad.NamedPitch("cs'")
-    >>> bundle = microtones.get_alteration(pitch, "3/4")
-    >>> bundle.pitch
-    NamedPitch("d'")
+    Gets alteration.
 
-    >>> bundle.accidental_string
-    '\\quarter-sharp-markup'
+    ..  container:: example
+
+        >>> pitch = abjad.NamedPitch("cs'")
+        >>> bundle = microtones.get_alteration(pitch, "3/4")
+        >>> bundle.pitch
+        NamedPitch("d'")
+
+        >>> bundle.accidental_string
+        '\\quarter-sharp-markup'
 
     """
 
@@ -164,19 +178,33 @@ def get_alteration(pitch, value):
     return EDOBundle(pitch, new_accidental)
 
 
-def apply_alteration(note_head, value):  # TODO: add notation example for sphinx
+def apply_alteration(note_head, value):
     r"""
-    >>> note = abjad.Note("c'4")
-    >>> microtones.apply_alteration(note.note_head, "3/4")
-    >>> abjad.f(note)
-    dqf'4
+    Applies alteration.
 
-    >>> note = abjad.Note("c'4")
-    >>> microtones.apply_alteration(note.note_head, "11/12")
-    >>> abjad.f(note)
-    \tweak Accidental.stencil #ly::text-interface:print
-    \tweak Accidental.text \one-twelfth-flat-markup
-    df'4
+    ..  container:: example
+
+        >>> note = abjad.Note("c'4")
+        >>> microtones.apply_alteration(note.note_head, "3/4")
+        >>> abjad.show(note) # doctest: +SKIP
+
+        ..  docs::
+
+            >>> abjad.f(note)
+            dqf'4
+
+    ..  container:: example
+
+        >>> note = abjad.Note("c'4")
+        >>> microtones.apply_alteration(note.note_head, "11/12")
+        >>> abjad.show(note) # doctest: +SKIP
+
+        ..  docs::
+
+            >>> abjad.f(note)
+            \tweak Accidental.stencil #ly::text-interface:print
+            \tweak Accidental.text \one-twelfth-flat-markup
+            df'4
 
     """
 
