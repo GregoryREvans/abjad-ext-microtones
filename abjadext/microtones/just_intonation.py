@@ -471,7 +471,7 @@ def make_ji_bundle(pitch, ratio):
     return JIBundle(pitch, accidental_vector)
 
 
-def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
+def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=False):
     r"""
     Transposes notehead in place and tweaks accidental stencil.
 
@@ -504,7 +504,7 @@ def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
     ..  container:: example
 
         >>> note = abjad.Note()
-        >>> microtones.tune_to_ratio(note.note_head, "5/1", add_accidental=False)
+        >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=True)
         >>> abjad.show(note) # doctest: +SKIP
 
         ..  docs::
@@ -577,7 +577,7 @@ def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
     ..  container:: example
 
         >>> note = abjad.Note("cqs'4")
-        >>> microtones.tune_to_ratio(note.note_head, "tempered")
+        >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
         >>> abjad.show(note) # doctest: +SKIP
 
         ..  docs::
@@ -589,34 +589,19 @@ def tune_to_ratio(note_head, ratio, add_accidental=True, tempered=False):
 
     """
 
-    if ratio == "tempered":
+    bundle = make_ji_bundle(note_head.written_pitch, ratio)
+    note_head.written_pitch = bundle.pitch
+    if omit_just_accidental:
+        return
+    if tempered is True:
         tempered_accidental = note_head.written_pitch.accidental.name
         tempered_accidental = tempered_accidental.replace(" ", "-")
-        abjad.tweak(
-            note_head, literal=True
-        ).Accidental.stencil = r"#ly:text-interface::print"
-        abjad.tweak(
-            note_head, literal=True
-        ).Accidental.text = fr"\tempered-{tempered_accidental}"
+        manager = abjad.tweak(note_head, literal=True)
+        manager.Accidental.stencil = r"#ly:text-interface::print"
+        manager.Accidental.text = fr"\tempered-{tempered_accidental}"
     else:
-        bundle = make_ji_bundle(note_head.written_pitch, ratio)
-        note_head.written_pitch = bundle.pitch
-        if add_accidental is True:
-            if tempered is True:
-                tempered_accidental = note_head.written_pitch.accidental.name
-                tempered_accidental = tempered_accidental.replace(" ", "-")
-                abjad.tweak(
-                    note_head, literal=True
-                ).Accidental.stencil = r"#ly:text-interface::print"
-                abjad.tweak(
-                    note_head, literal=True
-                ).Accidental.text = fr"\tempered-{tempered_accidental}"
-            else:
-                markup = bundle.vector.calculate_heji_markup()
-                abjad.tweak(
-                    note_head, literal=True
-                ).Accidental.stencil = r"#ly:text-interface::print"
-                alteration_literal = markup
-                abjad.tweak(
-                    note_head, literal=False
-                ).Accidental.text = alteration_literal
+        markup = bundle.vector.calculate_heji_markup()
+        manager = abjad.tweak(note_head, literal=True)
+        manager.Accidental.stencil = r"#ly:text-interface::print"
+        alteration_literal = markup
+        manager.Accidental.text = alteration_literal

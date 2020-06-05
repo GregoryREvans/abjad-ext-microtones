@@ -1,3 +1,14 @@
+#(define-markup-command
+    (heji-accidental-markup layout props point-code)
+    (number?)
+    (interpret-markup layout props
+    #{
+    \markup
+    \fontsize #5
+    \override #'(font-name . "ekmelos")
+    \char #point-code
+    #}))
+
 % tempered accidentals %
 tempered-double-flat = \markup {\musicglyph #"accidentals.flatflat"
           \postscript #"gsave 0.1 setlinewidth -1.75 1.8 moveto -1.2 1.8 lineto -1 1.8 lineto
@@ -76,7 +87,7 @@ forced-double-flat = \markup {
 }
 
 
-% syntonic commas %
+% natural syntonic commas %
 forced-natural-one-syntonic-comma-down = \markup {
     \concat {
         \fontsize #5
@@ -119,14 +130,8 @@ forced-natural-three-syntonic-comma-up = \markup {
         \char ##xe2db
     }
 }
-
-forced-sharp-one-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2c3
-    }
-}
+% sharp syntonic commas %
+forced-sharp-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c3
 forced-sharp-two-syntonic-comma-down = \markup {
     \concat {
         \fontsize #5
@@ -162,7 +167,7 @@ forced-sharp-three-syntonic-comma-up = \markup {
         \char ##xe2dc
     }
 }
-
+% flat syntonic commas %
 forced-flat-one-syntonic-comma-down = \markup {
     \concat {
         \fontsize #5
@@ -205,7 +210,7 @@ forced-flat-three-syntonic-comma-up = \markup {
         \char ##xe2da
     }
 }
-
+% double sharp syntonic commas %
 forced-double-sharp-one-syntonic-comma-down = \markup {
     \concat {
         \fontsize #5
@@ -248,7 +253,7 @@ forced-double-sharp-three-syntonic-comma-up = \markup {
         \char ##xe2dd
     }
 }
-
+% double flat syntonic commas %
 forced-double-flat-one-syntonic-comma-down = \markup {
     \concat {
         \fontsize #5
