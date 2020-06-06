@@ -278,7 +278,7 @@ class HEJIVector:
                 for i, item in enumerate(literal_components):
                     kerned_components.append(item)
                     if i != len(literal_components) - 1:
-                            kerned_components.append(r"\hspace #0.125")
+                        kerned_components.append(r"\hspace #0.125")
                 literal = abjad.Markup(literal=True).concat(kerned_components)
         else:
             literal = abjad.Markup(
