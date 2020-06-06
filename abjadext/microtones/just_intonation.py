@@ -274,7 +274,12 @@ class HEJIVector:
             if len(literal_components) == 1:
                 literal = abjad.Markup(f"{literal_components[0]}", literal=True)
             else:
-                literal = abjad.Markup(literal=True).concat(literal_components)
+                kerned_components = []
+                for i, item in enumerate(literal_components):
+                    kerned_components.append(item)
+                    if i != len(literal_components) - 1:
+                            kerned_components.append(r"\hspace #0.125")
+                literal = abjad.Markup(literal=True).concat(kerned_components)
         else:
             literal = abjad.Markup(
                 fr"  \forced-{self.diatonic_accidental}", literal=True
@@ -447,7 +452,7 @@ def make_ji_bundle(pitch, ratio):
     denominator_factors = _prime_factors(ratio.denominator)
     accidental_vector = HEJIVector(diatonic_accidental=pitch.accidental.name)
     for prime in numerator_factors:
-        assert prime < 23
+        assert prime <= 23
         for string in _numerator_factor_to_intervals[prime]:
             pitch = abjad.NamedInterval(string).transpose(pitch)
         if prime in _numerator_factor_to_nudge:
@@ -455,7 +460,7 @@ def make_ji_bundle(pitch, ratio):
             value = getattr(accidental_vector, string)
             setattr(accidental_vector, string, value + 1)
     for prime in denominator_factors:
-        assert prime < 23
+        assert prime <= 23
         for string in _numerator_factor_to_intervals[prime]:
             string = string.replace("+", "-")
             pitch = abjad.NamedInterval(string).transpose(pitch)
