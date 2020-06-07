@@ -80,7 +80,7 @@ class PitchClassSet:
 
         """
 
-        output = '{'
+        output = "{"
         for i, pitch in enumerate(self.pitches):
             output += f"{pitch}"
             if i != len(self.pitches) - 1:
@@ -164,7 +164,9 @@ class PitchClassSet:
         candidate = rotations.pop()
         candidate_binary_value = self._binary_value(candidate.transpose_to_zero())
         for rotation in rotations:
-            alternative_candidate_binary_value = self._binary_value(rotation.transpose_to_zero())
+            alternative_candidate_binary_value = self._binary_value(
+                rotation.transpose_to_zero()
+            )
             if alternative_candidate_binary_value < candidate_binary_value:
                 candidate = rotation
                 candidate_binary_value = alternative_candidate_binary_value
