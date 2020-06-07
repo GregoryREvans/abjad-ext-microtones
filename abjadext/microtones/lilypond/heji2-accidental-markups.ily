@@ -1,3 +1,14 @@
+#(define-markup-command
+    (heji-accidental-markup layout props point-code)
+    (number?)
+    (interpret-markup layout props
+    #{
+    \markup
+    \fontsize #5
+    \override #'(font-name . "HEJI2")
+    \char #point-code
+    #}))
+
 % tempered accidentals %
 tempered-double-flat = \markup {
     \concat {
@@ -63,276 +74,53 @@ tempered-double-sharp = \markup {
     }
 }
 % diatonic accidentals %
-forced-natural = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##x266e
-    }
-}
-forced-sharp = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe262
-    }
-}
-forced-flat = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe260
-    }
-}
-forced-double-sharp = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe263
-    }
-}
-forced-double-flat = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe264
-    }
-}
+forced-natural = \markup \heji-accidental-markup ##x266e
+forced-sharp = \markup \heji-accidental-markup ##xe262
+forced-flat = \markup \heji-accidental-markup##xe260
+forced-double-sharp = \markup \heji-accidental-markup ##xe263
+forced-double-flat = \markup \heji-accidental-markup ##xe264
 
 
-% syntonic commas %
-forced-natural-one-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c2
-    }
-}
-forced-natural-two-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2cc
-    }
-}
-forced-natural-three-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d6
-    }
-}
-forced-natural-one-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c7
-    }
-}
-forced-natural-two-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d1
-    }
-}
-forced-natural-three-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2db
-    }
-}
-
-forced-sharp-one-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c3
-    }
-}
-forced-sharp-two-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2cd
-    }
-}
-forced-sharp-three-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d7
-    }
-}
-forced-sharp-one-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c8
-    }
-}
-forced-sharp-two-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d2
-    }
-}
-forced-sharp-three-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2dc
-    }
-}
-
-forced-flat-one-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c1
-    }
-}
-forced-flat-two-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2cb
-    }
-}
-forced-flat-three-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d5
-    }
-}
-forced-flat-one-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c6
-    }
-}
-forced-flat-two-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d0
-    }
-}
-forced-flat-three-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2da
-    }
-}
-
-forced-double-sharp-one-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c4
-    }
-}
-forced-double-sharp-two-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2ce
-    }
-}
-forced-double-sharp-three-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d8
-    }
-}
-forced-double-sharp-one-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c9
-    }
-}
-forced-double-sharp-two-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d3
-    }
-}
-forced-double-sharp-three-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2dd
-    }
-}
-
-forced-double-flat-one-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c0
-    }
-}
-forced-double-flat-two-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2ca
-    }
-}
-forced-double-flat-three-syntonic-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d4
-    }
-}
-forced-double-flat-one-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c5
-    }
-}
-forced-double-flat-two-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2c5
-    }
-}
-forced-double-flat-three-syntonic-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2d9
-    }
-}
+% natural syntonic commas %
+forced-natural-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c2
+forced-natural-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cc
+forced-natural-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d6
+forced-natural-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c7
+forced-natural-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d1
+forced-natural-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2db
+% sharp syntonic commas %
+forced-sharp-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c3
+forced-sharp-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cd
+forced-sharp-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d7
+forced-sharp-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c8
+forced-sharp-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d2
+forced-sharp-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2dc
+% flat syntonic commas %
+forced-flat-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c1
+forced-flat-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cb
+forced-flat-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d5
+forced-flat-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c6
+forced-flat-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d0
+forced-flat-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2da
+% double sharp syntonic commas %
+forced-double-sharp-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c4
+forced-double-sharp-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2ce
+forced-double-sharp-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d8
+forced-double-sharp-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c9
+forced-double-sharp-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d3
+forced-double-sharp-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2dd
+% double flat syntonic commas %
+forced-double-flat-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c0
+forced-double-flat-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2ca
+forced-double-flat-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d4
+forced-double-flat-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c5
+forced-double-flat-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2cf
+forced-double-flat-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d9
 
 
 % septimal commas %
-one-septimal-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2de
-    }
-}
-two-septimal-comma-down =
-\markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e0
-    }
-}
+one-septimal-comma-down = \markup \heji-accidental-markup ##xe2de
+two-septimal-comma-down = \markup \heji-accidental-markup ##xe2e0
 three-septimal-comma-down = \markup {
     \concat {
         \fontsize #5
@@ -343,20 +131,8 @@ three-septimal-comma-down = \markup {
         \char ##xe2e0
     }
 }
-one-septimal-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2df
-    }
-}
-two-septimal-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e1
-    }
-}
+one-septimal-comma-up = \markup \heji-accidental-markup ##xe2df
+two-septimal-comma-up = \markup \heji-accidental-markup ##xe2e1
 three-septimal-comma-up = \markup {
     \concat {
         \fontsize #5
@@ -370,13 +146,7 @@ three-septimal-comma-up = \markup {
 
 
 % undecimal quarter tones %
-one-undecimal-quarter-tone-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e2
-    }
-}
+one-undecimal-quarter-tone-down = \markup \heji-accidental-markup ##xe2e2
 two-undecimal-quarter-tone-down = \markup {
     \concat {
         \fontsize #5
@@ -400,13 +170,7 @@ three-undecimal-quarter-tone-down = \markup {
         \char ##xe2e2
     }
 }
-one-undecimal-quarter-tone-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e3
-    }
-}
+one-undecimal-quarter-tone-up = \markup \heji-accidental-markup ##xe2e3
 two-undecimal-quarter-tone-up = \markup {
     \concat {
         \fontsize #5
@@ -433,13 +197,7 @@ three-undecimal-quarter-tone-up = \markup {
 
 
 % tridecimal third tones %
-one-tridecimal-third-tone-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e4
-    }
-}
+one-tridecimal-third-tone-down = \markup \heji-accidental-markup ##xe2e4
 two-tridecimal-third-tone-down = \markup {
     \concat {
         \fontsize #5
@@ -463,13 +221,7 @@ three-tridecimal-third-tone-down = \markup {
         \char ##xe2e4
     }
 }
-one-tridecimal-third-tone-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e5
-    }
-}
+one-tridecimal-third-tone-up = \markup \heji-accidental-markup ##xe2e5
 two-tridecimal-third-tone-up = \markup {
     \concat {
         \fontsize #5
@@ -496,13 +248,7 @@ three-tridecimal-third-tone-up = \markup {
 
 
 % seventeen-limit skhismas %
-one-seventeen-limit-skhisma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e6
-    }
-}
+one-seventeen-limit-skhisma-down = \markup \heji-accidental-markup ##xe2e6
 two-seventeen-limit-skhisma-down = \markup {
     \concat {
         \fontsize #5
@@ -526,13 +272,7 @@ three-seventeen-limit-skhisma-down = \markup {
         \char ##xe2e6
     }
 }
-one-seventeen-limit-skhisma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e7
-    }
-}
+one-seventeen-limit-skhisma-up = \markup \heji-accidental-markup ##xe2e7
 two-seventeen-limit-skhisma-up = \markup {
     \concat {
         \fontsize #5
@@ -559,13 +299,7 @@ three-seventeen-limit-skhisma-up = \markup {
 
 
 % nineteen-limit skhismas %
-one-nineteen-limit-skhisma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e8
-    }
-}
+one-nineteen-limit-skhisma-down = \markup \heji-accidental-markup ##xe2e8
 two-nineteen-limit-skhisma-down = \markup {
     \concat {
         \fontsize #5
@@ -589,13 +323,7 @@ three-nineteen-limit-skhisma-down = \markup {
         \char ##xe2e8
     }
 }
-one-nineteen-limit-skhisma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2e9
-    }
-}
+one-nineteen-limit-skhisma-up = \markup \heji-accidental-markup ##xe2e9
 two-nineteen-limit-skhisma-up = \markup {
     \concat {
         \fontsize #5
@@ -620,13 +348,7 @@ three-nineteen-limit-skhisma-up = \markup {
     }
 }
 
-one-twenty-three-limit-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2eb
-    }
-}
+one-twenty-three-limit-comma-down = \markup \heji-accidental-markup ##xe2eb
 two-twenty-three-limit-comma-down = \markup {
     \concat {
         \fontsize #5
@@ -650,13 +372,7 @@ three-twenty-three-limit-comma-down = \markup {
         \char ##xe2eb
     }
 }
-one-twenty-three-limit-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "HEJI2")
-        \char ##xe2ea
-    }
-}
+one-twenty-three-limit-comma-up = \markup \heji-accidental-markup ##xe2ea
 two-twenty-three-limit-comma-up = \markup {
     \concat {
         \fontsize #5
