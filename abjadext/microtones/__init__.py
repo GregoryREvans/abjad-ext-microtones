@@ -9,6 +9,7 @@ from .equal_temperament import (
     get_alteration,
     get_value_sum,
 )
+from .et_utilities import PitchClassSet
 from .just_intonation import HEJIVector, JIBundle, make_ji_bundle, tune_to_ratio
 
 __all__ = [
@@ -17,6 +18,7 @@ __all__ = [
     "EDOBundle",
     "HEJIVector",
     "JIBundle",
+    "PitchClassSet",
     "apply_alteration",
     "get_accidental_value",
     "get_alteration",
