@@ -32,13 +32,7 @@
     \markup
     \fontsize #5
     \override #(cons 'font-name font-name)
-    \concat {
-    \char #point-code
-    \hspace #kern
-    \char #point-code
-    \hspace #kern
-    \char #point-code
-    }
+    \pattern #3 #X #kern \char #point-code
     #}))
 
 #(define-markup-command
