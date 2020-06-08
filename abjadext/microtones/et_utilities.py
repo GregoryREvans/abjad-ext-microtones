@@ -88,7 +88,11 @@ class PitchClassSet:
         output += "}"
         return output
 
-    def _binary_value(self, i):
+    def _transpose_to_zero(self):
+        return self.transpose(-self.pitches[0])
+
+    @staticmethod
+    def _binary_value(i):
         value = 0
         for bit in i:
             value += 2 ** bit
@@ -162,10 +166,10 @@ class PitchClassSet:
         original = self.sorted()
         rotations = [original.rotate(n) for n in range(size)]
         candidate = rotations.pop()
-        candidate_binary_value = self._binary_value(candidate.transpose_to_zero())
+        candidate_binary_value = self._binary_value(candidate._transpose_to_zero())
         for rotation in rotations:
             alternative_candidate_binary_value = self._binary_value(
-                rotation.transpose_to_zero()
+                rotation._transpose_to_zero()
             )
             if alternative_candidate_binary_value < candidate_binary_value:
                 candidate = rotation
@@ -183,8 +187,8 @@ class PitchClassSet:
 
         """
 
-        original = self.normal_order().transpose_to_zero()
-        inverted = self.invert().normal_order().transpose_to_zero()
+        original = self.normal_order()._transpose_to_zero()
+        inverted = self.invert().normal_order()._transpose_to_zero()
         if self._binary_value(original) < self._binary_value(inverted):
             return original
         else:
@@ -248,19 +252,6 @@ class PitchClassSet:
 
         transposed = [(pitch + n) % 12 for pitch in self.pitches]
         return PitchClassSet(transposed)
-
-    def transpose_to_zero(self):
-        """
-        Gets Pitch Class Set starting with 0.
-
-        ..  container:: example
-
-            >>> microtones.PitchClassSet([2, 3, 4]).transpose_to_zero()
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
-
-        """
-
-        return self.transpose(-self.pitches[0])
 
 
 class PitchSet:
@@ -340,6 +331,9 @@ class PitchSet:
                 output += ", "
         output += "}"
         return output
+
+    def _transpose_to_zero(self):
+        return self.transpose(-self.pitches[0])
 
     def complement_in_scale(self, scale):
         """
@@ -451,19 +445,6 @@ class PitchSet:
         transposed = [pitch + n for pitch in self.pitches]
         return PitchSet(transposed)
 
-    def transpose_to_zero(self):
-        """
-        Gets Pitch Set starting with 0.
-
-        ..  container:: example
-
-            >>> microtones.PitchSet([2, 3, 4]).transpose_to_zero()
-            PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
-
-        """
-
-        return self.transpose(-self.pitches[0])
-
 
 class PitchClassSegment:
     """
@@ -538,6 +519,9 @@ class PitchClassSegment:
                 output += ", "
         output += ")"
         return output
+
+    def _transpose_to_zero(self):
+        return self.transpose(-self.pitches[0])
 
     def complement_in_scale(self, scale):
         """
@@ -649,19 +633,6 @@ class PitchClassSegment:
         transposed = [(pitch + n) % 12 for pitch in self.pitches]
         return PitchClassSegment(transposed)
 
-    def transpose_to_zero(self):
-        """
-        Gets Pitch Class Segment starting with 0.
-
-        ..  container:: example
-
-            >>> microtones.PitchClassSegment([2, 3, 4]).transpose_to_zero()
-            PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
-
-        """
-
-        return self.transpose(-self.pitches[0])
-
 
 class PitchSegment:
     """
@@ -736,6 +707,9 @@ class PitchSegment:
                 output += ", "
         output += ")"
         return output
+
+    def _transpose_to_zero(self):
+        return self.transpose(-self.pitches[0])
 
     def complement_in_scale(self, scale):
         """
@@ -846,16 +820,3 @@ class PitchSegment:
 
         transposed = [pitch + n for pitch in self.pitches]
         return PitchSegment(transposed)
-
-    def transpose_to_zero(self):
-        """
-        Gets Pitch Segment starting with 0.
-
-        ..  container:: example
-
-            >>> microtones.PitchSegment([2, 3, 4]).transpose_to_zero()
-            PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
-
-        """
-
-        return self.transpose(-self.pitches[0])
