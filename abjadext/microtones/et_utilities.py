@@ -9,12 +9,12 @@ class PitchClassSet:
 
     """
 
-    def __init__(self, pitches):
-        temp = [fractions.Fraction(pitch) % 12 for pitch in pitches]
-        self.pitches = []
+    def __init__(self, pitch_classes):
+        temp = [fractions.Fraction(pitch) % 12 for pitch in pitch_classes]
+        self.pitch_classes = []
         for pitch in temp:
-            if pitch not in self.pitches:
-                self.pitches.append(pitch)
+            if pitch not in self.pitch_classes:
+                self.pitch_classes.append(pitch)
 
     def __iter__(self):
         """
@@ -40,7 +40,7 @@ class PitchClassSet:
 
         """
 
-        for pitch in self.pitches:
+        for pitch in self.pitch_classes:
             yield pitch
 
     def __len__(self):
@@ -54,7 +54,7 @@ class PitchClassSet:
 
         """
 
-        return len(self.pitches)
+        return len(self.pitch_classes)
 
     def __repr__(self):
         """
@@ -67,7 +67,7 @@ class PitchClassSet:
 
         """
 
-        return f"PitchClassSet({self.pitches})"
+        return f"PitchClassSet({self.pitch_classes})"
 
     def __str__(self):
         """
@@ -81,21 +81,21 @@ class PitchClassSet:
         """
 
         output = "{"
-        for i, pitch in enumerate(self.pitches):
+        for i, pitch in enumerate(self.pitch_classes):
             output += f"{pitch}"
-            if i != len(self.pitches) - 1:
+            if i != len(self.pitch_classes) - 1:
                 output += ", "
         output += "}"
         return output
 
     def _rotate(self, n):
-        copied_list = [i for i in self.pitches]
+        copied_list = [i for i in self.pitch_classes]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
         return PitchClassSet(copied_list_)
 
     def _transpose_to_zero(self):
-        return self.transpose(-self.pitches[0])
+        return self.transpose(-self.pitch_classes[0])
 
     @staticmethod
     def _binary_value(i):
@@ -119,7 +119,7 @@ class PitchClassSet:
 
         complements = []
         for pitch in scale:
-            if pitch not in self.pitches:
+            if pitch not in self.pitch_classes:
                 complements.append(pitch)
         return PitchClassSet(complements)
 
@@ -137,7 +137,7 @@ class PitchClassSet:
 
         """
 
-        intervals = [axis - i for i in self.pitches]
+        intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
         return PitchClassSet(inverse)
 
@@ -152,8 +152,8 @@ class PitchClassSet:
 
         """
 
-        multiplied_pitches = [n * pitch for pitch in self.pitches]
-        return PitchClassSet(multiplied_pitches)
+        multiplied_pitch_classes = [n * pitch for pitch in self.pitch_classes]
+        return PitchClassSet(multiplied_pitch_classes)
 
     def normal_order(self):
         """
@@ -166,9 +166,9 @@ class PitchClassSet:
 
         """
 
-        size = len(self.pitches)
+        size = len(self.pitch_classes)
         if size < 2:
-            return PitchClassSet(self.pitches)
+            return PitchClassSet(self.pitch_classes)
         original = self.sorted()
         rotations = [original._rotate(n) for n in range(size)]
         candidate = rotations.pop()
@@ -211,7 +211,7 @@ class PitchClassSet:
 
         """
 
-        return PitchClassSet(sorted(self.pitches))
+        return PitchClassSet(sorted(self.pitch_classes))
 
     def transpose(self, n):
         """
@@ -227,7 +227,7 @@ class PitchClassSet:
 
         """
 
-        transposed = [pitch + n for pitch in self.pitches]
+        transposed = [pitch + n for pitch in self.pitch_classes]
         return PitchClassSet(transposed)
 
 
@@ -408,8 +408,8 @@ class PitchClassSegment:
 
     """
 
-    def __init__(self, pitches):
-        self.pitches = [fractions.Fraction(pitch) % 12 for pitch in pitches]
+    def __init__(self, pitch_classes):
+        self.pitch_classes = [fractions.Fraction(pitch) % 12 for pitch in pitch_classes]
 
     def __iter__(self):
         """
@@ -426,7 +426,7 @@ class PitchClassSegment:
 
         """
 
-        for pitch in self.pitches:
+        for pitch in self.pitch_classes:
             yield pitch
 
     def __len__(self):
@@ -440,7 +440,7 @@ class PitchClassSegment:
 
         """
 
-        return len(self.pitches)
+        return len(self.pitch_classes)
 
     def __repr__(self):
         """
@@ -453,7 +453,7 @@ class PitchClassSegment:
 
         """
 
-        return f"PitchClassSegment({self.pitches})"
+        return f"PitchClassSegment({self.pitch_classes})"
 
     def __str__(self):
         """
@@ -467,15 +467,15 @@ class PitchClassSegment:
         """
 
         output = "("
-        for i, pitch in enumerate(self.pitches):
+        for i, pitch in enumerate(self.pitch_classes):
             output += f"{pitch}"
-            if i != len(self.pitches) - 1:
+            if i != len(self.pitch_classes) - 1:
                 output += ", "
         output += ")"
         return output
 
     def _transpose_to_zero(self):
-        return self.transpose(-self.pitches[0])
+        return self.transpose(-self.pitch_classes[0])
 
     def complement_in_scale(self, scale):
         """
@@ -492,7 +492,7 @@ class PitchClassSegment:
 
         complements = []
         for pitch in scale:
-            if pitch not in self.pitches:
+            if pitch not in self.pitch_classes:
                 complements.append(pitch)
         return PitchClassSegment(complements)
 
@@ -510,7 +510,7 @@ class PitchClassSegment:
 
         """
 
-        intervals = [axis - i for i in self.pitches]
+        intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
         return PitchClassSet(inverse)
 
@@ -525,8 +525,8 @@ class PitchClassSegment:
 
         """
 
-        multiplied_pitches = [(n * pitch) % 12 for pitch in self.pitches]
-        return PitchClassSegment(multiplied_pitches)
+        multiplied_pitch_classes = [n * pitch for pitch in self.pitch_classes]
+        return PitchClassSegment(multiplied_pitch_classes)
 
     def retrograde(self):
         """
@@ -539,7 +539,7 @@ class PitchClassSegment:
 
         """
 
-        return PitchClassSegment(reversed(self.pitches))
+        return PitchClassSegment(reversed(self.pitch_classes))
 
     def rotate(self, n):
         """
@@ -552,7 +552,7 @@ class PitchClassSegment:
 
         """
 
-        copied_list = [i for i in self.pitches]
+        copied_list = [i for i in self.pitch_classes]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
         return PitchClassSegment(copied_list_)
@@ -568,7 +568,7 @@ class PitchClassSegment:
 
         """
 
-        return PitchClassSegment(sorted(self.pitches))
+        return PitchClassSegment(sorted(self.pitch_classes))
 
     def transpose(self, n):
         """
@@ -584,7 +584,7 @@ class PitchClassSegment:
 
         """
 
-        transposed = [(pitch + n) % 12 for pitch in self.pitches]
+        transposed = [pitch + n for pitch in self.pitch_classes]
         return PitchClassSegment(transposed)
 
 
