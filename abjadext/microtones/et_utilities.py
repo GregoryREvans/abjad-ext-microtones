@@ -88,6 +88,12 @@ class PitchClassSet:
         output += "}"
         return output
 
+    def _rotate(self, n):
+        copied_list = [i for i in self.pitches]
+        steps = int(n) % len(copied_list)
+        copied_list_ = copied_list[steps:] + copied_list[:steps]
+        return PitchClassSet(copied_list_)
+
     def _transpose_to_zero(self):
         return self.transpose(-self.pitches[0])
 
@@ -98,7 +104,7 @@ class PitchClassSet:
             value += 2 ** bit
         return value
 
-    def complement_in_scale(self, scale):
+    def complement(self, scale):
         """
         Gets complement in scale.
 
@@ -106,7 +112,7 @@ class PitchClassSet:
 
             >>> pc_set = microtones.PitchClassSet([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
-            >>> pc_set.complement_in_scale(input_scale)
+            >>> pc_set.complement(input_scale)
             PitchClassSet([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
 
         """
@@ -126,13 +132,13 @@ class PitchClassSet:
             >>> microtones.PitchClassSet([0, 1, 3]).invert()
             PitchClassSet([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
 
-            >>> microtones.PitchClassSet([0, 1, 3]).invert(2)
-            PitchClassSet([Fraction(2, 1), Fraction(1, 1), Fraction(11, 1)])
+            >>> microtones.PitchClassSet([0, 1, 3]).invert(3)
+            PitchClassSet([Fraction(6, 1), Fraction(5, 1), Fraction(3, 1)])
 
         """
 
-        axis_ = axis + 12
-        inverse = [(axis_ - pitch) % 12 for pitch in self.pitches]
+        intervals = [axis - i for i in self.pitches]
+        inverse = [axis + interval for interval in intervals]
         return PitchClassSet(inverse)
 
     def multiply(self, n):
@@ -146,7 +152,7 @@ class PitchClassSet:
 
         """
 
-        multiplied_pitches = [(n * pitch) % 12 for pitch in self.pitches]
+        multiplied_pitches = [n * pitch for pitch in self.pitches]
         return PitchClassSet(multiplied_pitches)
 
     def normal_order(self):
@@ -164,7 +170,7 @@ class PitchClassSet:
         if size < 2:
             return PitchClassSet(self.pitches)
         original = self.sorted()
-        rotations = [original.rotate(n) for n in range(size)]
+        rotations = [original._rotate(n) for n in range(size)]
         candidate = rotations.pop()
         candidate_binary_value = self._binary_value(candidate._transpose_to_zero())
         for rotation in rotations:
@@ -194,35 +200,6 @@ class PitchClassSet:
         else:
             return inverted
 
-    def retrograde(self):
-        """
-        Gets retrograde.
-
-        ..  container:: example
-
-            >>> microtones.PitchClassSet([0, 1, 2]).retrograde()
-            PitchClassSet([Fraction(2, 1), Fraction(1, 1), Fraction(0, 1)])
-
-        """
-
-        return PitchClassSet(reversed(self.pitches))
-
-    def rotate(self, n):
-        """
-        Gets rotation.
-
-        ..  container:: example
-
-            >>> microtones.PitchClassSet([0, 1, 2]).rotate(1)
-            PitchClassSet([Fraction(1, 1), Fraction(2, 1), Fraction(0, 1)])
-
-        """
-
-        copied_list = [i for i in self.pitches]
-        steps = int(n) % len(copied_list)
-        copied_list_ = copied_list[steps:] + copied_list[:steps]
-        return PitchClassSet(copied_list_)
-
     def sorted(self):
         """
         Gets Pitch Class Set sorted in ascending order.
@@ -250,7 +227,7 @@ class PitchClassSet:
 
         """
 
-        transposed = [(pitch + n) % 12 for pitch in self.pitches]
+        transposed = [pitch + n for pitch in self.pitches]
         return PitchClassSet(transposed)
 
 
@@ -332,6 +309,12 @@ class PitchSet:
         output += "}"
         return output
 
+    def _rotate(self, n):
+        copied_list = [i for i in self.pitches]
+        steps = int(n) % len(copied_list)
+        copied_list_ = copied_list[steps:] + copied_list[:steps]
+        return PitchSet(copied_list_)
+
     def _transpose_to_zero(self):
         return self.transpose(-self.pitches[0])
 
@@ -361,16 +344,16 @@ class PitchSet:
         ..  container:: example
 
             >>> microtones.PitchSet([0, 1, 3]).invert()
-            PitchSet([Fraction(12, 1), Fraction(11, 1), Fraction(9, 1)])
+            PitchClassSet([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
 
             >>> microtones.PitchSet([0, 1, 3]).invert(2)
-            PitchSet([Fraction(14, 1), Fraction(13, 1), Fraction(11, 1)])
+            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
 
-        axis_ = axis + 12
-        inverse = [axis_ - pitch for pitch in self.pitches]
-        return PitchSet(inverse)
+        intervals = [axis - i for i in self.pitches]
+        inverse = [axis + interval for interval in intervals]
+        return PitchClassSet(inverse)
 
     def multiply(self, n):
         """
@@ -385,35 +368,6 @@ class PitchSet:
 
         multiplied_pitches = [n * pitch for pitch in self.pitches]
         return PitchSet(multiplied_pitches)
-
-    def retrograde(self):
-        """
-        Gets retrograde.
-
-        ..  container:: example
-
-            >>> microtones.PitchSet([0, 1, 2]).retrograde()
-            PitchSet([Fraction(2, 1), Fraction(1, 1), Fraction(0, 1)])
-
-        """
-
-        return PitchSet(reversed(self.pitches))
-
-    def rotate(self, n):
-        """
-        Gets rotation.
-
-        ..  container:: example
-
-            >>> microtones.PitchSet([0, 1, 2]).rotate(1)
-            PitchSet([Fraction(1, 1), Fraction(2, 1), Fraction(0, 1)])
-
-        """
-
-        copied_list = [i for i in self.pitches]
-        steps = int(n) % len(copied_list)
-        copied_list_ = copied_list[steps:] + copied_list[:steps]
-        return PitchSet(copied_list_)
 
     def sorted(self):
         """
@@ -438,7 +392,7 @@ class PitchSet:
             PitchSet([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
 
             >>> microtones.PitchSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchSet([Fraction(16, 1), Fraction(15, 1), Fraction(13, 1), Fraction(12, 1), Fraction(11, 1)])
+            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
 
         """
 
@@ -549,16 +503,16 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 3]).invert()
-            PitchClassSegment([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
+            PitchClassSet([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
 
             >>> microtones.PitchClassSegment([0, 1, 3]).invert(2)
-            PitchClassSegment([Fraction(2, 1), Fraction(1, 1), Fraction(11, 1)])
+            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
 
-        axis_ = axis + 12
-        inverse = [(axis_ - pitch) % 12 for pitch in self.pitches]
-        return PitchClassSegment(inverse)
+        intervals = [axis - i for i in self.pitches]
+        inverse = [axis + interval for interval in intervals]
+        return PitchClassSet(inverse)
 
     def multiply(self, n):
         """
@@ -626,7 +580,7 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
 
             >>> microtones.PitchClassSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchClassSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
+            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
 
         """
 
@@ -737,16 +691,16 @@ class PitchSegment:
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 3]).invert()
-            PitchSegment([Fraction(12, 1), Fraction(11, 1), Fraction(9, 1)])
+            PitchClassSet([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
 
             >>> microtones.PitchSegment([0, 1, 3]).invert(2)
-            PitchSegment([Fraction(14, 1), Fraction(13, 1), Fraction(11, 1)])
+            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
 
-        axis_ = axis + 12
-        inverse = [axis_ - pitch for pitch in self.pitches]
-        return PitchSegment(inverse)
+        intervals = [axis - i for i in self.pitches]
+        inverse = [axis + interval for interval in intervals]
+        return PitchClassSet(inverse)
 
     def multiply(self, n):
         """
@@ -814,7 +768,7 @@ class PitchSegment:
             PitchSegment([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
 
             >>> microtones.PitchSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchSegment([Fraction(16, 1), Fraction(15, 1), Fraction(13, 1), Fraction(12, 1), Fraction(11, 1)])
+            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
 
         """
 
