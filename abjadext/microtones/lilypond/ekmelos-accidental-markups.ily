@@ -9,44 +9,133 @@
     \char #point-code
     #}))
 
+#(define-markup-command
+    (heji-double-accidental-markup layout props point-code1 point-code2 kern)
+    (number? number? number?)
+    (interpret-markup layout props
+    #{
+    \markup
+    \fontsize #5
+    \override #'(font-name . "ekmelos")
+    \concat {
+    \char #point-code1
+    \hspace #kern
+    \char #point-code2
+    }
+    #}))
+
+#(define-markup-command
+    (heji-triple-accidental-markup layout props point-code kern)
+    (number? number?)
+    (interpret-markup layout props
+    #{
+    \markup
+    \fontsize #5
+    \override #'(font-name . "ekmelos")
+    \concat {
+    \char #point-code
+    \hspace #kern
+    \char #point-code
+    \hspace #kern
+    \char #point-code
+    }
+    #}))
+
 % tempered accidentals %
-tempered-double-flat = \markup {\musicglyph #"accidentals.flatflat"
-          \postscript #"gsave 0.1 setlinewidth -1.75 1.8 moveto -1.2 1.8 lineto -1 1.8 lineto
-          stroke grestore"}
+tempered-double-flat = \markup {
+    \musicglyph #"accidentals.flatflat"
+    \postscript #"gsave
+    0.1 setlinewidth
+    -1.75 1.8 moveto
+    -1.2 1.8 lineto
+    -1 1.8 lineto
+    stroke grestore"
+}
 
-tempered-three-quarters-flat = \markup {\musicglyph #"accidentals.mirroredflat.flat"
-       \postscript #"gsave 0.1 setlinewidth -1.75 1.8 moveto -1.2 1.8 lineto -1 1.8 lineto
-       stroke grestore"}
+tempered-three-quarters-flat = \markup {
+    \musicglyph #"accidentals.mirroredflat.flat"
+    \postscript #"gsave
+    0.1 setlinewidth
+    -1.75 1.8 moveto
+    -1.2 1.8 lineto
+    -1 1.8 lineto
+    stroke grestore"
+}
 
-tempered-flat = \markup {\musicglyph #"accidentals.flat"
-          \postscript #"gsave 0.1 setlinewidth -1.75 1.8 moveto -1.2 1.8 lineto -1 1.8 lineto
-          stroke grestore"}
+tempered-flat = \markup {
+    \musicglyph #"accidentals.flat"
+    \postscript #"gsave
+    0.1 setlinewidth
+    -1.75 1.8 moveto
+    -1.2 1.8 lineto
+    -1 1.8 lineto
+    stroke grestore"
+}
 
-tempered-quarter-flat = \markup {\musicglyph #"accidentals.mirroredflat"
-       \postscript #"gsave 0.1 setlinewidth -1.1 1.8 moveto -0.55 1.8 lineto -0.35 1.8 lineto
-       stroke grestore"}
+tempered-quarter-flat = \markup {
+    \musicglyph #"accidentals.mirroredflat"
+    \postscript #"gsave
+    0.1 setlinewidth
+    -1.1 1.8 moveto
+    -0.55 1.8 lineto
+    -0.35 1.8 lineto
+    stroke grestore"
+}
 
-tempered-natural = \markup {\musicglyph #"accidentals.natural"
-          \postscript #"gsave 0.1 setlinewidth -1.55 1.5 moveto -1.2 1.5 lineto -0.85 1.5 lineto
-          stroke grestore"}
+tempered-natural = \markup {
+    \musicglyph #"accidentals.natural"
+    \postscript #"gsave
+    0.1 setlinewidth
+    -1.55 1.5 moveto
+    -1.2 1.5 lineto
+    -0.85 1.5 lineto
+    stroke grestore"
+}
 
-tempered-quarter-sharp = \markup {\musicglyph #"accidentals.sharp.slashslash.stem"
-       \postscript #"gsave 0.1 setlinewidth -1.3 1.3 moveto -0.95 1.3 lineto -0.6 1.3 lineto
-       stroke grestore"}
+tempered-quarter-sharp = \markup {
+    \musicglyph #"accidentals.sharp.slashslash.stem"
+    \postscript #"gsave
+    0.1 setlinewidth
+    -1.3 1.3 moveto
+    -0.95 1.3 lineto
+    -0.6 1.3 lineto
+    stroke grestore"
+}
 
-tempered-sharp = \markup {\musicglyph #"accidentals.sharp"
-          \postscript #"gsave 0.1 setlinewidth -1.25 1.45 moveto -0.9 1.45 lineto -0.55 1.45 lineto
-          stroke grestore"}
+tempered-sharp = \markup {
+    \musicglyph #"accidentals.sharp"
+    \postscript #"gsave
+    0.1 setlinewidth
+    -1.25 1.45 moveto
+    -0.9 1.45 lineto
+    -0.55 1.45 lineto
+    stroke grestore"
+}
 
-tempered-three-quarters-sharp = \markup {\musicglyph #"accidentals.sharp.slashslash.stemstemstem"
-          \postscript #"gsave 0.1 setlinewidth -1.25 1.45 moveto -0.9 1.45 lineto -0.55 1.45 lineto
-          stroke grestore"}
+tempered-three-quarters-sharp = \markup {
+    \musicglyph #"accidentals.sharp.slashslash.stemstemstem"
+    \postscript #"gsave
+    0.1 setlinewidth
+    -1.25 1.45 moveto
+    -0.9 1.45 lineto
+    -0.55 1.45 lineto
+    stroke grestore"
+}
 
-tempered-double-sharp = \markup {\musicglyph #"accidentals.doublesharp"
-          \postscript #"gsave 0.17 setlinewidth -1.1 0 moveto -1.1 1.05 lineto
-          stroke grestore
-          gsave 0.1 setlinewidth -1.45 1.05 moveto -1.1 1.05 lineto -0.75 1.05 lineto
-          stroke grestore"}
+tempered-double-sharp = \markup {
+    \musicglyph #"accidentals.doublesharp"
+    \postscript #"gsave
+    0.17 setlinewidth
+    -1.1 0 moveto
+    -1.1 1.05 lineto
+    stroke grestore
+    gsave
+    0.1 setlinewidth
+    -1.45 1.05 moveto
+    -1.1 1.05 lineto
+    -0.75 1.05 lineto
+    stroke grestore"
+}
 
 
 % diatonic accidentals %
@@ -97,278 +186,53 @@ forced-double-flat-three-syntonic-comma-up = \markup \heji-accidental-markup ##x
 % septimal commas %
 one-septimal-comma-down = \markup \heji-accidental-markup ##xe2de
 two-septimal-comma-down = \markup \heji-accidental-markup ##xe2e0
-three-septimal-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2de
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e0
-    }
-}
+three-septimal-comma-down = \markup \heji-double-accidental-markup ##xe2de ##xe2e0 #0.125
 one-septimal-comma-up = \markup \heji-accidental-markup ##xe2df
 two-septimal-comma-up = \markup \heji-accidental-markup ##xe2e1
-three-septimal-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2df
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e1
-    }
-}
+three-septimal-comma-up = \markup \heji-double-accidental-markup ##xe2df ##xe2e1 #0.125
 
 
 % undecimal quarter tones %
 one-undecimal-quarter-tone-down = \markup \heji-accidental-markup ##xe2e2
-two-undecimal-quarter-tone-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e2
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e2
-    }
-}
-three-undecimal-quarter-tone-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e2
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e2
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e2
-    }
-}
+two-undecimal-quarter-tone-down = \markup \heji-double-accidental-markup ##xe2e2 ##xe2e2 #0.035
+three-undecimal-quarter-tone-down = \markup \heji-triple-accidental-markup ##xe2e2 #0.035
+
 one-undecimal-quarter-tone-up = \markup \heji-accidental-markup ##xe2e3
-two-undecimal-quarter-tone-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e3
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e3
-    }
-}
-three-undecimal-quarter-tone-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e3
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e3
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e3
-    }
-}
+two-undecimal-quarter-tone-up = \markup \heji-double-accidental-markup ##xe2e3 ##xe2e3 #0.125
+three-undecimal-quarter-tone-up = \markup \heji-triple-accidental-markup ##xe2e3 #0.125
 
 
 % tridecimal third tones %
 one-tridecimal-third-tone-down = \markup \heji-accidental-markup ##xe2e4
-two-tridecimal-third-tone-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e4
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e4
-    }
-}
-three-tridecimal-third-tone-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e4
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e4
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e4
-    }
-}
+two-tridecimal-third-tone-down = \markup \heji-double-accidental-markup ##xe2e4 ##xe2e4 #0.035
+three-tridecimal-third-tone-down = \markup \heji-triple-accidental-markup ##xe2e4 #0.035
 one-tridecimal-third-tone-up = \markup \heji-accidental-markup ##xe2e5
-two-tridecimal-third-tone-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e5
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e5
-    }
-}
-three-tridecimal-third-tone-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e5
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e5
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e5
-    }
-}
+two-tridecimal-third-tone-up = \markup \heji-double-accidental-markup ##xe2e5 ##xe2e5 #0.125
+three-tridecimal-third-tone-up = \markup \heji-triple-accidental-markup ##xe2e5 #0.125
 
 
 % seventeen-limit skhismas %
 one-seventeen-limit-skhisma-down = \markup \heji-accidental-markup ##xe2e6
-two-seventeen-limit-skhisma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e6
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e6
-    }
-}
-three-seventeen-limit-skhisma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e6
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e6
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e6
-    }
-}
+two-seventeen-limit-skhisma-down = \markup \heji-double-accidental-markup ##xe2e6 ##xe2e6 #0.125
+three-seventeen-limit-skhisma-down = \markup \heji-triple-accidental-markup ##xe2e6 #0.125
 one-seventeen-limit-skhisma-up = \markup \heji-accidental-markup ##xe2e7
-two-seventeen-limit-skhisma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e7
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e7
-    }
-}
-three-seventeen-limit-skhisma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e7
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e7
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e7
-    }
-}
+two-seventeen-limit-skhisma-up = \markup \heji-double-accidental-markup ##xe2e7 ##xe2e7 #0.125
+three-seventeen-limit-skhisma-up = \markup \heji-triple-accidental-markup ##xe2e7 #0.125
 
 
 % nineteen-limit skhismas %
 one-nineteen-limit-skhisma-down = \markup \heji-accidental-markup ##xe2e8
-two-nineteen-limit-skhisma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e8
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e8
-    }
-}
-three-nineteen-limit-skhisma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e8
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e8
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e8
-    }
-}
+two-nineteen-limit-skhisma-down = \markup \heji-double-accidental-markup ##xe2e8 ##xe2e8 #0.125
+three-nineteen-limit-skhisma-down = \markup \heji-triple-accidental-markup ##xe2e8 #0.125
 one-nineteen-limit-skhisma-up = \markup \heji-accidental-markup ##xe2e9
-two-nineteen-limit-skhisma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e9
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e9
-    }
-}
-three-nineteen-limit-skhisma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e9
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e9
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2e9
-    }
-}
+two-nineteen-limit-skhisma-up = \markup \heji-double-accidental-markup ##xe2e9 ##xe2e9 #0.125
+three-nineteen-limit-skhisma-up = \markup \heji-triple-accidental-markup ##xe2e9 #0.125
 
+
+% twenty-three-limit commas %
 one-twenty-three-limit-comma-down = \markup \heji-accidental-markup ##xe2eb
-two-twenty-three-limit-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2eb
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2eb
-    }
-}
-three-twenty-three-limit-comma-down = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2eb
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2eb
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2eb
-    }
-}
+two-twenty-three-limit-comma-down = \markup \heji-double-accidental-markup ##xe2eb ##xe2eb #0.125
+three-twenty-three-limit-comma-down = \markup \heji-triple-accidental-markup ##xe2eb #0.125
 one-twenty-three-limit-comma-up = \markup \heji-accidental-markup ##xe2ea
-two-twenty-three-limit-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2ea
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2ea
-    }
-}
-three-twenty-three-limit-comma-up = \markup {
-    \concat {
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2ea
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2ea
-        \fontsize #5
-        \override #'(font-name . "ekmelos")
-        \char ##xe2ea
-    }
-}
+two-twenty-three-limit-comma-up = \markup \heji-double-accidental-markup ##xe2ea ##xe2ea #0.125
+three-twenty-three-limit-comma-up = \markup \heji-triple-accidental-markup ##xe2ea #0.125
