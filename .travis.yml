@@ -56,15 +56,14 @@ before_install:
 - export PYTHONPATH=$TSMAKERS:$PYTHONPATH
 
 install:
-- cd $PACKAGE/..
-- pip install -e .
-- cd $LOCATION
+- pip install -e $PACKAGE/..
 - black --version
 - flake8 --version
 # - mypy --version
 # - pytest --version
 
 script:
+- echo $PACKAGE
 - black-check $PACKAGE
 - flake8-check $PACKAGE
 - isort-check $PACKAGE
