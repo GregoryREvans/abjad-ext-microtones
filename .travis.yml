@@ -71,10 +71,10 @@ script:
 - echo $LOCATION
 - echo $CONTENTS
 - echo $PACKAGE
-- black-check $PACKAGE
-- flake8-check $PACKAGE
-- isort-check $PACKAGE
-- evans-doctest $PACKAGE
+- black-check $CONTENTS
+- flake8-check $CONTENTS
+- isort-check $CONTENTS
+- evans-doctest $CONTENTS
 
 after_success:
 - pip install --quiet coveralls
