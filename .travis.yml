@@ -66,6 +66,7 @@ install:
 # - pytest --version
 
 script:
+- echo $LOCATION
 - echo $PACKAGE
 - black-check $PACKAGE
 - flake8-check $PACKAGE
