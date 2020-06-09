@@ -63,11 +63,11 @@ install:
 # - pytest --version
 
 script:
-- echo $PACKAGE
-- black-check $PACKAGE
-- flake8-check $PACKAGE
-- isort-check $PACKAGE
-# - evans-doctest $PACKAGE
+- echo $PACKAGE/microtones
+- black-check $PACKAGE/microtones
+- flake8-check $PACKAGE/microtones
+- isort-check $PACKAGE/microtones
+- evans-doctest $PACKAGE/microtones
 
 after_success:
 - pip install --quiet coveralls
