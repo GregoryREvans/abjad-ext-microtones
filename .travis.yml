@@ -61,7 +61,7 @@ before_install:
 - export PYTHONPATH=$TSMAKERS:$PYTHONPATH
 
 install:
-- pip install -e $PACKAGE
+- pip install -e $LOCATION
 - black --version
 - flake8 --version
 - mypy --version
