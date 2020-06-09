@@ -39,7 +39,6 @@ class PitchClassSet:
             39/5
 
         """
-
         for pitch in self.pitch_classes:
             yield pitch
 
@@ -53,7 +52,6 @@ class PitchClassSet:
             3
 
         """
-
         return len(self.pitch_classes)
 
     def __repr__(self):
@@ -66,8 +64,7 @@ class PitchClassSet:
             PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
-        return f"PitchClassSet({self.pitch_classes})"
+        return f"{self.__class__.__name__}({self.pitch_classes})"
 
     def __str__(self):
         """
@@ -79,7 +76,6 @@ class PitchClassSet:
             '{0, 1, 2}'
 
         """
-
         output = "{"
         for i, pitch in enumerate(self.pitch_classes):
             output += f"{pitch}"
@@ -116,7 +112,6 @@ class PitchClassSet:
             PitchClassSet([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
 
         """
-
         complements = []
         for pitch in scale:
             if pitch not in self.pitch_classes:
@@ -136,7 +131,6 @@ class PitchClassSet:
             PitchClassSet([Fraction(6, 1), Fraction(5, 1), Fraction(3, 1)])
 
         """
-
         intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
         return PitchClassSet(inverse)
@@ -151,7 +145,6 @@ class PitchClassSet:
             PitchClassSet([Fraction(0, 1), Fraction(2, 1), Fraction(6, 1)])
 
         """
-
         multiplied_pitch_classes = [n * pitch for pitch in self.pitch_classes]
         return PitchClassSet(multiplied_pitch_classes)
 
@@ -165,7 +158,6 @@ class PitchClassSet:
             PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
         size = len(self.pitch_classes)
         if size < 2:
             return PitchClassSet(self.pitch_classes)
@@ -192,7 +184,6 @@ class PitchClassSet:
             PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
         original = self.normal_order()._transpose_to_zero()
         inverted = self.invert().normal_order()._transpose_to_zero()
         if self._binary_value(original) < self._binary_value(inverted):
@@ -210,7 +201,6 @@ class PitchClassSet:
             PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
         return PitchClassSet(sorted(self.pitch_classes))
 
     def transpose(self, n):
@@ -226,7 +216,6 @@ class PitchClassSet:
             PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
 
         """
-
         transposed = [pitch + n for pitch in self.pitch_classes]
         return PitchClassSet(transposed)
 
@@ -260,7 +249,6 @@ class PitchSet:
             Fraction(2, 1)
 
         """
-
         for pitch in self.pitches:
             yield pitch
 
@@ -274,7 +262,6 @@ class PitchSet:
             3
 
         """
-
         return len(self.pitches)
 
     def __repr__(self):
@@ -287,8 +274,7 @@ class PitchSet:
             PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
-        return f"PitchSet({self.pitches})"
+        return f"{self.__class__.__name__}({self.pitches})"
 
     def __str__(self):
         """
@@ -300,7 +286,6 @@ class PitchSet:
             '{0, 1, 2}'
 
         """
-
         output = "{"
         for i, pitch in enumerate(self.pitches):
             output += f"{pitch}"
@@ -330,7 +315,6 @@ class PitchSet:
             PitchSet([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
 
         """
-
         complements = []
         for pitch in scale:
             if pitch not in self.pitches:
@@ -350,7 +334,6 @@ class PitchSet:
             PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
-
         intervals = [axis - i for i in self.pitches]
         inverse = [axis + interval for interval in intervals]
         return PitchClassSet(inverse)
@@ -365,7 +348,6 @@ class PitchSet:
             PitchSet([Fraction(0, 1), Fraction(2, 1), Fraction(6, 1)])
 
         """
-
         multiplied_pitches = [n * pitch for pitch in self.pitches]
         return PitchSet(multiplied_pitches)
 
@@ -379,7 +361,6 @@ class PitchSet:
             PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
         return PitchSet(sorted(self.pitches))
 
     def transpose(self, n):
@@ -395,7 +376,6 @@ class PitchSet:
             PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
 
         """
-
         transposed = [pitch + n for pitch in self.pitches]
         return PitchSet(transposed)
 
@@ -425,7 +405,6 @@ class PitchClassSegment:
             Fraction(2, 1)
 
         """
-
         for pitch in self.pitch_classes:
             yield pitch
 
@@ -439,7 +418,6 @@ class PitchClassSegment:
             3
 
         """
-
         return len(self.pitch_classes)
 
     def __repr__(self):
@@ -452,8 +430,7 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
-        return f"PitchClassSegment({self.pitch_classes})"
+        return f"{self.__class__.__name__}({self.pitch_classes})"
 
     def __str__(self):
         """
@@ -465,7 +442,6 @@ class PitchClassSegment:
             '(0, 1, 2)'
 
         """
-
         output = "("
         for i, pitch in enumerate(self.pitch_classes):
             output += f"{pitch}"
@@ -489,7 +465,6 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
 
         """
-
         complements = []
         for pitch in scale:
             if pitch not in self.pitch_classes:
@@ -509,7 +484,6 @@ class PitchClassSegment:
             PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
-
         intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
         return PitchClassSet(inverse)
@@ -524,7 +498,6 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(0, 1), Fraction(2, 1), Fraction(6, 1)])
 
         """
-
         multiplied_pitch_classes = [n * pitch for pitch in self.pitch_classes]
         return PitchClassSegment(multiplied_pitch_classes)
 
@@ -538,7 +511,6 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(2, 1), Fraction(1, 1), Fraction(0, 1)])
 
         """
-
         return PitchClassSegment(reversed(self.pitch_classes))
 
     def rotate(self, n):
@@ -551,7 +523,6 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(1, 1), Fraction(2, 1), Fraction(0, 1)])
 
         """
-
         copied_list = [i for i in self.pitch_classes]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
@@ -567,7 +538,6 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
         return PitchClassSegment(sorted(self.pitch_classes))
 
     def transpose(self, n):
@@ -583,7 +553,6 @@ class PitchClassSegment:
             PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
 
         """
-
         transposed = [pitch + n for pitch in self.pitch_classes]
         return PitchClassSegment(transposed)
 
@@ -613,7 +582,6 @@ class PitchSegment:
             Fraction(2, 1)
 
         """
-
         for pitch in self.pitches:
             yield pitch
 
@@ -627,7 +595,6 @@ class PitchSegment:
             3
 
         """
-
         return len(self.pitches)
 
     def __repr__(self):
@@ -640,8 +607,7 @@ class PitchSegment:
             PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
-        return f"PitchSegment({self.pitches})"
+        return f"{self.__class__.__name__}({self.pitches})"
 
     def __str__(self):
         """
@@ -653,7 +619,6 @@ class PitchSegment:
             '(0, 1, 2)'
 
         """
-
         output = "("
         for i, pitch in enumerate(self.pitches):
             output += f"{pitch}"
@@ -677,7 +642,6 @@ class PitchSegment:
             PitchSegment([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
 
         """
-
         complements = []
         for pitch in scale:
             if pitch not in self.pitches:
@@ -697,7 +661,6 @@ class PitchSegment:
             PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
-
         intervals = [axis - i for i in self.pitches]
         inverse = [axis + interval for interval in intervals]
         return PitchClassSet(inverse)
@@ -712,7 +675,6 @@ class PitchSegment:
             PitchSegment([Fraction(0, 1), Fraction(2, 1), Fraction(6, 1)])
 
         """
-
         multiplied_pitches = [n * pitch for pitch in self.pitches]
         return PitchSegment(multiplied_pitches)
 
@@ -726,7 +688,6 @@ class PitchSegment:
             PitchSegment([Fraction(2, 1), Fraction(1, 1), Fraction(0, 1)])
 
         """
-
         return PitchSegment(reversed(self.pitches))
 
     def rotate(self, n):
@@ -739,7 +700,6 @@ class PitchSegment:
             PitchSegment([Fraction(1, 1), Fraction(2, 1), Fraction(0, 1)])
 
         """
-
         copied_list = [i for i in self.pitches]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
@@ -755,7 +715,6 @@ class PitchSegment:
             PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-
         return PitchSegment(sorted(self.pitches))
 
     def transpose(self, n):
@@ -771,6 +730,5 @@ class PitchSegment:
             PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
 
         """
-
         transposed = [pitch + n for pitch in self.pitches]
         return PitchSegment(transposed)
