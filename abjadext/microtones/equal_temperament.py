@@ -26,7 +26,6 @@ class EDOBundle:
             EDOBundle(pitch="c'", accidental_string=None)
 
         """
-
         if self.accidental_string is None:
             return f"""{self.__class__.__name__}(pitch="{self.pitch}", accidental_string={self.accidental_string})"""
         else:
@@ -129,7 +128,6 @@ def get_accidental_value(pitch):
         1
 
     """
-
     accidental = pitch.accidental.name
     accidental_value = _accidental_to_value[f"{accidental}"]
     return accidental_value
@@ -146,7 +144,6 @@ def get_value_sum(pitch, value):
         Fraction(7, 4)
 
     """
-
     value = fractions.Fraction(value)
     return get_accidental_value(pitch) + value
 
@@ -166,7 +163,6 @@ def get_alteration(pitch, value):
         '\\quarter-sharp-markup'
 
     """
-
     value = fractions.Fraction(value) * 2
     semitones = int(math.modf(value)[1])
     remainder = fractions.Fraction(value - int(math.modf(value)[1]))
@@ -207,7 +203,6 @@ def apply_alteration(note_head, value):
             df'4
 
     """
-
     value = fractions.Fraction(value)
     pitch = note_head.written_pitch
     bundle = get_alteration(pitch, value)

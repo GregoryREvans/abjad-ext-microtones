@@ -81,7 +81,6 @@ class HEJIVector:
             )
 
         """
-
         return f"""{self.__class__.__name__}(
         diatonic_accidental="{self.diatonic_accidental}",
         syntonic_commas_down={self.syntonic_commas_down},
@@ -114,7 +113,6 @@ class HEJIVector:
             True
 
         """
-
         return any(
             [
                 self.syntonic_commas_down,
@@ -145,7 +143,6 @@ class HEJIVector:
             \forced-natural-one-syntonic-comma-down
 
         """
-
         int_to_word = {"1": "one", "2": "two", "3": "three"}
         accumulated_accidentals = []
         if self.diatonic_accidental == "double sharp":
@@ -352,7 +349,6 @@ class JIBundle:
             )
 
         """
-
         return f"""{self.__class__.__name__}(
         pitch={self.pitch},
         vector={repr(self.vector)},\n)"""
@@ -442,7 +438,6 @@ def make_ji_bundle(pitch, ratio):
                 )
 
     """
-
     if isinstance(pitch, str):
         pitch = abjad.NamedPitch(pitch)
     elif isinstance(pitch, int):
@@ -593,7 +588,6 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
             cqs'4
 
     """
-
     bundle = make_ji_bundle(note_head.written_pitch, ratio)
     note_head.written_pitch = bundle.pitch
     if omit_just_accidental:
