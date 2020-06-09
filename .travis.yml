@@ -26,8 +26,7 @@ before_install:
 - pip install mypy
 
 # alias package:
-- WRAPPER=`pwd`
-- PACKAGE=$WRAPPER/abjadext/microtones
+- PACKAGE=$LOCATION/abjadext/microtones
 - export PYTHONPATH=$PACKAGE:$PYTHONPATH
 # from josiah
 - wget -q ${LILYPOND_URL}lilypond-${LILYPOND_VERSION}-1.linux-64.sh
@@ -71,10 +70,10 @@ script:
 - echo $LOCATION
 - echo $CONTENTS
 - echo $PACKAGE
-- black-check $CONTENTS
-- flake8-check $CONTENTS
-- isort-check $CONTENTS
-- evans-doctest $CONTENTS
+- black-check $PACKAGE
+- flake8-check $PACKAGE
+- isort-check $PACKAGE
+- evans-doctest $PACKAGE
 
 after_success:
 - pip install --quiet coveralls
