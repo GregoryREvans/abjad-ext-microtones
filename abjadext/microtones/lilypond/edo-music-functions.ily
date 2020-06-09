@@ -1,5 +1,16 @@
-\version "2.19.84"
-\include "edo-accidental-markups.ily"
+%%% one quarter tone down %%%
+one-quarter-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-quarter-flat-markup
+        $note #})
+
+%%% one quarter tone down %%%
+three-quarters-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \three-quarters-flat-markup
+        $note #})
 
 %%% one eighth tone up %%%
 one-eighth-sharp =
@@ -167,4 +178,60 @@ eleven-twelfths-flat =
 #(define-music-function (parser location note)   (ly:music?)
  #{ \tweak Accidental.stencil #ly:text-interface::print
         \tweak Accidental.text \eleven-twelfths-flat-markup
+        $note #})
+
+%%% one fifth up %%%
+one-fifth-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-fifth-sharp-markup
+        $note #})
+
+%%% two fifths up %%%
+two-fifths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \two-fifths-sharp-markup
+        $note #})
+
+%%% three fifths up %%%
+three-fifths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \three-fifths-sharp-markup
+        $note #})
+
+%%% four fifths up %%%
+four-fifths-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \four-fifths-sharp-markup
+        $note #})
+
+%%% one fifth down %%%
+one-fifth-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \one-fifth-flat-markup
+        $note #})
+
+%%% two fifths down %%%
+two-fifths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \two-fifths-flat-markup
+        $note #})
+
+%%% three fifths down %%%
+three-fifths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \three-fifths-flat-markup
+        $note #})
+
+%%% four fifths down %%%
+four-fifths-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \four-fifths-flat-markup
         $note #})

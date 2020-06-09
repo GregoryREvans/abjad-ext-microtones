@@ -2,6 +2,7 @@
 font-name = "ekmelos"
 \include "markup-functions.ily"
 
+
 % tempered accidentals %
 tempered-double-flat = \markup {
     \musicglyph #"accidentals.flatflat"
@@ -14,7 +15,9 @@ tempered-double-flat = \markup {
 }
 
 tempered-three-quarters-flat = \markup {
-    \musicglyph #"accidentals.mirroredflat.flat"
+    \fontsize #5
+    \override #'(font-name . "ekmelos")
+    \char ##xe296
     \postscript #"gsave
     0.1 setlinewidth
     -1.75 1.8 moveto
@@ -34,7 +37,9 @@ tempered-flat = \markup {
 }
 
 tempered-quarter-flat = \markup {
-    \musicglyph #"accidentals.mirroredflat"
+    \fontsize #5
+    \override #'(font-name . "ekmelos")
+    \char ##xe480
     \postscript #"gsave
     0.1 setlinewidth
     -1.1 1.8 moveto

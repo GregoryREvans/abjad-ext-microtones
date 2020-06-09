@@ -2,7 +2,7 @@
 \language "english"
 #(set-default-paper-size "letterlandscape")
 #(set-global-staff-size 15)
-\include "edo-accidentals.ily"
+\include "ekmelos-edo-accidentals.ily"
 
 \layout {
 	indent = #1
@@ -47,6 +47,7 @@
                 ctqf'4
 				^ \markup {\halign #0 - \fraction 5 6}
 
+				\three-quarters-flat
                 ctqf'4
 				^ \markup {\halign #0 - \fraction 3 4}
 
@@ -77,6 +78,7 @@
                 cqf'4
 				^ \markup {\halign #0 - \fraction 1 3}
 
+				\one-quarter-flat
                 cqf'4
 				^ \markup {\halign #0 - \fraction 1 4}
 
