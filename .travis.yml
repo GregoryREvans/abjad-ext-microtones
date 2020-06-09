@@ -11,7 +11,6 @@ env:
 
 before_install:
 - LOCATION=`pwd`
-- CONTENTS=`ls abjadext/microtones`
 
 # upgrade pip:
 - pip install --upgrade pip
@@ -22,11 +21,8 @@ before_install:
 # install isort:
 - pip install isort
 
-# install mypy:
-- pip install mypy
-
 # alias package:
-- PACKAGE=$LOCATION/abjadext/microtones
+- PACKAGE=`pwd`/abjadext
 - export PYTHONPATH=$PACKAGE:$PYTHONPATH
 # from josiah
 - wget -q ${LILYPOND_URL}lilypond-${LILYPOND_VERSION}-1.linux-64.sh
@@ -60,20 +56,19 @@ before_install:
 - export PYTHONPATH=$TSMAKERS:$PYTHONPATH
 
 install:
-- pip install -e $LOCATION
+- cd $PACKAGE/..
+- pip install -e .
+- cd $LOCATION
 - black --version
 - flake8 --version
-- mypy --version
+# - mypy --version
 # - pytest --version
 
 script:
-- echo $LOCATION
-- echo $CONTENTS
-- echo $PACKAGE
 - black-check $PACKAGE
 - flake8-check $PACKAGE
 - isort-check $PACKAGE
-- evans-doctest $PACKAGE
+# - evans-doctest $PACKAGE
 
 after_success:
 - pip install --quiet coveralls
