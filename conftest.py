@@ -1,6 +1,5 @@
-import pytest
-
 import abjad
+import pytest
 
 
 @pytest.fixture(autouse=True)
