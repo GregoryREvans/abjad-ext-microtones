@@ -2,8 +2,34 @@
 \language "english"
 
 
+
+%%% natural %%%
+forced-natural-markup = \markup {
+    \musicglyph #"accidentals.natural"
+}
+
+%%% sharp %%%
+forced-sharp-markup = \markup {
+    \musicglyph #"accidentals.sharp"
+}
+
+%%% flat %%%
+forced-flat-markup = \markup {
+    \musicglyph #"accidentals.flat"
+}
+
+%%% double sharp %%%
+double-sharp-markup = \markup {
+    \musicglyph #"accidentals.doublesharp"
+}
+
+%%% double flat %%%
+double-flat-markup = \markup {
+    \musicglyph #"accidentals.flatflat"
+}
+
 %%% one quarter tone up %%%
-one-quarter-sharp-markup = \markup {
+quarter-sharp-markup = \markup {
     \musicglyph #"accidentals.sharp.slashslash.stem"
 }
 
@@ -13,7 +39,7 @@ three-quarters-sharp-markup = \markup {
 }
 
 %%% one eighth tone up %%%
-one-eighth-sharp-markup = \markup {
+eighth-sharp-markup = \markup {
     \musicglyph #"accidentals.natural"
     \postscript #"gsave
         0.17 setlinewidth
@@ -77,7 +103,7 @@ seven-eighths-sharp-markup = \markup {
 }
 
 %%% one eighth tone down %%%
-one-eighth-flat-markup = \markup {
+eighth-flat-markup = \markup {
     \musicglyph #"accidentals.natural"
     \postscript #"gsave
         0.15 setlinewidth

@@ -1,9 +1,11 @@
 \version "2.19.84"
 \language "english"
+\include "fraction-accidental-markups.ily"
+\include "general-edo-accidental-markups.ily"
 
 
 %%% one quarter tone down %%%
-one-quarter-flat-markup = \markup {
+quarter-flat-markup = \markup {
     \fontsize #5
     \override #'(font-name . "ekmelos")
     \char ##xe480

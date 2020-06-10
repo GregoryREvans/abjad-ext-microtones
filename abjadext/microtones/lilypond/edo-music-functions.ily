@@ -1,8 +1,57 @@
-%%% one quarter tone down %%%
-one-quarter-flat =
+%%% natural %%%
+forced-natural =
 #(define-music-function (parser location note)   (ly:music?)
  #{ \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \one-quarter-flat-markup
+        \tweak Accidental.text \forced-natural-markup
+        $note #})
+
+%%% sharp %%%
+forced-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \forced-sharp-markup
+        $note #})
+
+%%% flat %%%
+forced-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \forced-flat-markup
+        $note #})
+
+%%% double sharp %%%
+double-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \double-sharp-markup
+        $note #})
+
+%%% double flat %%%
+double-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \double-flat-markup
+        $note #})
+
+%%% one quarter tone up %%%
+quarter-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \quarter-sharp-markup
+        $note #})
+
+%%% one quarter tone up %%%
+three-quarters-sharp =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \three-quarters-sharp-markup
+        $note #})
+
+%%% one quarter tone down %%%
+quarter-flat =
+#(define-music-function (parser location note)   (ly:music?)
+ #{ \tweak Accidental.stencil #ly:text-interface::print
+        \tweak Accidental.text \quarter-flat-markup
         $note #})
 
 %%% one quarter tone down %%%
@@ -16,7 +65,7 @@ three-quarters-flat =
 one-eighth-sharp =
 #(define-music-function (parser location note)   (ly:music?)
  #{ \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \one-eighth-sharp-markup
+        \tweak Accidental.text \eighth-sharp-markup
         $note #})
 
 %%% three eighth tones up %%%
@@ -44,7 +93,7 @@ seven-eighths-sharp =
 one-eighth-flat =
 #(define-music-function (parser location note)   (ly:music?)
  #{ \tweak Accidental.stencil #ly:text-interface::print
-        \tweak Accidental.text \one-eighth-flat-markup
+        \tweak Accidental.text \eighth-flat-markup
         $note #})
 
 %%% three eighth tones down %%%

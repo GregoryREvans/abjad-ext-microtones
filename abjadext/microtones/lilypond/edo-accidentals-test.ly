@@ -1,6 +1,6 @@
 \version "2.19.84"
 \language "english"
-#(set-default-paper-size "letterlandscape")
+#(set-default-paper-size "legallandscape")
 #(set-global-staff-size 15)
 \include "ekmelos-edo-accidentals.ily"
 
@@ -32,6 +32,7 @@
         \new Staff {
 		\time 3/4
             \new Voice {
+				\double-flat
                 cff'4
 				^ \markup {\halign #0 - \fraction 1 1}
 
@@ -47,6 +48,10 @@
                 ctqf'4
 				^ \markup {\halign #0 - \fraction 5 6}
 
+				\four-fifths-flat
+                ctqf'4
+				^ \markup {\halign #0 - \fraction 4 5}
+
 				\three-quarters-flat
                 ctqf'4
 				^ \markup {\halign #0 - \fraction 3 4}
@@ -59,16 +64,25 @@
                 cf'4
 				^ \markup {\halign #0 - \fraction 5 8}
 
+				\three-fifths-flat
+                cf'4
+				^ \markup {\halign #0 - \fraction 3 5}
+
 				\seven-twelfths-flat
                 cf'4
 				^ \markup {\halign #0 - \fraction 7 12}
 
+				\forced-flat
                 cf'4
 				^ \markup {\halign #0 - \fraction 1 2}
 
 				\five-twelfths-flat
                 cqf'4
 				^ \markup {\halign #0 - \fraction 5 12}
+
+				\two-fifths-flat
+                cqf'4
+				^ \markup {\halign #0 - \fraction 2 5}
 
 				\three-eighths-flat
                 cqf'4
@@ -78,9 +92,13 @@
                 cqf'4
 				^ \markup {\halign #0 - \fraction 1 3}
 
-				\one-quarter-flat
+				\quarter-flat
                 cqf'4
 				^ \markup {\halign #0 - \fraction 1 4}
+
+				\one-fifth-flat
+                c'4
+				^ \markup {\halign #0 - \fraction 1 5}
 
 				\one-sixth-flat
                 c'4
@@ -94,6 +112,7 @@
                 c'4
 				^ \markup {\halign #0 - \fraction 1 12}
 
+				\forced-natural
                 c'4
 
 				\one-twelfth-sharp
@@ -108,6 +127,11 @@
                 c'4
 				^ \markup {\halign #0 + \fraction 1 6}
 
+				\one-fifth-sharp
+                c'4
+				^ \markup {\halign #0 + \fraction 1 5}
+
+				\quarter-sharp
                 cqs'4
 				^ \markup {\halign #0 + \fraction 1 4}
 
@@ -119,16 +143,25 @@
                 cqs'4
 				^ \markup {\halign #0 + \fraction 3 8}
 
+				\two-fifths-sharp
+                cqs'4
+				^ \markup {\halign #0 + \fraction 2 5}
+
 				\five-twelfths-sharp
                 cqs'4
 				^ \markup {\halign #0 + \fraction 5 12}
 
+				\forced-sharp
                 cs'4
 				^ \markup {\halign #0 + \fraction 1 2}
 
 				\seven-twelfths-sharp
                 cs'4
 				^ \markup {\halign #0 + \fraction 7 12}
+
+				\three-fifths-sharp
+                cs'4
+				^ \markup {\halign #0 + \fraction 3 5}
 
 				\five-eighths-sharp
                 cs'4
@@ -138,8 +171,13 @@
                 cs'4
 				^ \markup {\halign #0 + \fraction 2 3}
 
+				\three-quarters-sharp
                 ctqs'4
 				^ \markup {\halign #0 + \fraction 3 4}
+
+				\four-fifths-sharp
+                ctqs'4
+				^ \markup {\halign #0 + \fraction 4 5}
 
 				\five-sixths-sharp
                 ctqs'4
@@ -153,6 +191,7 @@
                 ctqs'4
 				^ \markup {\halign #0 + \fraction 11 12}
 
+				\double-sharp
                 css'4
 				^ \markup {\halign #0 + \fraction 1 1}
             }
