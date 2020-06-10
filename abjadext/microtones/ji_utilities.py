@@ -34,13 +34,13 @@ class RatioClassSet:
             Fraction(2, 1)
             Fraction(3, 2)
 
-            >>> for x in microtones.RatioClassSet(["31/2", "10", "33/4", "36/10", "113/10"]).prime_form():
+            >>> for x in microtones.RatioClassSet(["31/2", "10", "33/4", "36/10", "113/10"]):
             ...     print(x)
-            1487/1023
-            1
-            290/279
-            4175/3503
-            199/155
+            31/16
+            5/4
+            33/32
+            9/5
+            113/80
 
         """
         for ratio in self.ratio_classes:
@@ -97,13 +97,6 @@ class RatioClassSet:
     def _transpose_to_one(self):
         return self.transpose(-min(self.ratio_classes) + 1)
 
-    @staticmethod
-    def _binary_value(i):
-        value = 0
-        for bit in i:
-            value += 2 ** bit
-        return value
-
     def complement(self, scale):
         """
         Gets complement in scale.
@@ -152,60 +145,21 @@ class RatioClassSet:
         multiplied_pitch_classes = [n * ratio for ratio in self.ratio_classes]
         return RatioClassSet(multiplied_pitch_classes)
 
-    def normal_order(self):
-        """
-        Gets normal order.
-
-        ..  container:: example
-
-            >>> microtones.RatioClassSet([2, 4, 3]).normal_order()
-            RatioClassSet([Fraction(2, 1), Fraction(3, 2)])
-
-        """
-        size = len(self.ratio_classes)
-        if size < 2:
-            return RatioClassSet(self.ratio_classes)
-        original = self.sorted()
-        rotations = [original._rotate(n) for n in range(size)]
-        candidate = rotations.pop()
-        candidate_binary_value = self._binary_value(candidate._transpose_to_one())
-        for rotation in rotations:
-            alternative_candidate_binary_value = self._binary_value(
-                rotation._transpose_to_one()
-            )
-            if alternative_candidate_binary_value < candidate_binary_value:
-                candidate = rotation
-                candidate_binary_value = alternative_candidate_binary_value
-        return candidate
-
-    def prime_form(self):
-        """
-        Gets prime form.
-
-        ..  container:: example
-
-            >>> microtones.RatioClassSet([2, 4, 3]).prime_form()
-            RatioClassSet([Fraction(7, 6), Fraction(1, 1)])
-
-        """
-        original = self.normal_order()._transpose_to_one()
-        inverted = self.invert().normal_order()._transpose_to_one()
-        if self._binary_value(original) < self._binary_value(inverted):
-            return original
-        else:
-            return inverted
-
     def sorted(self):
         """
         Gets Ratio Class Set sorted in ascending order.
 
         ..  container:: example
 
-            >>> microtones.RatioClassSet([5, 2, 3]).sorted()
-            RatioClassSet([Fraction(5, 4), Fraction(3, 2), Fraction(2, 1)])
+            >>> microtones.RatioClassSet([5, 2, 3, "1/2", 1, "1/5"]).sorted()
+            RatioClassSet([Fraction(1, 2), Fraction(4, 5), Fraction(1, 1), Fraction(5, 4), Fraction(3, 2), Fraction(2, 1)])
 
         """
-        return RatioClassSet(sorted(self.ratio_classes))
+        greater = sorted([ratio for ratio in self.ratio_classes if 1 < ratio])
+        lesser = sorted([ratio for ratio in self.ratio_classes if ratio < 1])
+        one = [ratio for ratio in self.ratio_classes if ratio == 1]
+        final = lesser + one + greater
+        return RatioClassSet(final)
 
     def transpose(self, n):
         """
@@ -374,7 +328,11 @@ class RatioSet:
             RatioSet([Fraction(2, 1), Fraction(3, 1), Fraction(5, 1)])
 
         """
-        return RatioSet(sorted(self.ratios))
+        greater = sorted([ratio for ratio in self.ratios if 1 < ratio])
+        lesser = sorted([ratio for ratio in self.ratios if ratio < 1])
+        one = [ratio for ratio in self.ratios if ratio == 1]
+        final = lesser + one + greater
+        return RatioSet(final)
 
     def transpose(self, n):
         """
