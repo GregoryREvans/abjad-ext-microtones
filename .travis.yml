@@ -57,7 +57,7 @@ before_install:
 - export PYTHONPATH=$TSMAKERS:$PYTHONPATH
 
 install:
-- echo `ls ..`
+- echo `ls ../..`
 - abjad/scr/devel/prime-parser-tables
 - pip install -e .
 - black --version
