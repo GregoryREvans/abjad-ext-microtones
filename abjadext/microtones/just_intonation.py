@@ -531,7 +531,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=True)
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        ...     staff, includes=["default.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )

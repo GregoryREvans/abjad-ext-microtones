@@ -303,7 +303,7 @@ class PitchSet:
     def _transpose_to_zero(self):
         return self.transpose(-self.pitches[0])
 
-    def complement_in_scale(self, scale):
+    def complement(self, scale):
         """
         Gets complement in scale.
 
@@ -311,7 +311,7 @@ class PitchSet:
 
             >>> pc_set = microtones.PitchSet([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
-            >>> pc_set.complement_in_scale(input_scale)
+            >>> pc_set.complement(input_scale)
             PitchSet([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
 
         """
@@ -328,15 +328,15 @@ class PitchSet:
         ..  container:: example
 
             >>> microtones.PitchSet([0, 1, 3]).invert()
-            PitchClassSet([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
+            PitchSet([Fraction(0, 1), Fraction(-1, 1), Fraction(-3, 1)])
 
             >>> microtones.PitchSet([0, 1, 3]).invert(2)
-            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
+            PitchSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
         intervals = [axis - i for i in self.pitches]
         inverse = [axis + interval for interval in intervals]
-        return PitchClassSet(inverse)
+        return PitchSet(inverse)
 
     def multiply(self, n):
         """
@@ -373,7 +373,7 @@ class PitchSet:
             PitchSet([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
 
             >>> microtones.PitchSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
+            PitchSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(-1, 1)])
 
         """
         transposed = [pitch + n for pitch in self.pitches]
@@ -453,7 +453,7 @@ class PitchClassSegment:
     def _transpose_to_zero(self):
         return self.transpose(-self.pitch_classes[0])
 
-    def complement_in_scale(self, scale):
+    def complement(self, scale):
         """
         Gets complement in scale.
 
@@ -461,7 +461,7 @@ class PitchClassSegment:
 
             >>> pc_set = microtones.PitchClassSegment([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
-            >>> pc_set.complement_in_scale(input_scale)
+            >>> pc_set.complement(input_scale)
             PitchClassSegment([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
 
         """
@@ -478,15 +478,15 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 3]).invert()
-            PitchClassSet([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
+            PitchClassSegment([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
 
             >>> microtones.PitchClassSegment([0, 1, 3]).invert(2)
-            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
+            PitchClassSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
         intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
-        return PitchClassSet(inverse)
+        return PitchClassSegment(inverse)
 
     def multiply(self, n):
         """
@@ -550,7 +550,7 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
 
             >>> microtones.PitchClassSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
+            PitchClassSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
 
         """
         transposed = [pitch + n for pitch in self.pitch_classes]
@@ -630,7 +630,7 @@ class PitchSegment:
     def _transpose_to_zero(self):
         return self.transpose(-self.pitches[0])
 
-    def complement_in_scale(self, scale):
+    def complement(self, scale):
         """
         Gets complement in scale.
 
@@ -638,7 +638,7 @@ class PitchSegment:
 
             >>> pc_set = microtones.PitchSegment([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
-            >>> pc_set.complement_in_scale(input_scale)
+            >>> pc_set.complement(input_scale)
             PitchSegment([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
 
         """
@@ -655,15 +655,15 @@ class PitchSegment:
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 3]).invert()
-            PitchClassSet([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
+            PitchSegment([Fraction(0, 1), Fraction(-1, 1), Fraction(-3, 1)])
 
             >>> microtones.PitchSegment([0, 1, 3]).invert(2)
-            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
+            PitchSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
 
         """
         intervals = [axis - i for i in self.pitches]
         inverse = [axis + interval for interval in intervals]
-        return PitchClassSet(inverse)
+        return PitchSegment(inverse)
 
     def multiply(self, n):
         """
@@ -727,7 +727,7 @@ class PitchSegment:
             PitchSegment([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
 
             >>> microtones.PitchSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
+            PitchSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(-1, 1)])
 
         """
         transposed = [pitch + n for pitch in self.pitches]
