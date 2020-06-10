@@ -21,8 +21,11 @@ before_install:
 # install isort:
 - pip install isort
 
+# install mypy:
+- pip install mypy
+
 # alias package:
-- PACKAGE=`pwd`/abjadext
+- PACKAGE=`pwd`
 - export PYTHONPATH=$PACKAGE:$PYTHONPATH
 # from josiah
 - wget -q ${LILYPOND_URL}lilypond-${LILYPOND_VERSION}-1.linux-64.sh
@@ -37,9 +40,7 @@ before_install:
 # clone & install rmakers:
 - RMAKERS=/tmp/abjad-ext-rmakers
 - git clone https://github.com/Abjad/abjad-ext-rmakers.git $RMAKERS
-- cd $RMAKERS
 - pip install -e $RMAKERS
-- cd $LOCATION
 - export MYPYPATH=$MYPYPATH:$RMAKERS
 # clone & install evans:
 - EVANS=/tmp/evans
@@ -56,18 +57,18 @@ before_install:
 - export PYTHONPATH=$TSMAKERS:$PYTHONPATH
 
 install:
-- cd $PACKAGE/..
-- pip install -e .
-- cd $LOCATION
+- abjad/scr/devel/prime-parser-tables
+- pip install -e $PACKAGE
 - black --version
 - flake8 --version
-# - mypy --version
+- mypy --version
 # - pytest --version
 
 script:
 - black-check .
 - flake8-check .
 - isort-check .
+- mypy .
 - evans-doctest .
 
 after_success:
