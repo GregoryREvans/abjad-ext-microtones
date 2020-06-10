@@ -324,6 +324,7 @@ class RatioSet:
         transposed = [ratio + n for ratio in self.ratios]
         return RatioSet(transposed)
 
+
 class RatioClassSegment:
     """
     Ratio Class Segment.
