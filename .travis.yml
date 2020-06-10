@@ -65,10 +65,10 @@ install:
 # - pytest --version
 
 script:
-- black-check $PACKAGE
-- flake8-check $PACKAGE
-- isort-check $PACKAGE
-# - evans-doctest $PACKAGE
+- black-check .
+- flake8-check .
+- isort-check .
+- evans-doctest .
 
 after_success:
 - pip install --quiet coveralls
