@@ -208,12 +208,18 @@ def apply_alteration(note_head, value):
 
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, "3/2")
-        >>> abjad.show(note) # doctest: +SKIP
+        >>> staff = abjad.Staff([note])
+        >>> ly_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> ly_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(ly_file) # doctest: +SKIP
 
         ..  docs::
 
             >>> abjad.f(note)
-            \tweak Accidental.stencil #ly::text-interface:print
+            \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \quarter-flat-markup
             df'4
 
@@ -221,12 +227,18 @@ def apply_alteration(note_head, value):
 
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, "2/5")
-        >>> abjad.show(note) # doctest: +SKIP
+        >>> staff = abjad.Staff([note])
+        >>> ly_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> ly_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(ly_file) # doctest: +SKIP
 
         ..  docs::
 
             >>> abjad.f(note)
-            \tweak Accidental.stencil #ly::text-interface:print
+            \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \one-fifth-sharp-markup
             c'4
 
@@ -234,12 +246,18 @@ def apply_alteration(note_head, value):
 
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, "11/6")
-        >>> abjad.show(note) # doctest: +SKIP
+        >>> staff = abjad.Staff([note])
+        >>> ly_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> ly_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(ly_file) # doctest: +SKIP
 
         ..  docs::
 
             >>> abjad.f(note)
-            \tweak Accidental.stencil #ly::text-interface:print
+            \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \one-twelfth-flat-markup
             df'4
 
@@ -248,6 +266,6 @@ def apply_alteration(note_head, value):
     pitch = note_head.written_pitch
     bundle = get_alteration(pitch, value)
     note_head.written_pitch = bundle.pitch
-    string = r"#ly::text-interface:print"
+    string = r"#ly:text-interface::print"
     abjad.tweak(note_head, literal=True).Accidental.stencil = string
     abjad.tweak(note_head, literal=True).Accidental.text = bundle.accidental_string
