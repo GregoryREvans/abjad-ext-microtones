@@ -566,12 +566,15 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
             >>> abjad.f(staff)
             \new Staff
             {
+                \time 24/32
+                \clef "bass_8"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \forced-natural
                 a,,,32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \forced-natural
                 a,,32
+                \clef "bass"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \forced-natural
                 e,32
@@ -584,6 +587,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \forced-natural
                 e32
+                \clef "treble"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
                 g32
@@ -599,6 +603,63 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-undecimal-quarter-tone-up
                 d'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                e'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \markup {
+                    \concat
+                        {
+                            \one-tridecimal-third-tone-down
+                            \hspace #0.125
+                            \forced-sharp
+                        }
+                    }
+                fs'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-septimal-comma-down
+                g'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                gs'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                a'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \markup {
+                    \concat
+                        {
+                            \one-seventeen-limit-skhisma-down
+                            \hspace #0.125
+                            \forced-sharp
+                        }
+                    }
+                as'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-natural
+                b'32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-nineteen-limit-skhisma-up
+                c''32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                cs''32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-septimal-comma-down
+                d''32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-undecimal-quarter-tone-up
+                d''32
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \markup {
+                    \concat
+                        {
+                            \one-twenty-three-limit-comma-up
+                            \hspace #0.125
+                            \forced-sharp
+                        }
+                    }
+                ds''32
             }
 
     ..  container:: example
