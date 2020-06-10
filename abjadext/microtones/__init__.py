@@ -10,6 +10,7 @@ from .equal_temperament import (
     get_value_sum,
 )
 from .et_utilities import PitchClassSegment, PitchClassSet, PitchSegment, PitchSet
+from .ji_utilities import RatioClassSet, RatioSet
 from .just_intonation import HEJIVector, JIBundle, make_ji_bundle, tune_to_ratio
 
 __all__ = [
@@ -22,6 +23,8 @@ __all__ = [
     "PitchSet",
     "PitchClassSegment",
     "PitchSegment",
+    "RatioClassSet",
+    "RatioSet",
     "apply_alteration",
     "get_accidental_value",
     "get_alteration",
