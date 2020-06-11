@@ -14,10 +14,10 @@ class RatioClassSet:
         for ratio in ratio_classes:
             ratio = fractions.Fraction(ratio)
             assert 0 < ratio
+            if ratio < 1:
+                ratio = fractions.Fraction(ratio.denominator, ratio.numerator)
             while 2 < ratio:
                 ratio /= 2
-            while ratio < fractions.Fraction(1, 2):
-                ratio *= 2
             if ratio not in self.ratio_classes:
                 self.ratio_classes.append(ratio)
 
@@ -113,7 +113,7 @@ class RatioClassSet:
         ..  container:: example
 
             >>> microtones.RatioClassSet([2, 4, 3]).invert()
-            RatioClassSet([Fraction(1, 2), Fraction(2, 3)])
+            RatioClassSet([Fraction(2, 1), Fraction(3, 2)])
 
             >>> microtones.RatioClassSet([2, 4, 3]).invert(3)
             RatioClassSet([Fraction(3, 2), Fraction(2, 1)])
@@ -143,7 +143,7 @@ class RatioClassSet:
         ..  container:: example
 
             >>> microtones.RatioClassSet([5, 2, 3, "1/2", 1, "1/5"]).sorted()
-            RatioClassSet([Fraction(1, 2), Fraction(4, 5), Fraction(1, 1), Fraction(5, 4), Fraction(3, 2), Fraction(2, 1)])
+            RatioClassSet([Fraction(1, 1), Fraction(5, 4), Fraction(3, 2), Fraction(2, 1)])
 
         """
         return RatioClassSet(sorted(self.ratio_classes))
@@ -158,7 +158,7 @@ class RatioClassSet:
             RatioClassSet([Fraction(3, 2), Fraction(2, 1), Fraction(7, 4)])
 
             >>> microtones.RatioClassSet([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            RatioClassSet([Fraction(5, 4), Fraction(9, 8), Fraction(6, 5), Fraction(7, 6)])
+            RatioClassSet([Fraction(5, 4), Fraction(3, 2), Fraction(21, 16), Fraction(11, 8)])
 
         """
         transposed = [ratio + n for ratio in self.ratio_classes]
@@ -247,6 +247,25 @@ class RatioSet:
                 output += ", "
         output += "}"
         return output
+
+    def constrain_to_octave(self):
+        """
+        Gets Ratio Set constrained within an octave.
+
+        ..  container:: example
+
+            >>> str(microtones.RatioSet([1, 3, "1/5"]).constrain_to_octave())
+            '{1, 3/2, 4/5}'
+
+        """
+        constrained = []
+        for ratio in self.ratios:
+            while 2 < ratio:
+                ratio /= 2
+            while ratio < fractions.Fraction(1, 2):
+                ratio *= 2
+            constrained.append(ratio)
+        return RatioSet(constrained)
 
     def complement(self, scale):
         """
@@ -338,10 +357,10 @@ class RatioClassSegment:
         for ratio in ratio_classes:
             ratio = fractions.Fraction(ratio)
             assert 0 < ratio
+            if ratio < 1:
+                ratio = fractions.Fraction(ratio.denominator, ratio.numerator)
             while 2 < ratio:
                 ratio /= 2
-            while ratio < fractions.Fraction(1, 2):
-                ratio *= 2
             self.ratio_classes.append(ratio)
 
     def __iter__(self):
@@ -401,15 +420,15 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> str(microtones.RatioClassSegment([1, 2, 3]))
-            '{1, 2, 3/2}'
+            '(1, 2, 3/2)'
 
         """
-        output = "{"
+        output = "("
         for i, ratio in enumerate(self.ratio_classes):
             output += f"{ratio}"
             if i != len(self.ratio_classes) - 1:
                 output += ", "
-        output += "}"
+        output += ")"
         return output
 
     def complement(self, scale):
@@ -437,7 +456,7 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> microtones.RatioClassSegment([2, 4, 3]).invert()
-            RatioClassSegment([Fraction(1, 2), Fraction(1, 2), Fraction(2, 3)])
+            RatioClassSegment([Fraction(2, 1), Fraction(2, 1), Fraction(3, 2)])
 
             >>> microtones.RatioClassSegment([2, 4, 3]).invert(3)
             RatioClassSegment([Fraction(3, 2), Fraction(3, 2), Fraction(2, 1)])
@@ -494,7 +513,7 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> microtones.RatioClassSegment([5, 2, 3, "1/2", 1, "1/5"]).sorted()
-            RatioClassSegment([Fraction(1, 2), Fraction(4, 5), Fraction(1, 1), Fraction(5, 4), Fraction(3, 2), Fraction(2, 1)])
+            RatioClassSegment([Fraction(1, 1), Fraction(5, 4), Fraction(5, 4), Fraction(3, 2), Fraction(2, 1), Fraction(2, 1)])
 
         """
         return RatioClassSegment(sorted(self.ratio_classes))
@@ -509,7 +528,7 @@ class RatioClassSegment:
             RatioClassSegment([Fraction(3, 2), Fraction(2, 1), Fraction(7, 4)])
 
             >>> microtones.RatioClassSegment([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            RatioClassSegment([Fraction(5, 4), Fraction(9, 8), Fraction(9, 8), Fraction(6, 5), Fraction(7, 6)])
+            RatioClassSegment([Fraction(5, 4), Fraction(3, 2), Fraction(3, 2), Fraction(21, 16), Fraction(11, 8)])
 
         """
         transposed = [ratio + n for ratio in self.ratio_classes]
@@ -588,16 +607,35 @@ class RatioSegment:
         ..  container:: example
 
             >>> str(microtones.RatioSegment([1, 2, 3]))
-            '{1, 2, 3}'
+            '(1, 2, 3)'
 
         """
-        output = "{"
+        output = "("
         for i, ratio in enumerate(self.ratios):
             output += f"{ratio}"
             if i != len(self.ratios) - 1:
                 output += ", "
-        output += "}"
+        output += ")"
         return output
+
+    def constrain_to_octave(self):
+        """
+        Gets Ratio Segment constrained within an octave.
+
+        ..  container:: example
+
+            >>> str(microtones.RatioSegment([1, 3, "1/5"]).constrain_to_octave())
+            '(1, 3/2, 4/5)'
+
+        """
+        constrained = []
+        for ratio in self.ratios:
+            while 2 < ratio:
+                ratio /= 2
+            while ratio < fractions.Fraction(1, 2):
+                ratio *= 2
+            constrained.append(ratio)
+        return RatioSegment(constrained)
 
     def complement(self, scale):
         """
