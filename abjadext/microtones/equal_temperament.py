@@ -220,7 +220,7 @@ def apply_alteration(note_head, value):
 
             >>> abjad.f(note)
             \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \quarter-flat-markup
+            \tweak Accidental.text \three-eighths-flat-markup
             df'4
 
     ..  container:: example
@@ -239,7 +239,7 @@ def apply_alteration(note_head, value):
 
             >>> abjad.f(note)
             \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \one-fifth-sharp-markup
+            \tweak Accidental.text \two-fifths-sharp-markup
             c'4
 
     ..  container:: example
@@ -259,7 +259,7 @@ def apply_alteration(note_head, value):
             >>> abjad.f(note)
             \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \one-twelfth-flat-markup
-            df'4
+            df''4
 
     """
     value = fractions.Fraction(value)
