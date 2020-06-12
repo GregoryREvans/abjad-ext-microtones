@@ -15,32 +15,28 @@ three-quarters-flat-markup = \markup {
 
 %%% three eighth tones down %%%
 three-eighths-flat-markup = \markup {
+    \combine
     \musicglyph #"accidentals.mirroredflat"
-    \postscript #"gsave
-        0.15 setlinewidth
-        -0.73 -0.25 moveto
-        -0.73 -1.4 lineto
-        stroke grestore
-        gsave
-        0.1 setlinewidth
-        -1.03 -0.7 moveto
-        -0.73 -1.48 lineto
-        -0.43 -0.7 lineto
-        stroke grestore"
+    \path #0.15
+      #'(
+          (moveto 0.6 -0.65)
+          (lineto 0.6 -1.4)
+          (moveto 0.3 -0.7)
+          (lineto 0.6 -1.48)
+          (lineto 0.9 -0.7)
+          )
 }
 
 %%% seven eighth tones down %%%
 seven-eighths-flat-markup = \markup {
+    \combine
     \musicglyph #"accidentals.mirroredflat.flat"
-    \postscript #"gsave
-        0.15 setlinewidth
-        -1.40 -0.25 moveto
-        -1.40 -1.4 lineto
-        stroke grestore
-        gsave
-        0.1 setlinewidth
-        -1.70 -0.7 moveto
-        -1.40 -1.48 lineto
-        -1.10 -0.7 lineto
-        stroke grestore"
+    \path #0.15
+      #'(
+          (moveto 0.79 -0.65)
+          (lineto 0.79 -1.4)
+          (moveto 0.49 -0.7)
+          (lineto 0.79 -1.48)
+          (lineto 1.09 -0.7)
+          )
 }

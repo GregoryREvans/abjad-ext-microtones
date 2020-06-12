@@ -207,10 +207,10 @@ def apply_alteration(note_head, value):
     ..  container:: example
 
         >>> note = abjad.Note("c'4")
-        >>> microtones.apply_alteration(note.note_head, "3/2")
+        >>> microtones.apply_alteration(note.note_head, "5/4")
         >>> staff = abjad.Staff([note])
         >>> ly_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "ekmelos-edo-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> ly_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -226,10 +226,10 @@ def apply_alteration(note_head, value):
     ..  container:: example
 
         >>> note = abjad.Note("c'4")
-        >>> microtones.apply_alteration(note.note_head, "2/5")
+        >>> microtones.apply_alteration(note.note_head, "4/5")
         >>> staff = abjad.Staff([note])
         >>> ly_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "ekmelos-edo-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> ly_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -244,11 +244,11 @@ def apply_alteration(note_head, value):
 
     ..  container:: example
 
-        >>> note = abjad.Note("c'4")
+        >>> note = abjad.Note("c''4")
         >>> microtones.apply_alteration(note.note_head, "11/6")
         >>> staff = abjad.Staff([note])
         >>> ly_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "ekmelos-edo-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> ly_file.layout_block.items.append(fr"\accidentalStyle {style}" )

@@ -40,96 +40,82 @@ three-quarters-sharp-markup = \markup {
 
 %%% one eighth tone up %%%
 eighth-sharp-markup = \markup {
+    \combine
     \musicglyph #"accidentals.natural"
-    \postscript #"gsave
-        0.17 setlinewidth
-        -1.2 1.25 moveto
-        -1.2 2 lineto
-        stroke grestore
-        gsave
-        0.1 setlinewidth
-        -1.5 1.4 moveto
-        -1.2 2.18 lineto
-        -0.9 1.4 lineto
-        stroke grestore"
+    \path #0.15
+      #'(
+          (moveto -0.22 0.9)
+          (lineto 0.08 1.7)
+          (lineto 0.38 0.9)
+          )
 }
 
 %%% three eighth tones up %%%
 three-eighths-sharp-markup = \markup {
+    \combine
     \musicglyph #"accidentals.sharp.slashslash.stem"
-    \postscript #"gsave
-        0.17 setlinewidth
-        -0.95 1.25 moveto
-        -0.95 2 lineto
-        stroke grestore
-        gsave
-        0.1 setlinewidth
-        -1.25 1.4 moveto
-        -0.95 2.18 lineto
-        -0.65 1.4 lineto
-        stroke grestore"
+    \path #0.15
+      #'(
+          (moveto 0.35 1.15)
+          (lineto 0.35 2.0)
+          (moveto 0.05 1.2)
+          (lineto 0.35 2.0)
+          (lineto 0.65 1.2)
+          )
 }
 
 %%% five eighth tones up %%%
 five-eighths-sharp-markup = \markup {
+    \combine
     \musicglyph #"accidentals.sharp"
-    \postscript #"gsave
-        0.17 setlinewidth
-        -0.91 1.25 moveto
-        -0.91 2 lineto
-        stroke grestore
-        gsave
-        0.1 setlinewidth
-        -1.21 1.4 moveto
-        -0.91 2.18 lineto
-        -0.61 1.4 lineto
-        stroke grestore"
+    \path #0.15
+      #'(
+          (moveto 0.8 1.15)
+          (lineto 0.8 2.0)
+          (moveto 0.5 1.2)
+          (lineto 0.8 2.0)
+          (lineto 1.1 1.2)
+          )
 }
 
 %%% seven eighth tones up %%%
 seven-eighths-sharp-markup = \markup {
+    \combine
     \musicglyph #"accidentals.sharp.slashslash.stemstemstem"
-    \postscript #"gsave
-        0.17 setlinewidth
-        -0.95 1.25 moveto
-        -0.95 2 lineto
-        stroke grestore
-        gsave
-        0.1 setlinewidth
-        -1.25 1.4 moveto
-        -0.95 2.18 lineto
-        -0.65 1.4 lineto
-        stroke grestore"
+    \path #0.15
+      #'(
+          (moveto 1.25 1.15)
+          (lineto 1.25 2.0)
+          (moveto 0.95 1.2)
+          (lineto 1.25 2.0)
+          (lineto 1.55 1.2)
+          )
 }
 
 %%% one eighth tone down %%%
 eighth-flat-markup = \markup {
+    \combine
     \musicglyph #"accidentals.natural"
-    \postscript #"gsave
-        0.15 setlinewidth
-        -0.67 -1.35 moveto
-        -0.67 -2.1 lineto
-        stroke grestore
-        gsave
-        0.1 setlinewidth
-        -0.97 -1.4 moveto
-        -0.67 -2.18 lineto
-        -0.37 -1.4 lineto
-        stroke grestore"
+    \path #0.15
+      #'(
+          (moveto 0.6 -0.95)
+          (lineto 0.6 -1.7)
+          (moveto 0.3 -1)
+          (lineto 0.6 -1.78)
+          (lineto 0.9 -1)
+          )
 }
 
 %%% five eighth tones down %%%
 five-eighths-flat-markup = \markup {
+    \combine
     \musicglyph #"accidentals.flat"
-    \postscript #"gsave
-        0.15 setlinewidth
-        -1.38 -0.25 moveto
-        -1.38 -1.4 lineto
-        stroke grestore
-        gsave
-        0.1 setlinewidth
-        -1.68 -0.7 moveto
-        -1.38 -1.48 lineto
-        -1.08 -0.7 lineto
-        stroke grestore"
+    \path #0.15
+      #'(
+          (moveto 0.03 -0.65)
+          (lineto 0.03 -1.4)
+          (moveto -0.29 -0.7)
+          (lineto 0.03 -1.48)
+          (lineto 0.33 -0.7)
+          )
 }
