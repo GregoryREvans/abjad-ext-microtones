@@ -1,45 +1,28 @@
 \version "2.19.84"
-\language "english"
 
 
-
-%%% natural %%%
-forced-natural-markup = \markup {
+forced-natural-markup = \markup
     \musicglyph #"accidentals.natural"
-}
 
-%%% sharp %%%
-forced-sharp-markup = \markup {
+forced-sharp-markup = \markup
     \musicglyph #"accidentals.sharp"
-}
 
-%%% flat %%%
-forced-flat-markup = \markup {
+forced-flat-markup = \markup
     \musicglyph #"accidentals.flat"
-}
 
-%%% double sharp %%%
-double-sharp-markup = \markup {
+double-sharp-markup = \markup
     \musicglyph #"accidentals.doublesharp"
-}
 
-%%% double flat %%%
-double-flat-markup = \markup {
+double-flat-markup = \markup
     \musicglyph #"accidentals.flatflat"
-}
 
-%%% one quarter tone up %%%
-quarter-sharp-markup = \markup {
+quarter-sharp-markup = \markup
     \musicglyph #"accidentals.sharp.slashslash.stem"
-}
 
-%%% three quarter tones up %%%
-three-quarters-sharp-markup = \markup {
+three-quarters-sharp-markup = \markup
     \musicglyph #"accidentals.sharp.slashslash.stemstemstem"
-}
 
-%%% one eighth tone up %%%
-eighth-sharp-markup = \markup {
+eighth-sharp-markup = \markup
     \combine
     \musicglyph #"accidentals.natural"
     \path #0.15
@@ -48,10 +31,8 @@ eighth-sharp-markup = \markup {
           (lineto 0.08 1.7)
           (lineto 0.38 0.9)
           )
-}
 
-%%% three eighth tones up %%%
-three-eighths-sharp-markup = \markup {
+three-eighths-sharp-markup = \markup
     \combine
     \musicglyph #"accidentals.sharp.slashslash.stem"
     \path #0.15
@@ -62,10 +43,8 @@ three-eighths-sharp-markup = \markup {
           (lineto 0.35 2.0)
           (lineto 0.65 1.2)
           )
-}
 
-%%% five eighth tones up %%%
-five-eighths-sharp-markup = \markup {
+five-eighths-sharp-markup = \markup
     \combine
     \musicglyph #"accidentals.sharp"
     \path #0.15
@@ -76,10 +55,8 @@ five-eighths-sharp-markup = \markup {
           (lineto 0.8 2.0)
           (lineto 1.1 1.2)
           )
-}
 
-%%% seven eighth tones up %%%
-seven-eighths-sharp-markup = \markup {
+seven-eighths-sharp-markup = \markup
     \combine
     \musicglyph #"accidentals.sharp.slashslash.stemstemstem"
     \path #0.15
@@ -90,10 +67,8 @@ seven-eighths-sharp-markup = \markup {
           (lineto 1.25 2.0)
           (lineto 1.55 1.2)
           )
-}
 
-%%% one eighth tone down %%%
-eighth-flat-markup = \markup {
+eighth-flat-markup = \markup
     \combine
     \musicglyph #"accidentals.natural"
     \path #0.15
@@ -104,10 +79,8 @@ eighth-flat-markup = \markup {
           (lineto 0.6 -1.78)
           (lineto 0.9 -1)
           )
-}
 
-%%% five eighth tones down %%%
-five-eighths-flat-markup = \markup {
+five-eighths-flat-markup = \markup
     \combine
     \musicglyph #"accidentals.flat"
     \path #0.15
@@ -118,4 +91,3 @@ five-eighths-flat-markup = \markup {
           (lineto 0.03 -1.48)
           (lineto 0.33 -0.7)
           )
-}

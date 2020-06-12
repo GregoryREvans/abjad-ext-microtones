@@ -1,5 +1,4 @@
 \version "2.19.84"
-\language "english"
 \include "fraction-accidental-markups.ily"
 \include "general-edo-accidental-markups.ily"
 
