@@ -212,48 +212,50 @@ def apply_alteration(note_head, value):
 
     ..  container:: example
 
-        >>> from fractions import Fraction
-        >>> steps = [0, "1/12", "1/8", "1/6", "1/5", "1/4", "1/3", "3/8", "2/5", "5/12", "1/2", "7/12", "3/5", "5/8", "2/3", "3/4", "4/5", "5/6", "7/8", "11/12", 1]
-        >>> steps = [Fraction(step) * 2 for step in steps]
-        >>> reverse_steps = [0 - step for step in steps]
-        >>> reverse_steps.reverse()
-        >>> total_steps = []
-        >>> total_steps.extend(reverse_steps)
-        >>> total_steps.extend(steps)
-        >>> final_steps = sorted(list(set(total_steps)))
-        >>> notes = [abjad.Note() for step in final_steps]
-        >>> for note, step in zip(notes, final_steps):
-        ...     microtones.apply_alteration(note.note_head, step)
-        >>> staff = abjad.Staff(notes)
-        >>> markup_fractions = [fraction / 2 for fraction in final_steps]
-        >>> pairs = [(abs(fraction.numerator), abs(fraction.denominator)) for fraction in markup_fractions]
-        >>> markups = [abjad.Markup(abjad.Markup.fraction(pair[0], pair[1]), direction=abjad.Up) for pair in pairs]
-        >>> for markup, note in zip(markups, abjad.select(staff).leaves()):
-        ...     abjad.attach(markup, note)
-        >>> abjad.attach(abjad.TimeSignature((5, 4)), abjad.select(staff).leaves()[0])
-        >>> abjad.attach(abjad.TimeSignature((1, 4)), abjad.select(staff).leaves()[20])
-        >>> abjad.attach(abjad.TimeSignature((5, 4)), abjad.select(staff).leaves()[21])
-        >>> break_points = [4, 9, 14, 19, 20, 25, 30, 35]
-        >>> for point in break_points:
-        ...     abjad.attach(abjad.LilyPondLiteral(r"\break", format_slot="after"), abjad.select(staff).leaves()[point])
-        >>> file = abjad.LilyPondFile.new(
-        ...     staff,
-        ...     includes=[
-        ...         "default.ily",
-        ...         "ekmelos-edo-accidental-markups.ily",
-        ...         "all-edo-markups-example.ily",
-        ...     ],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> file.layout_block.items.append(fr"\accidentalStyle {style}")
-        >>> abjad.show(file) # doctest: +SKIP
+    >>> from fractions import Fraction
+    >>> steps = [0, "1/12", "1/10", "1/8", "1/6", "1/5", "1/4", "3/10", "1/3", "3/8", "2/5", "5/12", "1/2", "7/12", "3/5", "5/8", "2/3", "7/10", "3/4", "4/5", "5/6", "7/8", "11/12", 1]
+    >>> steps = [Fraction(step) * 2 for step in steps]
+    >>> reverse_steps = [0 - step for step in steps]
+    >>> reverse_steps.reverse()
+    >>> total_steps = []
+    >>> total_steps.extend(reverse_steps)
+    >>> total_steps.extend(steps)
+    >>> final_steps = sorted(list(set(total_steps)))
+    >>> notes = [abjad.Note() for step in final_steps]
+    >>> for note, step in zip(notes, final_steps):
+    ...     microtones.apply_alteration(note.note_head, step)
+    >>> staff = abjad.Staff(notes)
+    >>> markup_fractions = [fraction / 2 for fraction in final_steps]
+    >>> pairs = [(abs(fraction.numerator), abs(fraction.denominator)) for fraction in markup_fractions]
+    >>> markups = [abjad.Markup(abjad.Markup.fraction(pair[0], pair[1]), direction=abjad.Up) for pair in pairs]
+    >>> for markup, note in zip(markups, abjad.select(staff).leaves()):
+    ...     abjad.attach(markup, note)
+    >>> abjad.attach(abjad.TimeSignature((6, 4)), abjad.select(staff).leaves()[0])
+    >>> abjad.attach(abjad.TimeSignature((5, 4)), abjad.select(staff).leaves()[18])
+    >>> abjad.attach(abjad.TimeSignature((1, 4)), abjad.select(staff).leaves()[23])
+    >>> abjad.attach(abjad.TimeSignature((5, 4)), abjad.select(staff).leaves()[24])
+    >>> abjad.attach(abjad.TimeSignature((6, 4)), abjad.select(staff).leaves()[29])
+    >>> break_points = [5, 11, 17, 22, 23, 28, 34, 40]
+    >>> for point in break_points:
+    ...     abjad.attach(abjad.LilyPondLiteral(r"\break", format_slot="after"), abjad.select(staff).leaves()[point])
+    >>> file = abjad.LilyPondFile.new(
+    ...     staff,
+    ...     includes=[
+    ...         "default.ily",
+    ...         "ekmelos-edo-accidental-markups.ily",
+    ...         "all-edo-markups-example.ily",
+    ...     ],
+    ... )
+    >>> style = '"dodecaphonic"'
+    >>> file.layout_block.items.append(fr"\accidentalStyle {style}")
+    >>> abjad.show(file) # doctest: +SKIP
 
         ..  docs::
 
             >>> abjad.f(staff)
             \new Staff
             {
-                \time 5/4
+                \time 6/4
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \forced-flat-markup
                 bf4
@@ -294,7 +296,6 @@ def apply_alteration(note_head, value):
                         4
                         5
                     }
-                \break
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \quarter-flat-markup
                 b4
@@ -302,6 +303,15 @@ def apply_alteration(note_head, value):
                     \fraction
                         3
                         4
+                    }
+                \break
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-fifth-flat-markup
+                b4
+                ^ \markup {
+                    \fraction
+                        7
+                        10
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-sixth-flat-markup
@@ -335,7 +345,6 @@ def apply_alteration(note_head, value):
                         7
                         12
                     }
-                \break
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \forced-natural-markup
                 b4
@@ -344,6 +353,7 @@ def apply_alteration(note_head, value):
                         1
                         2
                     }
+                \break
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \five-twelfths-flat-markup
                 c'4
@@ -376,7 +386,14 @@ def apply_alteration(note_head, value):
                         1
                         3
                     }
-                \break
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \three-tenths-flat-markup
+                c'4
+                ^ \markup {
+                    \fraction
+                        3
+                        10
+                    }
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \quarter-flat-markup
                 c'4
@@ -385,6 +402,8 @@ def apply_alteration(note_head, value):
                         1
                         4
                     }
+                \break
+                \time 5/4
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-fifth-flat-markup
                 c'4
@@ -408,6 +427,14 @@ def apply_alteration(note_head, value):
                     \fraction
                         1
                         8
+                    }
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-tenth-flat-markup
+                c'4
+                ^ \markup {
+                    \fraction
+                        1
+                        10
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-twelfth-flat-markup
@@ -438,6 +465,14 @@ def apply_alteration(note_head, value):
                         12
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-tenth-sharp-markup
+                c'4
+                ^ \markup {
+                    \fraction
+                        1
+                        10
+                    }
+                \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \eighth-sharp-markup
                 c'4
                 ^ \markup {
@@ -461,6 +496,8 @@ def apply_alteration(note_head, value):
                         1
                         5
                     }
+                \break
+                \time 6/4
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \quarter-sharp-markup
                 c'4
@@ -469,7 +506,14 @@ def apply_alteration(note_head, value):
                         1
                         4
                     }
-                \break
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \three-tenths-sharp-markup
+                c'4
+                ^ \markup {
+                    \fraction
+                        3
+                        10
+                    }
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-third-sharp-markup
                 c'4
@@ -502,6 +546,7 @@ def apply_alteration(note_head, value):
                         5
                         12
                     }
+                \break
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \forced-flat-markup
                 df'4
@@ -510,7 +555,6 @@ def apply_alteration(note_head, value):
                         1
                         2
                     }
-                \break
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \five-twelfths-flat-markup
                 df'4
@@ -544,6 +588,15 @@ def apply_alteration(note_head, value):
                         3
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \three-tenths-flat-markup
+                df'4
+                ^ \markup {
+                    \fraction
+                        7
+                        10
+                    }
+                \break
+                \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \quarter-flat-markup
                 df'4
                 ^ \markup {
@@ -551,7 +604,6 @@ def apply_alteration(note_head, value):
                         3
                         4
                     }
-                \break
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-fifth-flat-markup
                 df'4
