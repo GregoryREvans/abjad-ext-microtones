@@ -14,7 +14,7 @@
     #markup
     #}))
 
-quarter-flat-markup = \markup \ekmelos-five \char ##xe480
+one-quarter-flat-markup = \markup \ekmelos-five \char ##xe480
 
 three-quarters-flat-markup = \markup \ekmelos-five \char ##xe296
 

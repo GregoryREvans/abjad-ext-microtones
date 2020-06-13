@@ -2,28 +2,8 @@
 \language "english"
 #(set-default-paper-size "letterportrait")
 #(set-global-staff-size 15)
-\include "ekmelos-edo-accidentals.ily"
+\include "default-edo-accidental-markups.ily"
 
-#(define (Text_align_engraver ctx)
-  (let ((scripts '())
-        (note-column #f))
-    (make-engraver
-     (acknowledgers
-      ((note-column-interface trans grob source)
-       ;; cache NoteColumn in this Voice context
-       (set! note-column grob))
-      ((text-script-interface trans grob source)
-       ;; whenever a TextScript is acknowledged,
-       ;; add it to `scripts' list
-       (set! scripts (cons grob scripts))))
-     ((stop-translation-timestep trans)
-      ;; if any TextScript grobs exist,
-      ;; set NoteColumn as X-parent
-      (for-each (lambda (script)
-		  (set! (ly:grob-parent script X) note-column))
-		scripts)
-      ;; clear scripts ready for next timestep
-      (set! scripts '())))))
 
 \header {tagline = ##f}
 
@@ -52,13 +32,6 @@
 	proportionalNotationDuration = #(ly:make-moment 1 10)
 	barNumberVisibility = ##f
 }
-  \context {
-    \Voice
-    \consists #Text_align_engraver
-    \override TextScript.X-offset =
-      #ly:self-alignment-interface::aligned-on-x-parent
-    \override TextScript.self-alignment-X = #CENTER
-  }
 }
 
 
@@ -67,178 +40,219 @@
         \new Staff {
 		\time 5/4
             \new Voice {
-				\double-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \double-flat-markup
                 cff'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 1}
 
-				\eleven-twelfths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \eleven-twelfths-flat-markup
                 ctqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 11 12}
 
-				\seven-eighths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \seven-eighths-flat-markup
                 ctqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 7 8}
 
-				\five-sixths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \five-sixths-flat-markup
                 ctqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 5 6}
 
-				\four-fifths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \four-fifths-flat-markup
                 ctqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 4 5}
 				\break
 
-				\three-quarters-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \three-quarters-flat-markup
                 ctqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 3 4}
 
-				\two-thirds-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \two-thirds-flat-markup
                 cf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 2 3}
 
-				\five-eighths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \five-eighths-flat-markup
                 cf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 5 8}
 
-				\three-fifths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \three-fifths-flat-markup
                 cf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 3 5}
 
-				\seven-twelfths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \seven-twelfths-flat-markup
                 cf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 7 12}
 				\break
 
-				\forced-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \flat-markup
                 cf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 2}
 
-				\five-twelfths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \five-twelfths-flat-markup
                 cqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 5 12}
 
-				\two-fifths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \two-fifths-flat-markup
                 cqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 2 5}
 
-				\three-eighths-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \three-eighths-flat-markup
                 cqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 3 8}
 
-				\one-third-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-third-flat-markup
                 cqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 3}
 				\break
 
-				\quarter-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-quarter-flat-markup
                 cqf'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 4}
 
-				\one-fifth-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-fifth-flat-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 5}
 
-				\one-sixth-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-sixth-flat-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 6}
 
-				\one-eighth-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-eighth-flat-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 8}
 
-				\one-twelfth-flat
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-twelfth-flat-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 12}
 				\break
 
+                \tweak Accidental.stencil #ly:text-interface::print
 				\time 1/4
-				\forced-natural
+				\tweak Accidental.text \natural-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 0 1}
 				\break
 
 				\time 5/4
-				\one-twelfth-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-twelfth-sharp-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 12}
 
-				\one-eighth-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-eighth-sharp-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 8}
 
-				\one-sixth-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-sixth-sharp-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 6}
 
-				\one-fifth-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-fifth-sharp-markup
                 c'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 5}
 
-				\quarter-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-quarter-sharp-markup
                 cqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 4}
 				\break
 
-				\one-third-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \one-third-sharp-markup
                 cqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 3}
 
-				\three-eighths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \three-eighths-sharp-markup
                 cqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 3 8}
 
-				\two-fifths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \two-fifths-sharp-markup
                 cqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 2 5}
 
-				\five-twelfths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \five-twelfths-sharp-markup
                 cqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 5 12}
 
-				\forced-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \sharp-markup
                 cs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 2}
 				\break
 
-				\seven-twelfths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \seven-twelfths-sharp-markup
                 cs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 7 12}
 
-				\three-fifths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \three-fifths-sharp-markup
                 cs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 3 5}
 
-				\five-eighths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \five-eighths-sharp-markup
                 cs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 5 8}
 
-				\two-thirds-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \two-thirds-sharp-markup
                 cs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 2 3}
 				\break
 
-				\three-quarters-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \three-quarters-sharp-markup
                 ctqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 3 4}
 				\break
 
-				\four-fifths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \four-fifths-sharp-markup
                 ctqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 4 5}
 
-				\five-sixths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \five-sixths-sharp-markup
                 ctqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 5 6}
 
-				\seven-eighths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \seven-eighths-sharp-markup
                 ctqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 7 8}
 
-				\eleven-twelfths-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \eleven-twelfths-sharp-markup
                 ctqs'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 11 12}
 
-				\double-sharp
+                \tweak Accidental.stencil #ly:text-interface::print
+				\tweak Accidental.text \double-sharp-markup
                 css'4
 				^ \markup {\with-color #white .. \with-color #black \fraction 1 1}
             }

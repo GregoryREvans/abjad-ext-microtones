@@ -2,7 +2,7 @@
 \language "english"
 #(set-default-paper-size "letterlandscape")
 #(set-global-staff-size 15)
-\include "/Users/evansdsg2/abjad-ext-microtones/abjadext/microtones/lilypond/ekmelos-accidental-markups.ily"
+\include "/Users/evansdsg2/abjad-ext-microtones/abjadext/microtones/lilypond/ekmelos-ji-accidental-markups.ily"
 
 
 % tempered accidentals %
@@ -18,56 +18,56 @@
 
 
 % diatonic accidentals %
-\forced-natural
-\forced-sharp
-\forced-flat
-\forced-double-sharp
-\forced-double-flat
+\natural
+\sharp
+\flat
+\double-sharp
+\double-flat
 
 
 % natural syntonic commas %
-\forced-natural-one-syntonic-comma-down
-\forced-natural-two-syntonic-comma-down
-\forced-natural-three-syntonic-comma-down
-\forced-natural-one-syntonic-comma-up
-\forced-natural-two-syntonic-comma-up
-\forced-natural-three-syntonic-comma-up
+\natural-one-syntonic-comma-down
+\natural-two-syntonic-comma-down
+\natural-three-syntonic-comma-down
+\natural-one-syntonic-comma-up
+\natural-two-syntonic-comma-up
+\natural-three-syntonic-comma-up
 
 
 % sharp syntonic commas %
-\forced-sharp-one-syntonic-comma-down
-\forced-sharp-two-syntonic-comma-down
-\forced-sharp-three-syntonic-comma-down
-\forced-sharp-one-syntonic-comma-up
-\forced-sharp-two-syntonic-comma-up
-\forced-sharp-three-syntonic-comma-up
+\sharp-one-syntonic-comma-down
+\sharp-two-syntonic-comma-down
+\sharp-three-syntonic-comma-down
+\sharp-one-syntonic-comma-up
+\sharp-two-syntonic-comma-up
+\sharp-three-syntonic-comma-up
 
 
 % flat syntonic commas %
-\forced-flat-one-syntonic-comma-down
-\forced-flat-two-syntonic-comma-down
-\forced-flat-three-syntonic-comma-down
-\forced-flat-one-syntonic-comma-up
-\forced-flat-two-syntonic-comma-up
-\forced-flat-three-syntonic-comma-up
+\flat-one-syntonic-comma-down
+\flat-two-syntonic-comma-down
+\flat-three-syntonic-comma-down
+\flat-one-syntonic-comma-up
+\flat-two-syntonic-comma-up
+\flat-three-syntonic-comma-up
 
 
 % double sharp syntonic commas %
-\forced-double-sharp-one-syntonic-comma-down
-\forced-double-sharp-two-syntonic-comma-down
-\forced-double-sharp-three-syntonic-comma-down
-\forced-double-sharp-one-syntonic-comma-up
-\forced-double-sharp-two-syntonic-comma-up
-\forced-double-sharp-three-syntonic-comma-up
+\double-sharp-one-syntonic-comma-down
+\double-sharp-two-syntonic-comma-down
+\double-sharp-three-syntonic-comma-down
+\double-sharp-one-syntonic-comma-up
+\double-sharp-two-syntonic-comma-up
+\double-sharp-three-syntonic-comma-up
 
 
 % double flat syntonic commas %
-\forced-double-flat-one-syntonic-comma-down
-\forced-double-flat-two-syntonic-comma-down
-\forced-double-flat-three-syntonic-comma-down
-\forced-double-flat-one-syntonic-comma-up
-\forced-double-flat-two-syntonic-comma-up
-\forced-double-flat-three-syntonic-comma-up
+\double-flat-one-syntonic-comma-down
+\double-flat-two-syntonic-comma-down
+\double-flat-three-syntonic-comma-down
+\double-flat-one-syntonic-comma-up
+\double-flat-two-syntonic-comma-up
+\double-flat-three-syntonic-comma-up
 
 
 % septimal commas %

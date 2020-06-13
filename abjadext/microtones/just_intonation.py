@@ -140,7 +140,7 @@ class HEJIVector:
 
             >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
             >>> abjad.f(vector.calculate_heji_markup())
-            \forced-natural-one-syntonic-comma-down
+            \natural-one-syntonic-comma-down
 
         """
         int_to_word = {"1": "one", "2": "two", "3": "three"}
@@ -152,19 +152,19 @@ class HEJIVector:
         if self.syntonic_commas_down == self.syntonic_commas_up:
             self.syntonic_commas_down = 0
             self.syntonic_commas_up = 0
-            string = fr"\forced-{self.diatonic_accidental}"
+            string = fr"\{self.diatonic_accidental}"
             accumulated_accidentals.append(string)
         elif self.syntonic_commas_down > self.syntonic_commas_up:
             self.syntonic_commas_down -= self.syntonic_commas_up
             self.syntonic_commas_up = 0
-            string = fr"\forced-{self.diatonic_accidental}"
+            string = fr"\{self.diatonic_accidental}"
             string += f"-{int_to_word[str(self.syntonic_commas_down)]}"
             string += "-syntonic-comma-down"
             accumulated_accidentals.append(string)
         else:
             self.syntonic_commas_up -= self.syntonic_commas_down
             self.syntonic_commas_down = 0
-            string = fr"\forced-{self.diatonic_accidental}"
+            string = fr"\{self.diatonic_accidental}"
             string += f"-{int_to_word[str(self.syntonic_commas_up)]}"
             string += "-syntonic-comma-up"
 
@@ -261,7 +261,7 @@ class HEJIVector:
             accumulated_accidentals.append(string)
         if len(accumulated_accidentals):
             accumulated_accidentals.reverse()
-            if accumulated_accidentals[-1] == r"\forced-natural":
+            if accumulated_accidentals[-1] == r"\natural":
                 if self.has_just_accidentals():
                     accumulated_accidentals = [_ for _ in accumulated_accidentals[:-1]]
             literal_components = []
@@ -279,7 +279,7 @@ class HEJIVector:
                 literal = abjad.Markup(literal=True).concat(kerned_components)
         else:
             literal = abjad.Markup(
-                fr"  \forced-{self.diatonic_accidental}", literal=True
+                fr"  \{self.diatonic_accidental}", literal=True
             )
         self.accidental_literal = literal
         return literal
@@ -503,7 +503,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
             >>> abjad.f(note)
             \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \forced-natural
+            \tweak Accidental.text \natural
             g''4
 
     ..  container:: example
@@ -522,7 +522,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
             >>> abjad.f(note)
             \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \forced-natural-one-syntonic-comma-down
+            \tweak Accidental.text \natural-one-syntonic-comma-down
             e'''4
 
     ..  container:: example
@@ -569,42 +569,42 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \time 24/32
                 \clef "bass_8"
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a,,,32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a,,32
                 \clef "bass"
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 e,32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a,32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                \tweak Accidental.text \sharp-one-syntonic-comma-down
                 cs32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 e32
                 \clef "treble"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
                 g32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 b32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                \tweak Accidental.text \sharp-one-syntonic-comma-down
                 cs'32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-undecimal-quarter-tone-up
                 d'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 e'32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
@@ -612,7 +612,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                         {
                             \one-tridecimal-third-tone-down
                             \hspace #0.125
-                            \forced-sharp
+                            \sharp
                         }
                     }
                 fs'32
@@ -620,10 +620,10 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \tweak Accidental.text \one-septimal-comma-down
                 g'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                \tweak Accidental.text \sharp-one-syntonic-comma-down
                 gs'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a'32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
@@ -631,18 +631,18 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                         {
                             \one-seventeen-limit-skhisma-down
                             \hspace #0.125
-                            \forced-sharp
+                            \sharp
                         }
                     }
                 as'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 b'32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-nineteen-limit-skhisma-up
                 c''32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                \tweak Accidental.text \sharp-one-syntonic-comma-down
                 cs''32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
@@ -656,7 +656,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                         {
                             \one-twenty-three-limit-comma-up
                             \hspace #0.125
-                            \forced-sharp
+                            \sharp
                         }
                     }
                 ds''32

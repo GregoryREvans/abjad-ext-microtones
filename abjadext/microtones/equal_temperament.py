@@ -56,31 +56,31 @@ _value_to_accidental = {
     "5/4": r"\five-eighths-sharp",
     "6/5": r"\three-fifths-sharp",
     "7/6": r"\seven-twelfths-sharp",
-    "1": r"\forced-sharp",
+    "1": r"\sharp",
     "5/6": r"\five-twelfths-sharp",
     "4/5": r"\two-fifths-sharp",
     "3/4": r"\three-eighths-sharp",
     "2/3": r"\one-third-sharp",
     "3/5": r"\three-tenths-sharp",
-    "1/2": r"\quarter-sharp",
+    "1/2": r"\one-quarter-sharp",
     "2/5": r"\one-fifth-sharp",
     "1/3": r"\one-sixth-sharp",
-    "1/4": r"\eighth-sharp",
+    "1/4": r"\one-eighth-sharp",
     "1/5": r"\one-tenth-sharp",
     "1/6": r"\one-twelfth-sharp",
-    "0": r"\forced-natural",
+    "0": r"\natural",
     "-1/6": r"\one-twelfth-flat",
     "-1/5": r"\one-tenth-flat",
-    "-1/4": r"\eighth-flat",
+    "-1/4": r"\one-eighth-flat",
     "-1/3": r"\one-sixth-flat",
     "-2/5": r"\one-fifth-flat",
-    "-1/2": r"\quarter-flat",
+    "-1/2": r"\one-quarter-flat",
     "-3/5": r"\three-tenths-flat",
     "-2/3": r"\one-third-flat",
     "-3/4": r"\three-eighths-flat",
     "-4/5": r"\two-fifths-flat",
     "-5/6": r"\five-twelfths-flat",
-    "-1": r"\forced-flat",
+    "-1": r"\flat",
     "-7/6": r"\seven-twelfths-flat",
     "-6/5": r"\three-fifths-flat",
     "-5/4": r"\five-eighths-flat",
@@ -105,27 +105,27 @@ _reversed_value_to_accidental = {
     r"\five-eighths-sharp-markup": "5/4",
     r"\three-fifths-sharp-markup": "6/5",
     r"\seven-twelfths-sharp-markup": "7/6",
-    r"\forced-sharp-markup": "1/1",
+    r"\sharp-markup": "1/1",
     r"\five-twelfths-sharp-markup": "5/6",
     r"\two-fifths-sharp-markup": "4/5",
     r"\three-eighths-sharp-markup": "3/4",
     r"\one-third-sharp-markup": "2/3",
-    r"\quarter-sharp-markup": "1/2",
+    r"\one-quarter-sharp-markup": "1/2",
     r"\one-fifth-sharp-markup": "2/5",
     r"\one-sixth-sharp-markup": "1/3",
-    r"\eighth-sharp-markup": "1/4",
+    r"\one-eighth-sharp-markup": "1/4",
     r"\one-twelfth-sharp-markup": "1/6",
-    r"\forced-natural-markup": "0",
+    r"\natural-markup": "0",
     r"\one-twelfth-flat-markup": "-1/6",
-    r"\eighth-flat-markup": "-1/4",
+    r"\one-eighth-flat-markup": "-1/4",
     r"\one-sixth-flat-markup": "-1/3",
     r"\one-fifth-flat-markup": "-2/5",
-    r"\quarter-flat-markup": "-1/2",
+    r"\one-quarter-flat-markup": "-1/2",
     r"\one-third-flat-markup": "-2/3",
     r"\three-eighths-flat-markup": "-3/4",
     r"\two-fifths-flat-markup": "-4/5",
     r"\five-twelfths-flat-markup": "-5/6",
-    r"\forced-flat-markup": "-1/1",
+    r"\flat-markup": "-1/1",
     r"\seven-twelfths-flat-markup": "-7/6",
     r"\three-fifths-flat-markup": "-6/5",
     r"\five-eighths-flat-markup": "-5/4",
@@ -182,7 +182,7 @@ def get_alteration(pitch, value):
         NumberedPitch(2)
 
         >>> bundle.accidental_string
-        '\\forced-natural-markup'
+        '\\natural-markup'
 
     ..  container:: example
 
@@ -192,7 +192,7 @@ def get_alteration(pitch, value):
         NumberedPitch(1)
 
         >>> bundle.accidental_string
-        '\\forced-sharp-markup'
+        '\\sharp-markup'
 
     """
     value = fractions.Fraction(value)
@@ -257,7 +257,7 @@ def apply_alteration(note_head, value):
             {
                 \time 6/4
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-flat-markup
+                \tweak Accidental.text \flat-markup
                 bf4
                 ^ \markup {
                     \fraction
@@ -297,7 +297,7 @@ def apply_alteration(note_head, value):
                         5
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \quarter-flat-markup
+                \tweak Accidental.text \one-quarter-flat-markup
                 b4
                 ^ \markup {
                     \fraction
@@ -322,7 +322,7 @@ def apply_alteration(note_head, value):
                         3
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \eighth-flat-markup
+                \tweak Accidental.text \one-eighth-flat-markup
                 b4
                 ^ \markup {
                     \fraction
@@ -346,7 +346,7 @@ def apply_alteration(note_head, value):
                         12
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural-markup
+                \tweak Accidental.text \natural-markup
                 b4
                 ^ \markup {
                     \fraction
@@ -395,7 +395,7 @@ def apply_alteration(note_head, value):
                         10
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \quarter-flat-markup
+                \tweak Accidental.text \one-quarter-flat-markup
                 c'4
                 ^ \markup {
                     \fraction
@@ -421,7 +421,7 @@ def apply_alteration(note_head, value):
                         6
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \eighth-flat-markup
+                \tweak Accidental.text \one-eighth-flat-markup
                 c'4
                 ^ \markup {
                     \fraction
@@ -447,7 +447,7 @@ def apply_alteration(note_head, value):
                 \break
                 \time 1/4
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural-markup
+                \tweak Accidental.text \natural-markup
                 c'4
                 ^ \markup {
                     \fraction
@@ -473,7 +473,7 @@ def apply_alteration(note_head, value):
                         10
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \eighth-sharp-markup
+                \tweak Accidental.text \one-eighth-sharp-markup
                 c'4
                 ^ \markup {
                     \fraction
@@ -499,7 +499,7 @@ def apply_alteration(note_head, value):
                 \break
                 \time 6/4
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \quarter-sharp-markup
+                \tweak Accidental.text \one-quarter-sharp-markup
                 c'4
                 ^ \markup {
                     \fraction
@@ -548,7 +548,7 @@ def apply_alteration(note_head, value):
                     }
                 \break
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-flat-markup
+                \tweak Accidental.text \flat-markup
                 df'4
                 ^ \markup {
                     \fraction
@@ -597,7 +597,7 @@ def apply_alteration(note_head, value):
                     }
                 \break
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \quarter-flat-markup
+                \tweak Accidental.text \one-quarter-flat-markup
                 df'4
                 ^ \markup {
                     \fraction
@@ -621,7 +621,7 @@ def apply_alteration(note_head, value):
                         6
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \eighth-flat-markup
+                \tweak Accidental.text \one-eighth-flat-markup
                 df'4
                 ^ \markup {
                     \fraction
@@ -637,7 +637,7 @@ def apply_alteration(note_head, value):
                         12
                     }
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural-markup
+                \tweak Accidental.text \natural-markup
                 d'4
                 ^ \markup {
                     \fraction

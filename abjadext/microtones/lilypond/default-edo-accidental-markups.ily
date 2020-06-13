@@ -3,17 +3,13 @@
 \include "general-edo-accidental-markups.ily"
 
 %%% one quarter tone down %%%
-quarter-flat-markup = \markup {
-    \musicglyph #"accidentals.mirroredflat"
-}
+one-quarter-flat-markup = \markup \musicglyph #"accidentals.mirroredflat"
 
 %%% three quarter tones down %%%
-three-quarters-flat-markup = \markup {
-    \musicglyph #"accidentals.mirroredflat.flat"
-}
+three-quarters-flat-markup = \markup \musicglyph #"accidentals.mirroredflat.flat"
 
 %%% three eighth tones down %%%
-three-eighths-flat-markup = \markup {
+three-eighths-flat-markup = \markup
     \combine
     \musicglyph #"accidentals.mirroredflat"
     \path #0.15
@@ -24,10 +20,9 @@ three-eighths-flat-markup = \markup {
           (lineto 0.6 -1.48)
           (lineto 0.9 -0.7)
           )
-}
 
 %%% seven eighth tones down %%%
-seven-eighths-flat-markup = \markup {
+seven-eighths-flat-markup = \markup
     \combine
     \musicglyph #"accidentals.mirroredflat.flat"
     \path #0.15
@@ -38,4 +33,3 @@ seven-eighths-flat-markup = \markup {
           (lineto 0.79 -1.48)
           (lineto 1.09 -0.7)
           )
-}
