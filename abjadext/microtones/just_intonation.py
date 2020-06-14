@@ -704,7 +704,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> notes = [abjad.Note("a,,,32") for _ in ratios]
         >>> for note, ratio in zip(notes, ratios):
         ...     microtones.tune_to_ratio(note.note_head, ratio)
-        ... 
+        ...
         >>> staff = abjad.Staff()
         >>> staff.extend(notes)
         >>> clefs = [abjad.Clef("bass_8"), abjad.Clef("bass"), abjad.Clef("treble")]
