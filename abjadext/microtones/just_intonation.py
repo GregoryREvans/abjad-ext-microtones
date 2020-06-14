@@ -480,24 +480,24 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        >>> lily_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> lily_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lily_file) # doctest: +SKIP
 
     ..  container:: example
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "3/1")
         >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        >>> lily_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> lily_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lily_file) # doctest: +SKIP
 
         ..  docs::
 
@@ -511,12 +511,12 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1")
         >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        >>> lily_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> lily_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lily_file) # doctest: +SKIP
 
         ..  docs::
 
@@ -530,12 +530,12 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=True)
         >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
+        >>> lily_file = abjad.LilyPondFile.new(
         ...     staff, includes=["default.ily"],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> lily_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lily_file) # doctest: +SKIP
 
         ..  docs::
 
@@ -554,12 +554,12 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> abjad.attach(clefs[1], staff[2])
         >>> abjad.attach(clefs[2], staff[6])
         >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "heji2-accidental-markups.ily"],
+        >>> lily_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> lily_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lily_file) # doctest: +SKIP
 
         ..  docs::
 
@@ -667,12 +667,12 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
         >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        >>> lily_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> lily_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lily_file) # doctest: +SKIP
 
         ..  docs::
 
@@ -686,12 +686,12 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> note = abjad.Note("cqs'4")
         >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
         >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        >>> lily_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> lily_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lily_file) # doctest: +SKIP
 
         ..  docs::
 
