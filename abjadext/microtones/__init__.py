@@ -10,8 +10,8 @@ from .et import (
     get_value_sum,
 )
 from .et_utilities import PitchClassSegment, PitchClassSet, PitchSegment, PitchSet
+from .ji import JIBundle, JIVector, make_ji_bundle, tune_to_ratio
 from .ji_utilities import RatioClassSegment, RatioClassSet, RatioSegment, RatioSet
-from .ji import JIVector, JIBundle, make_ji_bundle, tune_to_ratio
 
 __all__ = [
     "__version__",
