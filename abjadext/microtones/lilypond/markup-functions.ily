@@ -120,22 +120,22 @@ two-tridecimal-third-tone-up = \markup \heji-double-accidental-markup ##xe2e5 ##
 three-tridecimal-third-tone-up = \markup \heji-triple-accidental-markup ##xe2e5 #0.125
 
 
-% seventeen-limit skhismas %
-one-seventeen-limit-skhisma-down = \markup \heji-accidental-markup ##xe2e6
-two-seventeen-limit-skhisma-down = \markup \heji-double-accidental-markup ##xe2e6 ##xe2e6 #0.125
-three-seventeen-limit-skhisma-down = \markup \heji-triple-accidental-markup ##xe2e6 #0.125
-one-seventeen-limit-skhisma-up = \markup \heji-accidental-markup ##xe2e7
-two-seventeen-limit-skhisma-up = \markup \heji-double-accidental-markup ##xe2e7 ##xe2e7 #0.125
-three-seventeen-limit-skhisma-up = \markup \heji-triple-accidental-markup ##xe2e7 #0.125
+% seventeen-limit schismas %
+one-seventeen-limit-schisma-down = \markup \heji-accidental-markup ##xe2e6
+two-seventeen-limit-schisma-down = \markup \heji-double-accidental-markup ##xe2e6 ##xe2e6 #0.125
+three-seventeen-limit-schisma-down = \markup \heji-triple-accidental-markup ##xe2e6 #0.125
+one-seventeen-limit-schisma-up = \markup \heji-accidental-markup ##xe2e7
+two-seventeen-limit-schisma-up = \markup \heji-double-accidental-markup ##xe2e7 ##xe2e7 #0.125
+three-seventeen-limit-schisma-up = \markup \heji-triple-accidental-markup ##xe2e7 #0.125
 
 
-% nineteen-limit skhismas %
-one-nineteen-limit-skhisma-down = \markup \heji-accidental-markup ##xe2e8
-two-nineteen-limit-skhisma-down = \markup \heji-double-accidental-markup ##xe2e8 ##xe2e8 #0.125
-three-nineteen-limit-skhisma-down = \markup \heji-triple-accidental-markup ##xe2e8 #0.125
-one-nineteen-limit-skhisma-up = \markup \heji-accidental-markup ##xe2e9
-two-nineteen-limit-skhisma-up = \markup \heji-double-accidental-markup ##xe2e9 ##xe2e9 #0.125
-three-nineteen-limit-skhisma-up = \markup \heji-triple-accidental-markup ##xe2e9 #0.125
+% nineteen-limit schismas %
+one-nineteen-limit-schisma-down = \markup \heji-accidental-markup ##xe2e8
+two-nineteen-limit-schisma-down = \markup \heji-double-accidental-markup ##xe2e8 ##xe2e8 #0.125
+three-nineteen-limit-schisma-down = \markup \heji-triple-accidental-markup ##xe2e8 #0.125
+one-nineteen-limit-schisma-up = \markup \heji-accidental-markup ##xe2e9
+two-nineteen-limit-schisma-up = \markup \heji-double-accidental-markup ##xe2e9 ##xe2e9 #0.125
+three-nineteen-limit-schisma-up = \markup \heji-triple-accidental-markup ##xe2e9 #0.125
 
 
 % twenty-three-limit commas %

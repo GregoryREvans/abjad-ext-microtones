@@ -2,20 +2,20 @@
 Abjad's microtonal extension.
 """
 from ._version import __version__, __version_info__
-from .equal_temperament import (
-    EDOBundle,
+from .et import (
+    ETBundle,
     apply_alteration,
     get_accidental_value,
     get_alteration,
     get_value_sum,
 )
-from .just_intonation import HEJIVector, JIBundle, make_ji_bundle, tune_to_ratio
+from .ji import JIBundle, JIVector, make_ji_bundle, tune_to_ratio
 
 __all__ = [
     "__version__",
     "__version_info__",
-    "EDOBundle",
-    "HEJIVector",
+    "ETBundle",
+    "JIVector",
     "JIBundle",
     "apply_alteration",
     "get_accidental_value",

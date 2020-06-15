@@ -4,9 +4,9 @@ import math
 import abjad
 
 
-class EDOBundle:
+class ETBundle:
     """
-    EDO bundle.
+    ET bundle.
 
     >>> from abjadext import microtones
 
@@ -22,8 +22,8 @@ class EDOBundle:
 
         ..  container:: example
 
-            >>> microtones.EDOBundle()
-            EDOBundle(pitch="c'", accidental_string=None)
+            >>> microtones.ETBundle()
+            ETBundle(pitch="c'", accidental_string=None)
 
         """
         if self.accidental_string is None:
@@ -203,7 +203,7 @@ def get_alteration(pitch, value):
     transposed_accidental_value = get_value_sum(pitch, remainder)
     key = str(transposed_accidental_value)
     new_accidental = _value_to_accidental[key] + "-markup"
-    return EDOBundle(pitch, new_accidental)
+    return ETBundle(pitch, new_accidental)
 
 
 def apply_alteration(note_head, value):

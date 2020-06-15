@@ -3,19 +3,19 @@ import fractions
 import abjad
 
 
-class HEJIVector:
+class JIVector:
     """
-    HEJI vector.
+    JI vector.
 
     >>> from abjadext import microtones
 
     ..  container:: example
 
-        >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
+        >>> vector = microtones.JIVector(syntonic_commas_down=2)
         >>> vector.syntonic_commas_down
         2
 
-        >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
+        >>> vector = microtones.JIVector(syntonic_commas_down=2)
         >>> vector.syntonic_commas_up
         0
 
@@ -32,10 +32,10 @@ class HEJIVector:
         undecimal_quarter_tones_up=0,
         tridecimal_third_tones_down=0,
         tridecimal_third_tones_up=0,
-        seventeen_limit_skhismas_down=0,
-        seventeen_limit_skhismas_up=0,
-        nineteen_limit_skhismas_down=0,
-        nineteen_limit_skhismas_up=0,
+        seventeen_limit_schismas_down=0,
+        seventeen_limit_schismas_up=0,
+        nineteen_limit_schismas_down=0,
+        nineteen_limit_schismas_up=0,
         twenty_three_limit_commas_down=0,
         twenty_three_limit_commas_up=0,
     ):
@@ -48,10 +48,10 @@ class HEJIVector:
         self.undecimal_quarter_tones_up = undecimal_quarter_tones_up
         self.tridecimal_third_tones_down = tridecimal_third_tones_down
         self.tridecimal_third_tones_up = tridecimal_third_tones_up
-        self.seventeen_limit_skhismas_down = seventeen_limit_skhismas_down
-        self.seventeen_limit_skhismas_up = seventeen_limit_skhismas_up
-        self.nineteen_limit_skhismas_down = nineteen_limit_skhismas_down
-        self.nineteen_limit_skhismas_up = nineteen_limit_skhismas_up
+        self.seventeen_limit_schismas_down = seventeen_limit_schismas_down
+        self.seventeen_limit_schismas_up = seventeen_limit_schismas_up
+        self.nineteen_limit_schismas_down = nineteen_limit_schismas_down
+        self.nineteen_limit_schismas_up = nineteen_limit_schismas_up
         self.twenty_three_limit_commas_down = twenty_three_limit_commas_down
         self.twenty_three_limit_commas_up = twenty_three_limit_commas_up
 
@@ -61,8 +61,8 @@ class HEJIVector:
 
         ..  container:: example
 
-            >>> microtones.HEJIVector()
-            HEJIVector(
+            >>> microtones.JIVector()
+            JIVector(
                     diatonic_accidental="natural",
                     syntonic_commas_down=0,
                     syntonic_commas_up=0,
@@ -72,10 +72,10 @@ class HEJIVector:
                     undecimal_quarter_tones_up=0,
                     tridecimal_third_tones_down=0,
                     tridecimal_third_tones_up=0,
-                    seventeen_limit_skhismas_down=0,
-                    seventeen_limit_skhismas_up=0,
-                    nineteen_limit_skhismas_down=0,
-                    nineteen_limit_skhismas_up=0,
+                    seventeen_limit_schismas_down=0,
+                    seventeen_limit_schismas_up=0,
+                    nineteen_limit_schismas_down=0,
+                    nineteen_limit_schismas_up=0,
                     twenty_three_limit_commas_down=0,
                     twenty_three_limit_commas_up=0,
             )
@@ -91,10 +91,10 @@ class HEJIVector:
         undecimal_quarter_tones_up={self.undecimal_quarter_tones_up},
         tridecimal_third_tones_down={self.tridecimal_third_tones_down},
         tridecimal_third_tones_up={self.tridecimal_third_tones_up},
-        seventeen_limit_skhismas_down={self.seventeen_limit_skhismas_down},
-        seventeen_limit_skhismas_up={self.seventeen_limit_skhismas_up},
-        nineteen_limit_skhismas_down={self.nineteen_limit_skhismas_down},
-        nineteen_limit_skhismas_up={self.nineteen_limit_skhismas_up},
+        seventeen_limit_schismas_down={self.seventeen_limit_schismas_down},
+        seventeen_limit_schismas_up={self.seventeen_limit_schismas_up},
+        nineteen_limit_schismas_down={self.nineteen_limit_schismas_down},
+        nineteen_limit_schismas_up={self.nineteen_limit_schismas_up},
         twenty_three_limit_commas_down={self.twenty_three_limit_commas_down},
         twenty_three_limit_commas_up={self.twenty_three_limit_commas_up},\n)"""
 
@@ -104,11 +104,11 @@ class HEJIVector:
 
         ..  container:: example
 
-            >>> vector = microtones.HEJIVector()
+            >>> vector = microtones.JIVector()
             >>> vector.has_just_accidentals()
             False
 
-            >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+            >>> vector = microtones.JIVector(syntonic_commas_down=1)
             >>> vector.has_just_accidentals()
             True
 
@@ -123,10 +123,10 @@ class HEJIVector:
                 self.undecimal_quarter_tones_up,
                 self.tridecimal_third_tones_down,
                 self.tridecimal_third_tones_up,
-                self.seventeen_limit_skhismas_down,
-                self.seventeen_limit_skhismas_up,
-                self.nineteen_limit_skhismas_down,
-                self.nineteen_limit_skhismas_up,
+                self.seventeen_limit_schismas_down,
+                self.seventeen_limit_schismas_up,
+                self.nineteen_limit_schismas_down,
+                self.nineteen_limit_schismas_up,
                 self.twenty_three_limit_commas_down,
                 self.twenty_three_limit_commas_up,
             ]
@@ -138,7 +138,7 @@ class HEJIVector:
 
         ..  container:: example
 
-            >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+            >>> vector = microtones.JIVector(syntonic_commas_down=1)
             >>> abjad.f(vector.calculate_heji_markup())
             \natural-one-syntonic-comma-down
 
@@ -214,35 +214,35 @@ class HEJIVector:
             string = fr"\{int_to_word[str(self.tridecimal_third_tones_up)]}"
             string += "-tridecimal-third-tone-up"
             accumulated_accidentals.append(string)
-        if self.seventeen_limit_skhismas_down == self.seventeen_limit_skhismas_up:
-            self.seventeen_limit_skhismas_down = 0
-            self.seventeen_limit_skhismas_up = 0
-        elif self.seventeen_limit_skhismas_down > self.seventeen_limit_skhismas_up:
-            self.seventeen_limit_skhismas_down -= self.seventeen_limit_skhismas_up
-            self.seventeen_limit_skhismas_up = 0
-            string = fr"\{int_to_word[str(self.seventeen_limit_skhismas_down)]}"
-            string += "-seventeen-limit-skhisma-down"
+        if self.seventeen_limit_schismas_down == self.seventeen_limit_schismas_up:
+            self.seventeen_limit_schismas_down = 0
+            self.seventeen_limit_schismas_up = 0
+        elif self.seventeen_limit_schismas_down > self.seventeen_limit_schismas_up:
+            self.seventeen_limit_schismas_down -= self.seventeen_limit_schismas_up
+            self.seventeen_limit_schismas_up = 0
+            string = fr"\{int_to_word[str(self.seventeen_limit_schismas_down)]}"
+            string += "-seventeen-limit-schisma-down"
             accumulated_accidentals.append(string)
         else:
-            self.seventeen_limit_skhismas_up -= self.seventeen_limit_skhismas_down
-            self.seventeen_limit_skhismas_down = 0
-            string = fr"\{int_to_word[str(self.seventeen_limit_skhismas_up)]}"
-            string += "-seventeen-limit-skhisma-up"
+            self.seventeen_limit_schismas_up -= self.seventeen_limit_schismas_down
+            self.seventeen_limit_schismas_down = 0
+            string = fr"\{int_to_word[str(self.seventeen_limit_schismas_up)]}"
+            string += "-seventeen-limit-schisma-up"
             accumulated_accidentals.append(string)
-        if self.nineteen_limit_skhismas_down == self.nineteen_limit_skhismas_up:
-            self.nineteen_limit_skhismas_down = 0
-            self.nineteen_limit_skhismas_up = 0
-        elif self.nineteen_limit_skhismas_down > self.nineteen_limit_skhismas_up:
-            self.nineteen_limit_skhismas_down -= self.nineteen_limit_skhismas_up
-            self.nineteen_limit_skhismas_up = 0
-            string = fr"\{int_to_word[str(self.nineteen_limit_skhismas_down)]}"
-            string += "-nineteen-limit-skhisma-down"
+        if self.nineteen_limit_schismas_down == self.nineteen_limit_schismas_up:
+            self.nineteen_limit_schismas_down = 0
+            self.nineteen_limit_schismas_up = 0
+        elif self.nineteen_limit_schismas_down > self.nineteen_limit_schismas_up:
+            self.nineteen_limit_schismas_down -= self.nineteen_limit_schismas_up
+            self.nineteen_limit_schismas_up = 0
+            string = fr"\{int_to_word[str(self.nineteen_limit_schismas_down)]}"
+            string += "-nineteen-limit-schisma-down"
             accumulated_accidentals.append(string)
         else:
-            self.nineteen_limit_skhismas_up -= self.nineteen_limit_skhismas_down
-            self.nineteen_limit_skhismas_down = 0
-            string = fr"\{int_to_word[str(self.nineteen_limit_skhismas_up)]}"
-            string += "-nineteen-limit-skhisma-up"
+            self.nineteen_limit_schismas_up -= self.nineteen_limit_schismas_down
+            self.nineteen_limit_schismas_down = 0
+            string = fr"\{int_to_word[str(self.nineteen_limit_schismas_up)]}"
+            string += "-nineteen-limit-schisma-up"
             accumulated_accidentals.append(string)
         if self.twenty_three_limit_commas_down == self.twenty_three_limit_commas_up:
             self.twenty_three_limit_commas_down = 0
@@ -294,7 +294,7 @@ class JIBundle:
         "c'"
 
         >>> bundle.vector
-        HEJIVector(
+        JIVector(
                 diatonic_accidental="natural",
                 syntonic_commas_down=0,
                 syntonic_commas_up=0,
@@ -304,17 +304,17 @@ class JIBundle:
                 undecimal_quarter_tones_up=0,
                 tridecimal_third_tones_down=0,
                 tridecimal_third_tones_up=0,
-                seventeen_limit_skhismas_down=0,
-                seventeen_limit_skhismas_up=0,
-                nineteen_limit_skhismas_down=0,
-                nineteen_limit_skhismas_up=0,
+                seventeen_limit_schismas_down=0,
+                seventeen_limit_schismas_up=0,
+                nineteen_limit_schismas_down=0,
+                nineteen_limit_schismas_up=0,
                 twenty_three_limit_commas_down=0,
                 twenty_three_limit_commas_up=0,
         )
 
     """
 
-    def __init__(self, pitch="c'", vector=HEJIVector()):
+    def __init__(self, pitch="c'", vector=JIVector()):
         self.pitch = pitch
         self.vector = vector
 
@@ -327,7 +327,7 @@ class JIBundle:
             >>> microtones.JIBundle()
             JIBundle(
                 pitch=c',
-                vector=HEJIVector(
+                vector=JIVector(
                     diatonic_accidental="natural",
                     syntonic_commas_down=0,
                     syntonic_commas_up=0,
@@ -337,10 +337,10 @@ class JIBundle:
                     undecimal_quarter_tones_up=0,
                     tridecimal_third_tones_down=0,
                     tridecimal_third_tones_up=0,
-                    seventeen_limit_skhismas_down=0,
-                    seventeen_limit_skhismas_up=0,
-                    nineteen_limit_skhismas_down=0,
-                    nineteen_limit_skhismas_up=0,
+                    seventeen_limit_schismas_down=0,
+                    seventeen_limit_schismas_up=0,
+                    nineteen_limit_schismas_down=0,
+                    nineteen_limit_schismas_up=0,
                     twenty_three_limit_commas_down=0,
                     twenty_three_limit_commas_up=0,
                 ),
@@ -400,8 +400,8 @@ _numerator_factor_to_nudge = {
     7: "septimal_commas_down",
     11: "undecimal_quarter_tones_up",
     13: "tridecimal_third_tones_down",
-    17: "seventeen_limit_skhismas_down",
-    19: "nineteen_limit_skhismas_up",
+    17: "seventeen_limit_schismas_down",
+    19: "nineteen_limit_schismas_up",
     23: "twenty_three_limit_commas_up",
 }
 
@@ -417,7 +417,7 @@ def make_ji_bundle(pitch, ratio):
         NamedPitch("g'")
 
         >>> bundle.vector
-        HEJIVector(
+        JIVector(
                 diatonic_accidental="natural",
                 syntonic_commas_down=0,
                 syntonic_commas_up=0,
@@ -427,10 +427,10 @@ def make_ji_bundle(pitch, ratio):
                 undecimal_quarter_tones_up=0,
                 tridecimal_third_tones_down=0,
                 tridecimal_third_tones_up=0,
-                seventeen_limit_skhismas_down=0,
-                seventeen_limit_skhismas_up=0,
-                nineteen_limit_skhismas_down=0,
-                nineteen_limit_skhismas_up=0,
+                seventeen_limit_schismas_down=0,
+                seventeen_limit_schismas_up=0,
+                nineteen_limit_schismas_down=0,
+                nineteen_limit_schismas_up=0,
                 twenty_three_limit_commas_down=0,
                 twenty_three_limit_commas_up=0,
                 )
@@ -443,7 +443,7 @@ def make_ji_bundle(pitch, ratio):
     ratio = fractions.Fraction(ratio)
     numerator_factors = _prime_factors(ratio.numerator)
     denominator_factors = _prime_factors(ratio.denominator)
-    accidental_vector = HEJIVector(diatonic_accidental=pitch.accidental.name)
+    accidental_vector = JIVector(diatonic_accidental=pitch.accidental.name)
     for prime in numerator_factors:
         assert prime <= 23
         for string in _numerator_factor_to_intervals[prime]:
@@ -665,7 +665,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \tweak Accidental.text \markup {
                     \concat
                         {
-                            \one-seventeen-limit-skhisma-down
+                            \one-seventeen-limit-schisma-down
                             \hspace #0.125
                             \sharp
                         }
@@ -675,7 +675,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \tweak Accidental.text \natural
                 b'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-nineteen-limit-skhisma-up
+                \tweak Accidental.text \one-nineteen-limit-schisma-up
                 c''32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down

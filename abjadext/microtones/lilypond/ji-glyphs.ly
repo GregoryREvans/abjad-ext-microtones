@@ -96,25 +96,25 @@
 \two-tridecimal-third-tone-up
 \three-tridecimal-third-tone-up
 
-% seventeen-limit skhismas %
-\one-seventeen-limit-skhisma-down
-\two-seventeen-limit-skhisma-down
-\three-seventeen-limit-skhisma-down
-\one-seventeen-limit-skhisma-up
-\two-seventeen-limit-skhisma-up
-\three-seventeen-limit-skhisma-up
+% seventeen-limit schismas %
+\one-seventeen-limit-schisma-down
+\two-seventeen-limit-schisma-down
+\three-seventeen-limit-schisma-down
+\one-seventeen-limit-schisma-up
+\two-seventeen-limit-schisma-up
+\three-seventeen-limit-schisma-up
 
 
-% nineteen-limit skhismas %
-\one-nineteen-limit-skhisma-down
-\two-nineteen-limit-skhisma-down
-\three-nineteen-limit-skhisma-down
-\one-nineteen-limit-skhisma-up
-\two-nineteen-limit-skhisma-up
-\three-nineteen-limit-skhisma-up
+% nineteen-limit schismas %
+\one-nineteen-limit-schisma-down
+\two-nineteen-limit-schisma-down
+\three-nineteen-limit-schisma-down
+\one-nineteen-limit-schisma-up
+\two-nineteen-limit-schisma-up
+\three-nineteen-limit-schisma-up
 
 
-% twenty-three-limit skhismas %
+% twenty-three-limit schismas %
 \one-twenty-three-limit-comma-down
 \two-twenty-three-limit-comma-down
 \three-twenty-three-limit-comma-down
