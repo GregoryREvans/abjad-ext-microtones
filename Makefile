@@ -1,42 +1,38 @@
-.PHONY: docs build help
-.DEFAULT_GOAL := help
-
-project = abjadext
-errors = E123,E203,E265,E266,E501,W503
-origin := $(shell git config --get remote.origin.url)
-formatPaths = ${project}/ tests/ *.py
-testPaths = ${project}/ tests/
-
-help:  ## Display this help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+.PHONY: docs build
 
 black-check:
-	black --target-version py36 --exclude '.*boilerplate.*' --check --diff ${formatPaths}
+	black --check --diff --target-version=py38 .
 
 black-reformat:
-	black --target-version py36 --exclude '.*boilerplate.*' ${formatPaths}
+	black --target-version=py38 .
 
-build:  ## Build distribution archive
+build:
 	python setup.py sdist
 
-clean:  ## Remove transitory files
+clean:
 	find . -name '*.pyc' | xargs rm
-	find . -name __pycache__ | xargs rm -Rf
 	rm -Rif *.egg-info/
 	rm -Rif .cache/
 	rm -Rif .tox/
+	rm -Rif __pycache__
 	rm -Rif build/
 	rm -Rif dist/
 	rm -Rif htmlcov/
 	rm -Rif prof/
 
-docs:  ## Build the docs
+docs:
 	make -C docs/ html
 
-flake8:  ## Run flake8
-	flake8 --max-line-length=90 --isolated --ignore=${errors} ${formatPaths}
+flake_exclude = --exclude=__metadata__.py
+flake_ignore = --ignore=E203,E266,E501,W503
+flake_options = --isolated --max-line-length=88
 
-gh-pages:  ## Upload docs to GitHub pages
+flake8:
+	flake8 ${flake_exclude} ${flake_ignore} ${flake_options}
+
+origin := $(shell git config --get remote.origin.url)
+
+gh-pages:
 	rm -Rf gh-pages/
 	git clone $(origin) gh-pages/
 	cd gh-pages/ && \
@@ -49,47 +45,79 @@ gh-pages:  ## Upload docs to GitHub pages
 		git push -u origin gh-pages
 	rm -Rf gh-pages/
 
-isort:  ## Run isort
+isort-check:
 	isort \
-		--case-sensitive \
-		--multi-line 3 \
-		--recursive \
-		--skip ${project}/__init__.py \
-		--skip-glob '*boilerplate*' \
-		--thirdparty uqbar \
-		--trailing-comma \
-		--use-parentheses -y \
-		${formatPaths}
+	--case-sensitive \
+	--check-only \
+	--diff \
+	--force-grid-wrap=0 \
+	--line-width=88 \
+	--multi-line=3 \
+	--project=abjad \
+	--recursive \
+	--thirdparty=uqbar \
+	--trailing-comma \
+	--use-parentheses \
+	.
 
-mypy:  ## Run mypy
-	mypy --ignore-missing-imports ${project}/
+isort-reformat:
+	isort \
+	--apply \
+	--case-sensitive \
+	--force-grid-wrap=0 \
+	--line-width=88 \
+	--multi-line=3 \
+	--project=abjad \
+	--recursive \
+	--thirdparty=uqbar \
+	--trailing-comma \
+	--use-parentheses \
+	.
 
-pytest:  ## Run pytest
+mypy:
+	mypy .
+
+project = abjadext
+
+pytest:
 	rm -Rf htmlcov/
 	pytest \
-		--cov-config=.coveragerc \
-		--cov-report=html \
-		--cov-report=term \
-		--cov=${project}/ \
-		--durations=20 \
-		${testPaths}
+	--cov-config=.coveragerc \
+	--cov-report=html \
+	--cov-report=term \
+	--cov=${project}/ \
+	--durations=20 \
+	.
 
-pytest-x:  ## Run pytest and stop on first failure
+pytest-x:
 	rm -Rf htmlcov/
 	pytest \
-		-x \
-		--cov-config=.coveragerc \
-		--cov-report=html \
-		--cov-report=term \
-		--cov=${project}/ \
-		--durations=20 \
-		${testPaths}
+	-x \
+	--cov-config=.coveragerc \
+	--cov-report=html \
+	--cov-report=term \
+	--cov=${project}/ \
+	--durations=20 \
+	.
 
-reformat: isort black-reformat ## Reformat codebase via isort and black
+reformat:
+	make black-reformat
+	make isort-reformat
 
-release: docs clean build ## Make a new release
-	pip install -U twine
+release:
+	make clean
+	make build
 	twine upload dist/*.tar.gz
-	make gh-pages
 
-test: black-check flake8 mypy pytest ## Run all tests
+check:
+	make black-check
+	make flake8
+	make isort-check
+	make mypy
+
+test:
+	make black-check
+	make flake8
+	make isort-check
+	make mypy
+	make pytest

@@ -1,76 +1,57 @@
-language: python
-dist: xenial
-sudo: false
-python:
-- 3.8
+version: ~> 1.0
 
-env:
-  global:
-  - LILYPOND_URL="http://lilypond.org/downloads/binaries/linux-64/"
-  - LILYPOND_VERSION=2.19.84
+os: linux
+
+dist: xenial
+
+language: python
+
+python:
+  - 3.6
+  - 3.7
+  - 3.8
+
+git:
+  depth: false
 
 before_install:
-- LOCATION=`pwd`
 
-# upgrade pip:
-- pip install --upgrade pip
+  # install lilypond:
+  - lilypond_url=http://lilypond.org/download/binaries/linux-64/
+  - lilypond_source=lilypond-2.19.84-1.linux-64.sh
+  - wget -q -O /tmp/lilypond $lilypond_url/$lilypond_source
+  - sh /tmp/lilypond --batch
 
-# install flake8:
-- pip install flake8
+  # clone & install abjad:
+  - git clone https://github.com/Abjad/abjad.git /tmp/abjad
+  - pip install /tmp/abjad
+  - export MYPYPATH=$MYPYPATH:/tmp/abjad
 
-# install isort:
-- pip install isort
-
-# install mypy:
-- pip install mypy
-
-# alias package:
-- PACKAGE=`pwd`/abjadext
-- export PYTHONPATH=$PACKAGE:$PYTHONPATH
-# from josiah
-- wget -q ${LILYPOND_URL}lilypond-${LILYPOND_VERSION}-1.linux-64.sh
-- sh lilypond-$LILYPOND_VERSION-1.linux-64.sh --batch
-- export PATH=/home/travis/bin:$PATH
-- pip install -U pip regex
-- export ABJAD_ARCHIVE=https://github.com/Abjad/abjad/archive/master.zip
-- pip install -U $ABJAD_ARCHIVE
-- pip install --no-deps --target /tmp/typehints $ABJAD_ARCHIVE
-- pip install --no-deps --target /tmp/typehints uqbar
-- export MYPYPATH=/tmp/typehints
-# clone & install rmakers:
-- RMAKERS=/tmp/abjad-ext-rmakers
-- git clone https://github.com/Abjad/abjad-ext-rmakers.git $RMAKERS
-- pip install -e $RMAKERS
-- export MYPYPATH=$MYPYPATH:$RMAKERS
-# clone & install evans:
-- EVANS=/tmp/evans
-- git clone https://github.com/GregoryREvans/evans.git $EVANS
-- export PYTHONPATH=$EVANS/:$PYTHONPATH
-- export PATH=$EVANS/evans/scr/:$PATH
-# clone & install baca:
-- BACA=/tmp/baca
-- git clone https://github.com/trevorbaca/baca.git $BACA
-- export PYTHONPATH=$BACA/:$PYTHONPATH
-# clone & install tsmakers:
-- TSMAKERS=/tmp/tsmakers
-- git clone https://github.com/ivanalexandermoscotta/tsmakers.git $TSMAKERS
-- export PYTHONPATH=$TSMAKERS:$PYTHONPATH
+  # log environment variables:
+  - echo $MYPYPATH
+  - echo $PATH
+  - echo $PYTHONPATH
+  - echo $TRAVIS_BUILD_DIR
+  - echo $TRAVIS_PYTHON_VERSION
 
 install:
-# - abjad/scr/devel/prime-parser-tables
-- pip install -e .
-- black --version
-- flake8 --version
-- mypy --version
-# - pytest --version
+  - pip install -e .[test]
+
+  # log versions:
+  - black --version
+  - flake8 --version
+  - isort --version
+  - mypy --version
+  - pip --version
+  - pytest --version
 
 script:
-- black-check .
-- flake8-check .
-- isort-check .
-# - mypy .
-- evans-doctest .
+  - make black-check
+  - make flake8
+  - make isort-check
+  - make mypy
+  - make pytest
 
 after_success:
-- pip install --quiet coveralls
-- coveralls
+  - pip install --quiet coveralls
+  - coveralls
