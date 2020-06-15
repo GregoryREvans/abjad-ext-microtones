@@ -2,8 +2,8 @@
 Abjad's microtonal extension.
 """
 from ._version import __version__, __version_info__
-from .equal_temperament import (
-    EDOBundle,
+from .et import (
+    ETBundle,
     apply_alteration,
     get_accidental_value,
     get_alteration,
@@ -11,13 +11,13 @@ from .equal_temperament import (
 )
 from .et_utilities import PitchClassSegment, PitchClassSet, PitchSegment, PitchSet
 from .ji_utilities import RatioClassSegment, RatioClassSet, RatioSegment, RatioSet
-from .just_intonation import HEJIVector, JIBundle, make_ji_bundle, tune_to_ratio
+from .ji import JIVector, JIBundle, make_ji_bundle, tune_to_ratio
 
 __all__ = [
     "__version__",
     "__version_info__",
-    "EDOBundle",
-    "HEJIVector",
+    "ETBundle",
+    "JIVector",
     "JIBundle",
     "PitchClassSet",
     "PitchSet",

@@ -1,13 +1,13 @@
 \version "2.19.84"
 
 
-forced-natural-markup = \markup
+natural-markup = \markup
     \musicglyph #"accidentals.natural"
 
-forced-sharp-markup = \markup
+sharp-markup = \markup
     \musicglyph #"accidentals.sharp"
 
-forced-flat-markup = \markup
+flat-markup = \markup
     \musicglyph #"accidentals.flat"
 
 double-sharp-markup = \markup
@@ -16,13 +16,13 @@ double-sharp-markup = \markup
 double-flat-markup = \markup
     \musicglyph #"accidentals.flatflat"
 
-quarter-sharp-markup = \markup
+one-quarter-sharp-markup = \markup
     \musicglyph #"accidentals.sharp.slashslash.stem"
 
 three-quarters-sharp-markup = \markup
     \musicglyph #"accidentals.sharp.slashslash.stemstemstem"
 
-eighth-sharp-markup = \markup
+one-eighth-sharp-markup = \markup
     \combine
     \musicglyph #"accidentals.natural"
     \path #0.15
@@ -68,7 +68,7 @@ seven-eighths-sharp-markup = \markup
           (lineto 1.55 1.2)
           )
 
-eighth-flat-markup = \markup
+one-eighth-flat-markup = \markup
     \combine
     \musicglyph #"accidentals.natural"
     \path #0.15

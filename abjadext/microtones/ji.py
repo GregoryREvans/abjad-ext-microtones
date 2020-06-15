@@ -3,19 +3,19 @@ import fractions
 import abjad
 
 
-class HEJIVector:
+class JIVector:
     """
-    HEJI vector.
+    JI vector.
 
     >>> from abjadext import microtones
 
     ..  container:: example
 
-        >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
+        >>> vector = microtones.JIVector(syntonic_commas_down=2)
         >>> vector.syntonic_commas_down
         2
 
-        >>> vector = microtones.HEJIVector(syntonic_commas_down=2)
+        >>> vector = microtones.JIVector(syntonic_commas_down=2)
         >>> vector.syntonic_commas_up
         0
 
@@ -32,10 +32,10 @@ class HEJIVector:
         undecimal_quarter_tones_up=0,
         tridecimal_third_tones_down=0,
         tridecimal_third_tones_up=0,
-        seventeen_limit_skhismas_down=0,
-        seventeen_limit_skhismas_up=0,
-        nineteen_limit_skhismas_down=0,
-        nineteen_limit_skhismas_up=0,
+        seventeen_limit_schismas_down=0,
+        seventeen_limit_schismas_up=0,
+        nineteen_limit_schismas_down=0,
+        nineteen_limit_schismas_up=0,
         twenty_three_limit_commas_down=0,
         twenty_three_limit_commas_up=0,
     ):
@@ -48,10 +48,10 @@ class HEJIVector:
         self.undecimal_quarter_tones_up = undecimal_quarter_tones_up
         self.tridecimal_third_tones_down = tridecimal_third_tones_down
         self.tridecimal_third_tones_up = tridecimal_third_tones_up
-        self.seventeen_limit_skhismas_down = seventeen_limit_skhismas_down
-        self.seventeen_limit_skhismas_up = seventeen_limit_skhismas_up
-        self.nineteen_limit_skhismas_down = nineteen_limit_skhismas_down
-        self.nineteen_limit_skhismas_up = nineteen_limit_skhismas_up
+        self.seventeen_limit_schismas_down = seventeen_limit_schismas_down
+        self.seventeen_limit_schismas_up = seventeen_limit_schismas_up
+        self.nineteen_limit_schismas_down = nineteen_limit_schismas_down
+        self.nineteen_limit_schismas_up = nineteen_limit_schismas_up
         self.twenty_three_limit_commas_down = twenty_three_limit_commas_down
         self.twenty_three_limit_commas_up = twenty_three_limit_commas_up
 
@@ -61,8 +61,8 @@ class HEJIVector:
 
         ..  container:: example
 
-            >>> microtones.HEJIVector()
-            HEJIVector(
+            >>> microtones.JIVector()
+            JIVector(
                     diatonic_accidental="natural",
                     syntonic_commas_down=0,
                     syntonic_commas_up=0,
@@ -72,10 +72,10 @@ class HEJIVector:
                     undecimal_quarter_tones_up=0,
                     tridecimal_third_tones_down=0,
                     tridecimal_third_tones_up=0,
-                    seventeen_limit_skhismas_down=0,
-                    seventeen_limit_skhismas_up=0,
-                    nineteen_limit_skhismas_down=0,
-                    nineteen_limit_skhismas_up=0,
+                    seventeen_limit_schismas_down=0,
+                    seventeen_limit_schismas_up=0,
+                    nineteen_limit_schismas_down=0,
+                    nineteen_limit_schismas_up=0,
                     twenty_three_limit_commas_down=0,
                     twenty_three_limit_commas_up=0,
             )
@@ -91,10 +91,10 @@ class HEJIVector:
         undecimal_quarter_tones_up={self.undecimal_quarter_tones_up},
         tridecimal_third_tones_down={self.tridecimal_third_tones_down},
         tridecimal_third_tones_up={self.tridecimal_third_tones_up},
-        seventeen_limit_skhismas_down={self.seventeen_limit_skhismas_down},
-        seventeen_limit_skhismas_up={self.seventeen_limit_skhismas_up},
-        nineteen_limit_skhismas_down={self.nineteen_limit_skhismas_down},
-        nineteen_limit_skhismas_up={self.nineteen_limit_skhismas_up},
+        seventeen_limit_schismas_down={self.seventeen_limit_schismas_down},
+        seventeen_limit_schismas_up={self.seventeen_limit_schismas_up},
+        nineteen_limit_schismas_down={self.nineteen_limit_schismas_down},
+        nineteen_limit_schismas_up={self.nineteen_limit_schismas_up},
         twenty_three_limit_commas_down={self.twenty_three_limit_commas_down},
         twenty_three_limit_commas_up={self.twenty_three_limit_commas_up},\n)"""
 
@@ -104,11 +104,11 @@ class HEJIVector:
 
         ..  container:: example
 
-            >>> vector = microtones.HEJIVector()
+            >>> vector = microtones.JIVector()
             >>> vector.has_just_accidentals()
             False
 
-            >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+            >>> vector = microtones.JIVector(syntonic_commas_down=1)
             >>> vector.has_just_accidentals()
             True
 
@@ -123,10 +123,10 @@ class HEJIVector:
                 self.undecimal_quarter_tones_up,
                 self.tridecimal_third_tones_down,
                 self.tridecimal_third_tones_up,
-                self.seventeen_limit_skhismas_down,
-                self.seventeen_limit_skhismas_up,
-                self.nineteen_limit_skhismas_down,
-                self.nineteen_limit_skhismas_up,
+                self.seventeen_limit_schismas_down,
+                self.seventeen_limit_schismas_up,
+                self.nineteen_limit_schismas_down,
+                self.nineteen_limit_schismas_up,
                 self.twenty_three_limit_commas_down,
                 self.twenty_three_limit_commas_up,
             ]
@@ -138,9 +138,9 @@ class HEJIVector:
 
         ..  container:: example
 
-            >>> vector = microtones.HEJIVector(syntonic_commas_down=1)
+            >>> vector = microtones.JIVector(syntonic_commas_down=1)
             >>> abjad.f(vector.calculate_heji_markup())
-            \forced-natural-one-syntonic-comma-down
+            \natural-one-syntonic-comma-down
 
         """
         int_to_word = {"1": "one", "2": "two", "3": "three"}
@@ -152,19 +152,19 @@ class HEJIVector:
         if self.syntonic_commas_down == self.syntonic_commas_up:
             self.syntonic_commas_down = 0
             self.syntonic_commas_up = 0
-            string = fr"\forced-{self.diatonic_accidental}"
+            string = fr"\{self.diatonic_accidental}"
             accumulated_accidentals.append(string)
         elif self.syntonic_commas_down > self.syntonic_commas_up:
             self.syntonic_commas_down -= self.syntonic_commas_up
             self.syntonic_commas_up = 0
-            string = fr"\forced-{self.diatonic_accidental}"
+            string = fr"\{self.diatonic_accidental}"
             string += f"-{int_to_word[str(self.syntonic_commas_down)]}"
             string += "-syntonic-comma-down"
             accumulated_accidentals.append(string)
         else:
             self.syntonic_commas_up -= self.syntonic_commas_down
             self.syntonic_commas_down = 0
-            string = fr"\forced-{self.diatonic_accidental}"
+            string = fr"\{self.diatonic_accidental}"
             string += f"-{int_to_word[str(self.syntonic_commas_up)]}"
             string += "-syntonic-comma-up"
 
@@ -214,35 +214,35 @@ class HEJIVector:
             string = fr"\{int_to_word[str(self.tridecimal_third_tones_up)]}"
             string += "-tridecimal-third-tone-up"
             accumulated_accidentals.append(string)
-        if self.seventeen_limit_skhismas_down == self.seventeen_limit_skhismas_up:
-            self.seventeen_limit_skhismas_down = 0
-            self.seventeen_limit_skhismas_up = 0
-        elif self.seventeen_limit_skhismas_down > self.seventeen_limit_skhismas_up:
-            self.seventeen_limit_skhismas_down -= self.seventeen_limit_skhismas_up
-            self.seventeen_limit_skhismas_up = 0
-            string = fr"\{int_to_word[str(self.seventeen_limit_skhismas_down)]}"
-            string += "-seventeen-limit-skhisma-down"
+        if self.seventeen_limit_schismas_down == self.seventeen_limit_schismas_up:
+            self.seventeen_limit_schismas_down = 0
+            self.seventeen_limit_schismas_up = 0
+        elif self.seventeen_limit_schismas_down > self.seventeen_limit_schismas_up:
+            self.seventeen_limit_schismas_down -= self.seventeen_limit_schismas_up
+            self.seventeen_limit_schismas_up = 0
+            string = fr"\{int_to_word[str(self.seventeen_limit_schismas_down)]}"
+            string += "-seventeen-limit-schisma-down"
             accumulated_accidentals.append(string)
         else:
-            self.seventeen_limit_skhismas_up -= self.seventeen_limit_skhismas_down
-            self.seventeen_limit_skhismas_down = 0
-            string = fr"\{int_to_word[str(self.seventeen_limit_skhismas_up)]}"
-            string += "-seventeen-limit-skhisma-up"
+            self.seventeen_limit_schismas_up -= self.seventeen_limit_schismas_down
+            self.seventeen_limit_schismas_down = 0
+            string = fr"\{int_to_word[str(self.seventeen_limit_schismas_up)]}"
+            string += "-seventeen-limit-schisma-up"
             accumulated_accidentals.append(string)
-        if self.nineteen_limit_skhismas_down == self.nineteen_limit_skhismas_up:
-            self.nineteen_limit_skhismas_down = 0
-            self.nineteen_limit_skhismas_up = 0
-        elif self.nineteen_limit_skhismas_down > self.nineteen_limit_skhismas_up:
-            self.nineteen_limit_skhismas_down -= self.nineteen_limit_skhismas_up
-            self.nineteen_limit_skhismas_up = 0
-            string = fr"\{int_to_word[str(self.nineteen_limit_skhismas_down)]}"
-            string += "-nineteen-limit-skhisma-down"
+        if self.nineteen_limit_schismas_down == self.nineteen_limit_schismas_up:
+            self.nineteen_limit_schismas_down = 0
+            self.nineteen_limit_schismas_up = 0
+        elif self.nineteen_limit_schismas_down > self.nineteen_limit_schismas_up:
+            self.nineteen_limit_schismas_down -= self.nineteen_limit_schismas_up
+            self.nineteen_limit_schismas_up = 0
+            string = fr"\{int_to_word[str(self.nineteen_limit_schismas_down)]}"
+            string += "-nineteen-limit-schisma-down"
             accumulated_accidentals.append(string)
         else:
-            self.nineteen_limit_skhismas_up -= self.nineteen_limit_skhismas_down
-            self.nineteen_limit_skhismas_down = 0
-            string = fr"\{int_to_word[str(self.nineteen_limit_skhismas_up)]}"
-            string += "-nineteen-limit-skhisma-up"
+            self.nineteen_limit_schismas_up -= self.nineteen_limit_schismas_down
+            self.nineteen_limit_schismas_down = 0
+            string = fr"\{int_to_word[str(self.nineteen_limit_schismas_up)]}"
+            string += "-nineteen-limit-schisma-up"
             accumulated_accidentals.append(string)
         if self.twenty_three_limit_commas_down == self.twenty_three_limit_commas_up:
             self.twenty_three_limit_commas_down = 0
@@ -261,7 +261,7 @@ class HEJIVector:
             accumulated_accidentals.append(string)
         if len(accumulated_accidentals):
             accumulated_accidentals.reverse()
-            if accumulated_accidentals[-1] == r"\forced-natural":
+            if accumulated_accidentals[-1] == r"\natural":
                 if self.has_just_accidentals():
                     accumulated_accidentals = [_ for _ in accumulated_accidentals[:-1]]
             literal_components = []
@@ -278,9 +278,7 @@ class HEJIVector:
                         kerned_components.append(r"\hspace #0.125")
                 literal = abjad.Markup(literal=True).concat(kerned_components)
         else:
-            literal = abjad.Markup(
-                fr"  \forced-{self.diatonic_accidental}", literal=True
-            )
+            literal = abjad.Markup(fr"  \{self.diatonic_accidental}", literal=True)
         self.accidental_literal = literal
         return literal
 
@@ -296,7 +294,7 @@ class JIBundle:
         "c'"
 
         >>> bundle.vector
-        HEJIVector(
+        JIVector(
                 diatonic_accidental="natural",
                 syntonic_commas_down=0,
                 syntonic_commas_up=0,
@@ -306,17 +304,17 @@ class JIBundle:
                 undecimal_quarter_tones_up=0,
                 tridecimal_third_tones_down=0,
                 tridecimal_third_tones_up=0,
-                seventeen_limit_skhismas_down=0,
-                seventeen_limit_skhismas_up=0,
-                nineteen_limit_skhismas_down=0,
-                nineteen_limit_skhismas_up=0,
+                seventeen_limit_schismas_down=0,
+                seventeen_limit_schismas_up=0,
+                nineteen_limit_schismas_down=0,
+                nineteen_limit_schismas_up=0,
                 twenty_three_limit_commas_down=0,
                 twenty_three_limit_commas_up=0,
         )
 
     """
 
-    def __init__(self, pitch="c'", vector=HEJIVector()):
+    def __init__(self, pitch="c'", vector=JIVector()):
         self.pitch = pitch
         self.vector = vector
 
@@ -329,7 +327,7 @@ class JIBundle:
             >>> microtones.JIBundle()
             JIBundle(
                 pitch=c',
-                vector=HEJIVector(
+                vector=JIVector(
                     diatonic_accidental="natural",
                     syntonic_commas_down=0,
                     syntonic_commas_up=0,
@@ -339,10 +337,10 @@ class JIBundle:
                     undecimal_quarter_tones_up=0,
                     tridecimal_third_tones_down=0,
                     tridecimal_third_tones_up=0,
-                    seventeen_limit_skhismas_down=0,
-                    seventeen_limit_skhismas_up=0,
-                    nineteen_limit_skhismas_down=0,
-                    nineteen_limit_skhismas_up=0,
+                    seventeen_limit_schismas_down=0,
+                    seventeen_limit_schismas_up=0,
+                    nineteen_limit_schismas_down=0,
+                    nineteen_limit_schismas_up=0,
                     twenty_three_limit_commas_down=0,
                     twenty_three_limit_commas_up=0,
                 ),
@@ -402,8 +400,8 @@ _numerator_factor_to_nudge = {
     7: "septimal_commas_down",
     11: "undecimal_quarter_tones_up",
     13: "tridecimal_third_tones_down",
-    17: "seventeen_limit_skhismas_down",
-    19: "nineteen_limit_skhismas_up",
+    17: "seventeen_limit_schismas_down",
+    19: "nineteen_limit_schismas_up",
     23: "twenty_three_limit_commas_up",
 }
 
@@ -419,7 +417,7 @@ def make_ji_bundle(pitch, ratio):
         NamedPitch("g'")
 
         >>> bundle.vector
-        HEJIVector(
+        JIVector(
                 diatonic_accidental="natural",
                 syntonic_commas_down=0,
                 syntonic_commas_up=0,
@@ -429,10 +427,10 @@ def make_ji_bundle(pitch, ratio):
                 undecimal_quarter_tones_up=0,
                 tridecimal_third_tones_down=0,
                 tridecimal_third_tones_up=0,
-                seventeen_limit_skhismas_down=0,
-                seventeen_limit_skhismas_up=0,
-                nineteen_limit_skhismas_down=0,
-                nineteen_limit_skhismas_up=0,
+                seventeen_limit_schismas_down=0,
+                seventeen_limit_schismas_up=0,
+                nineteen_limit_schismas_down=0,
+                nineteen_limit_schismas_up=0,
                 twenty_three_limit_commas_down=0,
                 twenty_three_limit_commas_up=0,
                 )
@@ -445,7 +443,7 @@ def make_ji_bundle(pitch, ratio):
     ratio = fractions.Fraction(ratio)
     numerator_factors = _prime_factors(ratio.numerator)
     denominator_factors = _prime_factors(ratio.denominator)
-    accidental_vector = HEJIVector(diatonic_accidental=pitch.accidental.name)
+    accidental_vector = JIVector(diatonic_accidental=pitch.accidental.name)
     for prime in numerator_factors:
         assert prime <= 23
         for string in _numerator_factor_to_intervals[prime]:
@@ -481,7 +479,19 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
+
+    ..  container:: example
+
+        >>> note = abjad.Note("c'4")
+        >>> microtones.tune_to_ratio(note.note_head, "7/4")
+        >>> staff = abjad.Staff([note])
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -493,7 +503,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> microtones.tune_to_ratio(note.note_head, "3/1")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -503,8 +513,20 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
             >>> abjad.f(note)
             \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \forced-natural
+            \tweak Accidental.text \natural
             g''4
+
+    ..  container:: example
+
+        >>> note = abjad.Note("c'4")
+        >>> microtones.tune_to_ratio(note.note_head, "3/1")
+        >>> staff = abjad.Staff([note])
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
 
@@ -512,7 +534,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> microtones.tune_to_ratio(note.note_head, "5/1")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -522,8 +544,20 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
             >>> abjad.f(note)
             \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \forced-natural-one-syntonic-comma-down
+            \tweak Accidental.text \natural-one-syntonic-comma-down
             e'''4
+
+    ..  container:: example
+
+        >>> note = abjad.Note("c'4")
+        >>> microtones.tune_to_ratio(note.note_head, "5/1")
+        >>> staff = abjad.Staff([note])
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
 
@@ -546,7 +580,9 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
         >>> notes = [abjad.Note("a,,,32") for _ in ratios]
-        >>> new_noteheads = [microtones.tune_to_ratio(note.note_head, ratio) for note, ratio in zip(notes, ratios)]
+        >>> for note, ratio in zip(notes, ratios):
+        ...     microtones.tune_to_ratio(note.note_head, ratio)
+        ...
         >>> staff = abjad.Staff()
         >>> staff.extend(notes)
         >>> clefs = [abjad.Clef("bass_8"), abjad.Clef("bass"), abjad.Clef("treble")]
@@ -555,7 +591,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> abjad.attach(clefs[2], staff[6])
         >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "heji2-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -569,42 +605,42 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \time 24/32
                 \clef "bass_8"
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a,,,32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a,,32
                 \clef "bass"
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 e,32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a,32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                \tweak Accidental.text \sharp-one-syntonic-comma-down
                 cs32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 e32
                 \clef "treble"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
                 g32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 b32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                \tweak Accidental.text \sharp-one-syntonic-comma-down
                 cs'32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-undecimal-quarter-tone-up
                 d'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 e'32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
@@ -612,7 +648,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                         {
                             \one-tridecimal-third-tone-down
                             \hspace #0.125
-                            \forced-sharp
+                            \sharp
                         }
                     }
                 fs'32
@@ -620,29 +656,29 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \tweak Accidental.text \one-septimal-comma-down
                 g'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                \tweak Accidental.text \sharp-one-syntonic-comma-down
                 gs'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 a'32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
                     \concat
                         {
-                            \one-seventeen-limit-skhisma-down
+                            \one-seventeen-limit-schisma-down
                             \hspace #0.125
-                            \forced-sharp
+                            \sharp
                         }
                     }
                 as'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-natural
+                \tweak Accidental.text \natural
                 b'32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-nineteen-limit-skhisma-up
+                \tweak Accidental.text \one-nineteen-limit-schisma-up
                 c''32
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \forced-sharp-one-syntonic-comma-down
+                \tweak Accidental.text \sharp-one-syntonic-comma-down
                 cs''32
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
@@ -656,7 +692,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                         {
                             \one-twenty-three-limit-comma-up
                             \hspace #0.125
-                            \forced-sharp
+                            \sharp
                         }
                     }
                 ds''32
@@ -664,11 +700,32 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
+        >>> notes = [abjad.Note("a,,,32") for _ in ratios]
+        >>> for note, ratio in zip(notes, ratios):
+        ...     microtones.tune_to_ratio(note.note_head, ratio)
+        ...
+        >>> staff = abjad.Staff()
+        >>> staff.extend(notes)
+        >>> clefs = [abjad.Clef("bass_8"), abjad.Clef("bass"), abjad.Clef("treble")]
+        >>> abjad.attach(clefs[0], staff[0])
+        >>> abjad.attach(clefs[1], staff[2])
+        >>> abjad.attach(clefs[2], staff[6])
+        >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "heji2-ji-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
+
+    ..  container:: example
+
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -683,11 +740,23 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        >>> note = abjad.Note("c'4")
+        >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
+        >>> staff = abjad.Staff([note])
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
+
+    ..  container:: example
+
         >>> note = abjad.Note("cqs'4")
         >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-accidental-markups.ily"],
+        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -699,6 +768,18 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
             \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \tempered-quarter-sharp
             cqs'4
+
+    ..  container:: example
+
+        >>> note = abjad.Note("cqs'4")
+        >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
+        >>> staff = abjad.Staff([note])
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     """
     bundle = make_ji_bundle(note_head.written_pitch, ratio)

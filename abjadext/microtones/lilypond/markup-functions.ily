@@ -48,48 +48,48 @@
 
 
 % diatonic accidentals %
-forced-natural = \markup \heji-accidental-markup ##x266e
-forced-sharp = \markup \heji-accidental-markup ##xe262
-forced-flat = \markup \heji-accidental-markup##xe260
-forced-double-sharp = \markup \heji-accidental-markup ##xe263
-forced-double-flat = \markup \heji-accidental-markup ##xe264
+natural = \markup \heji-accidental-markup ##x266e
+sharp = \markup \heji-accidental-markup ##xe262
+flat = \markup \heji-accidental-markup##xe260
+double-sharp = \markup \heji-accidental-markup ##xe263
+double-flat = \markup \heji-accidental-markup ##xe264
 
 
 % natural syntonic commas %
-forced-natural-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c2
-forced-natural-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cc
-forced-natural-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d6
-forced-natural-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c7
-forced-natural-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d1
-forced-natural-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2db
+natural-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c2
+natural-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cc
+natural-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d6
+natural-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c7
+natural-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d1
+natural-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2db
 % sharp syntonic commas %
-forced-sharp-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c3
-forced-sharp-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cd
-forced-sharp-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d7
-forced-sharp-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c8
-forced-sharp-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d2
-forced-sharp-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2dc
+sharp-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c3
+sharp-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cd
+sharp-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d7
+sharp-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c8
+sharp-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d2
+sharp-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2dc
 % flat syntonic commas %
-forced-flat-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c1
-forced-flat-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cb
-forced-flat-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d5
-forced-flat-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c6
-forced-flat-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d0
-forced-flat-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2da
+flat-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c1
+flat-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2cb
+flat-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d5
+flat-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c6
+flat-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d0
+flat-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2da
 % double sharp syntonic commas %
-forced-double-sharp-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c4
-forced-double-sharp-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2ce
-forced-double-sharp-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d8
-forced-double-sharp-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c9
-forced-double-sharp-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d3
-forced-double-sharp-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2dd
+double-sharp-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c4
+double-sharp-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2ce
+double-sharp-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d8
+double-sharp-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c9
+double-sharp-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d3
+double-sharp-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2dd
 % double flat syntonic commas %
-forced-double-flat-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c0
-forced-double-flat-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2ca
-forced-double-flat-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d4
-forced-double-flat-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c5
-forced-double-flat-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2cf
-forced-double-flat-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d9
+double-flat-one-syntonic-comma-down = \markup \heji-accidental-markup ##xe2c0
+double-flat-two-syntonic-comma-down = \markup \heji-accidental-markup ##xe2ca
+double-flat-three-syntonic-comma-down = \markup \heji-accidental-markup ##xe2d4
+double-flat-one-syntonic-comma-up = \markup \heji-accidental-markup ##xe2c5
+double-flat-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2cf
+double-flat-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d9
 
 
 % septimal commas %
@@ -120,22 +120,22 @@ two-tridecimal-third-tone-up = \markup \heji-double-accidental-markup ##xe2e5 ##
 three-tridecimal-third-tone-up = \markup \heji-triple-accidental-markup ##xe2e5 #0.125
 
 
-% seventeen-limit skhismas %
-one-seventeen-limit-skhisma-down = \markup \heji-accidental-markup ##xe2e6
-two-seventeen-limit-skhisma-down = \markup \heji-double-accidental-markup ##xe2e6 ##xe2e6 #0.125
-three-seventeen-limit-skhisma-down = \markup \heji-triple-accidental-markup ##xe2e6 #0.125
-one-seventeen-limit-skhisma-up = \markup \heji-accidental-markup ##xe2e7
-two-seventeen-limit-skhisma-up = \markup \heji-double-accidental-markup ##xe2e7 ##xe2e7 #0.125
-three-seventeen-limit-skhisma-up = \markup \heji-triple-accidental-markup ##xe2e7 #0.125
+% seventeen-limit schismas %
+one-seventeen-limit-schisma-down = \markup \heji-accidental-markup ##xe2e6
+two-seventeen-limit-schisma-down = \markup \heji-double-accidental-markup ##xe2e6 ##xe2e6 #0.125
+three-seventeen-limit-schisma-down = \markup \heji-triple-accidental-markup ##xe2e6 #0.125
+one-seventeen-limit-schisma-up = \markup \heji-accidental-markup ##xe2e7
+two-seventeen-limit-schisma-up = \markup \heji-double-accidental-markup ##xe2e7 ##xe2e7 #0.125
+three-seventeen-limit-schisma-up = \markup \heji-triple-accidental-markup ##xe2e7 #0.125
 
 
-% nineteen-limit skhismas %
-one-nineteen-limit-skhisma-down = \markup \heji-accidental-markup ##xe2e8
-two-nineteen-limit-skhisma-down = \markup \heji-double-accidental-markup ##xe2e8 ##xe2e8 #0.125
-three-nineteen-limit-skhisma-down = \markup \heji-triple-accidental-markup ##xe2e8 #0.125
-one-nineteen-limit-skhisma-up = \markup \heji-accidental-markup ##xe2e9
-two-nineteen-limit-skhisma-up = \markup \heji-double-accidental-markup ##xe2e9 ##xe2e9 #0.125
-three-nineteen-limit-skhisma-up = \markup \heji-triple-accidental-markup ##xe2e9 #0.125
+% nineteen-limit schismas %
+one-nineteen-limit-schisma-down = \markup \heji-accidental-markup ##xe2e8
+two-nineteen-limit-schisma-down = \markup \heji-double-accidental-markup ##xe2e8 ##xe2e8 #0.125
+three-nineteen-limit-schisma-down = \markup \heji-triple-accidental-markup ##xe2e8 #0.125
+one-nineteen-limit-schisma-up = \markup \heji-accidental-markup ##xe2e9
+two-nineteen-limit-schisma-up = \markup \heji-double-accidental-markup ##xe2e9 ##xe2e9 #0.125
+three-nineteen-limit-schisma-up = \markup \heji-triple-accidental-markup ##xe2e9 #0.125
 
 
 % twenty-three-limit commas %
