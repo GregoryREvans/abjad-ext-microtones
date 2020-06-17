@@ -4,7 +4,7 @@
 \header {tagline = ##f}
 
 \paper {
-  system-system-spacing = #'((basic-distance . 21) (minimum-distance . 21) (padding . 6))
+  system-system-spacing = #'((basic-distance . 23) (minimum-distance . 23) (padding . 6))
 }
 
 \layout {
@@ -15,16 +15,14 @@
 	\override Stem.stencil = ##f
 	\override Staff.BarLine.stencil = ##f
 	\override Flag.stencil = ##f
-	\override Staff.Clef.stencil = ##f
 	\override Staff.TimeSignature.stencil = ##f
-	\override Staff.StaffSymbol.stencil = ##f
 	\override SpacingSpanner.strict-grace-spacing = ##t
 	\override SpacingSpanner.uniform-stretching = ##t
 	\override SpacingSpanner.strict-note-spacing = ##t
     \override SpacingSpanner.uniform-stretching = ##t
 \context {
 	\Score
-	proportionalNotationDuration = #(ly:make-moment 1 10)
+	proportionalNotationDuration = #(ly:make-moment 1 25)
 	barNumberVisibility = ##f
 }
 }

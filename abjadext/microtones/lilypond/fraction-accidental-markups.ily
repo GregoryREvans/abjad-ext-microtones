@@ -7,18 +7,16 @@
     (interpret-markup layout props
     #{
     \markup
+	\override #'(style . outline)
+    \override #'(thickness . 0.8)
+	\whiteout
     \fontsize #-4
-    \translate #'(0 . -0.5)
+	\translate #'(0 . -0.4)
+	\bold
     \combine
+	\translate #'(0.40 . 2.7)
+	\musicglyph #"arrowheads.close.11"
     \fraction #num #den
-    \path #0.15
-      #'(
-          (moveto 0.4 1.85)
-          (lineto 0.4 2.7)
-          (moveto 0.1 1.9)
-          (lineto 0.4 2.7)
-          (lineto 0.7 1.9)
-          )
     #}))
 
 #(define-markup-command
@@ -27,18 +25,16 @@
     (interpret-markup layout props
     #{
     \markup
+	\override #'(style . outline)
+    \override #'(thickness . 0.8)
+	\whiteout
     \fontsize #-4
-    \translate #'(0 . -0.5)
+	\translate #'(0 . -0.4)
+	\bold
     \combine
     \fraction #num #den
-    \path #0.15
-      #'(
-          (moveto 0.4 -0.95)
-          (lineto 0.4 -1.7)
-          (moveto 0.1 -1)
-          (lineto 0.4 -1.78)
-          (lineto 0.7 -1)
-          )
+	\translate #'(0.40 . -1.8)
+	\musicglyph #"arrowheads.close.1M1"
     #}))
 
 #(define-markup-command
@@ -47,18 +43,16 @@
     (interpret-markup layout props
     #{
     \markup
+	\override #'(style . outline)
+    \override #'(thickness . 0.8)
+	\whiteout
     \fontsize #-4
-    \translate #'(0 . -0.5)
+	\translate #'(0 . -0.4)
+	\bold
     \combine
+	\translate #'(0.81 . 2.7)
+	\musicglyph #"arrowheads.close.11"
     \fraction #num #den
-    \path #0.15
-      #'(
-          (moveto 0.8 1.85)
-          (lineto 0.8 2.7)
-          (moveto 0.5 1.9)
-          (lineto 0.8 2.7)
-          (lineto 1.1 1.9)
-          )
     #}))
 
 #(define-markup-command
@@ -67,18 +61,16 @@
     (interpret-markup layout props
     #{
     \markup
+	\override #'(style . outline)
+    \override #'(thickness . 0.8)
+	\whiteout
     \fontsize #-4
-    \translate #'(0 . -0.5)
-    \combine
+    \translate #'(0 . -0.4)
+	\bold
+	\combine
     \fraction #num #den
-    \path #0.15
-      #'(
-          (moveto 0.8 -0.95)
-          (lineto 0.8 -1.7)
-          (moveto 0.5 -1)
-          (lineto 0.8 -1.78)
-          (lineto 1.1 -1)
-          )
+	\translate #'(0.81 . -1.8)
+	\musicglyph #"arrowheads.close.1M1"
     #}))
 
 

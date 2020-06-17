@@ -132,14 +132,14 @@ class JIVector:
             ]
         )
 
-    def calculate_heji_markup(self):
+    def calculate_ji_markup(self):
         r"""
-        Calculates HEJI markup.
+        Calculates JI markup.
 
         ..  container:: example
 
             >>> vector = microtones.JIVector(syntonic_commas_down=1)
-            >>> abjad.f(vector.calculate_heji_markup())
+            >>> abjad.f(vector.calculate_ji_markup())
             \natural-one-syntonic-comma-down
 
         """
@@ -475,6 +475,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        Currently, only 23-limit ratios are implemented and use either the ekmelos or HEJI2 font.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
@@ -487,6 +489,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        All implemented accidentals are available for both stylesheets.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
@@ -498,6 +502,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
+
+        Pitches which retain traditional accidental symbols are also tweaked.
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "3/1")
@@ -518,6 +524,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        Pitches which retain traditional accidental symbols are available in both fonts.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "3/1")
         >>> staff = abjad.Staff([note])
@@ -529,6 +537,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
+
+        A syntonic comma adjustment with the ekmelos font.
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1")
@@ -549,6 +559,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        A syntonic comma adjustment with the HEJI2 font.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1")
         >>> staff = abjad.Staff([note])
@@ -560,6 +572,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
+
+        Use of external fonts may be avoided by omitting the just accidentals, essentially tempering the ratio intervals to twelve-tone equal temperament.
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=True)
@@ -577,6 +591,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
             e'''4
 
     ..  container:: example
+
+        A harmonic series with the ekmelos font.
 
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
         >>> notes = [abjad.Note("a,,,32") for _ in ratios]
@@ -700,6 +716,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        A harmonic series with the HEJI2 font.
+
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
         >>> notes = [abjad.Note("a,,,32") for _ in ratios]
         >>> for note, ratio in zip(notes, ratios):
@@ -721,6 +739,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        Tempered intervals are indicated with flat ''t'' bars and may be activated with the ''tempered'' keyword.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
         >>> staff = abjad.Staff([note])
@@ -740,6 +760,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        Tempered intervals are available in both fonts but differ more significantly than other glyphs.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
         >>> staff = abjad.Staff([note])
@@ -751,6 +773,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
+
+        In the ekmelos stylsheet, tempered quarter steps are differentiated further by the use of Stein-Zimmermann notation as well as the ''t'' bar.
 
         >>> note = abjad.Note("cqs'4")
         >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
@@ -770,6 +794,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
             cqs'4
 
     ..  container:: example
+
+        In the HEJI2 stylsheet, tempered quarter steps are identical to just quarter-steps with the addition of the ''t'' bar.
 
         >>> note = abjad.Note("cqs'4")
         >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
@@ -793,7 +819,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         manager.Accidental.stencil = r"#ly:text-interface::print"
         manager.Accidental.text = fr"\tempered-{tempered_accidental}"
     else:
-        markup = bundle.vector.calculate_heji_markup()
+        markup = bundle.vector.calculate_ji_markup()
         manager = abjad.tweak(note_head, literal=True)
         manager.Accidental.stencil = r"#ly:text-interface::print"
         alteration_literal = markup

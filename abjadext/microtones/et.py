@@ -212,11 +212,22 @@ def apply_alteration(note_head, value):
 
     ..  container:: example
 
+        Alterations can be calculated from fractions or floats. Currently implemented scale consists of twelfth and tenth steps.
+
         >>> from fractions import Fraction
+
+        Extends all implemented microtonal steps sharp from middle C.
+
         >>> steps = [0, "1/12", "1/10", "1/8", "1/6", "1/5", "1/4", "3/10", "1/3", "3/8", "2/5", "5/12", "1/2", "7/12", "3/5", "5/8", "2/3", "7/10", "3/4", "4/5", "5/6", "7/8", "11/12", 1]
         >>> steps = [Fraction(step) * 2 for step in steps]
+
+        Extends all implemented microtonal steps flat from middle C.
+
         >>> reverse_steps = [0 - step for step in steps]
         >>> reverse_steps.reverse()
+
+        Applies alterations to note heads.
+
         >>> total_steps = []
         >>> total_steps.extend(reverse_steps)
         >>> total_steps.extend(steps)
@@ -226,12 +237,17 @@ def apply_alteration(note_head, value):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
         >>> staff = abjad.Staff(notes)
+
+        Adds markup to indicate which fractional step results in which accidental glyph.
+
         >>> markup_fractions = [fraction / 2 for fraction in final_steps]
         >>> pairs = [(abs(fraction.numerator), abs(fraction.denominator)) for fraction in markup_fractions]
         >>> markups = [abjad.Markup(abjad.Markup.fraction(pair[0], pair[1]), direction=abjad.Up) for pair in pairs]
         >>> for markup, note in zip(markups, abjad.select(staff).leaves()):
         ...     abjad.attach(markup, note)
-        ...
+
+        Formats spacing of diagram.
+
         >>> abjad.attach(abjad.TimeSignature((6, 4)), abjad.select(staff).leaves()[0])
         >>> abjad.attach(abjad.TimeSignature((5, 4)), abjad.select(staff).leaves()[18])
         >>> abjad.attach(abjad.TimeSignature((1, 4)), abjad.select(staff).leaves()[23])
@@ -240,7 +256,9 @@ def apply_alteration(note_head, value):
         >>> break_points = [5, 11, 17, 22, 23, 28, 34, 40]
         >>> for point in break_points:
         ...     abjad.attach(abjad.LilyPondLiteral(r"\break", format_slot="after"), abjad.select(staff).leaves()[point])
-        ...
+
+        Creates and shows lilypond file of diagram.
+
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
         ...     includes=[
@@ -651,6 +669,8 @@ def apply_alteration(note_head, value):
 
     ..  container:: example
 
+        The stylesheet named ekmelos-edo-accidental-markups.ily prints glyphs based on quarter flats with a filled-in symbol.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, "5/4")
         >>> staff = abjad.Staff([note])
@@ -670,6 +690,8 @@ def apply_alteration(note_head, value):
 
     ..  container:: example
 
+        The stylesheet named default-edo-accidental-markups.ily allows for all of the same symbols in th ekmelos stysheet without making use of the ekmelos font, resulting in Lilypond's default quarter flat glyphs.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, "5/4")
         >>> staff = abjad.Staff([note])
@@ -681,6 +703,8 @@ def apply_alteration(note_head, value):
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
+
+        Accidentals other than semi-tones, quarter-tones, or eighth-tones are printed as fractions with arrows in the necessary directions.
 
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, "4/5")
@@ -701,6 +725,8 @@ def apply_alteration(note_head, value):
 
     ..  container:: example
 
+        The fractional accidentals are identical between the two stylesheets.
+
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, "4/5")
         >>> staff = abjad.Staff([note])
@@ -712,6 +738,8 @@ def apply_alteration(note_head, value):
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
+
+        To maintain traditional set-theory notation of semi-tones as integer steps all fractions must be written as twice the value of the name. For instance, to add a quarter tone, one must add 1/2 or to add eleven twelfth tones, one must as 11/6.
 
         >>> note = abjad.Note("c''4")
         >>> microtones.apply_alteration(note.note_head, "11/6")
@@ -729,18 +757,6 @@ def apply_alteration(note_head, value):
             \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \one-twelfth-flat-markup
             df''4
-
-    ..  container:: example
-
-        >>> note = abjad.Note("c''4")
-        >>> microtones.apply_alteration(note.note_head, "11/6")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     """
     value = fractions.Fraction(value)
