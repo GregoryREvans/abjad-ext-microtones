@@ -4,7 +4,7 @@
 \header {tagline = ##f}
 
 \paper {
-  system-system-spacing = #'((basic-distance . 23) (minimum-distance . 23) (padding . 6))
+  system-system-spacing = #'((basic-distance . 30) (minimum-distance . 30) (padding . 6))
 }
 
 \layout {
@@ -22,7 +22,7 @@
     \override SpacingSpanner.uniform-stretching = ##t
 \context {
 	\Score
-	proportionalNotationDuration = #(ly:make-moment 1 25)
+	proportionalNotationDuration = #(ly:make-moment 1 30)
 	barNumberVisibility = ##f
 }
 }

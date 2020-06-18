@@ -1,3 +1,7 @@
+"""
+Package for equal tempered microtones.
+"""
+
 import fractions
 import math
 
@@ -170,7 +174,7 @@ def get_value_sum(pitch, value):
     return get_accidental_value(pitch) + value
 
 
-def get_alteration(pitch, value):
+def get_alteration(pitch, value, spell=None):
     r"""
     Gets alteration.
 
@@ -194,6 +198,36 @@ def get_alteration(pitch, value):
         >>> bundle.accidental_string
         '\\sharp-markup'
 
+    ..  container:: example
+
+        >>> pitch = abjad.NumberedPitch(0)
+        >>> bundle = microtones.get_alteration(pitch, "1/1", "flat")
+        >>> bundle.pitch
+        NamedPitch("df'")
+
+        >>> bundle.accidental_string
+        '\\flat-markup'
+
+    ..  container:: example
+
+        >>> pitch = abjad.NumberedPitch(0)
+        >>> bundle = microtones.get_alteration(pitch, "3/2", "sharp")
+        >>> bundle.pitch
+        NumberedPitch(1)
+
+        >>> bundle.accidental_string
+        '\\three-quarters-sharp-markup'
+
+    ..  container:: example
+
+        >>> pitch = abjad.NumberedPitch(0)
+        >>> bundle = microtones.get_alteration(pitch, "11/6", "sharp")
+        >>> bundle.pitch
+        NumberedPitch(1)
+
+        >>> bundle.accidental_string
+        '\\eleven-twelfths-sharp-markup'
+
     """
     value = fractions.Fraction(value)
     semitones = int(math.modf(value)[1])
@@ -203,31 +237,41 @@ def get_alteration(pitch, value):
     transposed_accidental_value = get_value_sum(pitch, remainder)
     key = str(transposed_accidental_value)
     new_accidental = _value_to_accidental[key] + "-markup"
+    if spell is not None:
+        if spell == "sharp":
+            if fractions.Fraction(_reversed_value_to_accidental[new_accidental]) < 0:
+                # make sharp
+                temp_note = abjad.Note(abjad.NamedPitch(pitch), (1, 4))
+                abjad.Accidental.respell_with_sharps([temp_note])
+                pitch = temp_note.written_pitch
+                transposed_accidental_value = get_value_sum(pitch, remainder)
+                key = str(transposed_accidental_value)
+                new_accidental = _value_to_accidental[key] + "-markup"
+        if spell == "flat":
+            if 0 < fractions.Fraction(_reversed_value_to_accidental[new_accidental]):
+                # make flat
+                temp_note = abjad.Note(abjad.NamedPitch(pitch), (1, 4))
+                abjad.Accidental.respell_with_flats([temp_note])
+                pitch = temp_note.written_pitch
+                transposed_accidental_value = get_value_sum(pitch, remainder)
+                key = str(transposed_accidental_value)
+                new_accidental = _value_to_accidental[key] + "-markup"
     return ETBundle(pitch, new_accidental)
 
 
-def apply_alteration(note_head, value):
+def apply_alteration(note_head, value, spell=None):
     r"""
     Applies alteration.
 
     ..  container:: example
 
-        Alterations can be calculated from fractions or floats. Currently implemented scale consists of twelfth and tenth steps.
+        Eighth tone accidentals:
 
         >>> from fractions import Fraction
-
-        Extends all implemented microtonal steps sharp from middle C.
-
-        >>> steps = [0, "1/12", "1/10", "1/8", "1/6", "1/5", "1/4", "3/10", "1/3", "3/8", "2/5", "5/12", "1/2", "7/12", "3/5", "5/8", "2/3", "7/10", "3/4", "4/5", "5/6", "7/8", "11/12", 1]
+        >>> steps = [0, "1/8", "2/8", "3/8", "4/8", "5/8", "6/8", "7/8", 1]
         >>> steps = [Fraction(step) * 2 for step in steps]
-
-        Extends all implemented microtonal steps flat from middle C.
-
         >>> reverse_steps = [0 - step for step in steps]
         >>> reverse_steps.reverse()
-
-        Applies alterations to note heads.
-
         >>> total_steps = []
         >>> total_steps.extend(reverse_steps)
         >>> total_steps.extend(steps)
@@ -237,28 +281,87 @@ def apply_alteration(note_head, value):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
         >>> staff = abjad.Staff(notes)
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff,
+        ...     includes=[
+        ...         "default.ily",
+        ...         "ekmelos-edo-accidental-markups.ily",
+        ...         "all-edo-markups-example.ily",
+        ...     ],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
 
-        Adds markup to indicate which fractional step results in which accidental glyph.
+    ..  container:: example
 
-        >>> markup_fractions = [fraction / 2 for fraction in final_steps]
-        >>> pairs = [(abs(fraction.numerator), abs(fraction.denominator)) for fraction in markup_fractions]
-        >>> markups = [abjad.Markup(abjad.Markup.fraction(pair[0], pair[1]), direction=abjad.Up) for pair in pairs]
-        >>> for markup, note in zip(markups, abjad.select(staff).leaves()):
-        ...     abjad.attach(markup, note)
+        Tenth tone accidentals:
 
-        Formats spacing of diagram.
+        >>> from fractions import Fraction
+        >>> steps = [0, "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", 1]
+        >>> steps = [Fraction(step) * 2 for step in steps]
+        >>> reverse_steps = [0 - step for step in steps]
+        >>> reverse_steps.reverse()
+        >>> total_steps = []
+        >>> total_steps.extend(reverse_steps)
+        >>> total_steps.extend(steps)
+        >>> final_steps = sorted(list(set(total_steps)))
+        >>> notes = [abjad.Note() for step in final_steps]
+        >>> for note, step in zip(notes, final_steps):
+        ...     microtones.apply_alteration(note.note_head, step)
+        ...
+        >>> staff = abjad.Staff(notes)
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff,
+        ...     includes=[
+        ...         "default.ily",
+        ...         "ekmelos-edo-accidental-markups.ily",
+        ...         "all-edo-markups-example.ily",
+        ...     ],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
 
-        >>> abjad.attach(abjad.TimeSignature((6, 4)), abjad.select(staff).leaves()[0])
-        >>> abjad.attach(abjad.TimeSignature((5, 4)), abjad.select(staff).leaves()[18])
-        >>> abjad.attach(abjad.TimeSignature((1, 4)), abjad.select(staff).leaves()[23])
-        >>> abjad.attach(abjad.TimeSignature((5, 4)), abjad.select(staff).leaves()[24])
-        >>> abjad.attach(abjad.TimeSignature((6, 4)), abjad.select(staff).leaves()[29])
-        >>> break_points = [5, 11, 17, 22, 23, 28, 34, 40]
-        >>> for point in break_points:
-        ...     abjad.attach(abjad.LilyPondLiteral(r"\break", format_slot="after"), abjad.select(staff).leaves()[point])
+    ..  container:: example
 
-        Creates and shows lilypond file of diagram.
+        Twelfth tone accidentals:
 
+        >>> from fractions import Fraction
+        >>> steps = [0, "1/12", "2/12", "3/12", "4/12", "5/12", "6/12", "7/12", "8/12", "9/12", "10/12", "11/12", 1]
+        >>> steps = [Fraction(step) * 2 for step in steps]
+        >>> reverse_steps = [0 - step for step in steps]
+        >>> reverse_steps.reverse()
+        >>> total_steps = []
+        >>> total_steps.extend(reverse_steps)
+        >>> total_steps.extend(steps)
+        >>> final_steps = sorted(list(set(total_steps)))
+        >>> notes = [abjad.Note() for step in final_steps]
+        >>> for note, step in zip(notes, final_steps):
+        ...     microtones.apply_alteration(note.note_head, step)
+        ...
+        >>> staff = abjad.Staff(notes)
+        >>> lilypond_file = abjad.LilyPondFile.new(
+        ...     staff,
+        ...     includes=[
+        ...         "default.ily",
+        ...         "ekmelos-edo-accidental-markups.ily",
+        ...         "all-edo-markups-example.ily",
+        ...     ],
+        ... )
+        >>> style = '"dodecaphonic"'
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
+        >>> abjad.show(lilypond_file) # doctest: +SKIP
+
+    ..  container:: example
+
+        Spells with sharps when ``spell="sharp"``:
+
+        >>> from fractions import Fraction
+        >>> step = "3/2"
+        >>> note = abjad.Note()
+        >>> microtones.apply_alteration(note.note_head, step, spell="sharp")
+        >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
         ...     includes=[
@@ -276,492 +379,46 @@ def apply_alteration(note_head, value):
             >>> abjad.f(staff)
             \new Staff
             {
-                \time 6/4
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \flat-markup
-                bf4
-                ^ \markup {
-                    \fraction
-                        1
-                        1
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \five-twelfths-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        11
-                        12
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \three-eighths-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        7
-                        8
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-third-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        5
-                        6
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \three-tenths-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        4
-                        5
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-quarter-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        3
-                        4
-                    }
-                \break
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-fifth-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        7
-                        10
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-sixth-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        2
-                        3
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-eighth-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        5
-                        8
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-tenth-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        3
-                        5
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-twelfth-flat-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        7
-                        12
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural-markup
-                b4
-                ^ \markup {
-                    \fraction
-                        1
-                        2
-                    }
-                \break
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \five-twelfths-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        5
-                        12
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \two-fifths-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        2
-                        5
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \three-eighths-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        3
-                        8
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-third-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        3
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \three-tenths-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        3
-                        10
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-quarter-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        4
-                    }
-                \break
-                \time 5/4
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-fifth-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        5
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-sixth-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        6
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-eighth-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        8
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-tenth-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        10
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-twelfth-flat-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        12
-                    }
-                \break
-                \time 1/4
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        0
-                        1
-                    }
-                \break
-                \time 5/4
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-twelfth-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        12
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-tenth-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        10
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-eighth-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        8
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-sixth-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        6
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-fifth-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        5
-                    }
-                \break
-                \time 6/4
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-quarter-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        4
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \three-tenths-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        3
-                        10
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-third-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        1
-                        3
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \three-eighths-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        3
-                        8
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \two-fifths-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        2
-                        5
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \five-twelfths-sharp-markup
-                c'4
-                ^ \markup {
-                    \fraction
-                        5
-                        12
-                    }
-                \break
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        1
-                        2
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \five-twelfths-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        7
-                        12
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \two-fifths-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        3
-                        5
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \three-eighths-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        5
-                        8
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-third-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        2
-                        3
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \three-tenths-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        7
-                        10
-                    }
-                \break
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-quarter-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        3
-                        4
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-fifth-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        4
-                        5
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-sixth-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        5
-                        6
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-eighth-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        7
-                        8
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-twelfth-flat-markup
-                df'4
-                ^ \markup {
-                    \fraction
-                        11
-                        12
-                    }
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural-markup
-                d'4
-                ^ \markup {
-                    \fraction
-                        1
-                        1
-                    }
+                \tweak Accidental.text \three-quarters-sharp-markup
+                cs'4
             }
 
     ..  container:: example
 
-        The stylesheet named ekmelos-edo-accidental-markups.ily prints glyphs based on quarter flats with a filled-in symbol.
+        Spells with flats when ``spell="flat"``:
 
-        >>> note = abjad.Note("c'4")
-        >>> microtones.apply_alteration(note.note_head, "5/4")
+        >>> from fractions import Fraction
+        >>> step = "-1/2"
+        >>> note = abjad.Note()
+        >>> microtones.apply_alteration(note.note_head, step, spell="flat")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-edo-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=[
+        ...         "default.ily",
+        ...         "ekmelos-edo-accidental-markups.ily",
+        ...         "all-edo-markups-example.ily",
+        ...     ],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
         ..  docs::
 
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \three-eighths-flat-markup
-            df'4
-
-    ..  container:: example
-
-        The stylesheet named default-edo-accidental-markups.ily allows for all of the same symbols in th ekmelos stysheet without making use of the ekmelos font, resulting in Lilypond's default quarter flat glyphs.
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.apply_alteration(note.note_head, "5/4")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
-
-        Accidentals other than semi-tones, quarter-tones, or eighth-tones are printed as fractions with arrows in the necessary directions.
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.apply_alteration(note.note_head, "4/5")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-edo-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-        ..  docs::
-
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \two-fifths-sharp-markup
-            c'4
-
-    ..  container:: example
-
-        The fractional accidentals are identical between the two stylesheets.
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.apply_alteration(note.note_head, "4/5")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "default-edo-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
-
-        To maintain traditional set-theory notation of semi-tones as integer steps all fractions must be written as twice the value of the name. For instance, to add a quarter tone, one must add 1/2 or to add eleven twelfth tones, one must as 11/6.
-
-        >>> note = abjad.Note("c''4")
-        >>> microtones.apply_alteration(note.note_head, "11/6")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-edo-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-        ..  docs::
-
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \one-twelfth-flat-markup
-            df''4
+            >>> abjad.f(staff)
+            \new Staff
+            {
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \one-quarter-flat-markup
+                c'4
+            }
 
     """
     value = fractions.Fraction(value)
     pitch = note_head.written_pitch
-    bundle = get_alteration(pitch, value)
+    bundle = get_alteration(pitch, value, spell)
     note_head.written_pitch = bundle.pitch
     string = r"#ly:text-interface::print"
     abjad.tweak(note_head, literal=True).Accidental.stencil = string

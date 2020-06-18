@@ -14,6 +14,6 @@
     \override SpacingSpanner.uniform-stretching = ##t
 \context {
 	\Score
-	proportionalNotationDuration = #(ly:make-moment 1 25)
+	proportionalNotationDuration = #(ly:make-moment 1 30)
 }
 }

@@ -1,5 +1,9 @@
 """
 Abjad's microtonal extension.
+
+ET models scales of twelfth, tenth, and eighth tones.
+
+JI only 23-limit ratios are implemented and use either the ekmelos or HEJI2 font.
 """
 from ._version import __version__, __version_info__
 from .et import (

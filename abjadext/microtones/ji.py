@@ -1,3 +1,7 @@
+"""
+Package for Just Intonation.
+"""
+
 import fractions
 
 import abjad
@@ -475,27 +479,25 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
-        Currently, only 23-limit ratios are implemented and use either the ekmelos or HEJI2 font.
+        All implemented accidentals are available for both stylesheets:
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
         >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
-
-        All implemented accidentals are available for both stylesheets.
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=["default.ily", "heji2-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -503,87 +505,17 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
-        Pitches which retain traditional accidental symbols are also tweaked.
+        Tweaks accidentals when ``omit_just_accidental=False``:
 
         >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "3/1")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=False)
+        >>> abjad.f(note) # doctest: +SKIP
 
-        ..  docs::
-
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \natural
-            g''4
-
-    ..  container:: example
-
-        Pitches which retain traditional accidental symbols are available in both fonts.
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "3/1")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
-
-        A syntonic comma adjustment with the ekmelos font.
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "5/1")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-        ..  docs::
-
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \natural-one-syntonic-comma-down
-            e'''4
-
-    ..  container:: example
-
-        A syntonic comma adjustment with the HEJI2 font.
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "5/1")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
-
-        Use of external fonts may be avoided by omitting the just accidentals, essentially tempering the ratio intervals to twelve-tone equal temperament.
+        Does not tweak accidentals when ``omit_just_accidental=True``:
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=True)
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> abjad.f(note) # doctest: +SKIP
 
         ..  docs::
 
@@ -607,7 +539,12 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> abjad.attach(clefs[2], staff[6])
         >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "ekmelos-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=[
+        ...         "default.ily",
+        ...         "harmonic-series-layout.ily",
+        ...         "ekmelos-ji-accidental-markups.ily"
+        ...     ],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -714,8 +651,6 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 ds''32
             }
 
-    ..  container:: example
-
         A harmonic series with the HEJI2 font.
 
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
@@ -731,7 +666,12 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> abjad.attach(clefs[2], staff[6])
         >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "heji2-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=[
+        ...         "default.ily",
+        ...         "harmonic-series-layout.ily",
+        ...         "heji2-ji-accidental-markups.ily"
+        ...     ],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -739,13 +679,14 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
-        Tempered intervals are indicated with flat ''t'' bars and may be activated with the ''tempered'' keyword.
+        Prints tempered accidentals when ``tempered=True``:
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -757,55 +698,6 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
             \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \tempered-natural
             e'''4
-
-    ..  container:: example
-
-        Tempered intervals are available in both fonts but differ more significantly than other glyphs.
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
-
-        In the ekmelos stylsheet, tempered quarter steps are differentiated further by the use of Stein-Zimmermann notation as well as the ''t'' bar.
-
-        >>> note = abjad.Note("cqs'4")
-        >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-        ..  docs::
-
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \tempered-quarter-sharp
-            cqs'4
-
-    ..  container:: example
-
-        In the HEJI2 stylsheet, tempered quarter steps are identical to just quarter-steps with the addition of the ''t'' bar.
-
-        >>> note = abjad.Note("cqs'4")
-        >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     """
     bundle = make_ji_bundle(note_head.written_pitch, ratio)
