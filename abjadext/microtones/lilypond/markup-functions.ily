@@ -92,7 +92,7 @@ double-flat-two-syntonic-comma-up = \markup \heji-accidental-markup ##xe2cf
 double-flat-three-syntonic-comma-up = \markup \heji-accidental-markup ##xe2d9
 
 
-% septimal commas %
+% septimal commas % check vertical kerning in ekmelos
 one-septimal-comma-down = \markup \heji-accidental-markup ##xe2de
 two-septimal-comma-down = \markup \heji-accidental-markup ##xe2e0
 three-septimal-comma-down = \markup \heji-double-accidental-markup ##xe2de ##xe2e0 #0.125

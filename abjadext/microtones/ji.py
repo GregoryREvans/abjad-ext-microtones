@@ -1,3 +1,7 @@
+"""
+Package for Just Intonation.
+"""
+
 import fractions
 
 import abjad
@@ -132,14 +136,14 @@ class JIVector:
             ]
         )
 
-    def calculate_heji_markup(self):
+    def calculate_ji_markup(self):
         r"""
-        Calculates HEJI markup.
+        Calculates JI markup.
 
         ..  container:: example
 
             >>> vector = microtones.JIVector(syntonic_commas_down=1)
-            >>> abjad.f(vector.calculate_heji_markup())
+            >>> abjad.f(vector.calculate_ji_markup())
             \natural-one-syntonic-comma-down
 
         """
@@ -475,101 +479,43 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
-        >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "7/4")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
+        All implemented accidentals are available for both stylesheets:
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
         >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
 
         >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "3/1")
+        >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=["default.ily", "heji2-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
-        ..  docs::
-
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \natural
-            g''4
-
     ..  container:: example
+
+        Tweaks accidentals when ``omit_just_accidental=False``:
 
         >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "3/1")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=False)
+        >>> abjad.f(note) # doctest: +SKIP
 
-    ..  container:: example
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "5/1")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-        ..  docs::
-
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \natural-one-syntonic-comma-down
-            e'''4
-
-    ..  container:: example
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "5/1")
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
+        Does not tweak accidentals when ``omit_just_accidental=True``:
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=True)
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
+        >>> abjad.f(note) # doctest: +SKIP
 
         ..  docs::
 
@@ -578,20 +524,25 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        A harmonic series with the ekmelos font.
+
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
-        >>> notes = [abjad.Note("a,,,32") for _ in ratios]
+        >>> notes = [abjad.Note("a,,,16") for _ in ratios]
         >>> for note, ratio in zip(notes, ratios):
         ...     microtones.tune_to_ratio(note.note_head, ratio)
         ...
         >>> staff = abjad.Staff()
         >>> staff.extend(notes)
-        >>> clefs = [abjad.Clef("bass_8"), abjad.Clef("bass"), abjad.Clef("treble")]
-        >>> abjad.attach(clefs[0], staff[0])
-        >>> abjad.attach(clefs[1], staff[2])
-        >>> abjad.attach(clefs[2], staff[6])
+        >>> abjad.attach(abjad.Clef("bass"), staff[0])
+        >>> abjad.attach(abjad.Clef("treble"), staff[6])
         >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "ekmelos-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=[
+        ...         "default.ily",
+        ...         "harmonic-series-layout.ily",
+        ...         "ekmelos-ji-accidental-markups.ily"
+        ...     ],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -603,45 +554,44 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
             \new Staff
             {
                 \time 24/32
-                \clef "bass_8"
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
-                a,,,32
-                \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
-                a,,32
                 \clef "bass"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                e,32
+                a,,,16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                a,32
+                a,,16
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \natural
+                e,16
+                \tweak Accidental.stencil #ly:text-interface::print
+                \tweak Accidental.text \natural
+                a,16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
-                cs32
+                cs16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                e32
+                e16
                 \clef "treble"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
-                g32
+                g16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                a32
+                a16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                b32
+                b16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
-                cs'32
+                cs'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-undecimal-quarter-tone-up
-                d'32
+                d'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                e'32
+                e'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
                     \concat
@@ -651,16 +601,16 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                             \sharp
                         }
                     }
-                fs'32
+                fs'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
-                g'32
+                g'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
-                gs'32
+                gs'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                a'32
+                a'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
                     \concat
@@ -670,22 +620,22 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                             \sharp
                         }
                     }
-                as'32
+                as'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                b'32
+                b'16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-nineteen-limit-schisma-up
-                c''32
+                c''16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
-                cs''32
+                cs''16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
-                d''32
+                d''16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-undecimal-quarter-tone-up
-                d''32
+                d''16
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
                     \concat
@@ -695,25 +645,28 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                             \sharp
                         }
                     }
-                ds''32
+                ds''16
             }
 
-    ..  container:: example
+        A harmonic series with the HEJI2 font.
 
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
-        >>> notes = [abjad.Note("a,,,32") for _ in ratios]
+        >>> notes = [abjad.Note("a,,,16") for _ in ratios]
         >>> for note, ratio in zip(notes, ratios):
         ...     microtones.tune_to_ratio(note.note_head, ratio)
         ...
         >>> staff = abjad.Staff()
         >>> staff.extend(notes)
-        >>> clefs = [abjad.Clef("bass_8"), abjad.Clef("bass"), abjad.Clef("treble")]
-        >>> abjad.attach(clefs[0], staff[0])
-        >>> abjad.attach(clefs[1], staff[2])
-        >>> abjad.attach(clefs[2], staff[6])
+        >>> abjad.attach(abjad.Clef("bass"), staff[0])
+        >>> abjad.attach(abjad.Clef("treble"), staff[6])
         >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "harmonic-series-layout.ily", "heji2-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=[
+        ...         "default.ily",
+        ...         "harmonic-series-layout.ily",
+        ...         "heji2-ji-accidental-markups.ily"
+        ...     ],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -721,11 +674,14 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
     ..  container:: example
 
+        Prints tempered accidentals when ``tempered=True``:
+
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
+        ...     staff,
+        ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -737,49 +693,6 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
             \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \tempered-natural
             e'''4
-
-    ..  container:: example
-
-        >>> note = abjad.Note("c'4")
-        >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-    ..  container:: example
-
-        >>> note = abjad.Note("cqs'4")
-        >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
-
-        ..  docs::
-
-            >>> abjad.f(note)
-            \tweak Accidental.stencil #ly:text-interface::print
-            \tweak Accidental.text \tempered-quarter-sharp
-            cqs'4
-
-    ..  container:: example
-
-        >>> note = abjad.Note("cqs'4")
-        >>> microtones.tune_to_ratio(note.note_head, "1/1", tempered=True)
-        >>> staff = abjad.Staff([note])
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff, includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ... )
-        >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
-        >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     """
     bundle = make_ji_bundle(note_head.written_pitch, ratio)
@@ -793,7 +706,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         manager.Accidental.stencil = r"#ly:text-interface::print"
         manager.Accidental.text = fr"\tempered-{tempered_accidental}"
     else:
-        markup = bundle.vector.calculate_heji_markup()
+        markup = bundle.vector.calculate_ji_markup()
         manager = abjad.tweak(note_head, literal=True)
         manager.Accidental.stencil = r"#ly:text-interface::print"
         alteration_literal = markup
