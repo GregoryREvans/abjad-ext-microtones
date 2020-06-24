@@ -242,7 +242,7 @@ def get_alteration(pitch, value, spell=None):
             if fractions.Fraction(_reversed_value_to_accidental[new_accidental]) < 0:
                 # make sharp
                 temp_note = abjad.Note(abjad.NamedPitch(pitch), (1, 4))
-                abjad.Accidental.respell_with_sharps([temp_note])
+                abjad.respell_with_sharps([temp_note])
                 pitch = temp_note.written_pitch
                 transposed_accidental_value = get_value_sum(pitch, remainder)
                 key = str(transposed_accidental_value)
@@ -251,7 +251,7 @@ def get_alteration(pitch, value, spell=None):
             if 0 < fractions.Fraction(_reversed_value_to_accidental[new_accidental]):
                 # make flat
                 temp_note = abjad.Note(abjad.NamedPitch(pitch), (1, 4))
-                abjad.Accidental.respell_with_flats([temp_note])
+                abjad.respell_with_flats([temp_note])
                 pitch = temp_note.written_pitch
                 transposed_accidental_value = get_value_sum(pitch, remainder)
                 key = str(transposed_accidental_value)
