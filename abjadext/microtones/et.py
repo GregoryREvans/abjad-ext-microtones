@@ -276,7 +276,7 @@ def apply_alteration(note_head, value, spell=None):
         >>> total_steps.extend(reverse_steps)
         >>> total_steps.extend(steps)
         >>> final_steps = sorted(list(set(total_steps)))
-        >>> notes = [abjad.Note() for step in final_steps]
+        >>> notes = [abjad.Note("c'4") for step in final_steps]
         >>> for note, step in zip(notes, final_steps):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
@@ -306,7 +306,7 @@ def apply_alteration(note_head, value, spell=None):
         >>> total_steps.extend(reverse_steps)
         >>> total_steps.extend(steps)
         >>> final_steps = sorted(list(set(total_steps)))
-        >>> notes = [abjad.Note() for step in final_steps]
+        >>> notes = [abjad.Note("c'4") for step in final_steps]
         >>> for note, step in zip(notes, final_steps):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
@@ -336,7 +336,7 @@ def apply_alteration(note_head, value, spell=None):
         >>> total_steps.extend(reverse_steps)
         >>> total_steps.extend(steps)
         >>> final_steps = sorted(list(set(total_steps)))
-        >>> notes = [abjad.Note() for step in final_steps]
+        >>> notes = [abjad.Note("c'4") for step in final_steps]
         >>> for note, step in zip(notes, final_steps):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
@@ -359,7 +359,7 @@ def apply_alteration(note_head, value, spell=None):
 
         >>> from fractions import Fraction
         >>> step = "3/2"
-        >>> note = abjad.Note()
+        >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="sharp")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
@@ -390,7 +390,7 @@ def apply_alteration(note_head, value, spell=None):
 
         >>> from fractions import Fraction
         >>> step = "-1/2"
-        >>> note = abjad.Note()
+        >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="flat")
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(

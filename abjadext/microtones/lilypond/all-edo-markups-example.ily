@@ -12,7 +12,6 @@
 	ragged-last = ##t
     ragged-right = ##t
 	\override Beam.stencil = ##f
-	\override Stem.stencil = ##f
 	\override Staff.BarLine.stencil = ##f
 	\override Flag.stencil = ##f
 	\override Staff.TimeSignature.stencil = ##f
