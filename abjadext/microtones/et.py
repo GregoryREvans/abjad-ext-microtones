@@ -357,7 +357,6 @@ def apply_alteration(note_head, value, spell=None):
 
         Spells with sharps when ``spell="sharp"``:
 
-        >>> from fractions import Fraction
         >>> step = "3/2"
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="sharp")
@@ -388,8 +387,7 @@ def apply_alteration(note_head, value, spell=None):
 
         Spells with flats when ``spell="flat"``:
 
-        >>> from fractions import Fraction
-        >>> step = "-1/2"
+        >>> step = "3/2"
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="flat")
         >>> staff = abjad.Staff([note])
@@ -412,7 +410,7 @@ def apply_alteration(note_head, value, spell=None):
             {
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-quarter-flat-markup
-                c'4
+                d'4
             }
 
     """

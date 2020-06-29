@@ -7,12 +7,13 @@
     (interpret-markup layout props
     #{
     \markup
+    \pad-markup #0.125
 	\override #'(style . outline)
     \override #'(thickness . 0.8)
 	\whiteout
     \fontsize #-4
 	\bold
-    \translate #'(0 . 0.15)
+    \translate #'(-1 . 0.15)
 	\center-column {
     #num
 	\translate #'(0 . 2/3)
@@ -28,12 +29,13 @@
     (interpret-markup layout props
     #{
     \markup
+    \pad-markup #0.125
 	\override #'(style . outline)
     \override #'(thickness . 0.8)
 	\whiteout
     \fontsize #-4
 	\bold
-    \translate #'(0 . 2)
+    \translate #'(-1 . 2)
 	\center-column {
 	\translate #'(0 . -1/12)
 	\musicglyph #"arrowheads.close.11"

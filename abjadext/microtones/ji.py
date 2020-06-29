@@ -527,7 +527,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         A harmonic series with the ekmelos font.
 
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
-        >>> notes = [abjad.Note("a,,,16") for _ in ratios]
+        >>> notes = [abjad.Note("a,,,8") for _ in ratios]
         >>> for note, ratio in zip(notes, ratios):
         ...     microtones.tune_to_ratio(note.note_head, ratio)
         ...
@@ -651,7 +651,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         A harmonic series with the HEJI2 font.
 
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
-        >>> notes = [abjad.Note("a,,,16") for _ in ratios]
+        >>> notes = [abjad.Note("a,,,8") for _ in ratios]
         >>> for note, ratio in zip(notes, ratios):
         ...     microtones.tune_to_ratio(note.note_head, ratio)
         ...
