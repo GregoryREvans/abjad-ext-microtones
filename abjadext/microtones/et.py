@@ -410,7 +410,7 @@ def apply_alteration(note_head, value, spell=None):
             {
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-quarter-flat-markup
-                d'4
+                df'4
             }
 
     """
