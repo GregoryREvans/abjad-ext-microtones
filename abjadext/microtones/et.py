@@ -242,7 +242,7 @@ def get_alteration(pitch, value, spell=None):
             if fractions.Fraction(_reversed_value_to_accidental[new_accidental]) < 0:
                 # make sharp
                 temp_note = abjad.Note(abjad.NamedPitch(pitch), (1, 4))
-                abjad.Accidental.respell_with_sharps([temp_note])
+                abjad.respell_with_sharps([temp_note])
                 pitch = temp_note.written_pitch
                 transposed_accidental_value = get_value_sum(pitch, remainder)
                 key = str(transposed_accidental_value)
@@ -251,7 +251,7 @@ def get_alteration(pitch, value, spell=None):
             if 0 < fractions.Fraction(_reversed_value_to_accidental[new_accidental]):
                 # make flat
                 temp_note = abjad.Note(abjad.NamedPitch(pitch), (1, 4))
-                abjad.Accidental.respell_with_flats([temp_note])
+                abjad.respell_with_flats([temp_note])
                 pitch = temp_note.written_pitch
                 transposed_accidental_value = get_value_sum(pitch, remainder)
                 key = str(transposed_accidental_value)
@@ -357,7 +357,6 @@ def apply_alteration(note_head, value, spell=None):
 
         Spells with sharps when ``spell="sharp"``:
 
-        >>> from fractions import Fraction
         >>> step = "3/2"
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="sharp")
@@ -388,8 +387,7 @@ def apply_alteration(note_head, value, spell=None):
 
         Spells with flats when ``spell="flat"``:
 
-        >>> from fractions import Fraction
-        >>> step = "-1/2"
+        >>> step = "3/2"
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="flat")
         >>> staff = abjad.Staff([note])
@@ -412,7 +410,7 @@ def apply_alteration(note_head, value, spell=None):
             {
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-quarter-flat-markup
-                c'4
+                df'4
             }
 
     """

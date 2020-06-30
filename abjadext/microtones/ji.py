@@ -527,7 +527,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         A harmonic series with the ekmelos font.
 
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
-        >>> notes = [abjad.Note("a,,,16") for _ in ratios]
+        >>> notes = [abjad.Note("a,,,8") for _ in ratios]
         >>> for note, ratio in zip(notes, ratios):
         ...     microtones.tune_to_ratio(note.note_head, ratio)
         ...
@@ -557,41 +557,41 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \clef "bass"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                a,,,16
+                a,,,8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                a,,16
+                a,,8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                e,16
+                e,8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                a,16
+                a,8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
-                cs16
+                cs8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                e16
+                e8
                 \clef "treble"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
-                g16
+                g8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                a16
+                a8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                b16
+                b8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
-                cs'16
+                cs'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-undecimal-quarter-tone-up
-                d'16
+                d'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                e'16
+                e'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
                     \concat
@@ -601,16 +601,16 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                             \sharp
                         }
                     }
-                fs'16
+                fs'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
-                g'16
+                g'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
-                gs'16
+                gs'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                a'16
+                a'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
                     \concat
@@ -620,22 +620,22 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                             \sharp
                         }
                     }
-                as'16
+                as'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \natural
-                b'16
+                b'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-nineteen-limit-schisma-up
-                c''16
+                c''8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
-                cs''16
+                cs''8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
-                d''16
+                d''8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-undecimal-quarter-tone-up
-                d''16
+                d''8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
                     \concat
@@ -645,13 +645,13 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                             \sharp
                         }
                     }
-                ds''16
+                ds''8
             }
 
         A harmonic series with the HEJI2 font.
 
         >>> ratios = [f"{_ + 1}/1" for _ in range(23)]
-        >>> notes = [abjad.Note("a,,,16") for _ in ratios]
+        >>> notes = [abjad.Note("a,,,8") for _ in ratios]
         >>> for note, ratio in zip(notes, ratios):
         ...     microtones.tune_to_ratio(note.note_head, ratio)
         ...
