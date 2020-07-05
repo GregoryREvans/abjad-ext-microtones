@@ -54,7 +54,6 @@ isort-check:
 	--line-width=88 \
 	--multi-line=3 \
 	--project=abjad \
-	--recursive \
 	--thirdparty=uqbar \
 	--trailing-comma \
 	--use-parentheses \
@@ -62,13 +61,11 @@ isort-check:
 
 isort-reformat:
 	isort \
-	--apply \
 	--case-sensitive \
 	--force-grid-wrap=0 \
 	--line-width=88 \
 	--multi-line=3 \
 	--project=abjad \
-	--recursive \
 	--thirdparty=uqbar \
 	--trailing-comma \
 	--use-parentheses \
