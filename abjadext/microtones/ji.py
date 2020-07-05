@@ -2,7 +2,7 @@
 Package for Just Intonation.
 """
 
-import fractions
+import quicktions
 
 import abjad
 
@@ -444,7 +444,7 @@ def make_ji_bundle(pitch, ratio):
         pitch = abjad.NamedPitch(pitch)
     elif isinstance(pitch, int):
         pitch = abjad.NumberedPitch(pitch)
-    ratio = fractions.Fraction(ratio)
+    ratio = quicktions.Fraction(ratio)
     numerator_factors = _prime_factors(ratio.numerator)
     denominator_factors = _prime_factors(ratio.denominator)
     accidental_vector = JIVector(diatonic_accidental=pitch.accidental.name)
