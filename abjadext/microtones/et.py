@@ -1,9 +1,9 @@
 """
 Package for equal tempered microtones.
 """
+import math
 
 import quicktions
-import math
 
 import abjad
 

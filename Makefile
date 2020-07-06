@@ -48,27 +48,37 @@ gh-pages:
 isort-check:
 	isort \
 	--case-sensitive \
-	--check-only \
-	--diff \
-	--force-grid-wrap=0 \
-	--line-width=88 \
-	--multi-line=3 \
-	--project=abjad \
-	--thirdparty=uqbar \
-	--trailing-comma \
-	--use-parentheses \
+    --check-only \
+    --diff \
+    --force-grid-wrap=0 \
+    --line-width=88 \
+    --multi-line=3 \
+    --project=abjad \
+    --project=abjadext \
+    --thirdparty=ply \
+    --thirdparty=pytest \
+    --thirdparty=quicktions \
+    --thirdparty=roman \
+    --thirdparty=uqbar \
+    --trailing-comma \
+    --use-parentheses \
 	.
 
 isort-reformat:
 	isort \
 	--case-sensitive \
-	--force-grid-wrap=0 \
-	--line-width=88 \
-	--multi-line=3 \
-	--project=abjad \
-	--thirdparty=uqbar \
-	--trailing-comma \
-	--use-parentheses \
+    --force-grid-wrap=0 \
+    --line-width=88 \
+    --multi-line=3 \
+    --project=abjad \
+    --project=abjadext \
+    --thirdparty=ply \
+    --thirdparty=pytest \
+	--thirdparty=quicktions \
+    --thirdparty=roman \
+    --thirdparty=uqbar \
+    --trailing-comma \
+    --use-parentheses \
 	.
 
 mypy:
