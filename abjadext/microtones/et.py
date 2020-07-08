@@ -1,11 +1,10 @@
 """
 Package for equal tempered microtones.
 """
-
-import fractions
 import math
 
 import abjad
+import quicktions
 
 
 class ETBundle:
@@ -38,13 +37,13 @@ class ETBundle:
 
 _accidental_to_value = {
     "double sharp": 2,
-    "three-quarters sharp": fractions.Fraction(3 / 2),
+    "three-quarters sharp": quicktions.Fraction(3 / 2),
     "sharp": 1,
-    "quarter sharp": fractions.Fraction(1 / 2),
+    "quarter sharp": quicktions.Fraction(1 / 2),
     "natural": 0,
-    "quarter flat": fractions.Fraction(-1 / 2),
+    "quarter flat": quicktions.Fraction(-1 / 2),
     "flat": -1,
-    "three-quarters flat": fractions.Fraction(-3 / 2),
+    "three-quarters flat": quicktions.Fraction(-3 / 2),
     "double flat": -2,
 }
 
@@ -170,7 +169,7 @@ def get_value_sum(pitch, value):
         Fraction(7, 4)
 
     """
-    value = fractions.Fraction(value)
+    value = quicktions.Fraction(value)
     return get_accidental_value(pitch) + value
 
 
@@ -229,9 +228,9 @@ def get_alteration(pitch, value, spell=None):
         '\\eleven-twelfths-sharp-markup'
 
     """
-    value = fractions.Fraction(value)
+    value = quicktions.Fraction(value)
     semitones = int(math.modf(value)[1])
-    remainder = fractions.Fraction(value - int(math.modf(value)[1]))
+    remainder = quicktions.Fraction(value - int(math.modf(value)[1]))
     if semitones != 0:
         pitch = abjad.NumberedInterval(semitones).transpose(pitch)
     transposed_accidental_value = get_value_sum(pitch, remainder)
@@ -239,7 +238,7 @@ def get_alteration(pitch, value, spell=None):
     new_accidental = _value_to_accidental[key] + "-markup"
     if spell is not None:
         if spell == "sharp":
-            if fractions.Fraction(_reversed_value_to_accidental[new_accidental]) < 0:
+            if quicktions.Fraction(_reversed_value_to_accidental[new_accidental]) < 0:
                 # make sharp
                 temp_note = abjad.Note(abjad.NamedPitch(pitch), (1, 4))
                 abjad.respell_with_sharps([temp_note])
@@ -248,7 +247,7 @@ def get_alteration(pitch, value, spell=None):
                 key = str(transposed_accidental_value)
                 new_accidental = _value_to_accidental[key] + "-markup"
         if spell == "flat":
-            if 0 < fractions.Fraction(_reversed_value_to_accidental[new_accidental]):
+            if 0 < quicktions.Fraction(_reversed_value_to_accidental[new_accidental]):
                 # make flat
                 temp_note = abjad.Note(abjad.NamedPitch(pitch), (1, 4))
                 abjad.respell_with_flats([temp_note])
@@ -267,7 +266,7 @@ def apply_alteration(note_head, value, spell=None):
 
         Eighth tone accidentals:
 
-        >>> from fractions import Fraction
+        >>> from quicktions import Fraction
         >>> steps = [0, "1/8", "2/8", "3/8", "4/8", "5/8", "6/8", "7/8", 1]
         >>> steps = [Fraction(step) * 2 for step in steps]
         >>> reverse_steps = [0 - step for step in steps]
@@ -297,7 +296,7 @@ def apply_alteration(note_head, value, spell=None):
 
         Tenth tone accidentals:
 
-        >>> from fractions import Fraction
+        >>> from quicktions import Fraction
         >>> steps = [0, "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", 1]
         >>> steps = [Fraction(step) * 2 for step in steps]
         >>> reverse_steps = [0 - step for step in steps]
@@ -327,7 +326,7 @@ def apply_alteration(note_head, value, spell=None):
 
         Twelfth tone accidentals:
 
-        >>> from fractions import Fraction
+        >>> from quicktions import Fraction
         >>> steps = [0, "1/12", "2/12", "3/12", "4/12", "5/12", "6/12", "7/12", "8/12", "9/12", "10/12", "11/12", 1]
         >>> steps = [Fraction(step) * 2 for step in steps]
         >>> reverse_steps = [0 - step for step in steps]
@@ -414,7 +413,7 @@ def apply_alteration(note_head, value, spell=None):
             }
 
     """
-    value = fractions.Fraction(value)
+    value = quicktions.Fraction(value)
     pitch = note_head.written_pitch
     bundle = get_alteration(pitch, value, spell)
     note_head.written_pitch = bundle.pitch

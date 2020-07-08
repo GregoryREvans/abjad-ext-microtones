@@ -39,7 +39,7 @@ if __name__ == "__main__":
             ]
         },
         include_package_data=True,
-        install_requires=["abjad>=3.1"],
+        install_requires=["abjad>=3.1", "quicktions"],
         license="MIT",
         long_description=pathlib.Path("README.md").read_text(),
         keywords=", ".join(
