@@ -1,10 +1,8 @@
 """
 Package for Just Intonation.
 """
-
-import quicktions
-
 import abjad
+import quicktions
 
 
 class JIVector:

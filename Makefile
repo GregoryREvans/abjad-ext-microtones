@@ -53,12 +53,15 @@ isort-check:
     --force-grid-wrap=0 \
     --line-width=88 \
     --multi-line=3 \
-    --project=abjad \
-    --project=abjadext \
+	--thirdparty=abjad \
+    --thirdparty=abjadext \
+    --thirdparty=baca \
+    --thirdparty=evans \
     --thirdparty=ply \
     --thirdparty=pytest \
     --thirdparty=quicktions \
     --thirdparty=roman \
+    --thirdparty=tsmakers \
     --thirdparty=uqbar \
     --trailing-comma \
     --use-parentheses \
@@ -70,12 +73,15 @@ isort-reformat:
     --force-grid-wrap=0 \
     --line-width=88 \
     --multi-line=3 \
-    --project=abjad \
-    --project=abjadext \
+	--thirdparty=abjad \
+    --thirdparty=abjadext \
+    --thirdparty=baca \
+    --thirdparty=evans \
     --thirdparty=ply \
     --thirdparty=pytest \
-	--thirdparty=quicktions \
+    --thirdparty=quicktions \
     --thirdparty=roman \
+    --thirdparty=tsmakers \
     --thirdparty=uqbar \
     --trailing-comma \
     --use-parentheses \

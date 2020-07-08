@@ -3,9 +3,8 @@ Package for equal tempered microtones.
 """
 import math
 
-import quicktions
-
 import abjad
+import quicktions
 
 
 class ETBundle:
