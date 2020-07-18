@@ -5,7 +5,7 @@ import abjad
 import quicktions
 
 
-class JIVector:
+class JIVector(object):
     """
     JI vector.
 
@@ -285,7 +285,7 @@ class JIVector:
         return literal
 
 
-class JIBundle:
+class JIBundle(object):
     """
     JI bundle.
 

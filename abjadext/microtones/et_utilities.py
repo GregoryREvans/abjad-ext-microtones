@@ -1,7 +1,7 @@
 import fractions
 
 
-class PitchClassSet:
+class PitchClassSet(object):
     """
     Pitch Class Set.
 
@@ -83,6 +83,17 @@ class PitchClassSet:
                 output += ", "
         output += "}"
         return output
+
+    def __add__(self, argument):
+        argument = type(self)(argument)
+        items = self.pitch_classes + argument.pitch_classes
+        return type(self)(items)
+
+    def __contains__(self, argument):
+        return super().__contains__(argument)
+
+    def __getitem__(self, argument):
+        return super().__getitem__(argument)
 
     def _rotate(self, n):
         copied_list = [i for i in self.pitch_classes]
@@ -220,7 +231,7 @@ class PitchClassSet:
         return PitchClassSet(transposed)
 
 
-class PitchSet:
+class PitchSet(object):
     """
     Pitch Set.
 
@@ -293,6 +304,17 @@ class PitchSet:
                 output += ", "
         output += "}"
         return output
+
+    def __add__(self, argument):
+        argument = type(self)(argument)
+        items = self.pitches + argument.pitches
+        return type(self)(items)
+
+    def __contains__(self, argument):
+        return super().__contains__(argument)
+
+    def __getitem__(self, argument):
+        return super().__getitem__(argument)
 
     def _rotate(self, n):
         copied_list = [i for i in self.pitches]
@@ -380,7 +402,7 @@ class PitchSet:
         return PitchSet(transposed)
 
 
-class PitchClassSegment:
+class PitchClassSegment(object):
     """
     Pitch Class Segment.
 
@@ -449,6 +471,17 @@ class PitchClassSegment:
                 output += ", "
         output += ")"
         return output
+
+    def __add__(self, argument):
+        argument = type(self)(argument)
+        items = self.pitch_classes + argument.pitch_classes
+        return type(self)(items)
+
+    def __contains__(self, argument):
+        return super().__contains__(argument)
+
+    def __getitem__(self, argument):
+        return super().__getitem__(argument)
 
     def _transpose_to_zero(self):
         return self.transpose(-self.pitch_classes[0])
@@ -557,7 +590,7 @@ class PitchClassSegment:
         return PitchClassSegment(transposed)
 
 
-class PitchSegment:
+class PitchSegment(object):
     """
     Pitch Segment.
 
@@ -626,6 +659,17 @@ class PitchSegment:
                 output += ", "
         output += ")"
         return output
+
+    def __add__(self, argument):
+        argument = type(self)(argument)
+        items = self.pitches + argument.pitches
+        return type(self)(items)
+
+    def __contains__(self, argument):
+        return super().__contains__(argument)
+
+    def __getitem__(self, argument):
+        return super().__getitem__(argument)
 
     def _transpose_to_zero(self):
         return self.transpose(-self.pitches[0])

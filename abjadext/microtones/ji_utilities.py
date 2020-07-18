@@ -1,7 +1,7 @@
 import fractions
 
 
-class RatioClassSet:
+class RatioClassSet(object):
     """
     Ratio Class Set.
 
@@ -165,7 +165,7 @@ class RatioClassSet:
         return RatioClassSet(transposed)
 
 
-class RatioSet:
+class RatioSet(object):
     """
     Ratio Set.
 
@@ -344,7 +344,7 @@ class RatioSet:
         return RatioSet(transposed)
 
 
-class RatioClassSegment:
+class RatioClassSegment(object):
     """
     Ratio Class Segment.
 
@@ -535,7 +535,7 @@ class RatioClassSegment:
         return RatioClassSegment(transposed)
 
 
-class RatioSegment:
+class RatioSegment(object):
     """
     Ratio Segment.
 

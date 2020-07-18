@@ -7,7 +7,7 @@ import abjad
 import quicktions
 
 
-class ETBundle:
+class ETBundle(object):
     """
     ET bundle.
 
