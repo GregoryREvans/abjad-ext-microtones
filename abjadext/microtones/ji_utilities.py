@@ -88,6 +88,17 @@ class RatioClassSet(object):
         output += "}"
         return output
 
+    def __add__(self, argument):
+        argument = type(self)(argument)
+        items = self.ratio_classes + argument.ratio_classes
+        return type(self)(items)
+
+    def __contains__(self, argument):
+        return super().__contains__(argument)
+
+    def __getitem__(self, argument):
+        return super().__getitem__(argument)
+
     def complement(self, scale):
         """
         Gets complement in scale.
@@ -247,6 +258,17 @@ class RatioSet(object):
                 output += ", "
         output += "}"
         return output
+
+    def __add__(self, argument):
+        argument = type(self)(argument)
+        items = self.ratios + argument.ratios
+        return type(self)(items)
+
+    def __contains__(self, argument):
+        return super().__contains__(argument)
+
+    def __getitem__(self, argument):
+        return super().__getitem__(argument)
 
     def constrain_to_octave(self):
         """
@@ -430,6 +452,17 @@ class RatioClassSegment(object):
                 output += ", "
         output += ")"
         return output
+
+    def __add__(self, argument):
+        argument = type(self)(argument)
+        items = self.ratio_classes + argument.ratio_classes
+        return type(self)(items)
+
+    def __contains__(self, argument):
+        return super().__contains__(argument)
+
+    def __getitem__(self, argument):
+        return super().__getitem__(argument)
 
     def complement(self, scale):
         """
@@ -617,6 +650,17 @@ class RatioSegment(object):
                 output += ", "
         output += ")"
         return output
+
+    def __add__(self, argument):
+        argument = type(self)(argument)
+        items = self.ratios + argument.ratios
+        return type(self)(items)
+
+    def __contains__(self, argument):
+        return super().__contains__(argument)
+
+    def __getitem__(self, argument):
+        return super().__getitem__(argument)
 
     def constrain_to_octave(self):
         """
