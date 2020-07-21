@@ -484,7 +484,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
-        ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
+        ...     includes=["default.ily", "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -495,7 +495,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
-        ...     includes=["default.ily", "heji2-ji-accidental-markups.ily"],
+        ...     includes=["default.ily", "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/heji2-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
@@ -538,8 +538,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         ...     staff,
         ...     includes=[
         ...         "default.ily",
-        ...         "harmonic-series-layout.ily",
-        ...         "ekmelos-ji-accidental-markups.ily"
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/harmonic-series-layout.ily",
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/ekmelos-ji-accidental-markups.ily"
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -662,8 +662,8 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         ...     staff,
         ...     includes=[
         ...         "default.ily",
-        ...         "harmonic-series-layout.ily",
-        ...         "heji2-ji-accidental-markups.ily"
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/harmonic-series-layout.ily",
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/heji2-ji-accidental-markups.ily"
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -679,7 +679,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         >>> staff = abjad.Staff([note])
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
-        ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
+        ...     includes=["default.ily", "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/ekmelos-ji-accidental-markups.ily"],
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )

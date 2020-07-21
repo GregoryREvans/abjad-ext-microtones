@@ -284,8 +284,8 @@ def apply_alteration(note_head, value, spell=None):
         ...     staff,
         ...     includes=[
         ...         "default.ily",
-        ...         "ekmelos-edo-accidental-markups.ily",
-        ...         "all-edo-markups-example.ily",
+        ...         "abjad.ily",
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -314,8 +314,8 @@ def apply_alteration(note_head, value, spell=None):
         ...     staff,
         ...     includes=[
         ...         "default.ily",
-        ...         "ekmelos-edo-accidental-markups.ily",
-        ...         "all-edo-markups-example.ily",
+        ...         "abjad.ily",
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -344,8 +344,8 @@ def apply_alteration(note_head, value, spell=None):
         ...     staff,
         ...     includes=[
         ...         "default.ily",
-        ...         "ekmelos-edo-accidental-markups.ily",
-        ...         "all-edo-markups-example.ily",
+        ...         "abjad.ily",
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -364,8 +364,8 @@ def apply_alteration(note_head, value, spell=None):
         ...     staff,
         ...     includes=[
         ...         "default.ily",
-        ...         "ekmelos-edo-accidental-markups.ily",
-        ...         "all-edo-markups-example.ily",
+        ...         "abjad.ily",
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -394,8 +394,8 @@ def apply_alteration(note_head, value, spell=None):
         ...     staff,
         ...     includes=[
         ...         "default.ily",
-        ...         "ekmelos-edo-accidental-markups.ily",
-        ...         "all-edo-markups-example.ily",
+        ...         "abjad.ily",
+        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
