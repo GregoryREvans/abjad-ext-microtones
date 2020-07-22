@@ -8,6 +8,7 @@ class RatioClassSet(object):
     Ratio Class Set.
 
     >>> from abjadext import microtones
+    >>> import fractions
 
     """
 
@@ -103,7 +104,7 @@ class RatioClassSet(object):
         ..  container:: example
 
             >>> rc_set = microtones.RatioClassSet(["1", "1/2", "5/4"])
-            >>> rc_set += [1, Fraction(11, 6), Fraction(27, 2)]
+            >>> rc_set += [1, fractions.Fraction(11, 6), fractions.Fraction(27, 2)]
             >>> rc_set
             abjadext.ji_utilities.RatioClassSet(
                 [
@@ -350,7 +351,7 @@ class RatioSet(object):
         ..  container:: example
 
             >>> r_set = microtones.RatioSet(["1", "1/2", "5/4"])
-            >>> r_set += [1, Fraction(11, 6), Fraction(27, 2)]
+            >>> r_set += [1, fractions.Fraction(11, 6), fractions.Fraction(27, 2)]
             >>> r_set
             abjadext.ji_utilities.RatioSet(
                 [
@@ -625,7 +626,7 @@ class RatioClassSegment(object):
         ..  container:: example
 
             >>> rc_segment = microtones.RatioClassSegment(["1", "1/2", "5/4"])
-            >>> rc_segment += [1, Fraction(11, 6), Fraction(27, 2)]
+            >>> rc_segment += [1, fractions.Fraction(11, 6), fractions.Fraction(27, 2)]
             >>> rc_segment
             abjadext.ji_utilities.RatioClassSegment(
                 [
@@ -922,7 +923,7 @@ class RatioSegment(object):
         ..  container:: example
 
             >>> r_segment = microtones.RatioSegment(["1", "1/2", "5/4"])
-            >>> r_segment += [1, Fraction(11, 6), Fraction(27, 2)]
+            >>> r_segment += [1, fractions.Fraction(11, 6), fractions.Fraction(27, 2)]
             >>> r_segment
             abjadext.ji_utilities.RatioSegment(
                 [

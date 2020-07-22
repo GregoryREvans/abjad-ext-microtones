@@ -8,6 +8,7 @@ class PitchClassSet(object):
     Pitch Class Set.
 
     >>> from abjadext import microtones
+    >>> import fractions
 
     """
 
@@ -99,7 +100,7 @@ class PitchClassSet(object):
         ..  container:: example
 
             >>> pc_set = microtones.PitchClassSet(["0", "1/2", "5/4"])
-            >>> pc_set += [0, Fraction(11, 6), Fraction(27, 2)]
+            >>> pc_set += [0, fractions.Fraction(11, 6), fractions.Fraction(27, 2)]
             >>> pc_set
             abjadext.et_utilities.PitchClassSet(
                 [
@@ -424,7 +425,7 @@ class PitchSet(object):
         ..  container:: example
 
             >>> p_set = microtones.PitchSet(["0", "1/2", "5/4"])
-            >>> p_set += [0, Fraction(11, 6), Fraction(27, 2)]
+            >>> p_set += [0, fractions.Fraction(11, 6), fractions.Fraction(27, 2)]
             >>> p_set
             abjadext.et_utilities.PitchSet(
                 [
@@ -683,7 +684,7 @@ class PitchClassSegment(object):
         ..  container:: example
 
             >>> pc_segment = microtones.PitchClassSegment(["0", "1/2", "5/4"])
-            >>> pc_segment += [0, Fraction(11, 6), Fraction(27, 2)]
+            >>> pc_segment += [0, fractions.Fraction(11, 6), fractions.Fraction(27, 2)]
             >>> pc_segment
             abjadext.et_utilities.PitchClassSegment(
                 [
@@ -976,7 +977,7 @@ class PitchSegment(object):
         ..  container:: example
 
             >>> p_segment = microtones.PitchSegment(["0", "1/2", "5/4"])
-            >>> p_segment += [0, Fraction(11, 6), Fraction(27, 2)]
+            >>> p_segment += [0, fractions.Fraction(11, 6), fractions.Fraction(27, 2)]
             >>> p_segment
             abjadext.et_utilities.PitchSegment(
                 [
