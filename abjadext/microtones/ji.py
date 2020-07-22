@@ -64,41 +64,26 @@ class JIVector(object):
         ..  container:: example
 
             >>> microtones.JIVector()
-            JIVector(
-                    diatonic_accidental="natural",
-                    syntonic_commas_down=0,
-                    syntonic_commas_up=0,
-                    septimal_commas_down=0,
-                    septimal_commas_up=0,
-                    undecimal_quarter_tones_down=0,
-                    undecimal_quarter_tones_up=0,
-                    tridecimal_third_tones_down=0,
-                    tridecimal_third_tones_up=0,
-                    seventeen_limit_schismas_down=0,
-                    seventeen_limit_schismas_up=0,
-                    nineteen_limit_schismas_down=0,
-                    nineteen_limit_schismas_up=0,
-                    twenty_three_limit_commas_down=0,
-                    twenty_three_limit_commas_up=0,
-            )
+            abjadext.ji.JIVector(
+                diatonic_accidental='natural',
+                syntonic_commas_down=0,
+                syntonic_commas_up=0,
+                septimal_commas_down=0,
+                septimal_commas_up=0,
+                undecimal_quarter_tones_down=0,
+                undecimal_quarter_tones_up=0,
+                tridecimal_third_tones_down=0,
+                tridecimal_third_tones_up=0,
+                seventeen_limit_schismas_down=0,
+                seventeen_limit_schismas_up=0,
+                nineteen_limit_schismas_down=0,
+                nineteen_limit_schismas_up=0,
+                twenty_three_limit_commas_down=0,
+                twenty_three_limit_commas_up=0,
+                )
 
         """
-        return f"""{self.__class__.__name__}(
-        diatonic_accidental="{self.diatonic_accidental}",
-        syntonic_commas_down={self.syntonic_commas_down},
-        syntonic_commas_up={self.syntonic_commas_up},
-        septimal_commas_down={self.septimal_commas_down},
-        septimal_commas_up={self.septimal_commas_up},
-        undecimal_quarter_tones_down={self.undecimal_quarter_tones_down},
-        undecimal_quarter_tones_up={self.undecimal_quarter_tones_up},
-        tridecimal_third_tones_down={self.tridecimal_third_tones_down},
-        tridecimal_third_tones_up={self.tridecimal_third_tones_up},
-        seventeen_limit_schismas_down={self.seventeen_limit_schismas_down},
-        seventeen_limit_schismas_up={self.seventeen_limit_schismas_up},
-        nineteen_limit_schismas_down={self.nineteen_limit_schismas_down},
-        nineteen_limit_schismas_up={self.nineteen_limit_schismas_up},
-        twenty_three_limit_commas_down={self.twenty_three_limit_commas_down},
-        twenty_three_limit_commas_up={self.twenty_three_limit_commas_up},\n)"""
+        return abjad.storage(self)
 
     def has_just_accidentals(self):
         """
@@ -296,23 +281,23 @@ class JIBundle(object):
         "c'"
 
         >>> bundle.vector
-        JIVector(
-                diatonic_accidental="natural",
-                syntonic_commas_down=0,
-                syntonic_commas_up=0,
-                septimal_commas_down=0,
-                septimal_commas_up=0,
-                undecimal_quarter_tones_down=0,
-                undecimal_quarter_tones_up=0,
-                tridecimal_third_tones_down=0,
-                tridecimal_third_tones_up=0,
-                seventeen_limit_schismas_down=0,
-                seventeen_limit_schismas_up=0,
-                nineteen_limit_schismas_down=0,
-                nineteen_limit_schismas_up=0,
-                twenty_three_limit_commas_down=0,
-                twenty_three_limit_commas_up=0,
-        )
+        abjadext.ji.JIVector(
+            diatonic_accidental='natural',
+            syntonic_commas_down=0,
+            syntonic_commas_up=0,
+            septimal_commas_down=0,
+            septimal_commas_up=0,
+            undecimal_quarter_tones_down=0,
+            undecimal_quarter_tones_up=0,
+            tridecimal_third_tones_down=0,
+            tridecimal_third_tones_up=0,
+            seventeen_limit_schismas_down=0,
+            seventeen_limit_schismas_up=0,
+            nineteen_limit_schismas_down=0,
+            nineteen_limit_schismas_up=0,
+            twenty_three_limit_commas_down=0,
+            twenty_three_limit_commas_up=0,
+            )
 
     """
 
@@ -327,31 +312,13 @@ class JIBundle(object):
         ..  container:: example
 
             >>> microtones.JIBundle()
-            JIBundle(
-                pitch=c',
-                vector=JIVector(
-                    diatonic_accidental="natural",
-                    syntonic_commas_down=0,
-                    syntonic_commas_up=0,
-                    septimal_commas_down=0,
-                    septimal_commas_up=0,
-                    undecimal_quarter_tones_down=0,
-                    undecimal_quarter_tones_up=0,
-                    tridecimal_third_tones_down=0,
-                    tridecimal_third_tones_up=0,
-                    seventeen_limit_schismas_down=0,
-                    seventeen_limit_schismas_up=0,
-                    nineteen_limit_schismas_down=0,
-                    nineteen_limit_schismas_up=0,
-                    twenty_three_limit_commas_down=0,
-                    twenty_three_limit_commas_up=0,
-                ),
-            )
+            abjadext.ji.JIBundle(
+                pitch="c'",
+                vector=abjadext.ji.JIVector(        diatonic_accidental='natural',        syntonic_commas_down=0,        syntonic_commas_up=0,        septimal_commas_down=0,        septimal_commas_up=0,        undecimal_quarter_tones_down=0,        undecimal_quarter_tones_up=0,        tridecimal_third_tones_down=0,        tridecimal_third_tones_up=0,        seventeen_limit_schismas_down=0,        seventeen_limit_schismas_up=0,        nineteen_limit_schismas_down=0,        nineteen_limit_schismas_up=0,        twenty_three_limit_commas_down=0,        twenty_three_limit_commas_up=0,        ),
+                )
 
         """
-        return f"""{self.__class__.__name__}(
-        pitch={self.pitch},
-        vector={repr(self.vector)},\n)"""
+        return abjad.storage(self)
 
 
 def _is_prime(n):
@@ -419,23 +386,23 @@ def make_ji_bundle(pitch, ratio):
         NamedPitch("g'")
 
         >>> bundle.vector
-        JIVector(
-                diatonic_accidental="natural",
-                syntonic_commas_down=0,
-                syntonic_commas_up=0,
-                septimal_commas_down=0,
-                septimal_commas_up=0,
-                undecimal_quarter_tones_down=0,
-                undecimal_quarter_tones_up=0,
-                tridecimal_third_tones_down=0,
-                tridecimal_third_tones_up=0,
-                seventeen_limit_schismas_down=0,
-                seventeen_limit_schismas_up=0,
-                nineteen_limit_schismas_down=0,
-                nineteen_limit_schismas_up=0,
-                twenty_three_limit_commas_down=0,
-                twenty_three_limit_commas_up=0,
-                )
+        abjadext.ji.JIVector(
+            diatonic_accidental='natural',
+            syntonic_commas_down=0,
+            syntonic_commas_up=0,
+            septimal_commas_down=0,
+            septimal_commas_up=0,
+            undecimal_quarter_tones_down=0,
+            undecimal_quarter_tones_up=0,
+            tridecimal_third_tones_down=0,
+            tridecimal_third_tones_up=0,
+            seventeen_limit_schismas_down=0,
+            seventeen_limit_schismas_up=0,
+            nineteen_limit_schismas_down=0,
+            nineteen_limit_schismas_up=0,
+            twenty_three_limit_commas_down=0,
+            twenty_three_limit_commas_up=0,
+            )
 
     """
     if isinstance(pitch, str):

@@ -1,5 +1,7 @@
 import fractions
 
+import abjad
+
 
 class PitchClassSet(object):
     """
@@ -61,10 +63,16 @@ class PitchClassSet(object):
         ..  container:: example
 
             >>> microtones.PitchClassSet([0, 1, 2])
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
-        return f"{self.__class__.__name__}({self.pitch_classes})"
+        return abjad.storage(self)
 
     def __str__(self):
         """
@@ -85,15 +93,51 @@ class PitchClassSet(object):
         return output
 
     def __add__(self, argument):
+        """
+        Concatenates Pitch Class Set with iterable.
+
+        ..  container:: example
+
+            >>> pc_set = microtones.PitchClassSet(["0", "1/2", "5/4"])
+            >>> pc_set += [0, Fraction(11, 6), Fraction(27, 2)]
+            >>> pc_set
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 2),
+                    Fraction(5, 4),
+                    Fraction(11, 6),
+                    Fraction(3, 2),
+                    ]
+                )
+
+        """
         argument = type(self)(argument)
         items = self.pitch_classes + argument.pitch_classes
         return type(self)(items)
 
     def __contains__(self, argument):
-        return super().__contains__(argument)
+        """
+        Returns boolean
 
-    def __getitem__(self, argument):
-        return super().__getitem__(argument)
+        ..  container::
+
+            >>> pc_set = microtones.PitchClassSet([0, 1, 6])
+            >>> 6 in pc_set
+            True
+
+            >>> 18 in pc_set
+            False
+
+            >>> pc_set = microtones.PitchClassSet([0, 1, 18])
+            >>> 6 in pc_set
+            True
+
+            >>> 18 in pc_set
+            False
+
+        """
+        return argument in self.pitch_classes
 
     def _rotate(self, n):
         copied_list = [i for i in self.pitch_classes]
@@ -120,7 +164,19 @@ class PitchClassSet(object):
             >>> pc_set = microtones.PitchClassSet([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
             >>> pc_set.complement(input_scale)
-            PitchClassSet([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    Fraction(5, 1),
+                    Fraction(6, 1),
+                    Fraction(7, 1),
+                    Fraction(8, 1),
+                    Fraction(9, 1),
+                    Fraction(10, 1),
+                    Fraction(11, 1),
+                    ]
+                )
 
         """
         complements = []
@@ -136,10 +192,22 @@ class PitchClassSet(object):
         ..  container:: example
 
             >>> microtones.PitchClassSet([0, 1, 3]).invert()
-            PitchClassSet([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(11, 1),
+                    Fraction(9, 1),
+                    ]
+                )
 
             >>> microtones.PitchClassSet([0, 1, 3]).invert(3)
-            PitchClassSet([Fraction(6, 1), Fraction(5, 1), Fraction(3, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(6, 1),
+                    Fraction(5, 1),
+                    Fraction(3, 1),
+                    ]
+                )
 
         """
         intervals = [axis - i for i in self.pitch_classes]
@@ -153,7 +221,13 @@ class PitchClassSet(object):
         ..  container:: example
 
             >>> microtones.PitchClassSet([0, 1, 3]).multiply(2)
-            PitchClassSet([Fraction(0, 1), Fraction(2, 1), Fraction(6, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(2, 1),
+                    Fraction(6, 1),
+                    ]
+                )
 
         """
         multiplied_pitch_classes = [n * pitch for pitch in self.pitch_classes]
@@ -166,7 +240,13 @@ class PitchClassSet(object):
         ..  container:: example
 
             >>> microtones.PitchClassSet([0, 2, 1]).normal_order()
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         size = len(self.pitch_classes)
@@ -192,7 +272,13 @@ class PitchClassSet(object):
         ..  container:: example
 
             >>> microtones.PitchClassSet([1, 3, 2]).prime_form()
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         original = self.normal_order()._transpose_to_zero()
@@ -209,7 +295,13 @@ class PitchClassSet(object):
         ..  container:: example
 
             >>> microtones.PitchClassSet([2, 1, 0]).sorted()
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         return PitchClassSet(sorted(self.pitch_classes))
@@ -221,10 +313,24 @@ class PitchClassSet(object):
         ..  container:: example
 
             >>> microtones.PitchClassSet([0, 1, 2]).transpose(2)
-            PitchClassSet([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    ]
+                )
 
             >>> microtones.PitchClassSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchClassSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
+            abjadext.et_utilities.PitchClassSet(
+                [
+                    Fraction(4, 1),
+                    Fraction(3, 1),
+                    Fraction(1, 1),
+                    Fraction(0, 1),
+                    Fraction(11, 1),
+                    ]
+                )
 
         """
         transposed = [pitch + n for pitch in self.pitch_classes]
@@ -282,10 +388,16 @@ class PitchSet(object):
         ..  container:: example
 
             >>> microtones.PitchSet([0, 1, 2])
-            PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
-        return f"{self.__class__.__name__}({self.pitches})"
+        return abjad.storage(self)
 
     def __str__(self):
         """
@@ -306,15 +418,51 @@ class PitchSet(object):
         return output
 
     def __add__(self, argument):
+        """
+        Concatenates Pitch Set with iterable.
+
+        ..  container:: example
+
+            >>> p_set = microtones.PitchSet(["0", "1/2", "5/4"])
+            >>> p_set += [0, Fraction(11, 6), Fraction(27, 2)]
+            >>> p_set
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 2),
+                    Fraction(5, 4),
+                    Fraction(11, 6),
+                    Fraction(27, 2),
+                    ]
+                )
+
+        """
         argument = type(self)(argument)
         items = self.pitches + argument.pitches
         return type(self)(items)
 
     def __contains__(self, argument):
-        return super().__contains__(argument)
+        """
+        Returns boolean
 
-    def __getitem__(self, argument):
-        return super().__getitem__(argument)
+        ..  container::
+
+            >>> p_set = microtones.PitchSet([0, 1, 6])
+            >>> 6 in p_set
+            True
+
+            >>> 18 in p_set
+            False
+
+            >>> p_set = microtones.PitchSet([0, 1, 18])
+            >>> 6 in p_set
+            False
+
+            >>> 18 in p_set
+            True
+
+        """
+        return argument in self.pitches
 
     def _rotate(self, n):
         copied_list = [i for i in self.pitches]
@@ -334,7 +482,19 @@ class PitchSet(object):
             >>> pc_set = microtones.PitchSet([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
             >>> pc_set.complement(input_scale)
-            PitchSet([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    Fraction(5, 1),
+                    Fraction(6, 1),
+                    Fraction(7, 1),
+                    Fraction(8, 1),
+                    Fraction(9, 1),
+                    Fraction(10, 1),
+                    Fraction(11, 1),
+                    ]
+                )
 
         """
         complements = []
@@ -350,10 +510,22 @@ class PitchSet(object):
         ..  container:: example
 
             >>> microtones.PitchSet([0, 1, 3]).invert()
-            PitchSet([Fraction(0, 1), Fraction(-1, 1), Fraction(-3, 1)])
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(-1, 1),
+                    Fraction(-3, 1),
+                    ]
+                )
 
             >>> microtones.PitchSet([0, 1, 3]).invert(2)
-            PitchSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(4, 1),
+                    Fraction(3, 1),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         intervals = [axis - i for i in self.pitches]
@@ -367,7 +539,13 @@ class PitchSet(object):
         ..  container:: example
 
             >>> microtones.PitchSet([0, 1, 3]).multiply(2)
-            PitchSet([Fraction(0, 1), Fraction(2, 1), Fraction(6, 1)])
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(2, 1),
+                    Fraction(6, 1),
+                    ]
+                )
 
         """
         multiplied_pitches = [n * pitch for pitch in self.pitches]
@@ -380,7 +558,13 @@ class PitchSet(object):
         ..  container:: example
 
             >>> microtones.PitchSet([2, 1, 0]).sorted()
-            PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         return PitchSet(sorted(self.pitches))
@@ -392,10 +576,24 @@ class PitchSet(object):
         ..  container:: example
 
             >>> microtones.PitchSet([0, 1, 2]).transpose(2)
-            PitchSet([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    ]
+                )
 
             >>> microtones.PitchSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchSet([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(-1, 1)])
+            abjadext.et_utilities.PitchSet(
+                [
+                    Fraction(4, 1),
+                    Fraction(3, 1),
+                    Fraction(1, 1),
+                    Fraction(0, 1),
+                    Fraction(-1, 1),
+                    ]
+                )
 
         """
         transposed = [pitch + n for pitch in self.pitches]
@@ -449,10 +647,16 @@ class PitchClassSegment(object):
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 2])
-            PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
-        return f"{self.__class__.__name__}({self.pitch_classes})"
+        return abjad.storage(self)
 
     def __str__(self):
         """
@@ -473,15 +677,52 @@ class PitchClassSegment(object):
         return output
 
     def __add__(self, argument):
+        """
+        Concatenates Pitch Class Segment with iterable.
+
+        ..  container:: example
+
+            >>> pc_segment = microtones.PitchClassSegment(["0", "1/2", "5/4"])
+            >>> pc_segment += [0, Fraction(11, 6), Fraction(27, 2)]
+            >>> pc_segment
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 2),
+                    Fraction(5, 4),
+                    Fraction(0, 1),
+                    Fraction(11, 6),
+                    Fraction(3, 2),
+                    ]
+                )
+
+        """
         argument = type(self)(argument)
         items = self.pitch_classes + argument.pitch_classes
         return type(self)(items)
 
     def __contains__(self, argument):
-        return super().__contains__(argument)
+        """
+        Returns boolean
 
-    def __getitem__(self, argument):
-        return super().__getitem__(argument)
+        ..  container::
+
+            >>> pc_segment = microtones.PitchClassSegment([0, 1, 6])
+            >>> 6 in pc_segment
+            True
+
+            >>> 18 in pc_segment
+            False
+
+            >>> pc_segment = microtones.PitchClassSegment([0, 1, 18])
+            >>> 6 in pc_segment
+            True
+
+            >>> 18 in pc_segment
+            False
+
+        """
+        return argument in self.pitch_classes
 
     def _transpose_to_zero(self):
         return self.transpose(-self.pitch_classes[0])
@@ -495,7 +736,19 @@ class PitchClassSegment(object):
             >>> pc_set = microtones.PitchClassSegment([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
             >>> pc_set.complement(input_scale)
-            PitchClassSegment([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    Fraction(5, 1),
+                    Fraction(6, 1),
+                    Fraction(7, 1),
+                    Fraction(8, 1),
+                    Fraction(9, 1),
+                    Fraction(10, 1),
+                    Fraction(11, 1),
+                    ]
+                )
 
         """
         complements = []
@@ -511,10 +764,22 @@ class PitchClassSegment(object):
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 3]).invert()
-            PitchClassSegment([Fraction(0, 1), Fraction(11, 1), Fraction(9, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(11, 1),
+                    Fraction(9, 1),
+                    ]
+                )
 
             >>> microtones.PitchClassSegment([0, 1, 3]).invert(2)
-            PitchClassSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(4, 1),
+                    Fraction(3, 1),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         intervals = [axis - i for i in self.pitch_classes]
@@ -528,7 +793,13 @@ class PitchClassSegment(object):
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 3]).multiply(2)
-            PitchClassSegment([Fraction(0, 1), Fraction(2, 1), Fraction(6, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(2, 1),
+                    Fraction(6, 1),
+                    ]
+                )
 
         """
         multiplied_pitch_classes = [n * pitch for pitch in self.pitch_classes]
@@ -541,7 +812,13 @@ class PitchClassSegment(object):
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 2]).retrograde()
-            PitchClassSegment([Fraction(2, 1), Fraction(1, 1), Fraction(0, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(1, 1),
+                    Fraction(0, 1),
+                    ]
+                )
 
         """
         return PitchClassSegment(reversed(self.pitch_classes))
@@ -553,7 +830,13 @@ class PitchClassSegment(object):
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 2]).rotate(1)
-            PitchClassSegment([Fraction(1, 1), Fraction(2, 1), Fraction(0, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(0, 1),
+                    ]
+                )
 
         """
         copied_list = [i for i in self.pitch_classes]
@@ -568,7 +851,13 @@ class PitchClassSegment(object):
         ..  container:: example
 
             >>> microtones.PitchClassSegment([2, 1, 0]).sorted()
-            PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         return PitchClassSegment(sorted(self.pitch_classes))
@@ -580,10 +869,24 @@ class PitchClassSegment(object):
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 2]).transpose(2)
-            PitchClassSegment([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    ]
+                )
 
             >>> microtones.PitchClassSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchClassSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(11, 1)])
+            abjadext.et_utilities.PitchClassSegment(
+                [
+                    Fraction(4, 1),
+                    Fraction(3, 1),
+                    Fraction(1, 1),
+                    Fraction(0, 1),
+                    Fraction(11, 1),
+                    ]
+                )
 
         """
         transposed = [pitch + n for pitch in self.pitch_classes]
@@ -637,10 +940,16 @@ class PitchSegment(object):
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 2])
-            PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
-        return f"{self.__class__.__name__}({self.pitches})"
+        return abjad.storage(self)
 
     def __str__(self):
         """
@@ -661,15 +970,52 @@ class PitchSegment(object):
         return output
 
     def __add__(self, argument):
+        """
+        Concatenates Pitch Segment with iterable.
+
+        ..  container:: example
+
+            >>> p_segment = microtones.PitchSegment(["0", "1/2", "5/4"])
+            >>> p_segment += [0, Fraction(11, 6), Fraction(27, 2)]
+            >>> p_segment
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 2),
+                    Fraction(5, 4),
+                    Fraction(0, 1),
+                    Fraction(11, 6),
+                    Fraction(27, 2),
+                    ]
+                )
+
+        """
         argument = type(self)(argument)
         items = self.pitches + argument.pitches
         return type(self)(items)
 
     def __contains__(self, argument):
-        return super().__contains__(argument)
+        """
+        Returns boolean
 
-    def __getitem__(self, argument):
-        return super().__getitem__(argument)
+        ..  container::
+
+            >>> p_segment = microtones.PitchSegment([0, 1, 6])
+            >>> 6 in p_segment
+            True
+
+            >>> 18 in p_segment
+            False
+
+            >>> p_segment = microtones.PitchSegment([0, 1, 18])
+            >>> 6 in p_segment
+            False
+
+            >>> 18 in p_segment
+            True
+
+        """
+        return argument in self.pitches
 
     def _transpose_to_zero(self):
         return self.transpose(-self.pitches[0])
@@ -683,7 +1029,19 @@ class PitchSegment(object):
             >>> pc_set = microtones.PitchSegment([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
             >>> pc_set.complement(input_scale)
-            PitchSegment([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    Fraction(5, 1),
+                    Fraction(6, 1),
+                    Fraction(7, 1),
+                    Fraction(8, 1),
+                    Fraction(9, 1),
+                    Fraction(10, 1),
+                    Fraction(11, 1),
+                    ]
+                )
 
         """
         complements = []
@@ -699,10 +1057,22 @@ class PitchSegment(object):
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 3]).invert()
-            PitchSegment([Fraction(0, 1), Fraction(-1, 1), Fraction(-3, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(-1, 1),
+                    Fraction(-3, 1),
+                    ]
+                )
 
             >>> microtones.PitchSegment([0, 1, 3]).invert(2)
-            PitchSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(4, 1),
+                    Fraction(3, 1),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         intervals = [axis - i for i in self.pitches]
@@ -716,7 +1086,13 @@ class PitchSegment(object):
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 3]).multiply(2)
-            PitchSegment([Fraction(0, 1), Fraction(2, 1), Fraction(6, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(2, 1),
+                    Fraction(6, 1),
+                    ]
+                )
 
         """
         multiplied_pitches = [n * pitch for pitch in self.pitches]
@@ -729,7 +1105,13 @@ class PitchSegment(object):
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 2]).retrograde()
-            PitchSegment([Fraction(2, 1), Fraction(1, 1), Fraction(0, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(1, 1),
+                    Fraction(0, 1),
+                    ]
+                )
 
         """
         return PitchSegment(reversed(self.pitches))
@@ -741,7 +1123,13 @@ class PitchSegment(object):
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 2]).rotate(1)
-            PitchSegment([Fraction(1, 1), Fraction(2, 1), Fraction(0, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(0, 1),
+                    ]
+                )
 
         """
         copied_list = [i for i in self.pitches]
@@ -756,7 +1144,13 @@ class PitchSegment(object):
         ..  container:: example
 
             >>> microtones.PitchSegment([2, 1, 0]).sorted()
-            PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(0, 1),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         return PitchSegment(sorted(self.pitches))
@@ -768,10 +1162,24 @@ class PitchSegment(object):
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 2]).transpose(2)
-            PitchSegment([Fraction(2, 1), Fraction(3, 1), Fraction(4, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    ]
+                )
 
             >>> microtones.PitchSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            PitchSegment([Fraction(4, 1), Fraction(3, 1), Fraction(1, 1), Fraction(0, 1), Fraction(-1, 1)])
+            abjadext.et_utilities.PitchSegment(
+                [
+                    Fraction(4, 1),
+                    Fraction(3, 1),
+                    Fraction(1, 1),
+                    Fraction(0, 1),
+                    Fraction(-1, 1),
+                    ]
+                )
 
         """
         transposed = [pitch + n for pitch in self.pitches]

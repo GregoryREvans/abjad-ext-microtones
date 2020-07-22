@@ -1,5 +1,7 @@
 import fractions
 
+import abjad
+
 
 class RatioClassSet(object):
     """
@@ -65,10 +67,16 @@ class RatioClassSet(object):
         ..  container:: example
 
             >>> microtones.RatioClassSet([1, 2, 3])
-            RatioClassSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(3, 2),
+                    ]
+                )
 
         """
-        return f"{self.__class__.__name__}({self.ratio_classes})"
+        return abjad.storage(self)
 
     def __str__(self):
         """
@@ -89,15 +97,41 @@ class RatioClassSet(object):
         return output
 
     def __add__(self, argument):
+        """
+        Concatenates Ratio Class Set with iterable.
+
+        ..  container:: example
+
+            >>> rc_set = microtones.RatioClassSet(["1", "1/2", "5/4"])
+            >>> rc_set += [1, Fraction(11, 6), Fraction(27, 2)]
+            >>> rc_set
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(5, 4),
+                    Fraction(11, 6),
+                    Fraction(27, 16),
+                    ]
+                )
+
+        """
         argument = type(self)(argument)
         items = self.ratio_classes + argument.ratio_classes
         return type(self)(items)
 
     def __contains__(self, argument):
-        return super().__contains__(argument)
+        """
+        Returns boolean
 
-    def __getitem__(self, argument):
-        return super().__getitem__(argument)
+        ..  container::
+
+            >>> rc_set = microtones.RatioClassSet([1, 2, 6])
+            >>> 1 in rc_set
+            True
+
+        """
+        return argument in self.ratio_classes
 
     def complement(self, scale):
         """
@@ -105,10 +139,19 @@ class RatioClassSet(object):
 
         ..  container:: example
 
-            >>> pc_set = microtones.RatioClassSet([1, 2, 3])
+            >>> rc_set = microtones.RatioClassSet([1, 2, 3])
             >>> input_scale = [i + 1 for i in range(11)]
-            >>> pc_set.complement(input_scale)
-            RatioClassSet([Fraction(3, 2), Fraction(2, 1), Fraction(5, 4), Fraction(7, 4), Fraction(9, 8), Fraction(11, 8)])
+            >>> rc_set.complement(input_scale)
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    Fraction(5, 4),
+                    Fraction(7, 4),
+                    Fraction(9, 8),
+                    Fraction(11, 8),
+                    ]
+                )
 
         """
         complements = []
@@ -124,10 +167,20 @@ class RatioClassSet(object):
         ..  container:: example
 
             >>> microtones.RatioClassSet([2, 4, 3]).invert()
-            RatioClassSet([Fraction(2, 1), Fraction(3, 2)])
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 2),
+                    ]
+                )
 
             >>> microtones.RatioClassSet([2, 4, 3]).invert(3)
-            RatioClassSet([Fraction(3, 2), Fraction(2, 1)])
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         assert 0 < axis
@@ -141,7 +194,12 @@ class RatioClassSet(object):
         ..  container:: example
 
             >>> microtones.RatioClassSet([1, 2, 3]).multiply(2)
-            RatioClassSet([Fraction(2, 1), Fraction(3, 2)])
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 2),
+                    ]
+                )
 
         """
         multiplied_pitch_classes = [n * ratio for ratio in self.ratio_classes]
@@ -154,7 +212,14 @@ class RatioClassSet(object):
         ..  container:: example
 
             >>> microtones.RatioClassSet([5, 2, 3, "1/2", 1, "1/5"]).sorted()
-            RatioClassSet([Fraction(1, 1), Fraction(5, 4), Fraction(3, 2), Fraction(2, 1)])
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(1, 1),
+                    Fraction(5, 4),
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         return RatioClassSet(sorted(self.ratio_classes))
@@ -166,10 +231,23 @@ class RatioClassSet(object):
         ..  container:: example
 
             >>> microtones.RatioClassSet([1, 2, 3]).transpose(2)
-            RatioClassSet([Fraction(3, 2), Fraction(2, 1), Fraction(7, 4)])
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    Fraction(7, 4),
+                    ]
+                )
 
             >>> microtones.RatioClassSet([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            RatioClassSet([Fraction(5, 4), Fraction(3, 2), Fraction(21, 16), Fraction(11, 8)])
+            abjadext.ji_utilities.RatioClassSet(
+                [
+                    Fraction(5, 4),
+                    Fraction(3, 2),
+                    Fraction(21, 16),
+                    Fraction(11, 8),
+                    ]
+                )
 
         """
         transposed = [ratio + n for ratio in self.ratio_classes]
@@ -236,10 +314,16 @@ class RatioSet(object):
         ..  container:: example
 
             >>> microtones.RatioSet([1, 2, 3])
-            RatioSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    ]
+                )
 
         """
-        return f"{self.__class__.__name__}({self.ratios})"
+        return abjad.storage(self)
 
     def __str__(self):
         """
@@ -260,15 +344,41 @@ class RatioSet(object):
         return output
 
     def __add__(self, argument):
+        """
+        Concatenates Ratio Set with iterable.
+
+        ..  container:: example
+
+            >>> r_set = microtones.RatioSet(["1", "1/2", "5/4"])
+            >>> r_set += [1, Fraction(11, 6), Fraction(27, 2)]
+            >>> r_set
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(1, 1),
+                    Fraction(1, 2),
+                    Fraction(5, 4),
+                    Fraction(11, 6),
+                    Fraction(27, 2),
+                    ]
+                )
+
+        """
         argument = type(self)(argument)
         items = self.ratios + argument.ratios
         return type(self)(items)
 
     def __contains__(self, argument):
-        return super().__contains__(argument)
+        """
+        Returns boolean
 
-    def __getitem__(self, argument):
-        return super().__getitem__(argument)
+        ..  container::
+
+            >>> r_set = microtones.RatioSet([1, 2, 6])
+            >>> 1 in r_set
+            True
+
+        """
+        return argument in self.ratios
 
     def constrain_to_octave(self):
         """
@@ -298,7 +408,18 @@ class RatioSet(object):
             >>> pc_set = microtones.RatioSet([1, 2, 3])
             >>> input_scale = [i + 1 for i in range(11)]
             >>> pc_set.complement(input_scale)
-            RatioSet([Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(4, 1),
+                    Fraction(5, 1),
+                    Fraction(6, 1),
+                    Fraction(7, 1),
+                    Fraction(8, 1),
+                    Fraction(9, 1),
+                    Fraction(10, 1),
+                    Fraction(11, 1),
+                    ]
+                )
 
         """
         complements = []
@@ -314,10 +435,22 @@ class RatioSet(object):
         ..  container:: example
 
             >>> microtones.RatioSet([2, 4, 3]).invert()
-            RatioSet([Fraction(1, 2), Fraction(1, 4), Fraction(1, 3)])
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(1, 2),
+                    Fraction(1, 4),
+                    Fraction(1, 3),
+                    ]
+                )
 
             >>> microtones.RatioSet([2, 4, 3]).invert(3)
-            RatioSet([Fraction(3, 2), Fraction(3, 4), Fraction(1, 1)])
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(3, 2),
+                    Fraction(3, 4),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         assert 0 < axis
@@ -331,7 +464,13 @@ class RatioSet(object):
         ..  container:: example
 
             >>> microtones.RatioSet([1, 2, 3]).multiply(2)
-            RatioSet([Fraction(2, 1), Fraction(4, 1), Fraction(6, 1)])
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(2, 1),
+                    Fraction(4, 1),
+                    Fraction(6, 1),
+                    ]
+                )
 
         """
         multiplied_pitch_classes = [n * ratio for ratio in self.ratios]
@@ -344,7 +483,13 @@ class RatioSet(object):
         ..  container:: example
 
             >>> microtones.RatioSet([5, 2, 3]).sorted()
-            RatioSet([Fraction(2, 1), Fraction(3, 1), Fraction(5, 1)])
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    Fraction(5, 1),
+                    ]
+                )
 
         """
         return RatioSet(sorted(self.ratios))
@@ -356,10 +501,24 @@ class RatioSet(object):
         ..  container:: example
 
             >>> microtones.RatioSet([1, 2, 3]).transpose(2)
-            RatioSet([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1)])
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    Fraction(5, 1),
+                    ]
+                )
 
             >>> microtones.RatioSet([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            RatioSet([Fraction(5, 1), Fraction(9, 2), Fraction(17, 4), Fraction(21, 5), Fraction(25, 6)])
+            abjadext.ji_utilities.RatioSet(
+                [
+                    Fraction(5, 1),
+                    Fraction(9, 2),
+                    Fraction(17, 4),
+                    Fraction(21, 5),
+                    Fraction(25, 6),
+                    ]
+                )
 
         """
         transposed = [ratio + n for ratio in self.ratios]
@@ -430,10 +589,16 @@ class RatioClassSegment(object):
         ..  container:: example
 
             >>> microtones.RatioClassSegment([1, 2, 3])
-            RatioClassSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(3, 2),
+                    ]
+                )
 
         """
-        return f"{self.__class__.__name__}({self.ratio_classes})"
+        return abjad.storage(self)
 
     def __str__(self):
         """
@@ -454,15 +619,42 @@ class RatioClassSegment(object):
         return output
 
     def __add__(self, argument):
+        """
+        Concatenates Ratio Class Segment with iterable.
+
+        ..  container:: example
+
+            >>> rc_segment = microtones.RatioClassSegment(["1", "1/2", "5/4"])
+            >>> rc_segment += [1, Fraction(11, 6), Fraction(27, 2)]
+            >>> rc_segment
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(5, 4),
+                    Fraction(1, 1),
+                    Fraction(11, 6),
+                    Fraction(27, 16),
+                    ]
+                )
+
+        """
         argument = type(self)(argument)
         items = self.ratio_classes + argument.ratio_classes
         return type(self)(items)
 
     def __contains__(self, argument):
-        return super().__contains__(argument)
+        """
+        Returns boolean
 
-    def __getitem__(self, argument):
-        return super().__getitem__(argument)
+        ..  container::
+
+            >>> rc_segment = microtones.RatioClassSegment([1, 2, 6])
+            >>> 1 in rc_segment
+            True
+
+        """
+        return argument in self.ratio_classes
 
     def complement(self, scale):
         """
@@ -473,7 +665,19 @@ class RatioClassSegment(object):
             >>> pc_segment = microtones.RatioClassSegment([1, 2, 3])
             >>> input_scale = [i + 1 for i in range(11)]
             >>> pc_segment.complement(input_scale)
-            RatioClassSegment([Fraction(3, 2), Fraction(2, 1), Fraction(5, 4), Fraction(3, 2), Fraction(7, 4), Fraction(2, 1), Fraction(9, 8), Fraction(5, 4), Fraction(11, 8)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    Fraction(5, 4),
+                    Fraction(3, 2),
+                    Fraction(7, 4),
+                    Fraction(2, 1),
+                    Fraction(9, 8),
+                    Fraction(5, 4),
+                    Fraction(11, 8),
+                    ]
+                )
 
         """
         complements = []
@@ -489,10 +693,22 @@ class RatioClassSegment(object):
         ..  container:: example
 
             >>> microtones.RatioClassSegment([2, 4, 3]).invert()
-            RatioClassSegment([Fraction(2, 1), Fraction(2, 1), Fraction(3, 2)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(2, 1),
+                    Fraction(3, 2),
+                    ]
+                )
 
             >>> microtones.RatioClassSegment([2, 4, 3]).invert(3)
-            RatioClassSegment([Fraction(3, 2), Fraction(3, 2), Fraction(2, 1)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(3, 2),
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         assert 0 < axis
@@ -506,7 +722,13 @@ class RatioClassSegment(object):
         ..  container:: example
 
             >>> microtones.RatioClassSegment([1, 2, 3]).multiply(2)
-            RatioClassSegment([Fraction(2, 1), Fraction(2, 1), Fraction(3, 2)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(2, 1),
+                    Fraction(3, 2),
+                    ]
+                )
 
         """
         multiplied_pitch_classes = [n * ratio for ratio in self.ratio_classes]
@@ -519,7 +741,14 @@ class RatioClassSegment(object):
         ..  container:: example
 
             >>> microtones.RatioClassSegment([1, 2, 3, 3]).retrograde()
-            RatioClassSegment([Fraction(3, 2), Fraction(3, 2), Fraction(2, 1), Fraction(1, 1)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(3, 2),
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         return RatioClassSegment(reversed(self.ratio_classes))
@@ -531,7 +760,13 @@ class RatioClassSegment(object):
         ..  container:: example
 
             >>> microtones.RatioClassSegment([1, 2, 3]).rotate(1)
-            RatioClassSegment([Fraction(2, 1), Fraction(3, 2), Fraction(1, 1)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 2),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         copied_list = [i for i in self.ratio_classes]
@@ -546,7 +781,16 @@ class RatioClassSegment(object):
         ..  container:: example
 
             >>> microtones.RatioClassSegment([5, 2, 3, "1/2", 1, "1/5"]).sorted()
-            RatioClassSegment([Fraction(1, 1), Fraction(5, 4), Fraction(5, 4), Fraction(3, 2), Fraction(2, 1), Fraction(2, 1)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(1, 1),
+                    Fraction(5, 4),
+                    Fraction(5, 4),
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    Fraction(2, 1),
+                    ]
+                )
 
         """
         return RatioClassSegment(sorted(self.ratio_classes))
@@ -558,10 +802,24 @@ class RatioClassSegment(object):
         ..  container:: example
 
             >>> microtones.RatioClassSegment([1, 2, 3]).transpose(2)
-            RatioClassSegment([Fraction(3, 2), Fraction(2, 1), Fraction(7, 4)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(3, 2),
+                    Fraction(2, 1),
+                    Fraction(7, 4),
+                    ]
+                )
 
             >>> microtones.RatioClassSegment([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            RatioClassSegment([Fraction(5, 4), Fraction(3, 2), Fraction(3, 2), Fraction(21, 16), Fraction(11, 8)])
+            abjadext.ji_utilities.RatioClassSegment(
+                [
+                    Fraction(5, 4),
+                    Fraction(3, 2),
+                    Fraction(3, 2),
+                    Fraction(21, 16),
+                    Fraction(11, 8),
+                    ]
+                )
 
         """
         transposed = [ratio + n for ratio in self.ratio_classes]
@@ -628,10 +886,16 @@ class RatioSegment(object):
         ..  container:: example
 
             >>> microtones.RatioSegment([1, 2, 3])
-            RatioSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    ]
+                )
 
         """
-        return f"{self.__class__.__name__}({self.ratios})"
+        return abjad.storage(self)
 
     def __str__(self):
         """
@@ -652,15 +916,42 @@ class RatioSegment(object):
         return output
 
     def __add__(self, argument):
+        """
+        Concatenates Ratio Segment with iterable.
+
+        ..  container:: example
+
+            >>> r_segment = microtones.RatioSegment(["1", "1/2", "5/4"])
+            >>> r_segment += [1, Fraction(11, 6), Fraction(27, 2)]
+            >>> r_segment
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(1, 1),
+                    Fraction(1, 2),
+                    Fraction(5, 4),
+                    Fraction(1, 1),
+                    Fraction(11, 6),
+                    Fraction(27, 2),
+                    ]
+                )
+
+        """
         argument = type(self)(argument)
         items = self.ratios + argument.ratios
         return type(self)(items)
 
     def __contains__(self, argument):
-        return super().__contains__(argument)
+        """
+        Returns boolean
 
-    def __getitem__(self, argument):
-        return super().__getitem__(argument)
+        ..  container::
+
+            >>> r_segment = microtones.RatioSegment([1, 2, 6])
+            >>> 1 in r_segment
+            True
+
+        """
+        return argument in self.ratios
 
     def constrain_to_octave(self):
         """
@@ -690,7 +981,18 @@ class RatioSegment(object):
             >>> pc_segment = microtones.RatioSegment([1, 2, 3])
             >>> input_scale = [i + 1 for i in range(11)]
             >>> pc_segment.complement(input_scale)
-            RatioSegment([Fraction(4, 1), Fraction(5, 1), Fraction(6, 1), Fraction(7, 1), Fraction(8, 1), Fraction(9, 1), Fraction(10, 1), Fraction(11, 1)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(4, 1),
+                    Fraction(5, 1),
+                    Fraction(6, 1),
+                    Fraction(7, 1),
+                    Fraction(8, 1),
+                    Fraction(9, 1),
+                    Fraction(10, 1),
+                    Fraction(11, 1),
+                    ]
+                )
 
         """
         complements = []
@@ -706,10 +1008,22 @@ class RatioSegment(object):
         ..  container:: example
 
             >>> microtones.RatioSegment([2, 4, 3]).invert()
-            RatioSegment([Fraction(1, 2), Fraction(1, 4), Fraction(1, 3)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(1, 2),
+                    Fraction(1, 4),
+                    Fraction(1, 3),
+                    ]
+                )
 
             >>> microtones.RatioSegment([2, 4, 3]).invert(3)
-            RatioSegment([Fraction(3, 2), Fraction(3, 4), Fraction(1, 1)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(3, 2),
+                    Fraction(3, 4),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         assert 0 < axis
@@ -723,7 +1037,13 @@ class RatioSegment(object):
         ..  container:: example
 
             >>> microtones.RatioSegment([1, 2, 3]).multiply(2)
-            RatioSegment([Fraction(2, 1), Fraction(4, 1), Fraction(6, 1)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(4, 1),
+                    Fraction(6, 1),
+                    ]
+                )
 
         """
         multiplied_pitch_classes = [n * ratio for ratio in self.ratios]
@@ -736,7 +1056,14 @@ class RatioSegment(object):
         ..  container:: example
 
             >>> microtones.RatioSegment([1, 2, 3, 3]).retrograde()
-            RatioSegment([Fraction(3, 1), Fraction(3, 1), Fraction(2, 1), Fraction(1, 1)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(3, 1),
+                    Fraction(3, 1),
+                    Fraction(2, 1),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         return RatioSegment(reversed(self.ratios))
@@ -748,7 +1075,13 @@ class RatioSegment(object):
         ..  container:: example
 
             >>> microtones.RatioSegment([1, 2, 3]).rotate(1)
-            RatioSegment([Fraction(2, 1), Fraction(3, 1), Fraction(1, 1)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    Fraction(1, 1),
+                    ]
+                )
 
         """
         copied_list = [i for i in self.ratios]
@@ -763,7 +1096,16 @@ class RatioSegment(object):
         ..  container:: example
 
             >>> microtones.RatioSegment([5, 2, 3, "1/2", 1, "1/5"]).sorted()
-            RatioSegment([Fraction(1, 5), Fraction(1, 2), Fraction(1, 1), Fraction(2, 1), Fraction(3, 1), Fraction(5, 1)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(1, 5),
+                    Fraction(1, 2),
+                    Fraction(1, 1),
+                    Fraction(2, 1),
+                    Fraction(3, 1),
+                    Fraction(5, 1),
+                    ]
+                )
 
         """
         return RatioSegment(sorted(self.ratios))
@@ -775,10 +1117,24 @@ class RatioSegment(object):
         ..  container:: example
 
             >>> microtones.RatioSegment([1, 2, 3]).transpose(2)
-            RatioSegment([Fraction(3, 1), Fraction(4, 1), Fraction(5, 1)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(3, 1),
+                    Fraction(4, 1),
+                    Fraction(5, 1),
+                    ]
+                )
 
             >>> microtones.RatioSegment([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            RatioSegment([Fraction(5, 1), Fraction(9, 2), Fraction(17, 4), Fraction(21, 5), Fraction(25, 6)])
+            abjadext.ji_utilities.RatioSegment(
+                [
+                    Fraction(5, 1),
+                    Fraction(9, 2),
+                    Fraction(17, 4),
+                    Fraction(21, 5),
+                    Fraction(25, 6),
+                    ]
+                )
 
         """
         transposed = [ratio + n for ratio in self.ratios]

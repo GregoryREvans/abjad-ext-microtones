@@ -26,13 +26,12 @@ class ETBundle(object):
         ..  container:: example
 
             >>> microtones.ETBundle()
-            ETBundle(pitch="c'", accidental_string=None)
+            abjadext.et.ETBundle(
+                pitch="c'",
+                )
 
         """
-        if self.accidental_string is None:
-            return f"""{self.__class__.__name__}(pitch="{self.pitch}", accidental_string={self.accidental_string})"""
-        else:
-            return f"""{self.__class__.__name__}(pitch="{self.pitch}", accidental_string="{self.accidental_string}")"""
+        return abjad.storage(self)
 
 
 _accidental_to_value = {
