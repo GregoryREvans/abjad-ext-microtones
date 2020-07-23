@@ -26,12 +26,10 @@ class ETBundle(object):
         ..  container:: example
 
             >>> microtones.ETBundle()
-            abjadext.et.ETBundle(
-                pitch="c'",
-                )
+            ETBundle(pitch="c'")
 
         """
-        return abjad.storage(self)
+        return abjad.StorageFormatManager(self).get_repr_format()
 
 
 _accidental_to_value = {
@@ -373,7 +371,7 @@ def apply_alteration(note_head, value, spell=None):
 
         ..  docs::
 
-            >>> abjad.f(staff)
+            >>> print(abjad.lilypond(staff))
             \new Staff
             {
                 \tweak Accidental.stencil #ly:text-interface::print
@@ -403,7 +401,7 @@ def apply_alteration(note_head, value, spell=None):
 
         ..  docs::
 
-            >>> abjad.f(staff)
+            >>> print(abjad.lilypond(staff))
             \new Staff
             {
                 \tweak Accidental.stencil #ly:text-interface::print

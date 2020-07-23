@@ -64,26 +64,10 @@ class JIVector(object):
         ..  container:: example
 
             >>> microtones.JIVector()
-            abjadext.ji.JIVector(
-                diatonic_accidental='natural',
-                syntonic_commas_down=0,
-                syntonic_commas_up=0,
-                septimal_commas_down=0,
-                septimal_commas_up=0,
-                undecimal_quarter_tones_down=0,
-                undecimal_quarter_tones_up=0,
-                tridecimal_third_tones_down=0,
-                tridecimal_third_tones_up=0,
-                seventeen_limit_schismas_down=0,
-                seventeen_limit_schismas_up=0,
-                nineteen_limit_schismas_down=0,
-                nineteen_limit_schismas_up=0,
-                twenty_three_limit_commas_down=0,
-                twenty_three_limit_commas_up=0,
-                )
+            JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0)
 
         """
-        return abjad.storage(self)
+        return abjad.StorageFormatManager(self).get_repr_format()
 
     def has_just_accidentals(self):
         """
@@ -126,7 +110,7 @@ class JIVector(object):
         ..  container:: example
 
             >>> vector = microtones.JIVector(syntonic_commas_down=1)
-            >>> abjad.f(vector.calculate_ji_markup())
+            >>> print(abjad.lilypond(vector.calculate_ji_markup()))
             \natural-one-syntonic-comma-down
 
         """
@@ -280,7 +264,7 @@ class JIBundle(object):
         >>> bundle.pitch
         "c'"
 
-        >>> bundle.vector
+        >>> print(abjad.storage(bundle.vector))
         abjadext.ji.JIVector(
             diatonic_accidental='natural',
             syntonic_commas_down=0,
@@ -312,13 +296,10 @@ class JIBundle(object):
         ..  container:: example
 
             >>> microtones.JIBundle()
-            abjadext.ji.JIBundle(
-                pitch="c'",
-                vector=abjadext.ji.JIVector(        diatonic_accidental='natural',        syntonic_commas_down=0,        syntonic_commas_up=0,        septimal_commas_down=0,        septimal_commas_up=0,        undecimal_quarter_tones_down=0,        undecimal_quarter_tones_up=0,        tridecimal_third_tones_down=0,        tridecimal_third_tones_up=0,        seventeen_limit_schismas_down=0,        seventeen_limit_schismas_up=0,        nineteen_limit_schismas_down=0,        nineteen_limit_schismas_up=0,        twenty_three_limit_commas_down=0,        twenty_three_limit_commas_up=0,        ),
-                )
+            JIBundle(pitch="c'", vector=JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0))
 
         """
-        return abjad.storage(self)
+        return abjad.StorageFormatManager(self).get_repr_format()
 
 
 def _is_prime(n):
@@ -385,7 +366,7 @@ def make_ji_bundle(pitch, ratio):
         >>> bundle.pitch
         NamedPitch("g'")
 
-        >>> bundle.vector
+        >>> print(abjad.storage(bundle.vector))
         abjadext.ji.JIVector(
             diatonic_accidental='natural',
             syntonic_commas_down=0,
@@ -474,17 +455,17 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=False)
-        >>> abjad.f(note) # doctest: +SKIP
+        >>> print(abjad.lilypond(note)) # doctest: +SKIP
 
         Does not tweak accidentals when ``omit_just_accidental=True``:
 
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", omit_just_accidental=True)
-        >>> abjad.f(note) # doctest: +SKIP
+        >>> print(abjad.lilypond(note)) # doctest: +SKIP
 
         ..  docs::
 
-            >>> abjad.f(note)
+            >>> print(abjad.lilypond(note))
             e'''4
 
     ..  container:: example
@@ -515,7 +496,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
         ..  docs::
 
-            >>> abjad.f(staff)
+            >>> print(abjad.lilypond(staff))
             \new Staff
             {
                 \time 24/32
@@ -654,7 +635,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
 
         ..  docs::
 
-            >>> abjad.f(note)
+            >>> print(abjad.lilypond(note))
             \tweak Accidental.stencil #ly:text-interface::print
             \tweak Accidental.text \tempered-natural
             e'''4
