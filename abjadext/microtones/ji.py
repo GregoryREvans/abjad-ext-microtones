@@ -313,38 +313,38 @@ class JIBundle(object):
     def return_cent_deviation_markup(self):
         deviation = 0
         for _ in range(self.vector.syntonic_commas_down):
-            deviation -= 21.5
+            deviation -= quicktions.Fraction(43, 2)
         for _ in range(self.vector.syntonic_commas_up):
-            deviation += 21.5
+            deviation += quicktions.Fraction(43, 2)
         for _ in range(self.vector.septimal_commas_down):
-            deviation -= 27.3
+            deviation -= quicktions.Fraction(273, 10)
         for _ in range(self.vector.septimal_commas_up):
-            deviation += 27.3
+            deviation += quicktions.Fraction(273, 10)
         for _ in range(self.vector.undecimal_quarter_tones_down):
-            deviation -= 53.3
+            deviation -= quicktions.Fraction(533, 10)
         for _ in range(self.vector.undecimal_quarter_tones_up):
-            deviation += 53.3
+            deviation += quicktions.Fraction(533, 10)
         for _ in range(self.vector.tridecimal_third_tones_down):
-            deviation -= 65.3
+            deviation -= quicktions.Fraction(653, 10)
         for _ in range(self.vector.tridecimal_third_tones_up):
-            deviation += 65.3
+            deviation += quicktions.Fraction(653, 10)
         for _ in range(self.vector.seventeen_limit_schismas_down):
-            deviation -= 6.8
+            deviation -= quicktions.Fraction(34, 5)
         for _ in range(self.vector.seventeen_limit_schismas_up):
-            deviation += 6.8
+            deviation += quicktions.Fraction(34, 5)
         for _ in range(self.vector.nineteen_limit_schismas_down):
-            deviation -= 3.4
+            deviation -= quicktions.Fraction(34, 10)
         for _ in range(self.vector.nineteen_limit_schismas_up):
-            deviation += 3.4
+            deviation += quicktions.Fraction(34, 10)
         for _ in range(self.vector.twenty_three_limit_commas_down):
-            deviation -= 16.5
+            deviation -= quicktions.Fraction(33, 2)
         for _ in range(self.vector.twenty_three_limit_commas_up):
-            deviation += 16.5
+            deviation += quicktions.Fraction(33, 2)
         if deviation < 0:
-            deviation_string = f"- {deviation}"
+            deviation_string = f"{float(deviation)}"
         else:
-            deviation_string = f"+ {deviation}"
-        mark = abjad.Markup(deviation_string, direction=abjad.Up)
+            deviation_string = f"+{float(deviation)}"
+        mark = abjad.Markup(deviation_string, direction=abjad.Up).center_align()
         return mark
 
 

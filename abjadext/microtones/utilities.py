@@ -1764,7 +1764,7 @@ class RatioSet(object):
         """
         constrained = []
         for ratio in self.ratios:
-            while 2 < ratio:
+            while 2 <= ratio:
                 ratio /= 2
             while ratio < quicktions.Fraction(1, 2):
                 ratio *= 2
@@ -2419,7 +2419,7 @@ class RatioSegment(object):
         """
         constrained = []
         for ratio in self.ratios:
-            while 2 < ratio:
+            while 2 <= ratio:
                 ratio /= 2
             while ratio < quicktions.Fraction(1, 2):
                 ratio *= 2
