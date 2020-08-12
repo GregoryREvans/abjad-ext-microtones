@@ -282,7 +282,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
-        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
+        ...         "all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -312,7 +312,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
-        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
+        ...         "all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -342,7 +342,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
-        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
+        ...         "all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -362,7 +362,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
-        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
+        ...         "all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
@@ -392,7 +392,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
-        ...         "/Users/evansdsg2/abjad/docs/source/_stylesheets/microtones/all-edo-markups-example.ily",
+        ...         "all-edo-markups-example.ily",
         ...     ],
         ... )
         >>> style = '"dodecaphonic"'
