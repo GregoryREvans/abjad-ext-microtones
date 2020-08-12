@@ -56,7 +56,7 @@ _value_to_accidental = {
     "5/4": r"\five-eighths-sharp",
     "6/5": r"\three-fifths-sharp",
     "7/6": r"\seven-twelfths-sharp",
-    "1": r"\sharp",
+    "1": r"\abjad-sharp",
     "5/6": r"\five-twelfths-sharp",
     "4/5": r"\two-fifths-sharp",
     "3/4": r"\three-eighths-sharp",
@@ -68,7 +68,7 @@ _value_to_accidental = {
     "1/4": r"\one-eighth-sharp",
     "1/5": r"\one-tenth-sharp",
     "1/6": r"\one-twelfth-sharp",
-    "0": r"\natural",
+    "0": r"\abjad-natural",
     "-1/6": r"\one-twelfth-flat",
     "-1/5": r"\one-tenth-flat",
     "-1/4": r"\one-eighth-flat",
@@ -80,7 +80,7 @@ _value_to_accidental = {
     "-3/4": r"\three-eighths-flat",
     "-4/5": r"\two-fifths-flat",
     "-5/6": r"\five-twelfths-flat",
-    "-1": r"\flat",
+    "-1": r"\abjad-flat",
     "-7/6": r"\seven-twelfths-flat",
     "-6/5": r"\three-fifths-flat",
     "-5/4": r"\five-eighths-flat",
@@ -105,7 +105,7 @@ _reversed_value_to_accidental = {
     r"\five-eighths-sharp-markup": "5/4",
     r"\three-fifths-sharp-markup": "6/5",
     r"\seven-twelfths-sharp-markup": "7/6",
-    r"\sharp-markup": "1/1",
+    r"\abjad-sharp-markup": "1/1",
     r"\five-twelfths-sharp-markup": "5/6",
     r"\two-fifths-sharp-markup": "4/5",
     r"\three-eighths-sharp-markup": "3/4",
@@ -115,7 +115,7 @@ _reversed_value_to_accidental = {
     r"\one-sixth-sharp-markup": "1/3",
     r"\one-eighth-sharp-markup": "1/4",
     r"\one-twelfth-sharp-markup": "1/6",
-    r"\natural-markup": "0",
+    r"\abjad-natural-markup": "0",
     r"\one-twelfth-flat-markup": "-1/6",
     r"\one-eighth-flat-markup": "-1/4",
     r"\one-sixth-flat-markup": "-1/3",
@@ -125,7 +125,7 @@ _reversed_value_to_accidental = {
     r"\three-eighths-flat-markup": "-3/4",
     r"\two-fifths-flat-markup": "-4/5",
     r"\five-twelfths-flat-markup": "-5/6",
-    r"\flat-markup": "-1/1",
+    r"\abjad-flat-markup": "-1/1",
     r"\seven-twelfths-flat-markup": "-7/6",
     r"\three-fifths-flat-markup": "-6/5",
     r"\five-eighths-flat-markup": "-5/4",
@@ -182,7 +182,7 @@ def get_alteration(pitch, value, spell=None):
         NumberedPitch(2)
 
         >>> bundle.accidental_string
-        '\\natural-markup'
+        '\\abjad-natural-markup'
 
     ..  container:: example
 
@@ -192,7 +192,7 @@ def get_alteration(pitch, value, spell=None):
         NumberedPitch(1)
 
         >>> bundle.accidental_string
-        '\\sharp-markup'
+        '\\abjad-sharp-markup'
 
     ..  container:: example
 
@@ -202,7 +202,7 @@ def get_alteration(pitch, value, spell=None):
         NamedPitch("df'")
 
         >>> bundle.accidental_string
-        '\\flat-markup'
+        '\\abjad-flat-markup'
 
     ..  container:: example
 

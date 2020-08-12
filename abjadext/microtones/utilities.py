@@ -1,6 +1,5 @@
-import quicktions
-
 import abjad
+import quicktions
 
 
 def _flatten(lst):
@@ -688,7 +687,9 @@ class PitchClassSegment(object):
 
         """
         pitch_classes = _flatten(pitch_classes)
-        self.pitch_classes = [quicktions.Fraction(pitch) % 12 for pitch in pitch_classes]
+        self.pitch_classes = [
+            quicktions.Fraction(pitch) % 12 for pitch in pitch_classes
+        ]
 
     def __getitem__(self, index):
         """

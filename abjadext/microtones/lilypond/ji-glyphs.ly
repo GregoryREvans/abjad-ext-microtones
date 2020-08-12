@@ -18,9 +18,9 @@
 
 
 % diatonic accidentals %
-\natural
-\sharp
-\flat
+\abjad-natural
+\abjad-sharp
+\abjad-flat
 \double-sharp
 \double-flat
 

@@ -235,6 +235,13 @@ class JIVector(object):
             if accumulated_accidentals[-1] == r"\natural":
                 if self.has_just_accidentals():
                     accumulated_accidentals = [_ for _ in accumulated_accidentals[:-1]]
+            for i, s in enumerate(accumulated_accidentals):
+                if s == r"\natural":
+                    accumulated_accidentals[i] = r"\abjad-natural"
+                if s == r"\sharp":
+                    accumulated_accidentals[i] = r"\abjad-sharp"
+                if s == r"\flat":
+                    accumulated_accidentals[i] = r"\abjad-flat"
             literal_components = []
             for accidental_string in accumulated_accidentals:
                 accidental_string = accidental_string + " "
@@ -249,7 +256,9 @@ class JIVector(object):
                         kerned_components.append(r"\hspace #0.125")
                 literal = abjad.Markup(literal=True).concat(kerned_components)
         else:
-            literal = abjad.Markup(fr"  \{self.diatonic_accidental}", literal=True)
+            literal = abjad.Markup(
+                fr"  \abjad-{self.diatonic_accidental}", literal=True
+            )
         self.accidental_literal = literal
         return literal
 
@@ -300,6 +309,43 @@ class JIBundle(object):
 
         """
         return abjad.StorageFormatManager(self).get_repr_format()
+
+    def return_cent_deviation_markup(self):
+        deviation = 0
+        for _ in range(self.vector.syntonic_commas_down):
+            deviation -= 21.5
+        for _ in range(self.vector.syntonic_commas_up):
+            deviation += 21.5
+        for _ in range(self.vector.septimal_commas_down):
+            deviation -= 27.3
+        for _ in range(self.vector.septimal_commas_up):
+            deviation += 27.3
+        for _ in range(self.vector.undecimal_quarter_tones_down):
+            deviation -= 53.3
+        for _ in range(self.vector.undecimal_quarter_tones_up):
+            deviation += 53.3
+        for _ in range(self.vector.tridecimal_third_tones_down):
+            deviation -= 65.3
+        for _ in range(self.vector.tridecimal_third_tones_up):
+            deviation += 65.3
+        for _ in range(self.vector.seventeen_limit_schismas_down):
+            deviation -= 6.8
+        for _ in range(self.vector.seventeen_limit_schismas_up):
+            deviation += 6.8
+        for _ in range(self.vector.nineteen_limit_schismas_down):
+            deviation -= 3.4
+        for _ in range(self.vector.nineteen_limit_schismas_up):
+            deviation += 3.4
+        for _ in range(self.vector.twenty_three_limit_commas_down):
+            deviation -= 16.5
+        for _ in range(self.vector.twenty_three_limit_commas_up):
+            deviation += 16.5
+        if deviation < 0:
+            deviation_string = f"- {deviation}"
+        else:
+            deviation_string = f"+ {deviation}"
+        mark = abjad.Markup(deviation_string, direction=abjad.Up)
+        return mark
 
 
 def _is_prime(n):
@@ -419,7 +465,14 @@ def make_ji_bundle(pitch, ratio):
     return JIBundle(pitch, accidental_vector)
 
 
-def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=False):
+def tune_to_ratio(
+    note_head,
+    ratio,
+    *,
+    omit_just_accidental=False,
+    tempered=False,
+    return_cent_markup=False,
+):
     r"""
     Transposes notehead in place and tweaks accidental stencil.
 
@@ -502,32 +555,32 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \time 24/32
                 \clef "bass"
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 a,,,8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 a,,8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 e,8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 a,8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
                 cs8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 e8
                 \clef "treble"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-septimal-comma-down
                 g8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 a8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 b8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
@@ -536,7 +589,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \tweak Accidental.text \one-undecimal-quarter-tone-up
                 d'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 e'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
@@ -544,7 +597,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                         {
                             \one-tridecimal-third-tone-down
                             \hspace #0.125
-                            \sharp
+                            \abjad-sharp
                         }
                     }
                 fs'8
@@ -555,7 +608,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                 \tweak Accidental.text \sharp-one-syntonic-comma-down
                 gs'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 a'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \markup {
@@ -563,12 +616,12 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                         {
                             \one-seventeen-limit-schisma-down
                             \hspace #0.125
-                            \sharp
+                            \abjad-sharp
                         }
                     }
                 as'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \natural
+                \tweak Accidental.text \abjad-natural
                 b'8
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-nineteen-limit-schisma-up
@@ -588,7 +641,7 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
                         {
                             \one-twenty-three-limit-comma-up
                             \hspace #0.125
-                            \sharp
+                            \abjad-sharp
                         }
                     }
                 ds''8
@@ -657,3 +710,6 @@ def tune_to_ratio(note_head, ratio, *, omit_just_accidental=False, tempered=Fals
         manager.Accidental.stencil = r"#ly:text-interface::print"
         alteration_literal = markup
         manager.Accidental.text = alteration_literal
+        if return_cent_markup:
+            cent_markup = bundle.return_cent_deviation_markup()
+            return cent_markup
