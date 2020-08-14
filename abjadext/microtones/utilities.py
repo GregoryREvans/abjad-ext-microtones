@@ -242,6 +242,7 @@ class PitchClassSet(object):
                 )
 
         """
+        axis = quicktions.Fraction(axis)
         intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
         return PitchClassSet(inverse)
@@ -262,7 +263,9 @@ class PitchClassSet(object):
                 )
 
         """
-        multiplied_pitch_classes = [n * pitch for pitch in self.pitch_classes]
+        multiplied_pitch_classes = [
+            quicktions.Fraction(n) * pitch for pitch in self.pitch_classes
+        ]
         return PitchClassSet(multiplied_pitch_classes)
 
     def normal_order(self):
@@ -586,6 +589,7 @@ class PitchSet(object):
                 )
 
         """
+        axis = quicktions.Fraction(axis)
         intervals = [axis - i for i in self.pitches]
         inverse = [axis + interval for interval in intervals]
         return PitchSet(inverse)
@@ -606,7 +610,7 @@ class PitchSet(object):
                 )
 
         """
-        multiplied_pitches = [n * pitch for pitch in self.pitches]
+        multiplied_pitches = [quicktions.Fraction(n) * pitch for pitch in self.pitches]
         return PitchSet(multiplied_pitches)
 
     def sorted(self):
@@ -868,6 +872,7 @@ class PitchClassSegment(object):
                 )
 
         """
+        axis = quicktions.Fraction(axis)
         intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
         return PitchClassSegment(inverse)
@@ -888,7 +893,9 @@ class PitchClassSegment(object):
                 )
 
         """
-        multiplied_pitch_classes = [n * pitch for pitch in self.pitch_classes]
+        multiplied_pitch_classes = [
+            quicktions.Fraction(n) * pitch for pitch in self.pitch_classes
+        ]
         return PitchClassSegment(multiplied_pitch_classes)
 
     def retrograde(self):
@@ -1207,6 +1214,7 @@ class PitchSegment(object):
                 )
 
         """
+        axis = quicktions.Fraction(axis)
         intervals = [axis - i for i in self.pitches]
         inverse = [axis + interval for interval in intervals]
         return PitchSegment(inverse)
@@ -1227,7 +1235,7 @@ class PitchSegment(object):
                 )
 
         """
-        multiplied_pitches = [n * pitch for pitch in self.pitches]
+        multiplied_pitches = [quicktions.Fraction(n) * pitch for pitch in self.pitches]
         return PitchSegment(multiplied_pitches)
 
     def retrograde(self):
@@ -1528,6 +1536,7 @@ class RatioClassSet(object):
                 )
 
         """
+        axis = quicktions.Fraction(axis)
         assert 0 < axis
         inverse = [axis / i for i in self.ratio_classes]
         return RatioClassSet(inverse)
@@ -1548,7 +1557,9 @@ class RatioClassSet(object):
                 )
 
         """
-        multiplied_pitch_classes = [n * ratio for ratio in self.ratio_classes]
+        multiplied_pitch_classes = [
+            quicktions.Fraction(n) * ratio for ratio in self.ratio_classes
+        ]
         return RatioClassSet(multiplied_pitch_classes)
 
     def sorted(self):
@@ -1828,6 +1839,7 @@ class RatioSet(object):
                 )
 
         """
+        axis = quicktions.Fraction(axis)
         assert 0 < axis
         inverse = [axis / i for i in self.ratios]
         return RatioSet(inverse)
@@ -1849,7 +1861,9 @@ class RatioSet(object):
                 )
 
         """
-        multiplied_pitch_classes = [n * ratio for ratio in self.ratios]
+        multiplied_pitch_classes = [
+            quicktions.Fraction(n) * ratio for ratio in self.ratios
+        ]
         return RatioSet(multiplied_pitch_classes)
 
     def sorted(self):
@@ -2116,6 +2130,7 @@ class RatioClassSegment(object):
                 )
 
         """
+        axis = quicktions.Fraction(axis)
         assert 0 < axis
         inverse = [axis / i for i in self.ratio_classes]
         return RatioClassSegment(inverse)
@@ -2137,7 +2152,9 @@ class RatioClassSegment(object):
                 )
 
         """
-        multiplied_pitch_classes = [n * ratio for ratio in self.ratio_classes]
+        multiplied_pitch_classes = [
+            quicktions.Fraction(n) * ratio for ratio in self.ratio_classes
+        ]
         return RatioClassSegment(multiplied_pitch_classes)
 
     def retrograde(self):
@@ -2483,6 +2500,7 @@ class RatioSegment(object):
                 )
 
         """
+        axis = quicktions.Fraction(axis)
         assert 0 < axis
         inverse = [axis / i for i in self.ratios]
         return RatioSegment(inverse)
@@ -2504,7 +2522,9 @@ class RatioSegment(object):
                 )
 
         """
-        multiplied_pitch_classes = [n * ratio for ratio in self.ratios]
+        multiplied_pitch_classes = [
+            quicktions.Fraction(n) * ratio for ratio in self.ratios
+        ]
         return RatioSegment(multiplied_pitch_classes)
 
     def retrograde(self):

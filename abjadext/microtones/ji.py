@@ -294,9 +294,10 @@ class JIBundle(object):
 
     """
 
-    def __init__(self, pitch="c'", vector=JIVector()):
+    def __init__(self, pitch="c'", vector=JIVector(), tonic="a"):
         self.pitch = pitch
         self.vector = vector
+        self.tonic = tonic
 
     def __repr__(self):
         """
@@ -305,13 +306,27 @@ class JIBundle(object):
         ..  container:: example
 
             >>> microtones.JIBundle()
-            JIBundle(pitch="c'", vector=JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0))
+            JIBundle(pitch="c'", vector=JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0), tonic='a')
 
         """
         return abjad.StorageFormatManager(self).get_repr_format()
 
-    def return_cent_deviation_markup(self):
+    def return_cent_deviation_markup(self, from_et=False):
+        fifth_comma = quicktions.Fraction(196, 100)
+        pythagorean_cents = [fifth_comma * i for i in range(12)]
+        fifths = [abjad.NamedPitchClass(self.tonic)]
+        for x in range(10):
+            x = x + 1
+            interval = abjad.NamedInterval("P1")
+            for y in range(x):
+                interval = interval * abjad.NamedInterval("P5")
+            fifths.append(interval.transpose(fifths[0]))
+        fifths_to_cents = {str(x): y for x, y in zip(fifths, pythagorean_cents)}
         deviation = 0
+        if from_et is True:
+            pitch_class = str(abjad.NamedPitchClass(self.pitch))
+            deviation = fifths_to_cents[pitch_class]
+            deviation = quicktions.Fraction(deviation)
         for _ in range(self.vector.syntonic_commas_down):
             deviation -= quicktions.Fraction(43, 2)
         for _ in range(self.vector.syntonic_commas_up):
@@ -711,5 +726,5 @@ def tune_to_ratio(
         alteration_literal = markup
         manager.Accidental.text = alteration_literal
         if return_cent_markup:
-            cent_markup = bundle.return_cent_deviation_markup()
+            cent_markup = bundle.return_cent_deviation_markup(from_et=True)
             return cent_markup

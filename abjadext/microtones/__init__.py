@@ -55,8 +55,6 @@ __all__ = [
     "get_accidental_value",
     "get_alteration",
     "get_value_sum",
-    "is_prime",
-    "prime_factors",
     "make_ji_bundle",
     "tune_to_ratio",
 ]
