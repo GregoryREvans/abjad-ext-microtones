@@ -313,18 +313,40 @@ class JIBundle(object):
 
     def return_cent_deviation_markup(self, from_et=False):
         fifth_comma = quicktions.Fraction(196, 100)
-        pythagorean_cents = [fifth_comma * i for i in range(12)]
-        fifths = [abjad.NamedPitchClass(self.tonic)]
-        for x in range(10):
+        pythagorean_cents_up = [fifth_comma * i for i in range(8)]
+        pythagorean_cents_down = [(0 - fifth_comma) * i for i in range(8)]
+        fifths_up = [abjad.NamedPitchClass(self.tonic)]
+        fifths_down = [abjad.NamedPitchClass(self.tonic)]
+        for x in range(6):
             x = x + 1
-            interval = abjad.NamedInterval("P1")
+            interval = abjad.NumberedInterval("P1")
             for y in range(x):
-                interval = interval * abjad.NamedInterval("P5")
-            fifths.append(interval.transpose(fifths[0]))
-        fifths_to_cents = {str(x): y for x, y in zip(fifths, pythagorean_cents)}
+                interval = interval + abjad.NumberedInterval("P5")
+            fifths_up.append(abjad.NamedPitchClass(fifths_up[0]).transpose(interval))
+        for x in range(6):
+            x = x + 1
+            interval = abjad.NumberedInterval("P1")
+            for y in range(x):
+                interval = interval - abjad.NumberedInterval("P5")
+            fifths_down.append(
+                abjad.NamedPitchClass(fifths_down[0]).transpose(interval)
+            )
+        pairs_up = [_ for _ in zip(fifths_up, pythagorean_cents_up)]
+        pairs_down = [_ for _ in zip(fifths_down, pythagorean_cents_down)]
+        pairs = pairs_down + pairs_up
+        fifths_to_cents = {}
+        for x, y in pairs:
+            key = x
+            val = y
+            key = abjad.NumberedPitch(key)
+            key = abjad.NamedPitchClass(key)
+            key = str(key)
+            fifths_to_cents[key] = val
         deviation = 0
         if from_et is True:
-            pitch_class = str(abjad.NamedPitchClass(self.pitch))
+            enharmonic_note = abjad.NumberedPitch(self.pitch)
+            pitch_class = abjad.NamedPitchClass(enharmonic_note)
+            pitch_class = str(pitch_class)
             deviation = fifths_to_cents[pitch_class]
             deviation = quicktions.Fraction(deviation)
         for _ in range(self.vector.syntonic_commas_down):
