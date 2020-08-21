@@ -1530,8 +1530,8 @@ class RatioClassSet(object):
             >>> print(abjad.storage(s))
             abjadext.utilities.RatioClassSet(
                 [
+                    Fraction(9, 8),
                     Fraction(3, 2),
-                    Fraction(2, 1),
                     ]
                 )
 
@@ -1539,6 +1539,7 @@ class RatioClassSet(object):
         axis = quicktions.Fraction(axis)
         assert 0 < axis
         inverse = [axis / i for i in self.ratio_classes]
+        inverse = [axis * ratio for ratio in inverse]
         return RatioClassSet(inverse)
 
     def multiply(self, n):
@@ -1832,9 +1833,9 @@ class RatioSet(object):
             >>> print(abjad.storage(s))
             abjadext.utilities.RatioSet(
                 [
-                    Fraction(3, 2),
-                    Fraction(3, 4),
-                    Fraction(1, 1),
+                    Fraction(9, 2),
+                    Fraction(9, 4),
+                    Fraction(3, 1),
                     ]
                 )
 
@@ -1842,6 +1843,7 @@ class RatioSet(object):
         axis = quicktions.Fraction(axis)
         assert 0 < axis
         inverse = [axis / i for i in self.ratios]
+        inverse = [axis * ratio for ratio in inverse]
         return RatioSet(inverse)
 
     def multiply(self, n):
@@ -2123,9 +2125,9 @@ class RatioClassSegment(object):
             >>> print(abjad.storage(s))
             abjadext.utilities.RatioClassSegment(
                 [
+                    Fraction(9, 8),
+                    Fraction(9, 8),
                     Fraction(3, 2),
-                    Fraction(3, 2),
-                    Fraction(2, 1),
                     ]
                 )
 
@@ -2133,6 +2135,7 @@ class RatioClassSegment(object):
         axis = quicktions.Fraction(axis)
         assert 0 < axis
         inverse = [axis / i for i in self.ratio_classes]
+        inverse = [axis * ratio for ratio in inverse]
         return RatioClassSegment(inverse)
 
     def multiply(self, n):
@@ -2493,9 +2496,9 @@ class RatioSegment(object):
             >>> print(abjad.storage(s))
             abjadext.utilities.RatioSegment(
                 [
-                    Fraction(3, 2),
-                    Fraction(3, 4),
-                    Fraction(1, 1),
+                    Fraction(9, 2),
+                    Fraction(9, 4),
+                    Fraction(3, 1),
                     ]
                 )
 
@@ -2503,6 +2506,7 @@ class RatioSegment(object):
         axis = quicktions.Fraction(axis)
         assert 0 < axis
         inverse = [axis / i for i in self.ratios]
+        inverse = [axis * ratio for ratio in inverse]
         return RatioSegment(inverse)
 
     def multiply(self, n):
