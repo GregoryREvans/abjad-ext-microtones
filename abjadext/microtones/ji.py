@@ -1,6 +1,8 @@
 """
 Package for Just Intonation.
 """
+import math
+
 import abjad
 import quicktions
 
@@ -294,10 +296,9 @@ class JIBundle(object):
 
     """
 
-    def __init__(self, pitch="c'", vector=JIVector(), tonic="a"):
+    def __init__(self, pitch="c'", vector=JIVector()):
         self.pitch = pitch
         self.vector = vector
-        self.tonic = tonic
 
     def __repr__(self):
         """
@@ -306,83 +307,10 @@ class JIBundle(object):
         ..  container:: example
 
             >>> microtones.JIBundle()
-            JIBundle(pitch="c'", vector=JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0), tonic='a')
+            JIBundle(pitch="c'", vector=JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0))
 
         """
         return abjad.StorageFormatManager(self).get_repr_format()
-
-    def return_cent_deviation_markup(self, from_et=False):
-        fifth_comma = quicktions.Fraction(196, 100)
-        pythagorean_cents_up = [fifth_comma * i for i in range(8)]
-        pythagorean_cents_down = [(0 - fifth_comma) * i for i in range(8)]
-        fifths_up = [abjad.NamedPitchClass(self.tonic)]
-        fifths_down = [abjad.NamedPitchClass(self.tonic)]
-        for x in range(6):
-            x = x + 1
-            interval = abjad.NumberedInterval("P1")
-            for y in range(x):
-                interval = interval + abjad.NumberedInterval("P5")
-            fifths_up.append(abjad.NamedPitchClass(fifths_up[0]).transpose(interval))
-        for x in range(6):
-            x = x + 1
-            interval = abjad.NumberedInterval("P1")
-            for y in range(x):
-                interval = interval - abjad.NumberedInterval("P5")
-            fifths_down.append(
-                abjad.NamedPitchClass(fifths_down[0]).transpose(interval)
-            )
-        pairs_up = [_ for _ in zip(fifths_up, pythagorean_cents_up)]
-        pairs_down = [_ for _ in zip(fifths_down, pythagorean_cents_down)]
-        pairs = pairs_down + pairs_up
-        fifths_to_cents = {}
-        for x, y in pairs:
-            key = x
-            val = y
-            key = abjad.NumberedPitch(key)
-            key = abjad.NamedPitchClass(key)
-            key = str(key)
-            fifths_to_cents[key] = val
-        deviation = 0
-        if from_et is True:
-            enharmonic_note = abjad.NumberedPitch(self.pitch)
-            pitch_class = abjad.NamedPitchClass(enharmonic_note)
-            pitch_class = str(pitch_class)
-            deviation = fifths_to_cents[pitch_class]
-            deviation = quicktions.Fraction(deviation)
-        for _ in range(self.vector.syntonic_commas_down):
-            deviation -= quicktions.Fraction(43, 2)
-        for _ in range(self.vector.syntonic_commas_up):
-            deviation += quicktions.Fraction(43, 2)
-        for _ in range(self.vector.septimal_commas_down):
-            deviation -= quicktions.Fraction(273, 10)
-        for _ in range(self.vector.septimal_commas_up):
-            deviation += quicktions.Fraction(273, 10)
-        for _ in range(self.vector.undecimal_quarter_tones_down):
-            deviation -= quicktions.Fraction(533, 10)
-        for _ in range(self.vector.undecimal_quarter_tones_up):
-            deviation += quicktions.Fraction(533, 10)
-        for _ in range(self.vector.tridecimal_third_tones_down):
-            deviation -= quicktions.Fraction(653, 10)
-        for _ in range(self.vector.tridecimal_third_tones_up):
-            deviation += quicktions.Fraction(653, 10)
-        for _ in range(self.vector.seventeen_limit_schismas_down):
-            deviation -= quicktions.Fraction(34, 5)
-        for _ in range(self.vector.seventeen_limit_schismas_up):
-            deviation += quicktions.Fraction(34, 5)
-        for _ in range(self.vector.nineteen_limit_schismas_down):
-            deviation -= quicktions.Fraction(34, 10)
-        for _ in range(self.vector.nineteen_limit_schismas_up):
-            deviation += quicktions.Fraction(34, 10)
-        for _ in range(self.vector.twenty_three_limit_commas_down):
-            deviation -= quicktions.Fraction(33, 2)
-        for _ in range(self.vector.twenty_three_limit_commas_up):
-            deviation += quicktions.Fraction(33, 2)
-        if deviation < 0:
-            deviation_string = f"{float(deviation)}"
-        else:
-            deviation_string = f"+{float(deviation)}"
-        mark = abjad.Markup(deviation_string, direction=abjad.Up).center_align()
-        return mark
 
 
 def _is_prime(n):
@@ -502,13 +430,27 @@ def make_ji_bundle(pitch, ratio):
     return JIBundle(pitch, accidental_vector)
 
 
+def return_cent_deviation_markup(ratio=1, fundamental="a'"):
+    ratio = quicktions.Fraction(ratio)
+    tonic_cent_difference = abjad.NamedPitch(fundamental).number * 100
+    log_ratio = quicktions.Fraction(math.log10(ratio))
+    log_2 = quicktions.Fraction(1200 / math.log10(2))
+    ji_cents = quicktions.Fraction(log_ratio * log_2)
+    et_cents = (
+        make_ji_bundle(fundamental, ratio).pitch.number * 100
+    ) - tonic_cent_difference
+    cent_difference = ji_cents - et_cents
+    final_cents = round(float(cent_difference), 2)
+    if final_cents < 0:
+        cent_string = f"{final_cents}"
+    else:
+        cent_string = f"+{final_cents}"
+    mark = abjad.Markup(cent_string, direction=abjad.Up).center_align()
+    return mark
+
+
 def tune_to_ratio(
-    note_head,
-    ratio,
-    *,
-    omit_just_accidental=False,
-    tempered=False,
-    return_cent_markup=False,
+    note_head, ratio, *, omit_just_accidental=False, tempered=False,
 ):
     r"""
     Transposes notehead in place and tweaks accidental stencil.
@@ -747,6 +689,3 @@ def tune_to_ratio(
         manager.Accidental.stencil = r"#ly:text-interface::print"
         alteration_literal = markup
         manager.Accidental.text = alteration_literal
-        if return_cent_markup:
-            cent_markup = bundle.return_cent_deviation_markup(from_et=True)
-            return cent_markup

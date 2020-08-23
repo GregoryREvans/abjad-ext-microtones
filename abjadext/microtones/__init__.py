@@ -25,7 +25,13 @@ from .et import (
     get_alteration,
     get_value_sum,
 )
-from .ji import JIBundle, JIVector, make_ji_bundle, tune_to_ratio
+from .ji import (
+    JIBundle,
+    JIVector,
+    make_ji_bundle,
+    return_cent_deviation_markup,
+    tune_to_ratio,
+)
 from .utilities import (
     PitchClassSegment,
     PitchClassSet,
@@ -38,23 +44,24 @@ from .utilities import (
 )
 
 __all__ = [
-    "__version__",
-    "__version_info__",
     "ETBundle",
-    "JIVector",
     "JIBundle",
-    "PitchClassSet",
-    "PitchSet",
+    "JIVector",
     "PitchClassSegment",
+    "PitchClassSet",
     "PitchSegment",
+    "PitchSet",
     "RatioClassSegment",
     "RatioClassSet",
     "RatioSegment",
     "RatioSet",
+    "__version__",
+    "__version_info__",
     "apply_alteration",
     "get_accidental_value",
     "get_alteration",
     "get_value_sum",
     "make_ji_bundle",
+    "return_cent_deviation_markup",
     "tune_to_ratio",
 ]
