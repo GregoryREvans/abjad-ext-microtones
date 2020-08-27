@@ -450,7 +450,11 @@ def return_cent_deviation_markup(ratio=1, fundamental="a'"):
 
 
 def tune_to_ratio(
-    note_head, ratio, *, omit_just_accidental=False, tempered=False,
+    note_head,
+    ratio,
+    *,
+    omit_just_accidental=False,
+    tempered=False,
 ):
     r"""
     Transposes notehead in place and tweaks accidental stencil.
