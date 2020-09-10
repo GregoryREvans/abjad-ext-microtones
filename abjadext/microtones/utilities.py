@@ -12,7 +12,7 @@ def _flatten(lst):
     return out
 
 
-class PitchClassSet(object):
+class PitchClassSet:
     """
     Pitch Class Set.
 
@@ -376,7 +376,7 @@ class PitchClassSet(object):
         return PitchClassSet(transposed)
 
 
-class PitchSet(object):
+class PitchSet:
     """
     Pitch Set.
 
@@ -666,7 +666,7 @@ class PitchSet(object):
         return PitchSet(transposed)
 
 
-class PitchClassSegment(object):
+class PitchClassSegment:
     """
     Pitch Class Segment.
 
@@ -990,7 +990,7 @@ class PitchClassSegment(object):
         return PitchClassSegment(transposed)
 
 
-class PitchSegment(object):
+class PitchSegment:
     """
     Pitch Segment.
 
@@ -1330,7 +1330,7 @@ class PitchSegment(object):
         return PitchSegment(transposed)
 
 
-class RatioClassSet(object):
+class RatioClassSet:
     """
     Ratio Class Set.
 
@@ -1615,7 +1615,7 @@ class RatioClassSet(object):
         return RatioClassSet(transposed)
 
 
-class RatioSet(object):
+class RatioSet:
     """
     Ratio Set.
 
@@ -1920,7 +1920,7 @@ class RatioSet(object):
         return RatioSet(transposed)
 
 
-class RatioClassSegment(object):
+class RatioClassSegment:
     """
     Ratio Class Segment.
 
@@ -2257,7 +2257,7 @@ class RatioClassSegment(object):
         return RatioClassSegment(transposed)
 
 
-class RatioSegment(object):
+class RatioSegment:
     """
     Ratio Segment.
 

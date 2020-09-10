@@ -7,7 +7,7 @@ import abjad
 import quicktions
 
 
-class JIVector(object):
+class JIVector:
     """
     JI vector.
 
@@ -265,7 +265,7 @@ class JIVector(object):
         return literal
 
 
-class JIBundle(object):
+class JIBundle:
     """
     JI bundle.
 
@@ -440,7 +440,7 @@ def return_cent_deviation_markup(ratio=1, fundamental="a'"):
         make_ji_bundle(fundamental, ratio).pitch.number * 100
     ) - tonic_cent_difference
     cent_difference = ji_cents - et_cents
-    final_cents = round(float(cent_difference), 2)
+    final_cents = round(float(cent_difference))
     if final_cents < 0:
         cent_string = f"{final_cents}"
     else:
