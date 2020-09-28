@@ -431,6 +431,7 @@ def make_ji_bundle(pitch, ratio):
 
 
 def return_cent_deviation_markup(ratio=1, fundamental="a'"):
+    pitch = None
     ratio = quicktions.Fraction(ratio)
     tonic_cent_difference = abjad.NamedPitch(fundamental).number * 100
     log_ratio = quicktions.Fraction(math.log10(ratio))
@@ -441,10 +442,40 @@ def return_cent_deviation_markup(ratio=1, fundamental="a'"):
     ) - tonic_cent_difference
     cent_difference = ji_cents - et_cents
     final_cents = round(float(cent_difference))
+    if 50 < abs(final_cents):
+        p_string = f"{fundamental}4"
+        demo_note = abjad.Note(p_string)
+        demo_head = demo_note.note_head
+        tune_to_ratio(demo_head, ratio)
+        pitch = abjad.NumberedPitch(demo_head.written_pitch)
+        semitones = final_cents / 100
+        parts = math.modf(semitones)
+        pitch += parts[1]
+        remainder = round(parts[0] * 100)
+        if 50 < abs(remainder):
+            if 0 < remainder:
+                pitch += 1
+                remainder = -100 + remainder
+            else:
+                pitch -= 1
+                remainder = 100 + remainder
+        final_cents = remainder
     if final_cents < 0:
         cent_string = f"{final_cents}"
+        if pitch is not None:
+            pitch_string = str(abjad.NamedPitchClass(pitch))
+            pos, acc = pitch_string[0], pitch_string[1:]
+            acc = acc.replace("s", "♯")
+            acc = acc.replace("f", "♭")
+            cent_string = pos + acc + " " + cent_string
     else:
         cent_string = f"+{final_cents}"
+        if pitch is not None:
+            pitch_string = str(abjad.NamedPitchClass(pitch))
+            pos, acc = pitch_string[0], pitch_string[1:]
+            acc = acc.replace("s", "♯")
+            acc = acc.replace("f", "♭")
+            cent_string = pos + acc + " " + cent_string
     mark = abjad.Markup(cent_string, direction=abjad.Up).center_align()
     return mark
 
