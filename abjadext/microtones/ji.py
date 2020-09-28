@@ -465,17 +465,19 @@ def return_cent_deviation_markup(ratio=1, fundamental="a'"):
         if pitch is not None:
             pitch_string = str(abjad.NamedPitchClass(pitch))
             pos, acc = pitch_string[0], pitch_string[1:]
+            pos = pos.capitalize()
             acc = acc.replace("s", "♯")
             acc = acc.replace("f", "♭")
-            cent_string = pos + acc + " " + cent_string
+            cent_string = pos + acc + cent_string
     else:
         cent_string = f"+{final_cents}"
         if pitch is not None:
             pitch_string = str(abjad.NamedPitchClass(pitch))
             pos, acc = pitch_string[0], pitch_string[1:]
+            pos = pos.capitalize()
             acc = acc.replace("s", "♯")
             acc = acc.replace("f", "♭")
-            cent_string = pos + acc + " " + cent_string
+            cent_string = pos + acc + cent_string
     mark = abjad.Markup(cent_string, direction=abjad.Up).center_align()
     return mark
 
