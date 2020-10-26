@@ -430,7 +430,9 @@ def make_ji_bundle(pitch, ratio):
     return JIBundle(pitch, accidental_vector)
 
 
-def return_cent_deviation_markup(ratio=1, fundamental="a'"):
+def return_cent_deviation_markup(
+    ratio=1, fundamental="a'", chris=False
+):  # chris values are temp.
     pitch = None
     ratio = quicktions.Fraction(ratio)
     tonic_cent_difference = abjad.NamedPitch(fundamental).number * 100
@@ -442,12 +444,21 @@ def return_cent_deviation_markup(ratio=1, fundamental="a'"):
     ) - tonic_cent_difference
     cent_difference = ji_cents - et_cents
     final_cents = round(float(cent_difference))
-    if 50 < abs(final_cents):
+    if chris is True:
+        final_cents = round(float(cent_difference), 2)
+    if chris is True:
         p_string = f"{fundamental}4"
         demo_note = abjad.Note(p_string)
         demo_head = demo_note.note_head
-        tune_to_ratio(demo_head, ratio)
+        tune_to_ratio(demo_head, quicktions.Fraction(ratio) * quicktions.Fraction(9, 8))
         pitch = abjad.NumberedPitch(demo_head.written_pitch)
+    if 50 < abs(final_cents):
+        if chris is False:
+            p_string = f"{fundamental}4"
+            demo_note = abjad.Note(p_string)
+            demo_head = demo_note.note_head
+            tune_to_ratio(demo_head, ratio)
+            pitch = abjad.NumberedPitch(demo_head.written_pitch)
         semitones = final_cents / 100
         parts = math.modf(semitones)
         pitch += parts[1]
@@ -462,22 +473,42 @@ def return_cent_deviation_markup(ratio=1, fundamental="a'"):
         final_cents = remainder
     if final_cents < 0:
         cent_string = f"{final_cents}"
-        if pitch is not None:
-            pitch_string = str(abjad.NamedPitchClass(pitch))
-            pos, acc = pitch_string[0], pitch_string[1:]
-            pos = pos.capitalize()
-            acc = acc.replace("s", "♯")
-            acc = acc.replace("f", "♭")
-            cent_string = pos + acc + cent_string
+        if chris is True:
+            if not cent_string[0].isalpha():
+                pitch_string = str(abjad.NamedPitchClass(pitch))
+                pos, acc = pitch_string[0], pitch_string[1:]
+                pos = pos.capitalize()
+                acc = acc.replace("s", "♯")
+                acc = acc.replace("f", "♭")
+                cent_string = pos + acc + cent_string
+                cent_string = cent_string.replace("A♭", "G♯")
+        if chris is False:
+            if pitch is not None:
+                pitch_string = str(abjad.NamedPitchClass(pitch))
+                pos, acc = pitch_string[0], pitch_string[1:]
+                pos = pos.capitalize()
+                acc = acc.replace("s", "♯")
+                acc = acc.replace("f", "♭")
+                cent_string = pos + acc + cent_string
     else:
         cent_string = f"+{final_cents}"
-        if pitch is not None:
-            pitch_string = str(abjad.NamedPitchClass(pitch))
-            pos, acc = pitch_string[0], pitch_string[1:]
-            pos = pos.capitalize()
-            acc = acc.replace("s", "♯")
-            acc = acc.replace("f", "♭")
-            cent_string = pos + acc + cent_string
+        if chris is True:
+            if not cent_string[0].isalpha():
+                pitch_string = str(abjad.NamedPitchClass(pitch))
+                pos, acc = pitch_string[0], pitch_string[1:]
+                pos = pos.capitalize()
+                acc = acc.replace("s", "♯")
+                acc = acc.replace("f", "♭")
+                cent_string = pos + acc + cent_string
+                cent_string = cent_string.replace("A♭", "G♯")
+        if chris is False:
+            if pitch is not None:
+                pitch_string = str(abjad.NamedPitchClass(pitch))
+                pos, acc = pitch_string[0], pitch_string[1:]
+                pos = pos.capitalize()
+                acc = acc.replace("s", "♯")
+                acc = acc.replace("f", "♭")
+                cent_string = pos + acc + cent_string
     mark = abjad.Markup(cent_string, direction=abjad.Up).center_align()
     return mark
 

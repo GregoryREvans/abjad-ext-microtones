@@ -1360,10 +1360,10 @@ class RatioClassSet:
         for ratio in ratio_classes:
             ratio = quicktions.Fraction(ratio)
             assert 0 < ratio
-            if ratio < 1:
-                ratio = quicktions.Fraction(ratio.denominator, ratio.numerator)
             while 2 < ratio:
                 ratio /= 2
+            while ratio < 1:
+                ratio *= 2
             if ratio not in self.ratio_classes:
                 self.ratio_classes.append(ratio)
 
@@ -1458,7 +1458,6 @@ class RatioClassSet:
             abjadext.utilities.RatioClassSet(
                 [
                     Fraction(1, 1),
-                    Fraction(2, 1),
                     Fraction(5, 4),
                     Fraction(11, 6),
                     Fraction(27, 16),
@@ -1521,8 +1520,8 @@ class RatioClassSet:
             >>> print(abjad.storage(s))
             abjadext.utilities.RatioClassSet(
                 [
-                    Fraction(2, 1),
-                    Fraction(3, 2),
+                    Fraction(1, 1),
+                    Fraction(4, 3),
                     ]
                 )
 
@@ -1576,6 +1575,7 @@ class RatioClassSet:
                     Fraction(1, 1),
                     Fraction(5, 4),
                     Fraction(3, 2),
+                    Fraction(8, 5),
                     Fraction(2, 1),
                     ]
                 )
@@ -1604,14 +1604,13 @@ class RatioClassSet:
             abjadext.utilities.RatioClassSet(
                 [
                     Fraction(5, 4),
-                    Fraction(3, 2),
-                    Fraction(21, 16),
-                    Fraction(11, 8),
+                    Fraction(7, 5),
+                    Fraction(4, 3),
                     ]
                 )
 
         """
-        transposed = [ratio + n for ratio in self.ratio_classes]
+        transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratio_classes]
         return RatioClassSet(transposed)
 
 
@@ -1916,7 +1915,7 @@ class RatioSet:
                 )
 
         """
-        transposed = [ratio + n for ratio in self.ratios]
+        transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratios]
         return RatioSet(transposed)
 
 
@@ -1949,10 +1948,10 @@ class RatioClassSegment:
         for ratio in ratio_classes:
             ratio = quicktions.Fraction(ratio)
             assert 0 < ratio
-            if ratio < 1:
-                ratio = quicktions.Fraction(ratio.denominator, ratio.numerator)
             while 2 < ratio:
                 ratio /= 2
+            while ratio < 1:
+                ratio *= 2
             self.ratio_classes.append(ratio)
 
     def __getitem__(self, index):
@@ -2048,7 +2047,7 @@ class RatioClassSegment:
             abjadext.utilities.RatioClassSegment(
                 [
                     Fraction(1, 1),
-                    Fraction(2, 1),
+                    Fraction(1, 1),
                     Fraction(5, 4),
                     Fraction(1, 1),
                     Fraction(11, 6),
@@ -2115,9 +2114,9 @@ class RatioClassSegment:
             >>> print(abjad.storage(s))
             abjadext.utilities.RatioClassSegment(
                 [
-                    Fraction(2, 1),
-                    Fraction(2, 1),
-                    Fraction(3, 2),
+                    Fraction(1, 1),
+                    Fraction(1, 1),
+                    Fraction(4, 3),
                     ]
                 )
 
@@ -2213,10 +2212,10 @@ class RatioClassSegment:
             abjadext.utilities.RatioClassSegment(
                 [
                     Fraction(1, 1),
-                    Fraction(5, 4),
+                    Fraction(1, 1),
                     Fraction(5, 4),
                     Fraction(3, 2),
-                    Fraction(2, 1),
+                    Fraction(8, 5),
                     Fraction(2, 1),
                     ]
                 )
@@ -2245,15 +2244,15 @@ class RatioClassSegment:
             abjadext.utilities.RatioClassSegment(
                 [
                     Fraction(5, 4),
-                    Fraction(3, 2),
-                    Fraction(3, 2),
-                    Fraction(21, 16),
-                    Fraction(11, 8),
+                    Fraction(5, 4),
+                    Fraction(5, 4),
+                    Fraction(7, 5),
+                    Fraction(4, 3),
                     ]
                 )
 
         """
-        transposed = [ratio + n for ratio in self.ratio_classes]
+        transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratio_classes]
         return RatioClassSegment(transposed)
 
 
@@ -2624,5 +2623,5 @@ class RatioSegment:
                 )
 
         """
-        transposed = [ratio + n for ratio in self.ratios]
+        transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratios]
         return RatioSegment(transposed)
