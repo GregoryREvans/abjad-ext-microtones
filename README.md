@@ -24,8 +24,3 @@ Default EDO accidentals: <br />
 Ekmelos EDO accidentals: <br />
 
 ![](ekmelos_edo_accidentals.png) <br />
-
----
-Conceivably, the accidental notation is personalizable by user-defined stylesheets similar to the ones included with this package.
----
-Dev branch features pitch and interval utilities.
