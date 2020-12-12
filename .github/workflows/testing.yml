@@ -1,0 +1,102 @@
+name: testing
+
+on:
+  pull_request:
+    branches:
+    - master
+  push:
+    branches:
+    - master
+  schedule:
+    - cron: "0 0 * * *"
+
+env:
+  LILYPOND: /tmp/lilypond
+  LILYPOND_URL: http://lilypond.org/download/binaries/linux-64/
+  LILYPOND_SOURCE: lilypond-2.19.84-1.linux-64.sh
+  ABJAD: /tmp/abjad
+  RMAKERS: /tmp/abjad-ext-rmakers
+  TSMAKERS: /tmp/tsmakers
+  EVANS: /tmp/evans
+  BACA: /tmp/baca
+  IDE: /tmp/ide
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install checkers
+      run: |
+        python -m pip install --upgrade pip
+        pip install black flake8 isort pytest six
+
+    - name: Install lilypond
+      run: |
+        wget -q -O $LILYPOND $LILYPOND_URL/$LILYPOND_SOURCE
+        sh $LILYPOND --batch
+        echo "/home/runner/bin" >> $GITHUB_PATH
+
+    - name: Install abjad
+      run: |
+        git clone -b trevor/dev https://github.com/Abjad/abjad.git $ABJAD
+        pip install -e $ABJAD
+        echo "$ABJAD/scr" >> $GITHUB_PATH
+
+    - name: Install rmakers
+      run: |
+        git clone https://github.com/Abjad/abjad-ext-rmakers.git $RMAKERS
+        pip install -e $RMAKERS
+
+    - name: Install tsmakers
+      run: |
+        git clone https://github.com/GregoryREvans/tsmakers.git $TSMAKERS
+        pip install -e $TSMAKERS
+
+    - name: Install evans
+      run: |
+        git clone https://github.com/GregoryREvans/evans.git $EVANS
+        pip install -e $EVANS
+        echo "$EVANS/scr" >> $GITHUB_PATH
+        ln -s $EVANS/dotfiles/test_segments.py ./$NAME/test.py
+
+    - name: Install baca
+      run: |
+        git clone https://github.com/trevorbaca/baca.git $BACA
+        pip install -e $BACA
+
+    - name: Install ide
+      run: |
+        git clone https://github.com/trevorbaca/ide.git $IDE
+        pip install -e $IDE
+
+    - name: Install package
+      run: |
+        pip install -e .
+
+    - name: Sanity-check
+      run: |
+        ls
+        which black-check
+        which evans-doctest
+        which flake8-check
+        which isort-check
+        python -c 'from abjadext import microtones'
+
+    - name: Run checkers
+      run: |
+        black-check .
+        flake8-check .
+        isort-check .
+        evans-doctest .
