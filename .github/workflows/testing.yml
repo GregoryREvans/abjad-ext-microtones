@@ -20,6 +20,7 @@ env:
   EVANS: /tmp/evans
   BACA: /tmp/baca
   IDE: /tmp/ide
+  MYPYPATH: "/tmp/abjad:/tmp/abjad-ext-rmakers:/tmp/abjad-ext-microtones:/tmp/tsmakers:/tmp/baca:/tmp/ide"
 
 jobs:
   build:
@@ -69,7 +70,7 @@ jobs:
         git clone https://github.com/GregoryREvans/evans.git $EVANS
         pip install -e $EVANS
         echo "$EVANS/scr" >> $GITHUB_PATH
-        ln -s $EVANS/dotfiles/test_segments.py ./$NAME/test.py
+    # ln -s ./dotfiles/.mypy.ini ./mypy.ini
 
     - name: Install baca
       run: |
@@ -99,6 +100,7 @@ jobs:
         black-check .
         flake8-check .
         isort-check .
+        mypy .
         evans-doctest .
 
 # git clone -b trevor/dev https://github.com/Abjad/abjad.git $ABJAD
