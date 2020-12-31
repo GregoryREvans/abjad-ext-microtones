@@ -277,13 +277,16 @@ def apply_alteration(note_head, value, spell=None):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
         >>> staff = abjad.Staff(notes)
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        >>> moment = abjad.SchemeMoment((1, 35))
+        >>> abjad.setting(staff).proportional_notation_duration = moment
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[staff, abjad.Block(name="layout")],
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -307,6 +310,8 @@ def apply_alteration(note_head, value, spell=None):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
         >>> staff = abjad.Staff(notes)
+        >>> moment = abjad.SchemeMoment((1, 35))
+        >>> abjad.setting(staff).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
         ...     includes=[
@@ -314,6 +319,7 @@ def apply_alteration(note_head, value, spell=None):
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -337,6 +343,8 @@ def apply_alteration(note_head, value, spell=None):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
         >>> staff = abjad.Staff(notes)
+        >>> moment = abjad.SchemeMoment((1, 35))
+        >>> abjad.setting(staff).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
         ...     includes=[
@@ -344,6 +352,7 @@ def apply_alteration(note_head, value, spell=None):
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -357,6 +366,8 @@ def apply_alteration(note_head, value, spell=None):
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="sharp")
         >>> staff = abjad.Staff([note])
+        >>> moment = abjad.SchemeMoment((1, 35))
+        >>> abjad.setting(staff).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
         ...     includes=[
@@ -364,6 +375,7 @@ def apply_alteration(note_head, value, spell=None):
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -373,6 +385,10 @@ def apply_alteration(note_head, value, spell=None):
 
             >>> print(abjad.lilypond(staff))
             \new Staff
+            \with
+            {
+                proportionalNotationDuration = #(ly:make-moment 1 35)
+            }
             {
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \three-quarters-sharp-markup
@@ -387,6 +403,8 @@ def apply_alteration(note_head, value, spell=None):
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="flat")
         >>> staff = abjad.Staff([note])
+        >>> moment = abjad.SchemeMoment((1, 35))
+        >>> abjad.setting(staff).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
         ...     staff,
         ...     includes=[
@@ -394,6 +412,7 @@ def apply_alteration(note_head, value, spell=None):
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -403,6 +422,10 @@ def apply_alteration(note_head, value, spell=None):
 
             >>> print(abjad.lilypond(staff))
             \new Staff
+            \with
+            {
+                proportionalNotationDuration = #(ly:make-moment 1 35)
+            }
             {
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \one-quarter-flat-markup
