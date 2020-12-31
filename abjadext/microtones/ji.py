@@ -530,10 +530,11 @@ def tune_to_ratio(
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
-        >>> moment = abjad.SchemeMoment((1, 35))
-        >>> abjad.setting(staff).proportional_notation_duration = moment
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ...     global_staff_size=16,
         ... )
@@ -544,10 +545,11 @@ def tune_to_ratio(
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
-        >>> moment = abjad.SchemeMoment((1, 35))
-        >>> abjad.setting(staff).proportional_notation_duration = moment
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=["default.ily", "heji2-ji-accidental-markups.ily"],
         ...     global_staff_size=16,
         ... )
@@ -587,11 +589,11 @@ def tune_to_ratio(
         >>> staff.extend(notes)
         >>> abjad.attach(abjad.Clef("bass"), staff[0])
         >>> abjad.attach(abjad.Clef("treble"), staff[6])
-        >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
-        >>> moment = abjad.SchemeMoment((1, 35))
-        >>> abjad.setting(staff).proportional_notation_duration = moment
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=[
         ...         "default.ily",
         ...         "harmonic-series-layout.ily",
@@ -607,12 +609,7 @@ def tune_to_ratio(
 
             >>> print(abjad.lilypond(staff))
             \new Staff
-            \with
             {
-                proportionalNotationDuration = #(ly:make-moment 1 35)
-            }
-            {
-                \time 24/32
                 \clef "bass"
                 \tweak Accidental.stencil #ly:text-interface::print
                 \tweak Accidental.text \abjad-natural
@@ -719,10 +716,11 @@ def tune_to_ratio(
         >>> abjad.attach(abjad.Clef("bass"), staff[0])
         >>> abjad.attach(abjad.Clef("treble"), staff[6])
         >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
-        >>> moment = abjad.SchemeMoment((1, 35))
-        >>> abjad.setting(staff).proportional_notation_duration = moment
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=[
         ...         "default.ily",
         ...         "harmonic-series-layout.ily",
@@ -741,10 +739,11 @@ def tune_to_ratio(
         >>> note = abjad.Note("c'4")
         >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
         >>> staff = abjad.Staff([note])
-        >>> moment = abjad.SchemeMoment((1, 35))
-        >>> abjad.setting(staff).proportional_notation_duration = moment
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ...     global_staff_size=16,
         ... )
