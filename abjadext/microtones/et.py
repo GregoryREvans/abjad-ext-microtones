@@ -277,13 +277,17 @@ def apply_alteration(note_head, value, spell=None):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
         >>> staff = abjad.Staff(notes)
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -307,13 +311,17 @@ def apply_alteration(note_head, value, spell=None):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
         >>> staff = abjad.Staff(notes)
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -337,13 +345,17 @@ def apply_alteration(note_head, value, spell=None):
         ...     microtones.apply_alteration(note.note_head, step)
         ...
         >>> staff = abjad.Staff(notes)
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -357,13 +369,17 @@ def apply_alteration(note_head, value, spell=None):
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="sharp")
         >>> staff = abjad.Staff([note])
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
@@ -387,13 +403,17 @@ def apply_alteration(note_head, value, spell=None):
         >>> note = abjad.Note("c'4")
         >>> microtones.apply_alteration(note.note_head, step, spell="flat")
         >>> staff = abjad.Staff([note])
+        >>> score = abjad.Score([staff])
+        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     staff,
+        ...     score,
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
         ...         "all-edo-markups-example.ily",
         ...     ],
+        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
         >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
