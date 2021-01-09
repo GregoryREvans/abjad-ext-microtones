@@ -175,7 +175,7 @@ class PitchClassSet:
         copied_list = [i for i in self.pitch_classes]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
-        return PitchClassSet(copied_list_)
+        return type(self)(copied_list_)
 
     def _transpose_to_zero(self):
         return self.transpose(-self.pitch_classes[0])
@@ -215,7 +215,7 @@ class PitchClassSet:
         for pitch in scale:
             if pitch not in self.pitch_classes:
                 complements.append(pitch)
-        return PitchClassSet(complements)
+        return type(self)(complements)
 
     def invert(self, axis=0):
         """
@@ -245,7 +245,7 @@ class PitchClassSet:
         axis = quicktions.Fraction(axis)
         intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
-        return PitchClassSet(inverse)
+        return type(self)(inverse)
 
     def multiply(self, n):
         """
@@ -266,7 +266,7 @@ class PitchClassSet:
         multiplied_pitch_classes = [
             quicktions.Fraction(n) * pitch for pitch in self.pitch_classes
         ]
-        return PitchClassSet(multiplied_pitch_classes)
+        return type(self)(multiplied_pitch_classes)
 
     def normal_order(self):
         """
@@ -286,7 +286,7 @@ class PitchClassSet:
         """
         size = len(self.pitch_classes)
         if size < 2:
-            return PitchClassSet(self.pitch_classes)
+            return type(self)(self.pitch_classes)
         original = self.sorted()
         rotations = [original._rotate(n) for n in range(size)]
         candidate = rotations.pop()
@@ -339,7 +339,7 @@ class PitchClassSet:
                 )
 
         """
-        return PitchClassSet(sorted(self.pitch_classes))
+        return type(self)(sorted(self.pitch_classes))
 
     def transpose(self, n):
         """
@@ -373,7 +373,7 @@ class PitchClassSet:
 
         """
         transposed = [pitch + n for pitch in self.pitch_classes]
-        return PitchClassSet(transposed)
+        return type(self)(transposed)
 
 
 class PitchSet:
@@ -529,7 +529,7 @@ class PitchSet:
         copied_list = [i for i in self.pitches]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
-        return PitchSet(copied_list_)
+        return type(self)(copied_list_)
 
     def _transpose_to_zero(self):
         return self.transpose(-self.pitches[0])
@@ -562,7 +562,7 @@ class PitchSet:
         for pitch in scale:
             if pitch not in self.pitches:
                 complements.append(pitch)
-        return PitchSet(complements)
+        return type(self)(complements)
 
     def invert(self, axis=0):
         """
@@ -592,7 +592,7 @@ class PitchSet:
         axis = quicktions.Fraction(axis)
         intervals = [axis - i for i in self.pitches]
         inverse = [axis + interval for interval in intervals]
-        return PitchSet(inverse)
+        return type(self)(inverse)
 
     def multiply(self, n):
         """
@@ -611,7 +611,7 @@ class PitchSet:
 
         """
         multiplied_pitches = [quicktions.Fraction(n) * pitch for pitch in self.pitches]
-        return PitchSet(multiplied_pitches)
+        return type(self)(multiplied_pitches)
 
     def sorted(self):
         """
@@ -629,7 +629,7 @@ class PitchSet:
                 )
 
         """
-        return PitchSet(sorted(self.pitches))
+        return type(self)(sorted(self.pitches))
 
     def transpose(self, n):
         """
@@ -663,7 +663,7 @@ class PitchSet:
 
         """
         transposed = [pitch + n for pitch in self.pitches]
-        return PitchSet(transposed)
+        return type(self)(transposed)
 
 
 class PitchClassSegment:
@@ -845,7 +845,7 @@ class PitchClassSegment:
         for pitch in scale:
             if pitch not in self.pitch_classes:
                 complements.append(pitch)
-        return PitchClassSegment(complements)
+        return type(self)(complements)
 
     def invert(self, axis=0):
         """
@@ -875,7 +875,7 @@ class PitchClassSegment:
         axis = quicktions.Fraction(axis)
         intervals = [axis - i for i in self.pitch_classes]
         inverse = [axis + interval for interval in intervals]
-        return PitchClassSegment(inverse)
+        return type(self)(inverse)
 
     def multiply(self, n):
         """
@@ -896,7 +896,7 @@ class PitchClassSegment:
         multiplied_pitch_classes = [
             quicktions.Fraction(n) * pitch for pitch in self.pitch_classes
         ]
-        return PitchClassSegment(multiplied_pitch_classes)
+        return type(self)(multiplied_pitch_classes)
 
     def retrograde(self):
         """
@@ -914,7 +914,7 @@ class PitchClassSegment:
                 )
 
         """
-        return PitchClassSegment(reversed(self.pitch_classes))
+        return type(self)(reversed(self.pitch_classes))
 
     def rotate(self, n):
         """
@@ -935,7 +935,7 @@ class PitchClassSegment:
         copied_list = [i for i in self.pitch_classes]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
-        return PitchClassSegment(copied_list_)
+        return type(self)(copied_list_)
 
     def sorted(self):
         """
@@ -953,7 +953,7 @@ class PitchClassSegment:
                 )
 
         """
-        return PitchClassSegment(sorted(self.pitch_classes))
+        return type(self)(sorted(self.pitch_classes))
 
     def transpose(self, n):
         """
@@ -987,7 +987,7 @@ class PitchClassSegment:
 
         """
         transposed = [pitch + n for pitch in self.pitch_classes]
-        return PitchClassSegment(transposed)
+        return type(self)(transposed)
 
 
 class PitchSegment:
@@ -1187,7 +1187,7 @@ class PitchSegment:
         for pitch in scale:
             if pitch not in self.pitches:
                 complements.append(pitch)
-        return PitchSegment(complements)
+        return type(self)(complements)
 
     def invert(self, axis=0):
         """
@@ -1217,7 +1217,7 @@ class PitchSegment:
         axis = quicktions.Fraction(axis)
         intervals = [axis - i for i in self.pitches]
         inverse = [axis + interval for interval in intervals]
-        return PitchSegment(inverse)
+        return type(self)(inverse)
 
     def multiply(self, n):
         """
@@ -1236,7 +1236,7 @@ class PitchSegment:
 
         """
         multiplied_pitches = [quicktions.Fraction(n) * pitch for pitch in self.pitches]
-        return PitchSegment(multiplied_pitches)
+        return type(self)(multiplied_pitches)
 
     def retrograde(self):
         """
@@ -1254,7 +1254,7 @@ class PitchSegment:
                 )
 
         """
-        return PitchSegment(reversed(self.pitches))
+        return type(self)(reversed(self.pitches))
 
     def rotate(self, n):
         """
@@ -1275,7 +1275,7 @@ class PitchSegment:
         copied_list = [i for i in self.pitches]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
-        return PitchSegment(copied_list_)
+        return type(self)(copied_list_)
 
     def sorted(self):
         """
@@ -1293,7 +1293,7 @@ class PitchSegment:
                 )
 
         """
-        return PitchSegment(sorted(self.pitches))
+        return type(self)(sorted(self.pitches))
 
     def transpose(self, n):
         """
@@ -1327,7 +1327,7 @@ class PitchSegment:
 
         """
         transposed = [pitch + n for pitch in self.pitches]
-        return PitchSegment(transposed)
+        return type(self)(transposed)
 
 
 class RatioClassSet:
@@ -1508,7 +1508,7 @@ class RatioClassSet:
         for ratio in scale:
             if ratio not in self.ratio_classes:
                 complements.append(ratio)
-        return RatioClassSet(complements)
+        return type(self)(complements)
 
     def invert(self, axis=1):
         """
@@ -1539,7 +1539,7 @@ class RatioClassSet:
         assert 0 < axis
         inverse = [axis / i for i in self.ratio_classes]
         inverse = [axis * ratio for ratio in inverse]
-        return RatioClassSet(inverse)
+        return type(self)(inverse)
 
     def multiply(self, n):
         """
@@ -1560,7 +1560,7 @@ class RatioClassSet:
         multiplied_pitch_classes = [
             quicktions.Fraction(n) * ratio for ratio in self.ratio_classes
         ]
-        return RatioClassSet(multiplied_pitch_classes)
+        return type(self)(multiplied_pitch_classes)
 
     def sorted(self):
         """
@@ -1581,7 +1581,7 @@ class RatioClassSet:
                 )
 
         """
-        return RatioClassSet(sorted(self.ratio_classes))
+        return type(self)(sorted(self.ratio_classes))
 
     def transpose(self, n):
         """
@@ -1611,7 +1611,7 @@ class RatioClassSet:
 
         """
         transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratio_classes]
-        return RatioClassSet(transposed)
+        return type(self)(transposed)
 
 
 class RatioSet:
@@ -1780,7 +1780,7 @@ class RatioSet:
             while ratio < quicktions.Fraction(1, 2):
                 ratio *= 2
             constrained.append(ratio)
-        return RatioSet(constrained)
+        return type(self)(constrained)
 
     def complement(self, scale):
         """
@@ -1810,7 +1810,7 @@ class RatioSet:
         for ratio in scale:
             if ratio not in self.ratios:
                 complements.append(ratio)
-        return RatioSet(complements)
+        return type(self)(complements)
 
     def invert(self, axis=1):
         """
@@ -1843,7 +1843,7 @@ class RatioSet:
         assert 0 < axis
         inverse = [axis / i for i in self.ratios]
         inverse = [axis * ratio for ratio in inverse]
-        return RatioSet(inverse)
+        return type(self)(inverse)
 
     def multiply(self, n):
         """
@@ -1865,7 +1865,7 @@ class RatioSet:
         multiplied_pitch_classes = [
             quicktions.Fraction(n) * ratio for ratio in self.ratios
         ]
-        return RatioSet(multiplied_pitch_classes)
+        return type(self)(multiplied_pitch_classes)
 
     def sorted(self):
         """
@@ -1884,7 +1884,7 @@ class RatioSet:
                 )
 
         """
-        return RatioSet(sorted(self.ratios))
+        return type(self)(sorted(self.ratios))
 
     def transpose(self, n):
         """
@@ -1916,7 +1916,7 @@ class RatioSet:
 
         """
         transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratios]
-        return RatioSet(transposed)
+        return type(self)(transposed)
 
 
 class RatioClassSegment:
@@ -2102,7 +2102,7 @@ class RatioClassSegment:
         for ratio in scale:
             if ratio not in self.ratio_classes:
                 complements.append(ratio)
-        return RatioClassSegment(complements)
+        return type(self)(complements)
 
     def invert(self, axis=1):
         """
@@ -2135,7 +2135,7 @@ class RatioClassSegment:
         assert 0 < axis
         inverse = [axis / i for i in self.ratio_classes]
         inverse = [axis * ratio for ratio in inverse]
-        return RatioClassSegment(inverse)
+        return type(self)(inverse)
 
     def multiply(self, n):
         """
@@ -2157,7 +2157,7 @@ class RatioClassSegment:
         multiplied_pitch_classes = [
             quicktions.Fraction(n) * ratio for ratio in self.ratio_classes
         ]
-        return RatioClassSegment(multiplied_pitch_classes)
+        return type(self)(multiplied_pitch_classes)
 
     def retrograde(self):
         """
@@ -2177,7 +2177,7 @@ class RatioClassSegment:
                 )
 
         """
-        return RatioClassSegment(reversed(self.ratio_classes))
+        return type(self)(reversed(self.ratio_classes))
 
     def rotate(self, n):
         """
@@ -2199,7 +2199,7 @@ class RatioClassSegment:
         copied_list = [i for i in self.ratio_classes]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
-        return RatioClassSegment(copied_list_)
+        return type(self)(copied_list_)
 
     def sorted(self):
         """
@@ -2221,7 +2221,7 @@ class RatioClassSegment:
                 )
 
         """
-        return RatioClassSegment(sorted(self.ratio_classes))
+        return type(self)(sorted(self.ratio_classes))
 
     def transpose(self, n):
         """
@@ -2253,7 +2253,7 @@ class RatioClassSegment:
 
         """
         transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratio_classes]
-        return RatioClassSegment(transposed)
+        return type(self)(transposed)
 
 
 class RatioSegment:
@@ -2443,7 +2443,7 @@ class RatioSegment:
             while ratio < quicktions.Fraction(1, 2):
                 ratio *= 2
             constrained.append(ratio)
-        return RatioSegment(constrained)
+        return type(self)(constrained)
 
     def complement(self, scale):
         """
@@ -2473,7 +2473,7 @@ class RatioSegment:
         for ratio in scale:
             if ratio not in self.ratios:
                 complements.append(ratio)
-        return RatioSegment(complements)
+        return type(self)(complements)
 
     def invert(self, axis=1):
         """
@@ -2506,7 +2506,7 @@ class RatioSegment:
         assert 0 < axis
         inverse = [axis / i for i in self.ratios]
         inverse = [axis * ratio for ratio in inverse]
-        return RatioSegment(inverse)
+        return type(self)(inverse)
 
     def multiply(self, n):
         """
@@ -2528,7 +2528,7 @@ class RatioSegment:
         multiplied_pitch_classes = [
             quicktions.Fraction(n) * ratio for ratio in self.ratios
         ]
-        return RatioSegment(multiplied_pitch_classes)
+        return type(self)(multiplied_pitch_classes)
 
     def retrograde(self):
         """
@@ -2548,7 +2548,7 @@ class RatioSegment:
                 )
 
         """
-        return RatioSegment(reversed(self.ratios))
+        return type(self)(reversed(self.ratios))
 
     def rotate(self, n):
         """
@@ -2570,7 +2570,7 @@ class RatioSegment:
         copied_list = [i for i in self.ratios]
         steps = int(n) % len(copied_list)
         copied_list_ = copied_list[steps:] + copied_list[:steps]
-        return RatioSegment(copied_list_)
+        return type(self)(copied_list_)
 
     def sorted(self):
         """
@@ -2592,7 +2592,7 @@ class RatioSegment:
                 )
 
         """
-        return RatioSegment(sorted(self.ratios))
+        return type(self)(sorted(self.ratios))
 
     def transpose(self, n):
         """
@@ -2624,4 +2624,4 @@ class RatioSegment:
 
         """
         transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratios]
-        return RatioSegment(transposed)
+        return type(self)(transposed)
