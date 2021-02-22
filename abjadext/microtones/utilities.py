@@ -133,7 +133,7 @@ class PitchClassSet:
             >>> pc_set = microtones.PitchClassSet(["0", "1/2", "5/4"])
             >>> pc_set += [0, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> print(abjad.storage(pc_set))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(0, 1),
                     Fraction(1, 2),
@@ -196,7 +196,7 @@ class PitchClassSet:
             >>> pc_set = microtones.PitchClassSet([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
             >>> print(abjad.storage(pc_set.complement(input_scale)))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(3, 1),
                     Fraction(4, 1),
@@ -224,7 +224,7 @@ class PitchClassSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSet([0, 1, 3]).invert()))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(0, 1),
                     Fraction(11, 1),
@@ -233,7 +233,7 @@ class PitchClassSet:
                 )
 
             >>> print(abjad.storage(microtones.PitchClassSet([0, 1, 3]).invert(3)))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(6, 1),
                     Fraction(5, 1),
@@ -254,7 +254,7 @@ class PitchClassSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSet([0, 1, 3]).multiply(2)))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(0, 1),
                     Fraction(2, 1),
@@ -275,7 +275,7 @@ class PitchClassSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSet([0, 2, 1]).normal_order()))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(0, 1),
                     Fraction(1, 1),
@@ -307,7 +307,7 @@ class PitchClassSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSet([1, 3, 2]).prime_form()))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(0, 1),
                     Fraction(1, 1),
@@ -330,7 +330,7 @@ class PitchClassSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSet([2, 1, 0]).sorted()))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(0, 1),
                     Fraction(1, 1),
@@ -348,7 +348,7 @@ class PitchClassSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSet([0, 1, 2]).transpose(2)))
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(2, 1),
                     Fraction(3, 1),
@@ -361,7 +361,7 @@ class PitchClassSet:
             ...         microtones.PitchClassSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
             ...     )
             ... )
-            abjadext.utilities.PitchClassSet(
+            microtones.PitchClassSet(
                 [
                     Fraction(4, 1),
                     Fraction(3, 1),
@@ -487,7 +487,7 @@ class PitchSet:
             >>> p_set = microtones.PitchSet(["0", "1/2", "5/4"])
             >>> p_set += [0, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> print(abjad.storage(p_set))
-            abjadext.utilities.PitchSet(
+            microtones.PitchSet(
                 [
                     Fraction(0, 1),
                     Fraction(1, 2),
@@ -543,7 +543,7 @@ class PitchSet:
             >>> pc_set = microtones.PitchSet([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
             >>> print(abjad.storage(pc_set.complement(input_scale)))
-            abjadext.utilities.PitchSet(
+            microtones.PitchSet(
                 [
                     Fraction(3, 1),
                     Fraction(4, 1),
@@ -571,7 +571,7 @@ class PitchSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSet([0, 1, 3]).invert()))
-            abjadext.utilities.PitchSet(
+            microtones.PitchSet(
                 [
                     Fraction(0, 1),
                     Fraction(-1, 1),
@@ -580,7 +580,7 @@ class PitchSet:
                 )
 
             >>> print(abjad.storage(microtones.PitchSet([0, 1, 3]).invert(2)))
-            abjadext.utilities.PitchSet(
+            microtones.PitchSet(
                 [
                     Fraction(4, 1),
                     Fraction(3, 1),
@@ -601,7 +601,7 @@ class PitchSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSet([0, 1, 3]).multiply(2)))
-            abjadext.utilities.PitchSet(
+            microtones.PitchSet(
                 [
                     Fraction(0, 1),
                     Fraction(2, 1),
@@ -620,7 +620,7 @@ class PitchSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSet([2, 1, 0]).sorted()))
-            abjadext.utilities.PitchSet(
+            microtones.PitchSet(
                 [
                     Fraction(0, 1),
                     Fraction(1, 1),
@@ -638,7 +638,7 @@ class PitchSet:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSet([0, 1, 2]).transpose(2)))
-            abjadext.utilities.PitchSet(
+            microtones.PitchSet(
                 [
                     Fraction(2, 1),
                     Fraction(3, 1),
@@ -651,7 +651,7 @@ class PitchSet:
             ...         microtones.PitchSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
             ...     )
             ... )
-            abjadext.utilities.PitchSet(
+            microtones.PitchSet(
                 [
                     Fraction(4, 1),
                     Fraction(3, 1),
@@ -775,7 +775,7 @@ class PitchClassSegment:
             >>> pc_segment = microtones.PitchClassSegment(["0", "1/2", "5/4"])
             >>> pc_segment += [0, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> print(abjad.storage(pc_segment))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(0, 1),
                     Fraction(1, 2),
@@ -826,7 +826,7 @@ class PitchClassSegment:
             >>> pc_set = microtones.PitchClassSegment([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
             >>> print(abjad.storage(pc_set.complement(input_scale)))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(3, 1),
                     Fraction(4, 1),
@@ -854,7 +854,7 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 3]).invert()))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(0, 1),
                     Fraction(11, 1),
@@ -863,7 +863,7 @@ class PitchClassSegment:
                 )
 
             >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 3]).invert(2)))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(4, 1),
                     Fraction(3, 1),
@@ -884,7 +884,7 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 3]).multiply(2)))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(0, 1),
                     Fraction(2, 1),
@@ -905,7 +905,7 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 2]).retrograde()))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(2, 1),
                     Fraction(1, 1),
@@ -923,7 +923,7 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 2]).rotate(1)))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(1, 1),
                     Fraction(2, 1),
@@ -944,7 +944,7 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSegment([2, 1, 0]).sorted()))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(0, 1),
                     Fraction(1, 1),
@@ -962,7 +962,7 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 2]).transpose(2)))
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(2, 1),
                     Fraction(3, 1),
@@ -975,7 +975,7 @@ class PitchClassSegment:
             ...         microtones.PitchClassSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
             ...     )
             ... )
-            abjadext.utilities.PitchClassSegment(
+            microtones.PitchClassSegment(
                 [
                     Fraction(4, 1),
                     Fraction(3, 1),
@@ -1038,7 +1038,7 @@ class PitchSegment:
             >>> s = microtones.PitchSegment([0, 1, 6])
             >>> s[0] = 5
             >>> print(abjad.storage(s))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(5, 1),
                     Fraction(1, 1),
@@ -1117,7 +1117,7 @@ class PitchSegment:
             >>> p_segment = microtones.PitchSegment(["0", "1/2", "5/4"])
             >>> p_segment += [0, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> print(abjad.storage(p_segment))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(0, 1),
                     Fraction(1, 2),
@@ -1168,7 +1168,7 @@ class PitchSegment:
             >>> pc_set = microtones.PitchSegment([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
             >>> print(abjad.storage(pc_set.complement(input_scale)))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(3, 1),
                     Fraction(4, 1),
@@ -1196,7 +1196,7 @@ class PitchSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSegment([0, 1, 3]).invert()))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(0, 1),
                     Fraction(-1, 1),
@@ -1205,7 +1205,7 @@ class PitchSegment:
                 )
 
             >>> print(abjad.storage(microtones.PitchSegment([0, 1, 3]).invert(2)))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(4, 1),
                     Fraction(3, 1),
@@ -1226,7 +1226,7 @@ class PitchSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSegment([0, 1, 3]).multiply(2)))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(0, 1),
                     Fraction(2, 1),
@@ -1245,7 +1245,7 @@ class PitchSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSegment([0, 1, 2]).retrograde()))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(2, 1),
                     Fraction(1, 1),
@@ -1263,7 +1263,7 @@ class PitchSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSegment([0, 1, 2]).rotate(1)))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(1, 1),
                     Fraction(2, 1),
@@ -1284,7 +1284,7 @@ class PitchSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSegment([2, 1, 0]).sorted()))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(0, 1),
                     Fraction(1, 1),
@@ -1302,7 +1302,7 @@ class PitchSegment:
         ..  container:: example
 
             >>> print(abjad.storage(microtones.PitchSegment([0, 1, 2]).transpose(2)))
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(2, 1),
                     Fraction(3, 1),
@@ -1315,7 +1315,7 @@ class PitchSegment:
             ...         microtones.PitchSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
             ...     )
             ... )
-            abjadext.utilities.PitchSegment(
+            microtones.PitchSegment(
                 [
                     Fraction(4, 1),
                     Fraction(3, 1),
@@ -1455,7 +1455,7 @@ class RatioClassSet:
             >>> rc_set = microtones.RatioClassSet(["1", "1/2", "5/4"])
             >>> rc_set += [1, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> print(abjad.storage(rc_set))
-            abjadext.utilities.RatioClassSet(
+            microtones.RatioClassSet(
                 [
                     Fraction(1, 1),
                     Fraction(5, 4),
@@ -1492,7 +1492,7 @@ class RatioClassSet:
             >>> input_scale = [i + 1 for i in range(11)]
             >>> s = rc_set.complement(input_scale)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSet(
+            microtones.RatioClassSet(
                 [
                     Fraction(3, 2),
                     Fraction(2, 1),
@@ -1518,7 +1518,7 @@ class RatioClassSet:
 
             >>> s = microtones.RatioClassSet([2, 4, 3]).invert()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSet(
+            microtones.RatioClassSet(
                 [
                     Fraction(1, 1),
                     Fraction(4, 3),
@@ -1527,7 +1527,7 @@ class RatioClassSet:
 
             >>> s = microtones.RatioClassSet([2, 4, 3]).invert(3)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSet(
+            microtones.RatioClassSet(
                 [
                     Fraction(9, 8),
                     Fraction(3, 2),
@@ -1549,7 +1549,7 @@ class RatioClassSet:
 
             >>> s = microtones.RatioClassSet([1, 2, 3]).multiply(2)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSet(
+            microtones.RatioClassSet(
                 [
                     Fraction(2, 1),
                     Fraction(3, 2),
@@ -1570,7 +1570,7 @@ class RatioClassSet:
 
             >>> s = microtones.RatioClassSet([5, 2, 3, "1/2", 1, "1/5"]).sorted()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSet(
+            microtones.RatioClassSet(
                 [
                     Fraction(1, 1),
                     Fraction(5, 4),
@@ -1591,7 +1591,7 @@ class RatioClassSet:
 
             >>> s = microtones.RatioClassSet([1, 2, 3]).transpose(2)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSet(
+            microtones.RatioClassSet(
                 [
                     Fraction(3, 2),
                     Fraction(2, 1),
@@ -1601,7 +1601,7 @@ class RatioClassSet:
 
             >>> s = microtones.RatioClassSet([1, 2, 4, 5, 6]).invert().transpose(1+3)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSet(
+            microtones.RatioClassSet(
                 [
                     Fraction(5, 4),
                     Fraction(7, 5),
@@ -1735,7 +1735,7 @@ class RatioSet:
             >>> r_set += [1, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> s = r_set
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSet(
+            microtones.RatioSet(
                 [
                     Fraction(1, 1),
                     Fraction(1, 2),
@@ -1792,7 +1792,7 @@ class RatioSet:
             >>> input_scale = [i + 1 for i in range(11)]
             >>> s = r_set.complement(input_scale)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSet(
+            microtones.RatioSet(
                 [
                     Fraction(4, 1),
                     Fraction(5, 1),
@@ -1820,7 +1820,7 @@ class RatioSet:
 
             >>> s = microtones.RatioSet([2, 4, 3]).invert()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSet(
+            microtones.RatioSet(
                 [
                     Fraction(1, 2),
                     Fraction(1, 4),
@@ -1830,7 +1830,7 @@ class RatioSet:
 
             >>> s = microtones.RatioSet([2, 4, 3]).invert(3)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSet(
+            microtones.RatioSet(
                 [
                     Fraction(9, 2),
                     Fraction(9, 4),
@@ -1853,7 +1853,7 @@ class RatioSet:
 
             >>> s = microtones.RatioSet([1, 2, 3]).multiply(2)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSet(
+            microtones.RatioSet(
                 [
                     Fraction(2, 1),
                     Fraction(4, 1),
@@ -1875,7 +1875,7 @@ class RatioSet:
 
             >>> s = microtones.RatioSet([5, 2, 3]).sorted()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSet(
+            microtones.RatioSet(
                 [
                     Fraction(2, 1),
                     Fraction(3, 1),
@@ -1894,7 +1894,7 @@ class RatioSet:
 
             >>> s = microtones.RatioSet([1, 2, 3]).transpose(2)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSet(
+            microtones.RatioSet(
                 [
                     Fraction(3, 1),
                     Fraction(4, 1),
@@ -1904,7 +1904,7 @@ class RatioSet:
 
             >>> s = microtones.RatioSet([1, 2, 4, 5, 6]).invert().transpose(1+3)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSet(
+            microtones.RatioSet(
                 [
                     Fraction(5, 1),
                     Fraction(9, 2),
@@ -2044,7 +2044,7 @@ class RatioClassSegment:
             >>> rc_segment += [1, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> s = rc_segment
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(1, 1),
                     Fraction(1, 1),
@@ -2083,7 +2083,7 @@ class RatioClassSegment:
             >>> input_scale = [i + 1 for i in range(11)]
             >>> s = pc_segment.complement(input_scale)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(3, 2),
                     Fraction(2, 1),
@@ -2112,7 +2112,7 @@ class RatioClassSegment:
 
             >>> s = microtones.RatioClassSegment([2, 4, 3]).invert()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(1, 1),
                     Fraction(1, 1),
@@ -2122,7 +2122,7 @@ class RatioClassSegment:
 
             >>> s = microtones.RatioClassSegment([2, 4, 3]).invert(3)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(9, 8),
                     Fraction(9, 8),
@@ -2145,7 +2145,7 @@ class RatioClassSegment:
 
             >>> s = microtones.RatioClassSegment([1, 2, 3]).multiply(2)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(2, 1),
                     Fraction(2, 1),
@@ -2167,7 +2167,7 @@ class RatioClassSegment:
 
             >>> s = microtones.RatioClassSegment([1, 2, 3, 3]).retrograde()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(3, 2),
                     Fraction(3, 2),
@@ -2187,7 +2187,7 @@ class RatioClassSegment:
 
             >>> s = microtones.RatioClassSegment([1, 2, 3]).rotate(1)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(2, 1),
                     Fraction(3, 2),
@@ -2209,7 +2209,7 @@ class RatioClassSegment:
 
             >>> s = microtones.RatioClassSegment([5, 2, 3, "1/2", 1, "1/5"]).sorted()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(1, 1),
                     Fraction(1, 1),
@@ -2231,7 +2231,7 @@ class RatioClassSegment:
 
             >>> s = microtones.RatioClassSegment([1, 2, 3]).transpose(2)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(3, 2),
                     Fraction(2, 1),
@@ -2241,7 +2241,7 @@ class RatioClassSegment:
 
             >>> s = microtones.RatioClassSegment([1, 2, 4, 5, 6]).invert().transpose(1+3)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioClassSegment(
+            microtones.RatioClassSegment(
                 [
                     Fraction(5, 4),
                     Fraction(5, 4),
@@ -2308,7 +2308,7 @@ class RatioSegment:
             >>> s = microtones.RatioSegment([1, 2, 3])
             >>> s[1] = 5
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(1, 1),
                     Fraction(5, 1),
@@ -2397,7 +2397,7 @@ class RatioSegment:
             >>> r_segment += [1, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> s = r_segment
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(1, 1),
                     Fraction(1, 2),
@@ -2455,7 +2455,7 @@ class RatioSegment:
             >>> input_scale = [i + 1 for i in range(11)]
             >>> s = pc_segment.complement(input_scale)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(4, 1),
                     Fraction(5, 1),
@@ -2483,7 +2483,7 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([2, 4, 3]).invert()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(1, 2),
                     Fraction(1, 4),
@@ -2493,7 +2493,7 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([2, 4, 3]).invert(3)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(9, 2),
                     Fraction(9, 4),
@@ -2516,7 +2516,7 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([1, 2, 3]).multiply(2)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(2, 1),
                     Fraction(4, 1),
@@ -2538,7 +2538,7 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([1, 2, 3, 3]).retrograde()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(3, 1),
                     Fraction(3, 1),
@@ -2558,7 +2558,7 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([1, 2, 3]).rotate(1)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(2, 1),
                     Fraction(3, 1),
@@ -2580,7 +2580,7 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([5, 2, 3, "1/2", 1, "1/5"]).sorted()
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(1, 5),
                     Fraction(1, 2),
@@ -2602,7 +2602,7 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([1, 2, 3]).transpose(2)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(3, 1),
                     Fraction(4, 1),
@@ -2612,7 +2612,7 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([1, 2, 4, 5, 6]).invert().transpose(1+3)
             >>> print(abjad.storage(s))
-            abjadext.utilities.RatioSegment(
+            microtones.RatioSegment(
                 [
                     Fraction(5, 1),
                     Fraction(9, 2),

@@ -276,7 +276,7 @@ class JIBundle:
         "c'"
 
         >>> print(abjad.storage(bundle.vector))
-        abjadext.ji.JIVector(
+        microtones.JIVector(
             diatonic_accidental='natural',
             syntonic_commas_down=0,
             syntonic_commas_up=0,
@@ -378,7 +378,7 @@ def make_ji_bundle(pitch, ratio):
         NamedPitch("g'")
 
         >>> print(abjad.storage(bundle.vector))
-        abjadext.ji.JIVector(
+        microtones.JIVector(
             diatonic_accidental='natural',
             syntonic_commas_down=0,
             syntonic_commas_up=0,
