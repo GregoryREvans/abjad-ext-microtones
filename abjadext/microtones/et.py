@@ -278,7 +278,7 @@ def apply_alteration(note_head, value, spell=None):
         ...
         >>> staff = abjad.Staff(notes)
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
         ...     items=[score, abjad.Block(name="layout")],
@@ -312,10 +312,10 @@ def apply_alteration(note_head, value, spell=None):
         ...
         >>> staff = abjad.Staff(notes)
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
@@ -346,10 +346,10 @@ def apply_alteration(note_head, value, spell=None):
         ...
         >>> staff = abjad.Staff(notes)
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
@@ -370,10 +370,10 @@ def apply_alteration(note_head, value, spell=None):
         >>> microtones.apply_alteration(note.note_head, step, spell="sharp")
         >>> staff = abjad.Staff([note])
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
@@ -404,10 +404,10 @@ def apply_alteration(note_head, value, spell=None):
         >>> microtones.apply_alteration(note.note_head, step, spell="flat")
         >>> staff = abjad.Staff([note])
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=[
         ...         "default.ily",
         ...         "abjad.ily",
