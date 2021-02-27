@@ -113,7 +113,7 @@ class JIVector:
 
             >>> vector = microtones.JIVector(syntonic_commas_down=1)
             >>> print(abjad.lilypond(vector.calculate_ji_markup()))
-            \natural-one-syntonic-comma-down
+            \markup { \natural-one-syntonic-comma-down  }
 
         """
         int_to_word = {"1": "one", "2": "two", "3": "three"}
@@ -249,17 +249,24 @@ class JIVector:
                 accidental_string = accidental_string + " "
                 literal_components.append(accidental_string)
             if len(literal_components) == 1:
-                literal = abjad.Markup(f"{literal_components[0]}", literal=True)
+                literal = abjad.Markup(
+                    fr"\markup {{ {literal_components[0]} }}", literal=True
+                )
             else:
                 kerned_components = []
                 for i, item in enumerate(literal_components):
                     kerned_components.append(item)
                     if i != len(literal_components) - 1:
-                        kerned_components.append(r"\hspace #0.125")
-                literal = abjad.Markup(literal=True).concat(kerned_components)
+                        kerned_components.append(r"\hspace #0.125 ")
+                kerned_components_string = ""
+                for kerned_component in kerned_components:
+                    kerned_components_string += kerned_component
+                literal = abjad.Markup(
+                    fr"\markup \concat {{ {kerned_components_string} }}", literal=True
+                )
         else:
             literal = abjad.Markup(
-                fr"  \abjad-{self.diatonic_accidental}", literal=True
+                fr" \makrup {{ \abjad-{self.diatonic_accidental} }}", literal=True
             )
         self.accidental_literal = literal
         return literal
@@ -509,7 +516,11 @@ def return_cent_deviation_markup(
                 acc = acc.replace("s", "♯")
                 acc = acc.replace("f", "♭")
                 cent_string = pos + acc + cent_string
-    mark = abjad.Markup(cent_string, direction=abjad.Up).center_align()
+    mark = abjad.Markup(
+        fr"\markup \center-align {{ {cent_string} }}",
+        direction=abjad.Up,
+        literal=True,
+    )
     return mark
 
 
@@ -531,10 +542,10 @@ def tune_to_ratio(
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ...     global_staff_size=16,
         ... )
@@ -546,10 +557,10 @@ def tune_to_ratio(
         >>> microtones.tune_to_ratio(note.note_head, "7/4")
         >>> staff = abjad.Staff([note])
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=["default.ily", "heji2-ji-accidental-markups.ily"],
         ...     global_staff_size=16,
         ... )
@@ -590,10 +601,10 @@ def tune_to_ratio(
         >>> abjad.attach(abjad.Clef("bass"), staff[0])
         >>> abjad.attach(abjad.Clef("treble"), staff[6])
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=[
         ...         "default.ily",
         ...         "harmonic-series-layout.ily",
@@ -612,95 +623,74 @@ def tune_to_ratio(
             {
                 \clef "bass"
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 a,,,8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 a,,8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 e,8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 a,8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \sharp-one-syntonic-comma-down
+                \tweak Accidental.text \markup { \sharp-one-syntonic-comma-down  }
                 cs8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 e8
                 \clef "treble"
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-septimal-comma-down
+                \tweak Accidental.text \markup { \one-septimal-comma-down  }
                 g8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 a8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 b8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \sharp-one-syntonic-comma-down
+                \tweak Accidental.text \markup { \sharp-one-syntonic-comma-down  }
                 cs'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-undecimal-quarter-tone-up
+                \tweak Accidental.text \markup { \one-undecimal-quarter-tone-up  }
                 d'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 e'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \markup {
-                    \concat
-                        {
-                            \one-tridecimal-third-tone-down
-                            \hspace #0.125
-                            \abjad-sharp
-                        }
-                    }
+                \tweak Accidental.text \markup \concat { \one-tridecimal-third-tone-down \hspace #0.125 \abjad-sharp  }
                 fs'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-septimal-comma-down
+                \tweak Accidental.text \markup { \one-septimal-comma-down  }
                 g'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \sharp-one-syntonic-comma-down
+                \tweak Accidental.text \markup { \sharp-one-syntonic-comma-down  }
                 gs'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 a'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \markup {
-                    \concat
-                        {
-                            \one-seventeen-limit-schisma-down
-                            \hspace #0.125
-                            \abjad-sharp
-                        }
-                    }
+                \tweak Accidental.text \markup \concat { \one-seventeen-limit-schisma-down \hspace #0.125 \abjad-sharp  }
                 as'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \abjad-natural
+                \tweak Accidental.text \markup { \abjad-natural  }
                 b'8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-nineteen-limit-schisma-up
+                \tweak Accidental.text \markup { \one-nineteen-limit-schisma-up  }
                 c''8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \sharp-one-syntonic-comma-down
+                \tweak Accidental.text \markup { \sharp-one-syntonic-comma-down  }
                 cs''8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-septimal-comma-down
+                \tweak Accidental.text \markup { \one-septimal-comma-down  }
                 d''8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \one-undecimal-quarter-tone-up
+                \tweak Accidental.text \markup { \one-undecimal-quarter-tone-up  }
                 d''8
                 \tweak Accidental.stencil #ly:text-interface::print
-                \tweak Accidental.text \markup {
-                    \concat
-                        {
-                            \one-twenty-three-limit-comma-up
-                            \hspace #0.125
-                            \abjad-sharp
-                        }
-                    }
+                \tweak Accidental.text \markup \concat { \one-twenty-three-limit-comma-up \hspace #0.125 \abjad-sharp  }
                 ds''8
             }
 
@@ -717,10 +707,10 @@ def tune_to_ratio(
         >>> abjad.attach(abjad.Clef("treble"), staff[6])
         >>> abjad.attach(abjad.TimeSignature((24, 32)), staff[0])
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=[
         ...         "default.ily",
         ...         "harmonic-series-layout.ily",
@@ -740,10 +730,10 @@ def tune_to_ratio(
         >>> microtones.tune_to_ratio(note.note_head, "5/1", tempered=True)
         >>> staff = abjad.Staff([note])
         >>> score = abjad.Score([staff])
-        >>> moment = abjad.SchemeMoment((1, 25))
+        >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
-        >>> lilypond_file = abjad.LilyPondFile.new(
-        ...     score,
+        >>> lilypond_file = abjad.LilyPondFile(
+        ...     items=[score, abjad.Block(name="layout")],
         ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
         ...     global_staff_size=16,
         ... )
