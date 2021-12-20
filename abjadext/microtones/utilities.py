@@ -104,7 +104,7 @@ class PitchClassSet:
             PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def __str__(self):
         """
@@ -458,7 +458,7 @@ class PitchSet:
             PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def __str__(self):
         """
@@ -746,7 +746,7 @@ class PitchClassSegment:
             PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def __str__(self):
         """
@@ -1088,7 +1088,7 @@ class PitchSegment:
             PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def __str__(self):
         """
@@ -1426,7 +1426,7 @@ class RatioClassSet:
             RatioClassSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def __str__(self):
         """
@@ -1705,7 +1705,7 @@ class RatioSet:
             RatioSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def __str__(self):
         """
@@ -2014,7 +2014,7 @@ class RatioClassSegment:
             RatioClassSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def __str__(self):
         """
@@ -2367,7 +2367,7 @@ class RatioSegment:
             RatioSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def __str__(self):
         """

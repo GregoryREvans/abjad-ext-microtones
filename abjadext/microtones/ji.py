@@ -69,7 +69,7 @@ class JIVector:
             JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0)
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
     def has_just_accidentals(self):
         """
@@ -249,9 +249,7 @@ class JIVector:
                 accidental_string = accidental_string + " "
                 literal_components.append(accidental_string)
             if len(literal_components) == 1:
-                literal = abjad.Markup(
-                    fr"\markup {{ {literal_components[0]} }}", literal=True
-                )
+                literal = abjad.Markup(fr"\markup {{ {literal_components[0]} }}")
             else:
                 kerned_components = []
                 for i, item in enumerate(literal_components):
@@ -262,12 +260,10 @@ class JIVector:
                 for kerned_component in kerned_components:
                     kerned_components_string += kerned_component
                 literal = abjad.Markup(
-                    fr"\markup \concat {{ {kerned_components_string} }}", literal=True
+                    fr"\markup \concat {{ {kerned_components_string} }}"
                 )
         else:
-            literal = abjad.Markup(
-                fr" \makrup {{ \abjad-{self.diatonic_accidental} }}", literal=True
-            )
+            literal = abjad.Markup(fr" \markup {{ \abjad-{self.diatonic_accidental} }}")
         self.accidental_literal = literal
         return literal
 
@@ -317,7 +313,7 @@ class JIBundle:
             JIBundle(pitch="c'", vector=JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0))
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
 
 def _is_prime(n):
@@ -519,7 +515,6 @@ def return_cent_deviation_markup(
     mark = abjad.Markup(
         fr"\markup \center-align {{ {cent_string} }}",
         direction=abjad.Up,
-        literal=True,
     )
     return mark
 
@@ -545,12 +540,17 @@ def tune_to_ratio(
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
-        ...     global_staff_size=16,
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/ekmelos-ji-accidental-markups.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
+        ...     ],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}" )
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
         >>> note = abjad.Note("c'4")
@@ -560,12 +560,17 @@ def tune_to_ratio(
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=["default.ily", "heji2-ji-accidental-markups.ily"],
-        ...     global_staff_size=16,
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/HEJI2-ji-accidental-markups.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
+        ...     ],
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}" )
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
@@ -604,16 +609,18 @@ def tune_to_ratio(
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=[
-        ...         "default.ily",
-        ...         "harmonic-series-layout.ily",
-        ...         "ekmelos-ji-accidental-markups.ily"
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/ekmelos-ji-accidental-markups.ily\'",
+        ...         "\\include \'harmonic-series-layout.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
         ...     ],
-        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}" )
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
         ..  docs::
@@ -710,16 +717,18 @@ def tune_to_ratio(
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=[
-        ...         "default.ily",
-        ...         "harmonic-series-layout.ily",
-        ...         "heji2-ji-accidental-markups.ily"
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/HEJI2-ji-accidental-markups.ily\'",
+        ...         "\\include \'harmonic-series-layout.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
         ...     ],
-        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}" )
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
@@ -733,12 +742,17 @@ def tune_to_ratio(
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=["default.ily", "ekmelos-ji-accidental-markups.ily"],
-        ...     global_staff_size=16,
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/ekmelos-ji-accidental-markups.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
+        ...     ]
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}" )
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}" )
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
         ..  docs::

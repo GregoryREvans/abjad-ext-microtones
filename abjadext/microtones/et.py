@@ -29,7 +29,7 @@ class ETBundle:
             ETBundle(pitch="c'")
 
         """
-        return abjad.StorageFormatManager(self).get_repr_format()
+        return abjad.format.get_repr(self)
 
 
 _accidental_to_value = {
@@ -281,16 +281,17 @@ def apply_alteration(note_head, value, spell=None):
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=[
-        ...         "default.ily",
-        ...         "abjad.ily",
-        ...         "all-edo-markups-example.ily",
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'all-edo-markups-example.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
         ...     ],
-        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}")
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
@@ -315,16 +316,17 @@ def apply_alteration(note_head, value, spell=None):
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=[
-        ...         "default.ily",
-        ...         "abjad.ily",
-        ...         "all-edo-markups-example.ily",
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'all-edo-markups-example.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
         ...     ],
-        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}")
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
@@ -349,16 +351,17 @@ def apply_alteration(note_head, value, spell=None):
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=[
-        ...         "default.ily",
-        ...         "abjad.ily",
-        ...         "all-edo-markups-example.ily",
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'all-edo-markups-example.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
         ...     ],
-        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}")
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
     ..  container:: example
@@ -373,16 +376,17 @@ def apply_alteration(note_head, value, spell=None):
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=[
-        ...         "default.ily",
-        ...         "abjad.ily",
-        ...         "all-edo-markups-example.ily",
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'all-edo-markups-example.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
         ...     ],
-        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}")
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
         ..  docs::
@@ -407,16 +411,17 @@ def apply_alteration(note_head, value, spell=None):
         >>> moment = "#(ly:make-moment 1 25)"
         >>> abjad.setting(score).proportional_notation_duration = moment
         >>> lilypond_file = abjad.LilyPondFile(
-        ...     items=[score, abjad.Block(name="layout")],
-        ...     includes=[
-        ...         "default.ily",
-        ...         "abjad.ily",
-        ...         "all-edo-markups-example.ily",
+        ...     items=[
+        ...         "#(set-default-paper-size \"a4\" \'portrait)",
+        ...         r"#(set-global-staff-size 16)",
+        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'all-edo-markups-example.ily\'",
+        ...         score,
+        ...         abjad.Block(name="layout"),
         ...     ],
-        ...     global_staff_size=16,
         ... )
         >>> style = '"dodecaphonic"'
-        >>> lilypond_file.layout_block.items.append(fr"\accidentalStyle {style}")
+        >>> lilypond_file["layout"].items.append(fr"\accidentalStyle {style}")
         >>> abjad.show(lilypond_file) # doctest: +SKIP
 
         ..  docs::
