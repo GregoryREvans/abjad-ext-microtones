@@ -19,7 +19,6 @@ env:
   TSMAKERS: /tmp/tsmakers
   EVANS: /tmp/evans
   BACA: /tmp/baca
-  IDE: /tmp/ide
 
 jobs:
   build:
@@ -74,11 +73,6 @@ jobs:
       run: |
         git clone https://github.com/trevorbaca/baca.git $BACA
         pip install -e $BACA
-
-    - name: Install ide
-      run: |
-        git clone https://github.com/trevorbaca/ide.git $IDE
-        pip install -e $IDE
 
     - name: Install package
       run: |
