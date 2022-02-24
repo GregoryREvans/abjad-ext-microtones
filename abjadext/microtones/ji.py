@@ -4,6 +4,7 @@ Package for Just Intonation.
 import math
 
 import abjad
+import black
 import quicktions
 
 
@@ -66,10 +67,15 @@ class JIVector:
         ..  container:: example
 
             >>> microtones.JIVector()
-            JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0)
+            repr not yet defined
 
         """
-        return abjad.format.get_repr(self)
+        return "repr not yet defined"
+
+    def __str__(self):
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def has_just_accidentals(self):
         """
@@ -125,19 +131,19 @@ class JIVector:
         if self.syntonic_commas_down == self.syntonic_commas_up:
             self.syntonic_commas_down = 0
             self.syntonic_commas_up = 0
-            string = fr"\{self.diatonic_accidental}"
+            string = rf"\{self.diatonic_accidental}"
             accumulated_accidentals.append(string)
         elif self.syntonic_commas_down > self.syntonic_commas_up:
             self.syntonic_commas_down -= self.syntonic_commas_up
             self.syntonic_commas_up = 0
-            string = fr"\{self.diatonic_accidental}"
+            string = rf"\{self.diatonic_accidental}"
             string += f"-{int_to_word[str(self.syntonic_commas_down)]}"
             string += "-syntonic-comma-down"
             accumulated_accidentals.append(string)
         else:
             self.syntonic_commas_up -= self.syntonic_commas_down
             self.syntonic_commas_down = 0
-            string = fr"\{self.diatonic_accidental}"
+            string = rf"\{self.diatonic_accidental}"
             string += f"-{int_to_word[str(self.syntonic_commas_up)]}"
             string += "-syntonic-comma-up"
 
@@ -148,13 +154,13 @@ class JIVector:
         elif self.septimal_commas_down > self.septimal_commas_up:
             self.septimal_commas_down -= self.septimal_commas_up
             self.septimal_commas_up = 0
-            string = fr"\{int_to_word[str(self.septimal_commas_down)]}"
+            string = rf"\{int_to_word[str(self.septimal_commas_down)]}"
             string += "-septimal-comma-down"
             accumulated_accidentals.append(string)
         else:
             self.septimal_commas_up -= self.septimal_commas_down
             self.septimal_commas_down = 0
-            string = fr"\{int_to_word[str(self.septimal_commas_up)]}"
+            string = rf"\{int_to_word[str(self.septimal_commas_up)]}"
             string += "-septimal-comma-up"
             accumulated_accidentals.append(string)
         if self.undecimal_quarter_tones_down == self.undecimal_quarter_tones_up:
@@ -163,13 +169,13 @@ class JIVector:
         elif self.undecimal_quarter_tones_down > self.undecimal_quarter_tones_up:
             self.undecimal_quarter_tones_down -= self.undecimal_quarter_tones_up
             self.undecimal_quarter_tones_up = 0
-            string = fr"\{int_to_word[str(self.undecimal_quarter_tones_down)]}"
+            string = rf"\{int_to_word[str(self.undecimal_quarter_tones_down)]}"
             string += "-undecimal-quarter-tone-down"
             accumulated_accidentals.append(string)
         else:
             self.undecimal_quarter_tones_up -= self.undecimal_quarter_tones_down
             self.undecimal_quarter_tones_down = 0
-            string = fr"\{int_to_word[str(self.undecimal_quarter_tones_up)]}"
+            string = rf"\{int_to_word[str(self.undecimal_quarter_tones_up)]}"
             string += "-undecimal-quarter-tone-up"
             accumulated_accidentals.append(string)
         if self.tridecimal_third_tones_down == self.tridecimal_third_tones_up:
@@ -178,13 +184,13 @@ class JIVector:
         elif self.tridecimal_third_tones_down > self.tridecimal_third_tones_up:
             self.tridecimal_third_tones_down -= self.tridecimal_third_tones_up
             self.tridecimal_third_tones_up = 0
-            string = fr"\{int_to_word[str(self.tridecimal_third_tones_down)]}"
+            string = rf"\{int_to_word[str(self.tridecimal_third_tones_down)]}"
             string += "-tridecimal-third-tone-down"
             accumulated_accidentals.append(string)
         else:
             self.tridecimal_third_tones_up -= self.tridecimal_third_tones_down
             self.tridecimal_third_tones_down = 0
-            string = fr"\{int_to_word[str(self.tridecimal_third_tones_up)]}"
+            string = rf"\{int_to_word[str(self.tridecimal_third_tones_up)]}"
             string += "-tridecimal-third-tone-up"
             accumulated_accidentals.append(string)
         if self.seventeen_limit_schismas_down == self.seventeen_limit_schismas_up:
@@ -193,13 +199,13 @@ class JIVector:
         elif self.seventeen_limit_schismas_down > self.seventeen_limit_schismas_up:
             self.seventeen_limit_schismas_down -= self.seventeen_limit_schismas_up
             self.seventeen_limit_schismas_up = 0
-            string = fr"\{int_to_word[str(self.seventeen_limit_schismas_down)]}"
+            string = rf"\{int_to_word[str(self.seventeen_limit_schismas_down)]}"
             string += "-seventeen-limit-schisma-down"
             accumulated_accidentals.append(string)
         else:
             self.seventeen_limit_schismas_up -= self.seventeen_limit_schismas_down
             self.seventeen_limit_schismas_down = 0
-            string = fr"\{int_to_word[str(self.seventeen_limit_schismas_up)]}"
+            string = rf"\{int_to_word[str(self.seventeen_limit_schismas_up)]}"
             string += "-seventeen-limit-schisma-up"
             accumulated_accidentals.append(string)
         if self.nineteen_limit_schismas_down == self.nineteen_limit_schismas_up:
@@ -208,13 +214,13 @@ class JIVector:
         elif self.nineteen_limit_schismas_down > self.nineteen_limit_schismas_up:
             self.nineteen_limit_schismas_down -= self.nineteen_limit_schismas_up
             self.nineteen_limit_schismas_up = 0
-            string = fr"\{int_to_word[str(self.nineteen_limit_schismas_down)]}"
+            string = rf"\{int_to_word[str(self.nineteen_limit_schismas_down)]}"
             string += "-nineteen-limit-schisma-down"
             accumulated_accidentals.append(string)
         else:
             self.nineteen_limit_schismas_up -= self.nineteen_limit_schismas_down
             self.nineteen_limit_schismas_down = 0
-            string = fr"\{int_to_word[str(self.nineteen_limit_schismas_up)]}"
+            string = rf"\{int_to_word[str(self.nineteen_limit_schismas_up)]}"
             string += "-nineteen-limit-schisma-up"
             accumulated_accidentals.append(string)
         if self.twenty_three_limit_commas_down == self.twenty_three_limit_commas_up:
@@ -223,13 +229,13 @@ class JIVector:
         elif self.twenty_three_limit_commas_down > self.twenty_three_limit_commas_up:
             self.twenty_three_limit_commas_down -= self.twenty_three_limit_commas_up
             self.twenty_three_limit_commas_up = 0
-            string = fr"\{int_to_word[str(self.twenty_three_limit_commas_down)]}"
+            string = rf"\{int_to_word[str(self.twenty_three_limit_commas_down)]}"
             string += "-twenty-three-limit-comma-down"
             accumulated_accidentals.append(string)
         else:
             self.twenty_three_limit_commas_up -= self.twenty_three_limit_commas_down
             self.twenty_three_limit_commas_down = 0
-            string = fr"\{int_to_word[str(self.twenty_three_limit_commas_up)]}"
+            string = rf"\{int_to_word[str(self.twenty_three_limit_commas_up)]}"
             string += "-twenty-three-limit-comma-up"
             accumulated_accidentals.append(string)
         if len(accumulated_accidentals):
@@ -249,7 +255,7 @@ class JIVector:
                 accidental_string = accidental_string + " "
                 literal_components.append(accidental_string)
             if len(literal_components) == 1:
-                literal = abjad.Markup(fr"\markup {{ {literal_components[0]} }}")
+                literal = abjad.Markup(rf"\markup {{ {literal_components[0]} }}")
             else:
                 kerned_components = []
                 for i, item in enumerate(literal_components):
@@ -260,10 +266,10 @@ class JIVector:
                 for kerned_component in kerned_components:
                     kerned_components_string += kerned_component
                 literal = abjad.Markup(
-                    fr"\markup \concat {{ {kerned_components_string} }}"
+                    rf"\markup \concat {{ {kerned_components_string} }}"
                 )
         else:
-            literal = abjad.Markup(fr" \markup {{ \abjad-{self.diatonic_accidental} }}")
+            literal = abjad.Markup(rf" \markup {{ \abjad-{self.diatonic_accidental} }}")
         self.accidental_literal = literal
         return literal
 
@@ -278,24 +284,8 @@ class JIBundle:
         >>> bundle.pitch
         "c'"
 
-        >>> print(abjad.storage(bundle.vector))
-        microtones.JIVector(
-            diatonic_accidental='natural',
-            syntonic_commas_down=0,
-            syntonic_commas_up=0,
-            septimal_commas_down=0,
-            septimal_commas_up=0,
-            undecimal_quarter_tones_down=0,
-            undecimal_quarter_tones_up=0,
-            tridecimal_third_tones_down=0,
-            tridecimal_third_tones_up=0,
-            seventeen_limit_schismas_down=0,
-            seventeen_limit_schismas_up=0,
-            nineteen_limit_schismas_down=0,
-            nineteen_limit_schismas_up=0,
-            twenty_three_limit_commas_down=0,
-            twenty_three_limit_commas_up=0,
-            )
+        >>> bundle.vector
+        repr not yet defined
 
     """
 
@@ -310,10 +300,15 @@ class JIBundle:
         ..  container:: example
 
             >>> microtones.JIBundle()
-            JIBundle(pitch="c'", vector=JIVector(diatonic_accidental='natural', syntonic_commas_down=0, syntonic_commas_up=0, septimal_commas_down=0, septimal_commas_up=0, undecimal_quarter_tones_down=0, undecimal_quarter_tones_up=0, tridecimal_third_tones_down=0, tridecimal_third_tones_up=0, seventeen_limit_schismas_down=0, seventeen_limit_schismas_up=0, nineteen_limit_schismas_down=0, nineteen_limit_schismas_up=0, twenty_three_limit_commas_down=0, twenty_three_limit_commas_up=0))
+            repr not yet defined
 
         """
-        return abjad.format.get_repr(self)
+        return "repr not yet defined"
+
+    def __str__(self):
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
 
 def _is_prime(n):
@@ -380,24 +375,8 @@ def make_ji_bundle(pitch, ratio):
         >>> bundle.pitch
         NamedPitch("g'")
 
-        >>> print(abjad.storage(bundle.vector))
-        microtones.JIVector(
-            diatonic_accidental='natural',
-            syntonic_commas_down=0,
-            syntonic_commas_up=0,
-            septimal_commas_down=0,
-            septimal_commas_up=0,
-            undecimal_quarter_tones_down=0,
-            undecimal_quarter_tones_up=0,
-            tridecimal_third_tones_down=0,
-            tridecimal_third_tones_up=0,
-            seventeen_limit_schismas_down=0,
-            seventeen_limit_schismas_up=0,
-            nineteen_limit_schismas_down=0,
-            nineteen_limit_schismas_up=0,
-            twenty_three_limit_commas_down=0,
-            twenty_three_limit_commas_up=0,
-            )
+        >>> bundle.vector
+        repr not yet defined
 
     """
     if isinstance(pitch, str):
@@ -513,7 +492,7 @@ def return_cent_deviation_markup(
                 acc = acc.replace("f", "♭")
                 cent_string = pos + acc + cent_string
     mark = abjad.Markup(
-        fr"\markup \center-align {{ {cent_string} }}",
+        rf"\markup \center-align {{ {cent_string} }}",
         direction=abjad.Up,
     )
     return mark
@@ -772,7 +751,7 @@ def tune_to_ratio(
         tempered_accidental = tempered_accidental.replace(" ", "-")
         manager = abjad.tweak(note_head, literal=True)
         manager.Accidental.stencil = r"#ly:text-interface::print"
-        manager.Accidental.text = fr"\tempered-{tempered_accidental}"
+        manager.Accidental.text = rf"\tempered-{tempered_accidental}"
     else:
         markup = bundle.vector.calculate_ji_markup()
         manager = abjad.tweak(note_head, literal=True)

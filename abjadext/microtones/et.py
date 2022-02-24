@@ -4,6 +4,7 @@ Package for equal tempered microtones.
 import math
 
 import abjad
+import black
 import quicktions
 
 
@@ -26,10 +27,15 @@ class ETBundle:
         ..  container:: example
 
             >>> microtones.ETBundle()
-            ETBundle(pitch="c'")
+            repr not yet defined
 
         """
-        return abjad.format.get_repr(self)
+        return "repr not yet defined"
+
+    def __str__(self):
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
 
 _accidental_to_value = {

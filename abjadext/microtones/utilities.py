@@ -1,4 +1,4 @@
-import abjad
+import black
 import quicktions
 
 
@@ -28,13 +28,16 @@ class PitchClassSet:
         ..  container:: example
 
             >>> microtones.PitchClassSet([0, 1, 6])
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            {0, 1, 6}
+            <BLANKLINE>
 
             >>> microtones.PitchClassSet((0, 1, 6))
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            {0, 1, 6}
+            <BLANKLINE>
 
             >>> microtones.PitchClassSet([0, (1, 6)])
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            {0, 1, 6}
+            <BLANKLINE>
 
         """
         pitch_classes = _flatten(pitch_classes)
@@ -101,10 +104,13 @@ class PitchClassSet:
         ..  container:: example
 
             >>> microtones.PitchClassSet([0, 1, 6])
-            PitchClassSet([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            {0, 1, 6}
+            <BLANKLINE>
 
         """
-        return abjad.format.get_repr(self)
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def __str__(self):
         """
@@ -132,16 +138,9 @@ class PitchClassSet:
 
             >>> pc_set = microtones.PitchClassSet(["0", "1/2", "5/4"])
             >>> pc_set += [0, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
-            >>> print(abjad.storage(pc_set))
-            microtones.PitchClassSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 2),
-                    Fraction(5, 4),
-                    Fraction(11, 6),
-                    Fraction(3, 2),
-                    ]
-                )
+            >>> pc_set
+            {0, 1 / 2, 5 / 4, 11 / 6, 3 / 2}
+            <BLANKLINE>
 
         """
         argument = type(self)(argument)
@@ -184,7 +183,7 @@ class PitchClassSet:
     def _binary_value(i):
         value = 0
         for bit in i:
-            value += 2 ** bit
+            value += 2**bit
         return value
 
     def complement(self, scale):
@@ -195,20 +194,9 @@ class PitchClassSet:
 
             >>> pc_set = microtones.PitchClassSet([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
-            >>> print(abjad.storage(pc_set.complement(input_scale)))
-            microtones.PitchClassSet(
-                [
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    Fraction(5, 1),
-                    Fraction(6, 1),
-                    Fraction(7, 1),
-                    Fraction(8, 1),
-                    Fraction(9, 1),
-                    Fraction(10, 1),
-                    Fraction(11, 1),
-                    ]
-                )
+            >>> pc_set.complement(input_scale)
+            {3, 4, 5, 6, 7, 8, 9, 10, 11}
+            <BLANKLINE>
 
         """
         complements = []
@@ -223,23 +211,13 @@ class PitchClassSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSet([0, 1, 3]).invert()))
-            microtones.PitchClassSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(11, 1),
-                    Fraction(9, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSet([0, 1, 3]).invert()
+            {0, 11, 9}
+            <BLANKLINE>
 
-            >>> print(abjad.storage(microtones.PitchClassSet([0, 1, 3]).invert(3)))
-            microtones.PitchClassSet(
-                [
-                    Fraction(6, 1),
-                    Fraction(5, 1),
-                    Fraction(3, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSet([0, 1, 3]).invert(3)
+            {6, 5, 3}
+            <BLANKLINE>
 
         """
         axis = quicktions.Fraction(axis)
@@ -253,14 +231,9 @@ class PitchClassSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSet([0, 1, 3]).multiply(2)))
-            microtones.PitchClassSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(2, 1),
-                    Fraction(6, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSet([0, 1, 3]).multiply(2)
+            {0, 2, 6}
+            <BLANKLINE>
 
         """
         multiplied_pitch_classes = [
@@ -274,14 +247,9 @@ class PitchClassSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSet([0, 2, 1]).normal_order()))
-            microtones.PitchClassSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSet([0, 2, 1]).normal_order()
+            {0, 1, 2}
+            <BLANKLINE>
 
         """
         size = len(self.pitch_classes)
@@ -306,14 +274,9 @@ class PitchClassSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSet([1, 3, 2]).prime_form()))
-            microtones.PitchClassSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSet([1, 3, 2]).prime_form()
+            {0, 1, 2}
+            <BLANKLINE>
 
         """
         original = self.normal_order()._transpose_to_zero()
@@ -329,14 +292,9 @@ class PitchClassSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSet([2, 1, 0]).sorted()))
-            microtones.PitchClassSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSet([2, 1, 0]).sorted()
+            {0, 1, 2}
+            <BLANKLINE>
 
         """
         return type(self)(sorted(self.pitch_classes))
@@ -347,29 +305,13 @@ class PitchClassSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSet([0, 1, 2]).transpose(2)))
-            microtones.PitchClassSet(
-                [
-                    Fraction(2, 1),
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSet([0, 1, 2]).transpose(2)
+            {2, 3, 4}
+            <BLANKLINE>
 
-            >>> print(
-            ...     abjad.storage(
-            ...         microtones.PitchClassSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            ...     )
-            ... )
-            microtones.PitchClassSet(
-                [
-                    Fraction(4, 1),
-                    Fraction(3, 1),
-                    Fraction(1, 1),
-                    Fraction(0, 1),
-                    Fraction(11, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
+            {4, 3, 1, 0, 11}
+            <BLANKLINE>
 
         """
         transposed = [pitch + n for pitch in self.pitch_classes]
@@ -391,13 +333,16 @@ class PitchSet:
         ..  container:: example
 
             >>> microtones.PitchSet([0, 1, 6])
-            PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            {0, 1, 6}
+            <BLANKLINE>
 
             >>> microtones.PitchSet((0, 1, 6))
-            PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            {0, 1, 6}
+            <BLANKLINE>
 
             >>> microtones.PitchSet([0, (1, 6)])
-            PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            {0, 1, 6}
+            <BLANKLINE>
 
         """
         pitches = _flatten(pitches)
@@ -455,10 +400,13 @@ class PitchSet:
         ..  container:: example
 
             >>> microtones.PitchSet([0, 1, 2])
-            PitchSet([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            {0, 1, 2}
+            <BLANKLINE>
 
         """
-        return abjad.format.get_repr(self)
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def __str__(self):
         """
@@ -486,16 +434,9 @@ class PitchSet:
 
             >>> p_set = microtones.PitchSet(["0", "1/2", "5/4"])
             >>> p_set += [0, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
-            >>> print(abjad.storage(p_set))
-            microtones.PitchSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 2),
-                    Fraction(5, 4),
-                    Fraction(11, 6),
-                    Fraction(27, 2),
-                    ]
-                )
+            >>> p_set
+            {0, 1 / 2, 5 / 4, 11 / 6, 27 / 2}
+            <BLANKLINE>
 
         """
         argument = type(self)(argument)
@@ -542,20 +483,9 @@ class PitchSet:
 
             >>> pc_set = microtones.PitchSet([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
-            >>> print(abjad.storage(pc_set.complement(input_scale)))
-            microtones.PitchSet(
-                [
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    Fraction(5, 1),
-                    Fraction(6, 1),
-                    Fraction(7, 1),
-                    Fraction(8, 1),
-                    Fraction(9, 1),
-                    Fraction(10, 1),
-                    Fraction(11, 1),
-                    ]
-                )
+            >>> pc_set.complement(input_scale)
+            {3, 4, 5, 6, 7, 8, 9, 10, 11}
+            <BLANKLINE>
 
         """
         complements = []
@@ -570,23 +500,13 @@ class PitchSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSet([0, 1, 3]).invert()))
-            microtones.PitchSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(-1, 1),
-                    Fraction(-3, 1),
-                    ]
-                )
+            >>> microtones.PitchSet([0, 1, 3]).invert()
+            {0, -1, -3}
+            <BLANKLINE>
 
-            >>> print(abjad.storage(microtones.PitchSet([0, 1, 3]).invert(2)))
-            microtones.PitchSet(
-                [
-                    Fraction(4, 1),
-                    Fraction(3, 1),
-                    Fraction(1, 1),
-                    ]
-                )
+            >>> microtones.PitchSet([0, 1, 3]).invert(2)
+            {4, 3, 1}
+            <BLANKLINE>
 
         """
         axis = quicktions.Fraction(axis)
@@ -600,14 +520,9 @@ class PitchSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSet([0, 1, 3]).multiply(2)))
-            microtones.PitchSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(2, 1),
-                    Fraction(6, 1),
-                    ]
-                )
+            >>> microtones.PitchSet([0, 1, 3]).multiply(2)
+            {0, 2, 6}
+            <BLANKLINE>
 
         """
         multiplied_pitches = [quicktions.Fraction(n) * pitch for pitch in self.pitches]
@@ -619,14 +534,9 @@ class PitchSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSet([2, 1, 0]).sorted()))
-            microtones.PitchSet(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    ]
-                )
+            >>> microtones.PitchSet([2, 1, 0]).sorted()
+            {0, 1, 2}
+            <BLANKLINE>
 
         """
         return type(self)(sorted(self.pitches))
@@ -637,29 +547,13 @@ class PitchSet:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSet([0, 1, 2]).transpose(2)))
-            microtones.PitchSet(
-                [
-                    Fraction(2, 1),
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    ]
-                )
+            >>> microtones.PitchSet([0, 1, 2]).transpose(2)
+            {2, 3, 4}
+            <BLANKLINE>
 
-            >>> print(
-            ...     abjad.storage(
-            ...         microtones.PitchSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            ...     )
-            ... )
-            microtones.PitchSet(
-                [
-                    Fraction(4, 1),
-                    Fraction(3, 1),
-                    Fraction(1, 1),
-                    Fraction(0, 1),
-                    Fraction(-1, 1),
-                    ]
-                )
+            >>> microtones.PitchSet([0, 1, 3, 4, 5]).invert().transpose(1+3)
+            {4, 3, 1, 0, -1}
+            <BLANKLINE>
 
         """
         transposed = [pitch + n for pitch in self.pitches]
@@ -681,13 +575,16 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 6])
-            PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            (0, 1, 6)
+            <BLANKLINE>
 
             >>> microtones.PitchClassSegment((0, 1, 6))
-            PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            (0, 1, 6)
+            <BLANKLINE>
 
             >>> microtones.PitchClassSegment([0, (1, 6)])
-            PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            (0, 1, 6)
+            <BLANKLINE>
 
         """
         pitch_classes = _flatten(pitch_classes)
@@ -743,10 +640,13 @@ class PitchClassSegment:
         ..  container:: example
 
             >>> microtones.PitchClassSegment([0, 1, 2])
-            PitchClassSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            (0, 1, 2)
+            <BLANKLINE>
 
         """
-        return abjad.format.get_repr(self)
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def __str__(self):
         """
@@ -774,17 +674,9 @@ class PitchClassSegment:
 
             >>> pc_segment = microtones.PitchClassSegment(["0", "1/2", "5/4"])
             >>> pc_segment += [0, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
-            >>> print(abjad.storage(pc_segment))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 2),
-                    Fraction(5, 4),
-                    Fraction(0, 1),
-                    Fraction(11, 6),
-                    Fraction(3, 2),
-                    ]
-                )
+            >>> pc_segment
+            (0, 1 / 2, 5 / 4, 0, 11 / 6, 3 / 2)
+            <BLANKLINE>
 
         """
         argument = type(self)(argument)
@@ -825,20 +717,9 @@ class PitchClassSegment:
 
             >>> pc_set = microtones.PitchClassSegment([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
-            >>> print(abjad.storage(pc_set.complement(input_scale)))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    Fraction(5, 1),
-                    Fraction(6, 1),
-                    Fraction(7, 1),
-                    Fraction(8, 1),
-                    Fraction(9, 1),
-                    Fraction(10, 1),
-                    Fraction(11, 1),
-                    ]
-                )
+            >>> pc_set.complement(input_scale)
+            (3, 4, 5, 6, 7, 8, 9, 10, 11)
+            <BLANKLINE>
 
         """
         complements = []
@@ -853,23 +734,13 @@ class PitchClassSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 3]).invert()))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(0, 1),
-                    Fraction(11, 1),
-                    Fraction(9, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSegment([0, 1, 3]).invert()
+            (0, 11, 9)
+            <BLANKLINE>
 
-            >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 3]).invert(2)))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(4, 1),
-                    Fraction(3, 1),
-                    Fraction(1, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSegment([0, 1, 3]).invert(2)
+            (4, 3, 1)
+            <BLANKLINE>
 
         """
         axis = quicktions.Fraction(axis)
@@ -883,14 +754,9 @@ class PitchClassSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 3]).multiply(2)))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(0, 1),
-                    Fraction(2, 1),
-                    Fraction(6, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSegment([0, 1, 3]).multiply(2)
+            (0, 2, 6)
+            <BLANKLINE>
 
         """
         multiplied_pitch_classes = [
@@ -904,14 +770,9 @@ class PitchClassSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 2]).retrograde()))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(2, 1),
-                    Fraction(1, 1),
-                    Fraction(0, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSegment([0, 1, 2]).retrograde()
+            (2, 1, 0)
+            <BLANKLINE>
 
         """
         return type(self)(reversed(self.pitch_classes))
@@ -922,14 +783,9 @@ class PitchClassSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 2]).rotate(1)))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    Fraction(0, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSegment([0, 1, 2]).rotate(1)
+            (1, 2, 0)
+            <BLANKLINE>
 
         """
         copied_list = [i for i in self.pitch_classes]
@@ -943,14 +799,9 @@ class PitchClassSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSegment([2, 1, 0]).sorted()))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSegment([2, 1, 0]).sorted()
+            (0, 1, 2)
+            <BLANKLINE>
 
         """
         return type(self)(sorted(self.pitch_classes))
@@ -961,29 +812,13 @@ class PitchClassSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchClassSegment([0, 1, 2]).transpose(2)))
-            microtones.PitchClassSegment(
-                [
-                    Fraction(2, 1),
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSegment([0, 1, 2]).transpose(2)
+            (2, 3, 4)
+            <BLANKLINE>
 
-            >>> print(
-            ...     abjad.storage(
-            ...         microtones.PitchClassSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            ...     )
-            ... )
-            microtones.PitchClassSegment(
-                [
-                    Fraction(4, 1),
-                    Fraction(3, 1),
-                    Fraction(1, 1),
-                    Fraction(0, 1),
-                    Fraction(11, 1),
-                    ]
-                )
+            >>> microtones.PitchClassSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
+            (4, 3, 1, 0, 11)
+            <BLANKLINE>
 
         """
         transposed = [pitch + n for pitch in self.pitch_classes]
@@ -1005,13 +840,16 @@ class PitchSegment:
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 6])
-            PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            (0, 1, 6)
+            <BLANKLINE>
 
             >>> microtones.PitchSegment((0, 1, 6))
-            PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            (0, 1, 6)
+            <BLANKLINE>
 
             >>> microtones.PitchSegment([0, (1, 6)])
-            PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(6, 1)])
+            (0, 1, 6)
+            <BLANKLINE>
 
         """
         pitches = _flatten(pitches)
@@ -1037,14 +875,9 @@ class PitchSegment:
 
             >>> s = microtones.PitchSegment([0, 1, 6])
             >>> s[0] = 5
-            >>> print(abjad.storage(s))
-            microtones.PitchSegment(
-                [
-                    Fraction(5, 1),
-                    Fraction(1, 1),
-                    Fraction(6, 1),
-                    ]
-                )
+            >>> s
+            (5, 1, 6)
+            <BLANKLINE>
 
         """
         self.pitches[index] = quicktions.Fraction(data)
@@ -1085,10 +918,13 @@ class PitchSegment:
         ..  container:: example
 
             >>> microtones.PitchSegment([0, 1, 2])
-            PitchSegment([Fraction(0, 1), Fraction(1, 1), Fraction(2, 1)])
+            (0, 1, 2)
+            <BLANKLINE>
 
         """
-        return abjad.format.get_repr(self)
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def __str__(self):
         """
@@ -1116,17 +952,9 @@ class PitchSegment:
 
             >>> p_segment = microtones.PitchSegment(["0", "1/2", "5/4"])
             >>> p_segment += [0, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
-            >>> print(abjad.storage(p_segment))
-            microtones.PitchSegment(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 2),
-                    Fraction(5, 4),
-                    Fraction(0, 1),
-                    Fraction(11, 6),
-                    Fraction(27, 2),
-                    ]
-                )
+            >>> p_segment
+            (0, 1 / 2, 5 / 4, 0, 11 / 6, 27 / 2)
+            <BLANKLINE>
 
         """
         argument = type(self)(argument)
@@ -1167,20 +995,9 @@ class PitchSegment:
 
             >>> pc_set = microtones.PitchSegment([0, 1, 2])
             >>> input_scale = [i for i in range(12)]
-            >>> print(abjad.storage(pc_set.complement(input_scale)))
-            microtones.PitchSegment(
-                [
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    Fraction(5, 1),
-                    Fraction(6, 1),
-                    Fraction(7, 1),
-                    Fraction(8, 1),
-                    Fraction(9, 1),
-                    Fraction(10, 1),
-                    Fraction(11, 1),
-                    ]
-                )
+            >>> pc_set.complement(input_scale)
+            (3, 4, 5, 6, 7, 8, 9, 10, 11)
+            <BLANKLINE>
 
         """
         complements = []
@@ -1195,23 +1012,13 @@ class PitchSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSegment([0, 1, 3]).invert()))
-            microtones.PitchSegment(
-                [
-                    Fraction(0, 1),
-                    Fraction(-1, 1),
-                    Fraction(-3, 1),
-                    ]
-                )
+            >>> microtones.PitchSegment([0, 1, 3]).invert()
+            (0, -1, -3)
+            <BLANKLINE>
 
-            >>> print(abjad.storage(microtones.PitchSegment([0, 1, 3]).invert(2)))
-            microtones.PitchSegment(
-                [
-                    Fraction(4, 1),
-                    Fraction(3, 1),
-                    Fraction(1, 1),
-                    ]
-                )
+            >>> microtones.PitchSegment([0, 1, 3]).invert(2)
+            (4, 3, 1)
+            <BLANKLINE>
 
         """
         axis = quicktions.Fraction(axis)
@@ -1225,14 +1032,9 @@ class PitchSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSegment([0, 1, 3]).multiply(2)))
-            microtones.PitchSegment(
-                [
-                    Fraction(0, 1),
-                    Fraction(2, 1),
-                    Fraction(6, 1),
-                    ]
-                )
+            >>> microtones.PitchSegment([0, 1, 3]).multiply(2)
+            (0, 2, 6)
+            <BLANKLINE>
 
         """
         multiplied_pitches = [quicktions.Fraction(n) * pitch for pitch in self.pitches]
@@ -1244,14 +1046,9 @@ class PitchSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSegment([0, 1, 2]).retrograde()))
-            microtones.PitchSegment(
-                [
-                    Fraction(2, 1),
-                    Fraction(1, 1),
-                    Fraction(0, 1),
-                    ]
-                )
+            >>> microtones.PitchSegment([0, 1, 2]).retrograde()
+            (2, 1, 0)
+            <BLANKLINE>
 
         """
         return type(self)(reversed(self.pitches))
@@ -1262,14 +1059,9 @@ class PitchSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSegment([0, 1, 2]).rotate(1)))
-            microtones.PitchSegment(
-                [
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    Fraction(0, 1),
-                    ]
-                )
+            >>> microtones.PitchSegment([0, 1, 2]).rotate(1)
+            (1, 2, 0)
+            <BLANKLINE>
 
         """
         copied_list = [i for i in self.pitches]
@@ -1283,14 +1075,9 @@ class PitchSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSegment([2, 1, 0]).sorted()))
-            microtones.PitchSegment(
-                [
-                    Fraction(0, 1),
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    ]
-                )
+            >>> microtones.PitchSegment([2, 1, 0]).sorted()
+            (0, 1, 2)
+            <BLANKLINE>
 
         """
         return type(self)(sorted(self.pitches))
@@ -1301,29 +1088,13 @@ class PitchSegment:
 
         ..  container:: example
 
-            >>> print(abjad.storage(microtones.PitchSegment([0, 1, 2]).transpose(2)))
-            microtones.PitchSegment(
-                [
-                    Fraction(2, 1),
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    ]
-                )
+            >>> microtones.PitchSegment([0, 1, 2]).transpose(2)
+            (2, 3, 4)
+            <BLANKLINE>
 
-            >>> print(
-            ...     abjad.storage(
-            ...         microtones.PitchSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
-            ...     )
-            ... )
-            microtones.PitchSegment(
-                [
-                    Fraction(4, 1),
-                    Fraction(3, 1),
-                    Fraction(1, 1),
-                    Fraction(0, 1),
-                    Fraction(-1, 1),
-                    ]
-                )
+            >>> microtones.PitchSegment([0, 1, 3, 4, 5]).invert().transpose(1+3)
+            (4, 3, 1, 0, -1)
+            <BLANKLINE>
 
         """
         transposed = [pitch + n for pitch in self.pitches]
@@ -1346,13 +1117,16 @@ class RatioClassSet:
         ..  container:: example
 
             >>> microtones.RatioClassSet([1, 2, 3])
-            RatioClassSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            {1, 2, 3 / 2}
+            <BLANKLINE>
 
             >>> microtones.RatioClassSet((1, 2, 3))
-            RatioClassSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            {1, 2, 3 / 2}
+            <BLANKLINE>
 
             >>> microtones.RatioClassSet([1, (2, 3)])
-            RatioClassSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            {1, 2, 3 / 2}
+            <BLANKLINE>
 
         """
         ratio_classes = _flatten(ratio_classes)
@@ -1423,10 +1197,13 @@ class RatioClassSet:
         ..  container:: example
 
             >>> microtones.RatioClassSet([1, 2, 3])
-            RatioClassSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            {1, 2, 3 / 2}
+            <BLANKLINE>
 
         """
-        return abjad.format.get_repr(self)
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def __str__(self):
         """
@@ -1454,15 +1231,9 @@ class RatioClassSet:
 
             >>> rc_set = microtones.RatioClassSet(["1", "1/2", "5/4"])
             >>> rc_set += [1, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
-            >>> print(abjad.storage(rc_set))
-            microtones.RatioClassSet(
-                [
-                    Fraction(1, 1),
-                    Fraction(5, 4),
-                    Fraction(11, 6),
-                    Fraction(27, 16),
-                    ]
-                )
+            >>> rc_set
+            {1, 5 / 4, 11 / 6, 27 / 16}
+            <BLANKLINE>
 
         """
         argument = type(self)(argument)
@@ -1491,17 +1262,9 @@ class RatioClassSet:
             >>> rc_set = microtones.RatioClassSet([1, 2, 3])
             >>> input_scale = [i + 1 for i in range(11)]
             >>> s = rc_set.complement(input_scale)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSet(
-                [
-                    Fraction(3, 2),
-                    Fraction(2, 1),
-                    Fraction(5, 4),
-                    Fraction(7, 4),
-                    Fraction(9, 8),
-                    Fraction(11, 8),
-                    ]
-                )
+            >>> s
+            {3 / 2, 2, 5 / 4, 7 / 4, 9 / 8, 11 / 8}
+            <BLANKLINE>
 
         """
         complements = []
@@ -1517,22 +1280,14 @@ class RatioClassSet:
         ..  container:: example
 
             >>> s = microtones.RatioClassSet([2, 4, 3]).invert()
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSet(
-                [
-                    Fraction(1, 1),
-                    Fraction(4, 3),
-                    ]
-                )
+            >>> s
+            {1, 4 / 3}
+            <BLANKLINE>
 
             >>> s = microtones.RatioClassSet([2, 4, 3]).invert(3)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSet(
-                [
-                    Fraction(9, 8),
-                    Fraction(3, 2),
-                    ]
-                )
+            >>> s
+            {9 / 8, 3 / 2}
+            <BLANKLINE>
 
         """
         axis = quicktions.Fraction(axis)
@@ -1548,13 +1303,9 @@ class RatioClassSet:
         ..  container:: example
 
             >>> s = microtones.RatioClassSet([1, 2, 3]).multiply(2)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSet(
-                [
-                    Fraction(2, 1),
-                    Fraction(3, 2),
-                    ]
-                )
+            >>> s
+            {2, 3 / 2}
+            <BLANKLINE>
 
         """
         multiplied_pitch_classes = [
@@ -1569,16 +1320,9 @@ class RatioClassSet:
         ..  container:: example
 
             >>> s = microtones.RatioClassSet([5, 2, 3, "1/2", 1, "1/5"]).sorted()
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSet(
-                [
-                    Fraction(1, 1),
-                    Fraction(5, 4),
-                    Fraction(3, 2),
-                    Fraction(8, 5),
-                    Fraction(2, 1),
-                    ]
-                )
+            >>> s
+            {1, 5 / 4, 3 / 2, 8 / 5, 2}
+            <BLANKLINE>
 
         """
         return type(self)(sorted(self.ratio_classes))
@@ -1590,24 +1334,14 @@ class RatioClassSet:
         ..  container:: example
 
             >>> s = microtones.RatioClassSet([1, 2, 3]).transpose(2)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSet(
-                [
-                    Fraction(3, 2),
-                    Fraction(2, 1),
-                    Fraction(7, 4),
-                    ]
-                )
+            >>> s
+            {3 / 2, 2, 7 / 4}
+            <BLANKLINE>
 
             >>> s = microtones.RatioClassSet([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSet(
-                [
-                    Fraction(5, 4),
-                    Fraction(7, 5),
-                    Fraction(4, 3),
-                    ]
-                )
+            >>> s
+            {5 / 4, 7 / 5, 4 / 3}
+            <BLANKLINE>
 
         """
         transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratio_classes]
@@ -1629,13 +1363,16 @@ class RatioSet:
         ..  container:: example
 
             >>> microtones.RatioSet([1, 2, 3])
-            RatioSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
+            {1, 2, 3}
+            <BLANKLINE>
 
             >>> microtones.RatioSet((1, 2, 3))
-            RatioSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
+            {1, 2, 3}
+            <BLANKLINE>
 
             >>> microtones.RatioSet([1, (2, 3)])
-            RatioSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
+            {1, 2, 3}
+            <BLANKLINE>
 
         """
         ratios = _flatten(ratios)
@@ -1702,10 +1439,13 @@ class RatioSet:
         ..  container:: example
 
             >>> microtones.RatioSet([1, 2, 3])
-            RatioSet([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
+            {1, 2, 3}
+            <BLANKLINE>
 
         """
-        return abjad.format.get_repr(self)
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def __str__(self):
         """
@@ -1734,16 +1474,9 @@ class RatioSet:
             >>> r_set = microtones.RatioSet(["1", "1/2", "5/4"])
             >>> r_set += [1, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> s = r_set
-            >>> print(abjad.storage(s))
-            microtones.RatioSet(
-                [
-                    Fraction(1, 1),
-                    Fraction(1, 2),
-                    Fraction(5, 4),
-                    Fraction(11, 6),
-                    Fraction(27, 2),
-                    ]
-                )
+            >>> s
+            {1, 1 / 2, 5 / 4, 11 / 6, 27 / 2}
+            <BLANKLINE>
 
         """
         argument = type(self)(argument)
@@ -1791,19 +1524,9 @@ class RatioSet:
             >>> r_set = microtones.RatioSet([1, 2, 3])
             >>> input_scale = [i + 1 for i in range(11)]
             >>> s = r_set.complement(input_scale)
-            >>> print(abjad.storage(s))
-            microtones.RatioSet(
-                [
-                    Fraction(4, 1),
-                    Fraction(5, 1),
-                    Fraction(6, 1),
-                    Fraction(7, 1),
-                    Fraction(8, 1),
-                    Fraction(9, 1),
-                    Fraction(10, 1),
-                    Fraction(11, 1),
-                    ]
-                )
+            >>> s
+            {4, 5, 6, 7, 8, 9, 10, 11}
+            <BLANKLINE>
 
         """
         complements = []
@@ -1819,24 +1542,14 @@ class RatioSet:
         ..  container:: example
 
             >>> s = microtones.RatioSet([2, 4, 3]).invert()
-            >>> print(abjad.storage(s))
-            microtones.RatioSet(
-                [
-                    Fraction(1, 2),
-                    Fraction(1, 4),
-                    Fraction(1, 3),
-                    ]
-                )
+            >>> s
+            {1 / 2, 1 / 4, 1 / 3}
+            <BLANKLINE>
 
             >>> s = microtones.RatioSet([2, 4, 3]).invert(3)
-            >>> print(abjad.storage(s))
-            microtones.RatioSet(
-                [
-                    Fraction(9, 2),
-                    Fraction(9, 4),
-                    Fraction(3, 1),
-                    ]
-                )
+            >>> s
+            {9 / 2, 9 / 4, 3}
+            <BLANKLINE>
 
         """
         axis = quicktions.Fraction(axis)
@@ -1852,14 +1565,9 @@ class RatioSet:
         ..  container:: example
 
             >>> s = microtones.RatioSet([1, 2, 3]).multiply(2)
-            >>> print(abjad.storage(s))
-            microtones.RatioSet(
-                [
-                    Fraction(2, 1),
-                    Fraction(4, 1),
-                    Fraction(6, 1),
-                    ]
-                )
+            >>> s
+            {2, 4, 6}
+            <BLANKLINE>
 
         """
         multiplied_pitch_classes = [
@@ -1874,14 +1582,9 @@ class RatioSet:
         ..  container:: example
 
             >>> s = microtones.RatioSet([5, 2, 3]).sorted()
-            >>> print(abjad.storage(s))
-            microtones.RatioSet(
-                [
-                    Fraction(2, 1),
-                    Fraction(3, 1),
-                    Fraction(5, 1),
-                    ]
-                )
+            >>> s
+            {2, 3, 5}
+            <BLANKLINE>
 
         """
         return type(self)(sorted(self.ratios))
@@ -1893,26 +1596,14 @@ class RatioSet:
         ..  container:: example
 
             >>> s = microtones.RatioSet([1, 2, 3]).transpose(2)
-            >>> print(abjad.storage(s))
-            microtones.RatioSet(
-                [
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    Fraction(5, 1),
-                    ]
-                )
+            >>> s
+            {3, 4, 5}
+            <BLANKLINE>
 
             >>> s = microtones.RatioSet([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            >>> print(abjad.storage(s))
-            microtones.RatioSet(
-                [
-                    Fraction(5, 1),
-                    Fraction(9, 2),
-                    Fraction(17, 4),
-                    Fraction(21, 5),
-                    Fraction(25, 6),
-                    ]
-                )
+            >>> s
+            {5, 9 / 2, 17 / 4, 21 / 5, 25 / 6}
+            <BLANKLINE>
 
         """
         transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratios]
@@ -1934,13 +1625,16 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> microtones.RatioClassSegment([1, 2, 3])
-            RatioClassSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            (1, 2, 3 / 2)
+            <BLANKLINE>
 
             >>> microtones.RatioClassSegment((1, 2, 3))
-            RatioClassSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            (1, 2, 3 / 2)
+            <BLANKLINE>
 
             >>> microtones.RatioClassSegment([1, (2, 3)])
-            RatioClassSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            (1, 2, 3 / 2)
+            <BLANKLINE>
 
         """
         ratio_classes = _flatten(ratio_classes)
@@ -2011,10 +1705,13 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> microtones.RatioClassSegment([1, 2, 3])
-            RatioClassSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            (1, 2, 3 / 2)
+            <BLANKLINE>
 
         """
-        return abjad.format.get_repr(self)
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def __str__(self):
         """
@@ -2043,17 +1740,9 @@ class RatioClassSegment:
             >>> rc_segment = microtones.RatioClassSegment(["1", "1/2", "5/4"])
             >>> rc_segment += [1, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> s = rc_segment
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(1, 1),
-                    Fraction(1, 1),
-                    Fraction(5, 4),
-                    Fraction(1, 1),
-                    Fraction(11, 6),
-                    Fraction(27, 16),
-                    ]
-                )
+            >>> s
+            (1, 1, 5 / 4, 1, 11 / 6, 27 / 16)
+            <BLANKLINE>
 
         """
         argument = type(self)(argument)
@@ -2082,20 +1771,9 @@ class RatioClassSegment:
             >>> pc_segment = microtones.RatioClassSegment([1, 2, 3])
             >>> input_scale = [i + 1 for i in range(11)]
             >>> s = pc_segment.complement(input_scale)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(3, 2),
-                    Fraction(2, 1),
-                    Fraction(5, 4),
-                    Fraction(3, 2),
-                    Fraction(7, 4),
-                    Fraction(2, 1),
-                    Fraction(9, 8),
-                    Fraction(5, 4),
-                    Fraction(11, 8),
-                    ]
-                )
+            >>> s
+            (3 / 2, 2, 5 / 4, 3 / 2, 7 / 4, 2, 9 / 8, 5 / 4, 11 / 8)
+            <BLANKLINE>
 
         """
         complements = []
@@ -2111,24 +1789,14 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> s = microtones.RatioClassSegment([2, 4, 3]).invert()
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(1, 1),
-                    Fraction(1, 1),
-                    Fraction(4, 3),
-                    ]
-                )
+            >>> s
+            (1, 1, 4 / 3)
+            <BLANKLINE>
 
             >>> s = microtones.RatioClassSegment([2, 4, 3]).invert(3)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(9, 8),
-                    Fraction(9, 8),
-                    Fraction(3, 2),
-                    ]
-                )
+            >>> s
+            (9 / 8, 9 / 8, 3 / 2)
+            <BLANKLINE>
 
         """
         axis = quicktions.Fraction(axis)
@@ -2144,14 +1812,9 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> s = microtones.RatioClassSegment([1, 2, 3]).multiply(2)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(2, 1),
-                    Fraction(2, 1),
-                    Fraction(3, 2),
-                    ]
-                )
+            >>> s
+            (2, 2, 3 / 2)
+            <BLANKLINE>
 
         """
         multiplied_pitch_classes = [
@@ -2166,15 +1829,9 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> s = microtones.RatioClassSegment([1, 2, 3, 3]).retrograde()
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(3, 2),
-                    Fraction(3, 2),
-                    Fraction(2, 1),
-                    Fraction(1, 1),
-                    ]
-                )
+            >>> s
+            (3 / 2, 3 / 2, 2, 1)
+            <BLANKLINE>
 
         """
         return type(self)(reversed(self.ratio_classes))
@@ -2186,14 +1843,9 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> s = microtones.RatioClassSegment([1, 2, 3]).rotate(1)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(2, 1),
-                    Fraction(3, 2),
-                    Fraction(1, 1),
-                    ]
-                )
+            >>> s
+            (2, 3 / 2, 1)
+            <BLANKLINE>
 
         """
         copied_list = [i for i in self.ratio_classes]
@@ -2208,17 +1860,9 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> s = microtones.RatioClassSegment([5, 2, 3, "1/2", 1, "1/5"]).sorted()
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(1, 1),
-                    Fraction(1, 1),
-                    Fraction(5, 4),
-                    Fraction(3, 2),
-                    Fraction(8, 5),
-                    Fraction(2, 1),
-                    ]
-                )
+            >>> s
+            (1, 1, 5 / 4, 3 / 2, 8 / 5, 2)
+            <BLANKLINE>
 
         """
         return type(self)(sorted(self.ratio_classes))
@@ -2230,26 +1874,14 @@ class RatioClassSegment:
         ..  container:: example
 
             >>> s = microtones.RatioClassSegment([1, 2, 3]).transpose(2)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(3, 2),
-                    Fraction(2, 1),
-                    Fraction(7, 4),
-                    ]
-                )
+            >>> s
+            (3 / 2, 2, 7 / 4)
+            <BLANKLINE>
 
             >>> s = microtones.RatioClassSegment([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            >>> print(abjad.storage(s))
-            microtones.RatioClassSegment(
-                [
-                    Fraction(5, 4),
-                    Fraction(5, 4),
-                    Fraction(5, 4),
-                    Fraction(7, 5),
-                    Fraction(4, 3),
-                    ]
-                )
+            >>> s
+            (5 / 4, 5 / 4, 5 / 4, 7 / 5, 4 / 3)
+            <BLANKLINE>
 
         """
         transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratio_classes]
@@ -2271,13 +1903,16 @@ class RatioSegment:
         ..  container:: example
 
             >>> microtones.RatioSegment([1, 2, "3/2"])
-            RatioSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            (1, 2, 3 / 2)
+            <BLANKLINE>
 
             >>> microtones.RatioSegment((1, 2, "3/2"))
-            RatioSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2)])
+            (1, 2, 3 / 2)
+            <BLANKLINE>
 
             >>> microtones.RatioSegment([1, [2, "3/2"], (4, 5)])
-            RatioSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 2), Fraction(4, 1), Fraction(5, 1)])
+            (1, 2, 3 / 2, 4, 5)
+            <BLANKLINE>
 
         """
         ratios = _flatten(ratios)
@@ -2307,14 +1942,9 @@ class RatioSegment:
 
             >>> s = microtones.RatioSegment([1, 2, 3])
             >>> s[1] = 5
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(1, 1),
-                    Fraction(5, 1),
-                    Fraction(3, 1),
-                    ]
-                )
+            >>> s
+            (1, 5, 3)
+            <BLANKLINE>
 
         """
         self.ratios[index] = quicktions.Fraction(data)
@@ -2364,10 +1994,13 @@ class RatioSegment:
         ..  container:: example
 
             >>> microtones.RatioSegment([1, 2, 3])
-            RatioSegment([Fraction(1, 1), Fraction(2, 1), Fraction(3, 1)])
+            (1, 2, 3)
+            <BLANKLINE>
 
         """
-        return abjad.format.get_repr(self)
+        string = str(self)
+        string = black.format_str(string, mode=black.mode.Mode())
+        return string
 
     def __str__(self):
         """
@@ -2396,17 +2029,9 @@ class RatioSegment:
             >>> r_segment = microtones.RatioSegment(["1", "1/2", "5/4"])
             >>> r_segment += [1, quicktions.Fraction(11, 6), quicktions.Fraction(27, 2)]
             >>> s = r_segment
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(1, 1),
-                    Fraction(1, 2),
-                    Fraction(5, 4),
-                    Fraction(1, 1),
-                    Fraction(11, 6),
-                    Fraction(27, 2),
-                    ]
-                )
+            >>> s
+            (1, 1 / 2, 5 / 4, 1, 11 / 6, 27 / 2)
+            <BLANKLINE>
 
         """
         argument = type(self)(argument)
@@ -2454,19 +2079,9 @@ class RatioSegment:
             >>> pc_segment = microtones.RatioSegment([1, 2, 3])
             >>> input_scale = [i + 1 for i in range(11)]
             >>> s = pc_segment.complement(input_scale)
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(4, 1),
-                    Fraction(5, 1),
-                    Fraction(6, 1),
-                    Fraction(7, 1),
-                    Fraction(8, 1),
-                    Fraction(9, 1),
-                    Fraction(10, 1),
-                    Fraction(11, 1),
-                    ]
-                )
+            >>> s
+            (4, 5, 6, 7, 8, 9, 10, 11)
+            <BLANKLINE>
 
         """
         complements = []
@@ -2482,24 +2097,14 @@ class RatioSegment:
         ..  container:: example
 
             >>> s = microtones.RatioSegment([2, 4, 3]).invert()
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(1, 2),
-                    Fraction(1, 4),
-                    Fraction(1, 3),
-                    ]
-                )
+            >>> s
+            (1 / 2, 1 / 4, 1 / 3)
+            <BLANKLINE>
 
             >>> s = microtones.RatioSegment([2, 4, 3]).invert(3)
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(9, 2),
-                    Fraction(9, 4),
-                    Fraction(3, 1),
-                    ]
-                )
+            >>> s
+            (9 / 2, 9 / 4, 3)
+            <BLANKLINE>
 
         """
         axis = quicktions.Fraction(axis)
@@ -2515,14 +2120,9 @@ class RatioSegment:
         ..  container:: example
 
             >>> s = microtones.RatioSegment([1, 2, 3]).multiply(2)
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(2, 1),
-                    Fraction(4, 1),
-                    Fraction(6, 1),
-                    ]
-                )
+            >>> s
+            (2, 4, 6)
+            <BLANKLINE>
 
         """
         multiplied_pitch_classes = [
@@ -2537,15 +2137,9 @@ class RatioSegment:
         ..  container:: example
 
             >>> s = microtones.RatioSegment([1, 2, 3, 3]).retrograde()
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(3, 1),
-                    Fraction(3, 1),
-                    Fraction(2, 1),
-                    Fraction(1, 1),
-                    ]
-                )
+            >>> s
+            (3, 3, 2, 1)
+            <BLANKLINE>
 
         """
         return type(self)(reversed(self.ratios))
@@ -2557,14 +2151,9 @@ class RatioSegment:
         ..  container:: example
 
             >>> s = microtones.RatioSegment([1, 2, 3]).rotate(1)
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(2, 1),
-                    Fraction(3, 1),
-                    Fraction(1, 1),
-                    ]
-                )
+            >>> s
+            (2, 3, 1)
+            <BLANKLINE>
 
         """
         copied_list = [i for i in self.ratios]
@@ -2579,17 +2168,9 @@ class RatioSegment:
         ..  container:: example
 
             >>> s = microtones.RatioSegment([5, 2, 3, "1/2", 1, "1/5"]).sorted()
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(1, 5),
-                    Fraction(1, 2),
-                    Fraction(1, 1),
-                    Fraction(2, 1),
-                    Fraction(3, 1),
-                    Fraction(5, 1),
-                    ]
-                )
+            >>> s
+            (1 / 5, 1 / 2, 1, 2, 3, 5)
+            <BLANKLINE>
 
         """
         return type(self)(sorted(self.ratios))
@@ -2601,26 +2182,14 @@ class RatioSegment:
         ..  container:: example
 
             >>> s = microtones.RatioSegment([1, 2, 3]).transpose(2)
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(3, 1),
-                    Fraction(4, 1),
-                    Fraction(5, 1),
-                    ]
-                )
+            >>> s
+            (3, 4, 5)
+            <BLANKLINE>
 
             >>> s = microtones.RatioSegment([1, 2, 4, 5, 6]).invert().transpose(1+3)
-            >>> print(abjad.storage(s))
-            microtones.RatioSegment(
-                [
-                    Fraction(5, 1),
-                    Fraction(9, 2),
-                    Fraction(17, 4),
-                    Fraction(21, 5),
-                    Fraction(25, 6),
-                    ]
-                )
+            >>> s
+            (5, 9 / 2, 17 / 4, 21 / 5, 25 / 6)
+            <BLANKLINE>
 
         """
         transposed = [ratio + quicktions.Fraction(n) for ratio in self.ratios]
