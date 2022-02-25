@@ -432,7 +432,8 @@ def return_cent_deviation_markup(
         p_string = f"{fundamental}4"
         demo_note = abjad.Note(p_string)
         demo_head = demo_note.note_head
-        tune_to_ratio(demo_head, quicktions.Fraction(ratio) * quicktions.Fraction(9, 8))
+        # tune_to_ratio(demo_head, quicktions.Fraction(ratio) * quicktions.Fraction(9, 8)) # for Rag'sma only
+        tune_to_ratio(demo_head, quicktions.Fraction(ratio))
         pitch = abjad.NumberedPitch(demo_head.written_pitch)
     if 50 < abs(final_cents):
         if chris is False:
