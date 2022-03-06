@@ -461,17 +461,30 @@ def return_cent_deviation_markup(
                 pitch_string = str(abjad.NamedPitchClass(pitch))
                 pos, acc = pitch_string[0], pitch_string[1:]
                 pos = pos.capitalize()
-                acc = acc.replace("s", "♯")
-                acc = acc.replace("f", "♭")
+                acc = acc.replace(
+                    "s",
+                    r"\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                )
+                acc = acc.replace(
+                    "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
+                )
                 cent_string = pos + acc + cent_string
-                cent_string = cent_string.replace("A♭", "G♯")
+                cent_string = cent_string.replace(
+                    r"A\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 ",
+                    r"G\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                )
         if chris is False:
             if pitch is not None:
                 pitch_string = str(abjad.NamedPitchClass(pitch))
                 pos, acc = pitch_string[0], pitch_string[1:]
                 pos = pos.capitalize()
-                acc = acc.replace("s", "♯")
-                acc = acc.replace("f", "♭")
+                acc = acc.replace(
+                    "s",
+                    r"\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                )
+                acc = acc.replace(
+                    "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
+                )
                 cent_string = pos + acc + cent_string
     else:
         cent_string = f"+{final_cents}"
@@ -480,17 +493,30 @@ def return_cent_deviation_markup(
                 pitch_string = str(abjad.NamedPitchClass(pitch))
                 pos, acc = pitch_string[0], pitch_string[1:]
                 pos = pos.capitalize()
-                acc = acc.replace("s", "♯")
-                acc = acc.replace("f", "♭")
+                acc = acc.replace(
+                    "s",
+                    r"\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                )
+                acc = acc.replace(
+                    "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
+                )
                 cent_string = pos + acc + cent_string
-                cent_string = cent_string.replace("A♭", "G♯")
+                cent_string = cent_string.replace(
+                    r"A\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 ",
+                    r"G\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                )
         if chris is False:
             if pitch is not None:
                 pitch_string = str(abjad.NamedPitchClass(pitch))
                 pos, acc = pitch_string[0], pitch_string[1:]
                 pos = pos.capitalize()
-                acc = acc.replace("s", "♯")
-                acc = acc.replace("f", "♭")
+                acc = acc.replace(
+                    "s",
+                    r"\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                )
+                acc = acc.replace(
+                    "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
+                )
                 cent_string = pos + acc + cent_string
     mark = abjad.Markup(
         rf"\markup \center-align {{ {cent_string} }}",
