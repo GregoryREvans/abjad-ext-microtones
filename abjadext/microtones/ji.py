@@ -518,10 +518,7 @@ def return_cent_deviation_markup(
                     "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
                 )
                 cent_string = pos + acc + cent_string
-    mark = abjad.Markup(
-        rf"\markup \center-align {{ {cent_string} }}",
-        direction=abjad.Up,
-    )
+    mark = abjad.Markup(rf"\markup \center-align {{ {cent_string} }}")
     return mark
 
 
@@ -776,12 +773,16 @@ def tune_to_ratio(
     if tempered is True:
         tempered_accidental = note_head.written_pitch.accidental.name
         tempered_accidental = tempered_accidental.replace(" ", "-")
-        manager = abjad.tweak(note_head, literal=True)
-        manager.Accidental.stencil = r"#ly:text-interface::print"
-        manager.Accidental.text = rf"\tempered-{tempered_accidental}"
+        # manager = abjad.tweak(note_head, literal=True)
+        # manager.Accidental.stencil = r"#ly:text-interface::print"
+        abjad.tweak(note_head, r"\tweak Accidental.stencil #ly:text-interface::print")
+        # manager.Accidental.text = rf"\tempered-{tempered_accidental}"
+        abjad.tweak(note_head, rf"\tweak Accidental.text \tempered-{tempered_accidental}")
     else:
         markup = bundle.vector.calculate_ji_markup()
-        manager = abjad.tweak(note_head, literal=True)
-        manager.Accidental.stencil = r"#ly:text-interface::print"
+        # manager = abjad.tweak(note_head, literal=True)
+        # manager.Accidental.stencil = r"#ly:text-interface::print"
+        abjad.tweak(note_head, r"\tweak Accidental.stencil #ly:text-interface::print")
         alteration_literal = markup
-        manager.Accidental.text = alteration_literal
+        # manager.Accidental.text = alteration_literal
+        abjad.tweak(note_head, rf"\tweak Accidental.text {alteration_literal.string}")

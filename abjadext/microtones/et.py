@@ -445,6 +445,8 @@ def apply_alteration(note_head, value, spell=None):
     pitch = note_head.written_pitch
     bundle = get_alteration(pitch, value, spell)
     note_head.written_pitch = bundle.pitch
-    string = r"#ly:text-interface::print"
-    abjad.tweak(note_head, literal=True).Accidental.stencil = string
-    abjad.tweak(note_head, literal=True).Accidental.text = bundle.accidental_string
+    # string = r"#ly:text-interface::print"
+    # abjad.tweak(note_head, literal=True).Accidental.stencil = string
+    abjad.tweak(note_head, r"\tweak Accidental.stencil #ly:text-interface::print")
+    # abjad.tweak(note_head, literal=True).Accidental.text = bundle.accidental_string
+    abjad.tweak(note_head, rf"\tweak Accidental.text {bundle.accidental_string}") # WARNING: may need .string if markup?
