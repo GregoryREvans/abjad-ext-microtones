@@ -429,7 +429,7 @@ def return_cent_deviation_markup(
     if chris is True:
         final_cents = round(float(cent_difference), 2)
     if chris is True:
-        p_string = f"{fundamental}4"
+        p_string = f"{fundamental.name}4"
         demo_note = abjad.Note(p_string)
         demo_head = demo_note.note_head
         # tune_to_ratio(demo_head, quicktions.Fraction(ratio) * quicktions.Fraction(9, 8)) # for Rag'sma only
@@ -437,7 +437,8 @@ def return_cent_deviation_markup(
         pitch = abjad.NumberedPitch(demo_head.written_pitch)
     if 50 < abs(final_cents):
         if chris is False:
-            p_string = f"{fundamental}4"
+            p_string = f"{fundamental.name}4"
+            # raise Exception(p_string)
             demo_note = abjad.Note(p_string)
             demo_head = demo_note.note_head
             tune_to_ratio(demo_head, ratio)
@@ -458,7 +459,7 @@ def return_cent_deviation_markup(
         cent_string = f"{final_cents}"
         if chris is True:
             if not cent_string[0].isalpha():
-                pitch_string = str(abjad.NamedPitchClass(pitch))
+                pitch_string = str(abjad.NamedPitchClass(pitch).name)
                 pos, acc = pitch_string[0], pitch_string[1:]
                 pos = pos.capitalize()
                 acc = acc.replace(
@@ -475,7 +476,7 @@ def return_cent_deviation_markup(
                 )
         if chris is False:
             if pitch is not None:
-                pitch_string = str(abjad.NamedPitchClass(pitch))
+                pitch_string = str(abjad.NamedPitchClass(pitch).name)
                 pos, acc = pitch_string[0], pitch_string[1:]
                 pos = pos.capitalize()
                 acc = acc.replace(
