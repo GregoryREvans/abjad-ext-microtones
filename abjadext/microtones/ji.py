@@ -491,7 +491,7 @@ def return_cent_deviation_markup(
         cent_string = f"+{final_cents}"
         if chris is True:
             if not cent_string[0].isalpha():
-                pitch_string = str(abjad.NamedPitchClass(pitch))
+                pitch_string = str(abjad.NamedPitchClass(pitch).name)
                 pos, acc = pitch_string[0], pitch_string[1:]
                 pos = pos.capitalize()
                 acc = acc.replace(
@@ -508,7 +508,7 @@ def return_cent_deviation_markup(
                 )
         if chris is False:
             if pitch is not None:
-                pitch_string = str(abjad.NamedPitchClass(pitch))
+                pitch_string = str(abjad.NamedPitchClass(pitch).name)
                 pos, acc = pitch_string[0], pitch_string[1:]
                 pos = pos.capitalize()
                 acc = acc.replace(
@@ -547,7 +547,7 @@ def tune_to_ratio(
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/ekmelos-ji-accidental-markups.ily\'",
         ...         score,
         ...         abjad.Block(name="layout"),
@@ -567,7 +567,7 @@ def tune_to_ratio(
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/HEJI2-ji-accidental-markups.ily\'",
         ...         score,
         ...         abjad.Block(name="layout"),
@@ -616,7 +616,7 @@ def tune_to_ratio(
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/ekmelos-ji-accidental-markups.ily\'",
         ...         "\\include \'harmonic-series-layout.ily\'",
         ...         score,
@@ -724,7 +724,7 @@ def tune_to_ratio(
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/HEJI2-ji-accidental-markups.ily\'",
         ...         "\\include \'harmonic-series-layout.ily\'",
         ...         score,
@@ -749,7 +749,7 @@ def tune_to_ratio(
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/ekmelos-ji-accidental-markups.ily\'",
         ...         score,
         ...         abjad.Block(name="layout"),
@@ -778,7 +778,9 @@ def tune_to_ratio(
         # manager.Accidental.stencil = r"#ly:text-interface::print"
         abjad.tweak(note_head, r"\tweak Accidental.stencil #ly:text-interface::print")
         # manager.Accidental.text = rf"\tempered-{tempered_accidental}"
-        abjad.tweak(note_head, rf"\tweak Accidental.text \tempered-{tempered_accidental}")
+        abjad.tweak(
+            note_head, rf"\tweak Accidental.text \tempered-{tempered_accidental}"
+        )
     else:
         markup = bundle.vector.calculate_ji_markup()
         # manager = abjad.tweak(note_head, literal=True)

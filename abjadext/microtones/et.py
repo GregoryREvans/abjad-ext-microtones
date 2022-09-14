@@ -290,7 +290,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'all-edo-markups-example.ily\'",
         ...         score,
         ...         abjad.Block(name="layout"),
@@ -325,7 +325,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'all-edo-markups-example.ily\'",
         ...         score,
         ...         abjad.Block(name="layout"),
@@ -360,7 +360,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'all-edo-markups-example.ily\'",
         ...         score,
         ...         abjad.Block(name="layout"),
@@ -385,7 +385,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'all-edo-markups-example.ily\'",
         ...         score,
         ...         abjad.Block(name="layout"),
@@ -420,7 +420,7 @@ def apply_alteration(note_head, value, spell=None):
         ...     items=[
         ...         "#(set-default-paper-size \"a4\" \'portrait)",
         ...         r"#(set-global-staff-size 16)",
-        ...         "\\include \'Users/gregoryevans/abjad/docs/source/_stylesheets/abjad.ily\'",
+        ...         "\\include \'Users/gregoryevans/abjad/abjad/scm/abjad.ily\'",
         ...         "\\include \'all-edo-markups-example.ily\'",
         ...         score,
         ...         abjad.Block(name="layout"),
@@ -449,4 +449,6 @@ def apply_alteration(note_head, value, spell=None):
     # abjad.tweak(note_head, literal=True).Accidental.stencil = string
     abjad.tweak(note_head, r"\tweak Accidental.stencil #ly:text-interface::print")
     # abjad.tweak(note_head, literal=True).Accidental.text = bundle.accidental_string
-    abjad.tweak(note_head, rf"\tweak Accidental.text {bundle.accidental_string}") # WARNING: may need .string if markup?
+    abjad.tweak(
+        note_head, rf"\tweak Accidental.text {bundle.accidental_string}"
+    )  # WARNING: may need .string if markup?
