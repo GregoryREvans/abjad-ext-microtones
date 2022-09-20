@@ -23,7 +23,7 @@ if __name__ == "__main__":
         classifiers=[
             "Development Status :: 3 - Alpha",
             "License :: OSI Approved :: GNU General Public License (GPL)",
-            "Programming Language :: Python :: 3.6",
+            "Programming Language :: Python :: 3.10",
             "Programming Language :: Python :: Implementation :: CPython",
             "Topic :: Artistic Software",
         ],
@@ -39,7 +39,7 @@ if __name__ == "__main__":
             ]
         },
         include_package_data=True,
-        install_requires=["abjad>=3.1", "quicktions"],
+        install_requires=["abjad>=3.11", "quicktions"],
         license="MIT",
         long_description=pathlib.Path("README.md").read_text(),
         keywords=", ".join(
