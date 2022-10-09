@@ -43,6 +43,18 @@ class JIVector:
         nineteen_limit_schismas_up=0,
         twenty_three_limit_commas_down=0,
         twenty_three_limit_commas_up=0,
+        twenty_nine_limit_commas_down=0,
+        twenty_nine_limit_commas_up=0,
+        thirty_one_limit_schismas_down=0,
+        thirty_one_limit_schismas_up=0,
+        thirty_seven_limit_quarter_tones_down=0,
+        thirty_seven_limit_quarter_tones_up=0,
+        forty_one_limit_commas_down=0,
+        forty_one_limit_commas_up=0,
+        forty_three_limit_commas_down=0,
+        forty_three_limit_commas_up=0,
+        forty_seven_limit_quarter_tones_down=0,
+        forty_seven_limit_quarter_tones_up=0,
     ):
         self.diatonic_accidental = diatonic_accidental
         self.syntonic_commas_down = syntonic_commas_down
@@ -59,6 +71,20 @@ class JIVector:
         self.nineteen_limit_schismas_up = nineteen_limit_schismas_up
         self.twenty_three_limit_commas_down = twenty_three_limit_commas_down
         self.twenty_three_limit_commas_up = twenty_three_limit_commas_up
+        self.twenty_nine_limit_commas_down = twenty_nine_limit_commas_down
+        self.twenty_nine_limit_commas_up = twenty_nine_limit_commas_up
+        self.thirty_one_limit_schismas_down = thirty_one_limit_schismas_down
+        self.thirty_one_limit_schismas_up = thirty_one_limit_schismas_up
+        self.thirty_seven_limit_quarter_tones_down = (
+            thirty_seven_limit_quarter_tones_down
+        )
+        self.thirty_seven_limit_quarter_tones_up = thirty_seven_limit_quarter_tones_up
+        self.forty_one_limit_commas_down = forty_one_limit_commas_down
+        self.forty_one_limit_commas_up = forty_one_limit_commas_up
+        self.forty_three_limit_commas_down = forty_three_limit_commas_down
+        self.forty_three_limit_commas_up = forty_three_limit_commas_up
+        self.forty_seven_limit_quarter_tones_down = forty_seven_limit_quarter_tones_down
+        self.forty_seven_limit_quarter_tones_up = forty_seven_limit_quarter_tones_up
 
     def __repr__(self):
         """
@@ -108,6 +134,18 @@ class JIVector:
                 self.nineteen_limit_schismas_up,
                 self.twenty_three_limit_commas_down,
                 self.twenty_three_limit_commas_up,
+                self.twenty_nine_limit_commas_down,
+                self.twenty_nine_limit_commas_up,
+                self.thirty_one_limit_schismas_down,
+                self.thirty_one_limit_schismas_up,
+                self.thirty_seven_limit_quarter_tones_down,
+                self.thirty_seven_limit_quarter_tones_up,
+                self.forty_one_limit_commas_down,
+                self.forty_one_limit_commas_up,
+                self.forty_three_limit_commas_down,
+                self.forty_three_limit_commas_up,
+                self.forty_seven_limit_quarter_tones_down,
+                self.forty_seven_limit_quarter_tones_up,
             ]
         )
 
@@ -238,6 +276,118 @@ class JIVector:
             string = rf"\{int_to_word[str(self.twenty_three_limit_commas_up)]}"
             string += "-twenty-three-limit-comma-up"
             accumulated_accidentals.append(string)
+        if self.twenty_nine_limit_commas_down == self.twenty_nine_limit_commas_up:
+            self.twenty_nine_limit_commas_down = 0
+            self.twenty_nine_limit_commas_up = 0
+        elif self.twenty_nine_limit_commas_down > self.twenty_nine_limit_commas_up:
+            self.twenty_nine_limit_commas_down -= self.twenty_nine_limit_commas_up
+            self.twenty_nine_limit_commas_up = 0
+            string = rf"\{int_to_word[str(self.twenty_nine_limit_commas_down)]}"
+            string += "-twenty-nine-limit-comma-down"
+            accumulated_accidentals.append(string)
+        else:
+            self.twenty_nine_limit_commas_up -= self.twenty_nine_limit_commas_down
+            self.twenty_nine_limit_commas_down = 0
+            string = rf"\{int_to_word[str(self.twenty_nine_limit_commas_up)]}"
+            string += "-twenty-nine-limit-comma-up"
+            accumulated_accidentals.append(string)
+        if self.thirty_one_limit_schismas_down == self.thirty_one_limit_schismas_up:
+            self.thirty_one_limit_schismas_down = 0
+            self.thirty_one_limit_schismas_up = 0
+        elif self.thirty_one_limit_schismas_down > self.thirty_one_limit_schismas_up:
+            self.thirty_one_limit_schismas_down -= self.thirty_one_limit_schismas_up
+            self.thirty_one_limit_schismas_up = 0
+            string = rf"\{int_to_word[str(self.thirty_one_limit_schismas_down)]}"
+            string += "-thirty-one-limit-schisma-down"
+            accumulated_accidentals.append(string)
+        else:
+            self.thirty_one_limit_schismas_up -= self.thirty_one_limit_schismas_down
+            self.thirty_one_limit_schismas_down = 0
+            string = rf"\{int_to_word[str(self.thirty_one_limit_schismas_up)]}"
+            string += "-thirty-one-limit-schisma-up"
+            accumulated_accidentals.append(string)
+        if (
+            self.thirty_seven_limit_quarter_tones_down
+            == self.thirty_seven_limit_quarter_tones_up
+        ):
+            self.thirty_seven_limit_quarter_tones_down = 0
+            self.thirty_seven_limit_quarter_tones_up = 0
+        elif (
+            self.thirty_seven_limit_quarter_tones_down
+            > self.thirty_seven_limit_quarter_tones_up
+        ):
+            self.thirty_seven_limit_quarter_tones_down -= (
+                self.thirty_seven_limit_quarter_tones_up
+            )
+            self.thirty_seven_limit_quarter_tones_up = 0
+            string = rf"\{int_to_word[str(self.thirty_seven_limit_quarter_tones_down)]}"
+            string += "-thirty-seven-limit-quarter-tone-down"
+            accumulated_accidentals.append(string)
+        else:
+            self.thirty_seven_limit_quarter_tones_up -= (
+                self.thirty_seven_limit_quarter_tones_down
+            )
+            self.thirty_seven_limit_quarter_tones_down = 0
+            string = rf"\{int_to_word[str(self.thirty_seven_limit_quarter_tones_up)]}"
+            string += "-thirty-seven-limit-quarter-tone-up"
+            accumulated_accidentals.append(string)
+        if self.forty_one_limit_commas_down == self.forty_one_limit_commas_up:
+            self.forty_one_limit_commas_down = 0
+            self.forty_one_limit_commas_up = 0
+        elif self.forty_one_limit_commas_down > self.forty_one_limit_commas_up:
+            self.forty_one_limit_commas_down -= self.forty_one_limit_commas_up
+            self.forty_one_limit_commas_up = 0
+            string = rf"\{int_to_word[str(self.forty_one_limit_commas_down)]}"
+            string += "-forty-one-limit-comma-down"
+            accumulated_accidentals.append(string)
+        else:
+            self.forty_one_limit_commas_up -= self.forty_one_limit_commas_down
+            self.forty_one_limit_commas_down = 0
+            string = rf"\{int_to_word[str(self.forty_one_limit_commas_up)]}"
+            string += "-forty-one-limit-comma-up"
+            accumulated_accidentals.append(string)
+        if self.forty_three_limit_commas_down == self.forty_three_limit_commas_up:
+            self.forty_three_limit_commas_down = 0
+            self.forty_three_limit_commas_up = 0
+        elif self.forty_three_limit_commas_down > self.forty_three_limit_commas_up:
+            self.forty_three_limit_commas_down -= self.forty_three_limit_commas_up
+            self.forty_three_limit_commas_up = 0
+            string = rf"\{int_to_word[str(self.forty_three_limit_commas_down)]}"
+            string += "-forty-three-limit-comma-down"
+            accumulated_accidentals.append(string)
+        else:
+            self.forty_three_limit_commas_up -= self.forty_three_limit_commas_down
+            self.forty_three_limit_commas_down = 0
+            string = rf"\{int_to_word[str(self.forty_three_limit_commas_up)]}"
+            string += "-forty-three-limit-comma-up"
+            accumulated_accidentals.append(string)
+
+        if (
+            self.forty_seven_limit_quarter_tones_down
+            == self.forty_seven_limit_quarter_tones_up
+        ):
+            self.forty_seven_limit_quarter_tones_down = 0
+            self.forty_seven_limit_quarter_tones_up = 0
+        elif (
+            self.forty_seven_limit_quarter_tones_down
+            > self.forty_seven_limit_quarter_tones_up
+        ):
+            self.forty_seven_limit_quarter_tones_down -= (
+                self.forty_seven_limit_quarter_tones_up
+            )
+            self.forty_seven_limit_quarter_tones_up = 0
+            string = rf"\{int_to_word[str(self.forty_seven_limit_quarter_tones_down)]}"
+            string += "-forty-seven-limit-quarter-tone-down"
+            accumulated_accidentals.append(string)
+        else:
+            self.forty_seven_limit_quarter_tones_up -= (
+                self.forty_seven_limit_quarter_tones_down
+            )
+            self.forty_seven_limit_quarter_tones_down = 0
+            string = rf"\{int_to_word[str(self.forty_seven_limit_quarter_tones_up)]}"
+            string += "-forty-seven-limit-quarter-tone-up"
+            accumulated_accidentals.append(string)
+
         if len(accumulated_accidentals):
             accumulated_accidentals.reverse()
             if accumulated_accidentals[-1] == r"\natural":
@@ -352,6 +502,12 @@ _numerator_factor_to_intervals = {
     17: ("+P8", "+P8", "+P8", "+P8", "+A1"),
     19: ("+P8", "+P8", "+P8", "+P8", "+m3"),
     23: ("+P8", "+P8", "+P8", "+P8", "+A4"),
+    29: ("+P8", "+P8", "+P8", "+P8", "+m7"),
+    31: ("+P8", "+P8", "+P8", "+P8", "+P8"),
+    37: ("+P8", "+P8", "+P8", "+P8", "+P8", "+M2"),
+    41: ("+P8", "+P8", "+P8", "+P8", "+P8", "+M3"),
+    43: ("+P8", "+P8", "+P8", "+P8", "+P8", "+P4"),
+    47: ("+P8", "+P8", "+P8", "+P8", "+P8", "+A4"),
 }
 
 _numerator_factor_to_nudge = {
@@ -362,6 +518,12 @@ _numerator_factor_to_nudge = {
     17: "seventeen_limit_schismas_down",
     19: "nineteen_limit_schismas_up",
     23: "twenty_three_limit_commas_up",
+    29: "twenty_nine_limit_commas_up",
+    31: "thirty_one_limit_schismas_down",
+    37: "thirty_seven_limit_quarter_tones_up",
+    41: "forty_one_limit_commas_up",
+    43: "forty_three_limit_commas_up",
+    47: "forty_seven_limit_quarter_tones_up",
 }
 
 
@@ -388,7 +550,7 @@ def make_ji_bundle(pitch, ratio):
     denominator_factors = _prime_factors(ratio.denominator)
     accidental_vector = JIVector(diatonic_accidental=pitch.accidental.name)
     for prime in numerator_factors:
-        assert prime <= 23
+        assert prime <= 47
         for string in _numerator_factor_to_intervals[prime]:
             pitch = abjad.NamedInterval(string).transpose(pitch)
         if prime in _numerator_factor_to_nudge:
@@ -396,7 +558,7 @@ def make_ji_bundle(pitch, ratio):
             value = getattr(accidental_vector, string)
             setattr(accidental_vector, string, value + 1)
     for prime in denominator_factors:
-        assert prime <= 23
+        assert prime <= 47
         for string in _numerator_factor_to_intervals[prime]:
             string = string.replace("+", "-")
             pitch = abjad.NamedInterval(string).transpose(pitch)

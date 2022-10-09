@@ -7,7 +7,7 @@ Abjad's microtonal extension.
 
 ..  container:: example
 
-    JI module models only 23-limit ratios and requires either the ekmelos or HEJI2 font.
+    JI module models only 47-limit ratios and requires either the ekmelos or HEJI2 font.
 
 ..  container:: example
 

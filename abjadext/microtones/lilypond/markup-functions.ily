@@ -145,3 +145,57 @@ three-twenty-three-limit-comma-down = \markup \heji-triple-accidental-markup ##x
 one-twenty-three-limit-comma-up = \markup \heji-accidental-markup ##xe2ea
 two-twenty-three-limit-comma-up = \markup \heji-double-accidental-markup ##xe2ea ##xe2ea #0.125
 three-twenty-three-limit-comma-up = \markup \heji-triple-accidental-markup ##xe2ea #0.125
+
+
+% twenty-nine-limit commas %
+one-twenty-nine-limit-comma-down = \markup \heji-accidental-markup ##xee50
+two-twenty-nine-limit-comma-down = \markup \heji-double-accidental-markup ##xee50 ##xee50 #0.125
+three-twenty-nine-limit-comma-down = \markup \heji-triple-accidental-markup ##xee50 #0.125
+one-twenty-nine-limit-comma-up = \markup \heji-accidental-markup ##xee51
+two-twenty-nine-limit-comma-up = \markup \heji-double-accidental-markup ##xee51 ##xee51 #0.125
+three-twenty-nine-limit-comma-up = \markup \heji-triple-accidental-markup ##xee51 #0.125
+
+
+% thirty-one-limit schismas %
+one-thirty-one-limit-schisma-down = \markup \heji-accidental-markup ##xe2ec
+two-thirty-one-limit-schisma-down = \markup \heji-double-accidental-markup ##xe2ec ##xe2ec #0.125
+three-thirty-one-limit-schisma-down = \markup \heji-triple-accidental-markup ##xe2ec #0.125
+one-thirty-one-limit-schisma-up = \markup \heji-accidental-markup ##xe2ed
+two-thirty-one-limit-schisma-up = \markup \heji-double-accidental-markup ##xe2ed ##xe2ed #0.125
+three-thirty-one-limit-schisma-up = \markup \heji-triple-accidental-markup ##xe2ed #0.125
+
+
+% thirty-seven-limit quarter tones %
+one-thirty-seven-limit-quarter-tone-down = \markup \heji-accidental-markup ##xee52
+two-thirty-seven-limit-quarter-tone-down = \markup \heji-double-accidental-markup ##xee52 ##xee52 #0.125
+three-thirty-seven-limit-quarter-tone-down = \markup \heji-triple-accidental-markup ##xee52 #0.125
+one-thirty-seven-limit-quarter-tone-up = \markup \heji-accidental-markup ##xee53
+two-thirty-seven-limit-quarter-tone-up = \markup \heji-double-accidental-markup ##xee53 ##xee53 #0.125
+three-thirty-seven-limit-quarter-tone-up = \markup \heji-triple-accidental-markup ##xee53 #0.125
+
+
+% forty-one-limit commas %
+one-forty-one-limit-comma-down = \markup \heji-accidental-markup ##xee54
+two-forty-one-limit-comma-down = \markup \heji-double-accidental-markup ##xee54 ##xee54 #0.125
+three-forty-one-limit-comma-down = \markup \heji-triple-accidental-markup ##xee54 #0.125
+one-forty-one-limit-comma-up = \markup \heji-accidental-markup ##xee55
+two-forty-one-limit-comma-up = \markup \heji-double-accidental-markup ##xee55 ##xee55 #0.125
+three-forty-one-limit-comma-up = \markup \heji-triple-accidental-markup ##xee55 #0.125
+
+
+% forty-three-limit commas %
+one-forty-three-limit-comma-down = \markup \heji-accidental-markup ##xee56
+two-forty-three-limit-comma-down = \markup \heji-double-accidental-markup ##xee56 ##xee56 #0.125
+three-forty-three-limit-comma-down = \markup \heji-triple-accidental-markup ##xee56 #0.125
+one-forty-three-limit-comma-up = \markup \heji-accidental-markup ##xee57
+two-forty-three-limit-comma-up = \markup \heji-double-accidental-markup ##xee57 ##xee57 #0.125
+three-forty-three-limit-comma-up = \markup \heji-triple-accidental-markup ##xee57 #0.125
+
+
+% forty-seven-limit quarter tones %
+one-forty-seven-limit-quarter-tone-down = \markup \heji-accidental-markup ##xee58
+two-forty-seven-limit-quarter-tone-down = \markup \heji-double-accidental-markup ##xee58 ##xee58 #0.125
+three-forty-seven-limit-quarter-tone-down = \markup \heji-triple-accidental-markup ##xee58 #0.125
+one-forty-seven-limit-quarter-tone-up = \markup \heji-accidental-markup ##xee59
+two-forty-seven-limit-quarter-tone-up = \markup \heji-double-accidental-markup ##xee59 ##xee59 #0.125
+three-forty-seven-limit-quarter-tone-up = \markup \heji-triple-accidental-markup ##xee59 #0.125
