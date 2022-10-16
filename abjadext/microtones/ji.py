@@ -626,15 +626,15 @@ def return_cent_deviation_markup(
                 pos = pos.capitalize()
                 acc = acc.replace(
                     "s",
-                    r"\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                    r"\raise #0.75 { \teeny \smaller \sharp } ",
                 )
                 acc = acc.replace(
-                    "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
+                    "f", r"\raise #0.5 { \teeny \flat } "
                 )
                 cent_string = pos + acc + cent_string
                 cent_string = cent_string.replace(
-                    r"A\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 ",
-                    r"G\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                    r"A\raise #0.5 { \teeny \flat } ",
+                    r"G\raise #0.75 { \teeny \smaller \sharp } ",
                 )
         if chris is False:
             if pitch is not None:
@@ -643,10 +643,10 @@ def return_cent_deviation_markup(
                 pos = pos.capitalize()
                 acc = acc.replace(
                     "s",
-                    r"\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                    r"\raise #0.75 { \teeny \smaller \sharp } ",
                 )
                 acc = acc.replace(
-                    "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
+                    "f", r"\raise #0.5 { \teeny \flat } "
                 )
                 cent_string = pos + acc + cent_string
     else:
@@ -658,15 +658,15 @@ def return_cent_deviation_markup(
                 pos = pos.capitalize()
                 acc = acc.replace(
                     "s",
-                    r"\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                    r"\raise #0.75 { \teeny \smaller \sharp } ",
                 )
                 acc = acc.replace(
-                    "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
+                    "f", r"\raise #0.5 { \teeny \flat } "
                 )
                 cent_string = pos + acc + cent_string
                 cent_string = cent_string.replace(
-                    r"A\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 ",
-                    r"G\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                    r"A\raise #0.5 { \teeny \flat } ",
+                    r"G\raise #0.75 { \teeny \smaller \sharp } ",
                 )
         if chris is False:
             if pitch is not None:
@@ -675,13 +675,13 @@ def return_cent_deviation_markup(
                 pos = pos.capitalize()
                 acc = acc.replace(
                     "s",
-                    r"\raise #0.75 { \hspace #-0.5 \teeny \smaller \sharp}\hspace #-0.5 ",
+                    r"\raise #0.75 { \teeny \smaller \sharp } ",
                 )
                 acc = acc.replace(
-                    "f", r"\raise #0.5 { \hspace #-0.5 \teeny \flat}\hspace #-0.5 "
+                    "f", r"\raise #0.5 { \teeny \flat } "
                 )
                 cent_string = pos + acc + cent_string
-    mark = abjad.Markup(rf"\markup \center-align {{ {cent_string} }}")
+    mark = abjad.Markup(rf"\markup \center-align {{ \concat {{ {cent_string} }} }}")
     return mark
 
 
